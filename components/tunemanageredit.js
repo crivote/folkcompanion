@@ -15,7 +15,7 @@ export class Tunemanageredit extends Component {
     }
 
     generatehtml() {
-        const sessionbool = this.data?.References && this.data.References[0]?.service_name ? this.data.References.find(item => item.service_name == "Thesession.org") : false;
+        const sessionbool = this.data?.References && this.data.References[0]?.service_name ? this.data.References.find(item => item.service_name == "thesession.org") : false;
         const irishtunebool = this.data?.References && this.data.References[0]?.service_name ? this.data.References.find(item => item.service_name == "irishtune.info") : false;
         const tunearchbool = this.data?.References && this.data.References[0]?.service_name ? this.data.References.find(item => item.service_name == "tunearch.org") : false;
         const tonalities = this.data?.Modes_played && this.data.Modes_played[0]?.key ? this.data.Modes_played.map(mode => mode.Key + ' ' + mode.Mode) : [];
