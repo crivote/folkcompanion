@@ -58,12 +58,12 @@ export class Menubar extends Component {
                 let selectedcomponent = selected.dataset.nav;
                 let oldcomponent = Controller.getinstance(selectedcomponent);
                 oldcomponent.hide();
-                selected.classList.remove('selected', 'font-bold', 'bg-blue-100', 'text-indigo-900');
+                selected.classList.remove('selected', 'font-bold', 'bg-cyan-50', 'text-indigo-900');
             }
             
             let newitemcomponent = newitem.dataset.nav;
             Controller.getinstance(newitemcomponent);
-            newitem.classList.add('selected', 'font-bold', 'bg-blue-100', 'text-indigo-900');
+            newitem.classList.add('selected', 'font-bold', 'bg-cyan-50', 'text-indigo-900');
         }
     }
 
@@ -77,12 +77,12 @@ export class Menubar extends Component {
 
         return `
         <header id="${this.name}" class="">
-        <div class="menubar flex bg-indigo-00 text-white px-6 py-2">
+        <div class="menubar flex bg-indigo-700 text-white">
 
         <nav id="mainnav" class="uppercase flex gap-3 mx-5 translate-y-2 text-slate-200">
             ${menu}
         </nav>
-        <div class="user ml-auto">
+        <div class="user ml-auto mr-6">
             <span class="text-slate-400 uppercase bg-slate-50><i class="fa fa-user-circle"></i> ${this.user.name}</span>
             <span id="logout" title="Cerrar la sesión"><i class="fa fa-times-circle fa-2x"></i></span>
         </div>
