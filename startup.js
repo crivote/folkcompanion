@@ -208,22 +208,16 @@ export class Controller {
     }
 
     static playabc(abc) {
-        let returnobject = '';
         if (abcjs.synth.supportsAudio()) {
             const visualObj = abcjs.renderAbc("*", abc)[0];
             Controller.midiBuffer = new abcjs.synth.CreateSynth();
-            Controller.player=Controller.midiBuffer.init(
+            Controller.midiBuffer.init(
                 {
                     visualObj: visualObj,
                     options: {}
                 }
             )
             .then(function(response) {
-                
-                Controller.player.addEventListener("ended", function() {
-                    console.log("La reproducción ha finalizado.");
-                });
-
                 Controller.midiBuffer.prime()
                 .then(function(response) {
                     Controller.midiBuffer.start();

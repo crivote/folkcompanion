@@ -32,8 +32,8 @@ export class Tunemanageredit extends Component {
 
                     <div class="flex gap-3">
                         <div>
-                            <label class="uppercase text-slate-400 text-sm mt-3">thessession</label>
-                            <p class="editThesession border" contenteditable="true">${sessionbool ? sessionbool.service_ID : ''}</p>
+                            <label class="uppercase text-slate-400 text-sm mt-3">thesession</label>
+                            <p class="editthesession border" contenteditable="true">${sessionbool ? sessionbool.service_ID : ''}</p>
                         </div>
                         <div>
                             <label class="uppercase text-slate-400 text-sm mt-3">irishtune</label>
