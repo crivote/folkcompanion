@@ -24,19 +24,18 @@ export class Tune extends Component {
 
     generatehtml_card() {
         return `<div id="tune${this.data.id}" class="flex flex-col border-t-8 border-${Controller.statuscolors[this.data.status]} relative tunecard shrink-0 xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-110">
-        <div class="tuneimg h-48 -mt-6 -mx-6 bg-cover bg-[url('${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}')]">
-        </div>
+        <div class="tuneimg h-64 -mt-6 -mx-6 bg-center bg-cover bg-[url('${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}')]"></div>
         <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase text-slate-700/75 font-bold bg-${Controller.statuscolors[this.data.status]}/75" >${this.data.status}</span>
         <div class="absolute right-6 top-4 px-2 py-1 bg-slate-800/50 text-white/90 rounded-lg" title="Nº ensayos">
             <i class="fas fa-stopwatch"></i>
             <span class="numrehearsal ml-1">${this.data.rehearsal_days}</span>
         </div>
-        <h2 class="leading-none tunetitle text-2xl font-semibold text-center mt-4 mb-2 text-slate-600">${this.data.Prefered_name}</h2>
-        <h6 class="tunerythm text-center text-sm text-gray-400 uppercase mt-3 mb-1">
-        <i class="fas fa-calendar"></i> 
-        <span class="lastrehearsal ml-1">${this.data.last_rehearsals ? 'hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
+        <h6 class="text-center text-sm text-slate-800/75 p-1 uppercase -mt-10 bg-white/75 rounded-lg">
+            <i class="fas fa-calendar"></i> 
+            <span class="lastrehearsal ml-1">${this.data.last_rehearsals ? 'hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
         </h6>
-        <p class="tunemodes text-blue-400 font-semibold mb-2">${this.data.type}</p>
+        <h2 class="leading-none tunetitle text-2xl font-semibold text-center mt-6 mb-2 text-slate-500">${this.data.Prefered_name}</h2>
+        <p class="tuneadditionaldata text-slate-300 font-light uppercase text-sm">${this.data.type} ${this.data.Author}</p>
         <div class="flex gap-1 mt-auto justify-end">
             <button class="rehearsal bg-blue-400 p-1 rounded-md text-white text-bold" title="añadir ensayo"><i class="fa fa-bolt fa-fw fa-lg"></i></button>
             <button class="deletetune bg-red-400 p-1 rounded-md text-white text-bold" title="eliminar tema"><i class="fa fa-trash fa-fw fa-lg"></i></button>
