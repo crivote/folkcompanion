@@ -16,7 +16,7 @@ export class Tune extends Component {
         this.attachAt(mycontent, false);
         this.element.querySelector('.rehearsal')
             .addEventListener('click', this.addrehearsal.bind(this));
-        this.element.querySelector('.tunecard')
+        this.element
             .addEventListener('click', this.edittune.bind(this));
         this.element.querySelector('.deletetune')
             .addEventListener('click', this.deletetune.bind(this));
