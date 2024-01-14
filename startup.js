@@ -2,8 +2,89 @@ import abcjs from 'https://cdn.jsdelivr.net/npm/abcjs@6.2.3/+esm';
 import * as apis from "./apis.js";
 import * as components from "./components/index.js";
 
-export class Controller {
+// clase estática de utilidades varias
+export class Utils {
+    // crea enlaces a las referencias externas de datos
+    static generatelinks(data){
+        const result= [];
+        if (data) {
+            data.forEach(item => {
+                let url;
+                switch (item?.service_name) {
+                    case 'thesession.org':
+                        url = 'https://thesession.org/tunes/' + item.service_ID;
+                        result.push(`<a class="bg-yellow-600 px-2 rounded-full text-sm" href="${url}" target="_blank">TS</a>`);
+                        break;
+                    case 'irishtune.info':
+                        url = 'https://www.irishtune.info/tune/' + item.service_ID;
+                        result.push(`<a class="bg-blue-600 px-2 rounded-full text-sm" href="${url}" target="_blank">IT</a>`);
+                        break;
+                    case 'tunearch.org':
+                        url = 'https://tunearch.org/wiki/' + item.service_ID;
+                        result.push(`<a class="bg-red-600 px-2 rounded-full text-sm" href="${url}" target="_blank">TA</a>`);
+                        break;
+                    default:
+                }    
+            });
+        }
+        return result;
+    }
+
+    // devuelve versión del nombre para ordenar (sin articulos al inicio)
+    static titleforsort(title) {
+        title = title.toLowerCase();
+        if (title.substring(0,4) == 'the ') {
+            title = title.substring(4);
+        } else if (title.substring(0,2) == "a ") {
+            title = title.substring(2);
+        }
+        return title;
+    }
+
+    // devuelve numero de dias desde una fecha pasada
+    static calctimesince(date) {
+        const now = new Date();
+        date = new Date(date);
+        const diff = now.getTime() - date.getTime();
+        if (diff > 0 ) {
+            return Math.ceil(diff / (1000 * 3600 * 24));
+        } else {
+            return false;
+        }
+    }
+
+    // formatea fecha para base de datos
+    static dateformat(date){
+        if (date === undefined){
+            date = new Date();
+        }
+        date =  date.toISOString();
+        return date.substring(0, 10);
+    }
+
+    // convierte cadenas de tonos a estructura DB
+    static converttones(array){
+        let modes = [...new Set(array)];
+        modes = modes.map(item => {
+            const parts = item.trim().split(" ");
+            return {
+                Key: parts[0].toUpperCase(),
+                Mode: parts[1].substring(0,1).toUpperCase() + parts[1].substring(1)
+            }
+        });
+        return modes;
+    }
+}
+
+export class Data {
     static user;
+    static tunes;
+    static tunebook;
+}
+
+
+
+export class Controller {
     static htmlelement;
     // components
     static login;
@@ -43,30 +124,7 @@ export class Controller {
         'Waltz': '3/4',
     }
 
-    static generatelinks(data){
-        const result= [];
-        if (data) {
-            data.forEach(item => {
-                let url;
-                switch (item?.service_name) {
-                    case 'thesession.org':
-                        url = 'https://thesession.org/tunes/' + item.service_ID;
-                        result.push(`<a class="bg-yellow-600 px-2 rounded-full text-sm" href="${url}" target="_blank">TS</a>`);
-                        break;
-                    case 'irishtune.info':
-                        url = 'https://www.irishtune.info/tune/' + item.service_ID;
-                        result.push(`<a class="bg-blue-600 px-2 rounded-full text-sm" href="${url}" target="_blank">IT</a>`);
-                        break;
-                    case 'tunearch.org':
-                        url = 'https://tunearch.org/wiki/' + item.service_ID;
-                        result.push(`<a class="bg-red-600 px-2 rounded-full text-sm" href="${url}" target="_blank">TA</a>`);
-                        break;
-                    default:
-                }    
-            });
-        }
-        return result;
-    }
+
 
     static async returntunedata(id) {
         if (!Object.hasOwn(Controller.tunes, id)) {
@@ -86,30 +144,17 @@ export class Controller {
         }
     }
 
-    static titleforsort(title) {
-        title = title.toLowerCase();
-        if (title.substring(0,4) == 'the ') {
-            title = title.substring(4);
-        } else if (title.substring(0,2) == "a ") {
-            title = title.substring(2);
-        }
-        return title;
-    }
-
     static async getuserdetails() {
         const token = localStorage.getItem('token');
-
         if (token) {
             try {
-                Controller.user = await apis.Xanoapi.getuser(token);
+                Data.user = await apis.Xanoapi.getuser(token);
+                new Mynotification('success', 'token válido y datos recuperados.');
+                Controller.startapp();
             } catch (error) {
-                //TODO: si el token falla mostrar componente error para borrar
-                console.log(error);
+                new Mynotification('warning', 'el token guardado no es válido.');
                 localStorage.removeItem('token');
                 Controller.login = new components.Login('loginmodal', Controller.htmlelement);
-            }
-            if (Controller.user){
-                Controller.startapp();
             }
         } else {
             // no hay token guardado, mostrar login
@@ -161,34 +206,6 @@ export class Controller {
             </div>`;
         }
         else return '';
-    }
-
-    static calctimesince(date) {
-        const now = new Date();
-        date = new Date(date);
-        
-        const diff = now.getTime() - date.getTime();
-        return Math.ceil(diff / (1000 * 3600 * 24));
-    }
-
-    static dateformat(date){
-        if (date === undefined){
-            date = new Date();
-        }
-        date =  date.toISOString();
-        return date.substring(0, 10);
-    }
-
-    static converttones(array){
-        let modes = [...new Set(array)];
-        modes = modes.map(item => {
-            const parts = item.trim().split(" ");
-            return {
-                Key: parts[0].toUpperCase(),
-                Mode: parts[1].substring(0,1).toUpperCase() + parts[1].substring(1)
-            }
-        });
-        return modes;
     }
 
     static playabc(abc) {

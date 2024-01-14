@@ -1,5 +1,5 @@
 import { Component } from "../abstract.js";
-import { Controller } from "../startup.js";
+import { Controller, Data } from "../startup.js";
 import * as apis from "../apis.js";
 
 export class Tuneaddtobook extends Component {
@@ -39,7 +39,7 @@ export class Tuneaddtobook extends Component {
                     <div class="hidden flex border-2 p-4 border-slate-100 bg-slate-50 rounded-md mb-4 gap-3">
                         <div class="flex flex-col">
                             <label class="uppercase text-slate-400 text-sm">aprendido</label>
-                            <input class="font-semibold border-0 text-blue-400 bg-blue-200 rounded-md uppercase"type="date" name="date" value="${Controller.dateformat()}">
+                            <input class="font-semibold border-0 text-blue-400 bg-blue-200 rounded-md uppercase"type="date" name="date" value="${Utils.dateformat()}">
                         </div>
                         <div class="flex flex-col">
                             <label class="uppercase text-slate-400 text-sm">ensayos</label>
@@ -99,7 +99,7 @@ export class Tuneaddtobook extends Component {
         const lastrehearsal = this.element.querySelector('input[name="lastrehearsal"]').value;
         const params = {
             tunes_id: this.tune.id,
-            user_id: Controller.user.id,
+            user_id: Data.user.id,
             preferred_img_url: this.element.querySelector('.picphoto').src,
             Prefered_name: this.element.querySelector('h4.datatitulo').textContent,
             Preferred_tone: this.element.querySelector('h4.datatonalidad').textContent,

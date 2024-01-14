@@ -1,5 +1,5 @@
 import { Component } from "../abstract.js";
-import { Controller } from "../startup.js";
+import { Controller, Data } from "../startup.js";
 
 export class Menubar extends Component {
     pages = [
@@ -37,7 +37,6 @@ export class Menubar extends Component {
 
     constructor(name, parentel) {
         super(name, parentel);
-        this.user = Controller.user;
         this.setup();
     }
 
@@ -70,7 +69,7 @@ export class Menubar extends Component {
     generatehtml() {
         let menu = '';
         this.pages.forEach(item => {
-            if (item.role == "all" || item.role == this.user?.role) {
+            if (item.role == "all" || item.role == Data.user?.role) {
                 menu = menu + `<span class="rounded-t-md px-4 py-2 hover:font-bold" data-nav="${item.name}">${item.tag}</span>`
             }
         })
@@ -83,7 +82,7 @@ export class Menubar extends Component {
             ${menu}
         </nav>
         <div class="user ml-auto mr-6">
-            <span class="text-slate-400 uppercase bg-slate-50><i class="fa fa-user-circle"></i> ${this.user.name}</span>
+            <span class="text-slate-400 uppercase bg-slate-50><i class="fa fa-user-circle"></i> ${Data.user.name}</span>
             <span id="logout" title="Cerrar la sesión"><i class="fa fa-times-circle fa-2x"></i></span>
         </div>
         </div>
@@ -91,7 +90,7 @@ export class Menubar extends Component {
     }
 
     closesession() {
-        Controller.user = '';
+        Data.user = '';
         localStorage.removeItem('token');
         this.remove();
         Controller.tunebook.remove();

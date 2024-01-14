@@ -1,5 +1,5 @@
 import { Component } from "../abstract.js";
-import { Controller } from "../startup.js";
+import { Controller, Utils } from "../startup.js";
 import * as apis from "../apis.js";
 
 export class Tunemanagersearch extends Component {
@@ -137,7 +137,7 @@ export class Tunemanagersearch extends Component {
             const type = this.normalicetype(this.details.type);
             const data={
                 main_name: this.details.name,
-                sortname: Controller.titleforsort(this.details.name),
+                sortname: Utils.titleforsort(this.details.name),
                 other_names: this.details.aliases,
                 popularity: this.details.tunebooks,
                 Type: type.type,

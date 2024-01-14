@@ -8,3 +8,4 @@ export * from './tunesearch.js';
 export * from './tuneaddtobook.js';
 export * from './setbook.js';
 export * from './tuneformanager.js';
+export * from './notification.js';

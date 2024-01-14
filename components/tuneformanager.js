@@ -1,5 +1,5 @@
 import { Component } from "../abstract.js";
-import { Controller } from "../startup.js";
+import { Controller, Utils } from "../startup.js";
 import { Tunemanageredit } from "./tunemanageredit.js";
 import { Xanoapi } from "../apis.js";
 
@@ -32,7 +32,7 @@ export class Tuneformanager extends Component {
     }
 
     generatehtml() {
-        const links = Controller.generatelinks(this.data?.References); 
+        const links = Utils.generatelinks(this.data?.References); 
         return `<div id="tune${this.data.id}" class="tunelist w-full bg-white border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-3">
             <span class="rounded-full w-8 h-8 text-center bg-slate-300 text-white text-xl font-light uppercase">${this.data.ABCsample ? 
             `<i data-abc="${this.data.ABCsample}" data-state="stop" class="playabc fa fa-circle-play fa-lg"></i>`: this.data.main_name.substr(0,1)}</span>

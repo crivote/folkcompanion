@@ -1,5 +1,5 @@
 import { Component } from "../abstract.js";
-import { Controller } from "../startup.js";
+import { Controller, Utils } from "../startup.js";
 import * as apis from "../apis.js";
 import { Tuneedit } from "./tuneedit.js";
 
@@ -16,14 +16,14 @@ export class Tune extends Component {
         this.attachAt(mycontent, false);
         this.element.querySelector('.rehearsal')
             .addEventListener('click', this.addrehearsal.bind(this));
-        this.element.querySelector('.edittune')
+        this.element.querySelector('.tunecard')
             .addEventListener('click', this.edittune.bind(this));
         this.element.querySelector('.deletetune')
             .addEventListener('click', this.deletetune.bind(this));
     }
 
     generatehtml_card() {
-        return `<div id="tune${this.data.id}" class="flex flex-col border-t-8 border-${Controller.statuscolors[this.data.status]} relative tunecard shrink-0 xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 mt-16 bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-110">
+        return `<div id="tune${this.data.id}" class="flex flex-col border-t-8 border-${Controller.statuscolors[this.data.status]} relative tunecard shrink-0 xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-110">
         <div class="tuneimg h-48 -mt-6 -mx-6 bg-cover bg-[url('${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}')]">
         </div>
         <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase text-slate-700/75 font-bold bg-${Controller.statuscolors[this.data.status]}/75" >${this.data.status}</span>
@@ -33,13 +33,12 @@ export class Tune extends Component {
         </div>
         <h2 class="leading-none tunetitle text-2xl font-semibold text-center mt-4 mb-2 text-slate-600">${this.data.Prefered_name}</h2>
         <h6 class="tunerythm text-center text-sm text-gray-400 uppercase mt-3 mb-1">
-        <i class="fas fa-calendar"></i>
-        <span class="lastrehearsal ml-1">${this.data.last_rehearsals ? 'hace ' + Controller.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
+        <i class="fas fa-calendar"></i> 
+        <span class="lastrehearsal ml-1">${this.data.last_rehearsals ? 'hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
         </h6>
         <p class="tunemodes text-blue-400 font-semibold mb-2">${this.data.type}</p>
-        <div class="flex gap-1 mt-4">
-            <button class="rehearsal bg-blue-400 p-1 rounded-md text-white text-bold" title="añadir ensayo"><i class="fa fa-guitar fa-fw fa-lg"></i></button>
-            <button class="edittune bg-slate-400 p-1 rounded-md text-white text-bold" title="editar tema"><i class="fa fa-pencil fa-fw fa-lg"></i></button>
+        <div class="flex gap-1 mt-auto justify-end">
+            <button class="rehearsal bg-blue-400 p-1 rounded-md text-white text-bold" title="añadir ensayo"><i class="fa fa-bolt fa-fw fa-lg"></i></button>
             <button class="deletetune bg-red-400 p-1 rounded-md text-white text-bold" title="eliminar tema"><i class="fa fa-trash fa-fw fa-lg"></i></button>
         </div>
         </div>`;
@@ -53,9 +52,8 @@ export class Tune extends Component {
             <p class="tunealiases text-gray-500">${this.data.status}</p>
             <div class="flex gap-1 ml-auto items-center">
                 <span class="numrehearsal bg-slate-500 text-white p-2 rounded-lg">${this.data.rehearsal_days} ensayos</span>
-                <span class="lastrehearsal">${this.data.last_rehearsals ? 'último hace ' + Controller.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
+                <span class="lastrehearsal">${this.data.last_rehearsals ? 'último hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
                 <button class="rehearsal bg-blue-400 p-1 rounded-md text-white text-bold" title="añadir ensayo"><i class="fa fa-guitar fa-fw fa-lg"></i></button>
-                <button class="edittune bg-slate-400 p-1 rounded-md text-white text-bold" title="editar tema"><i class="fa fa-pencil fa-fw fa-lg"></i></button>
                 <button class="deletetune bg-red-400 p-1 rounded-md text-white text-bold" title="eliminar tema"><i class="fa fa-trash fa-fw fa-lg"></i></button>
             </div>
         </div>`;
@@ -66,7 +64,7 @@ export class Tune extends Component {
         if (!Array.isArray(datearray)) {
             datearray = [];
         }
-        datearray.unshift(Controller.dateformat());
+        datearray.unshift(Utils.dateformat());
 
         const params = {
             status: this.data.status,
@@ -77,7 +75,7 @@ export class Tune extends Component {
         if (result) {
             this.data = result;
             this.element.querySelector('.numrehearsal').textContent = this.data.rehearsal_days;
-            this.element.querySelector('.lastrehearsal').textContent = `hace ${Controller.calctimesince(this.data.last_rehearsals[0])} días`;
+            this.element.querySelector('.lastrehearsal').textContent = `hace ${Utils.calctimesince(this.data.last_rehearsals[0])} días`;
         }
     }
 

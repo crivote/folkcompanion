@@ -1,5 +1,5 @@
 import { Component } from "../abstract.js";
-import { Controller } from "../startup.js";
+import { Controller, Utils } from "../startup.js";
 import * as apis from "../apis.js";
 import { Videoaddtotune } from "./videoaddtotune.js";
 
@@ -120,7 +120,7 @@ export class Tunemanageredit extends Component {
         <p data-target="editmainname">${tune.name}</p>
 
         <label class="uppercase addtoform text-slate-400 text-sm mt-1"><i class="fa fa-plus-circle fa-lg"></i> titulo para orden</label>
-        <p data-target="editsortname">${Controller.titleforsort(tune.name)}</p>
+        <p data-target="editsortname">${Utils.titleforsort(tune.name)}</p>
 
         <label class="uppercase addtoform text-slate-400 text-sm mt-1"><i class="fa fa-plus-circle fa-lg"></i> aliases</label>
         <p data-target="editalias">${tune.aliases.join(' / ')}</p>
@@ -203,7 +203,7 @@ export class Tunemanageredit extends Component {
     async updatetune(event) {
         event.preventDefault();
         const References = this.checkservicesid(['Thesession.org', 'irishtune.info', 'tunearch.org']);
-        const Modes_played = Controller.converttones(this.element.querySelector('#modaledittunemanager .editmodesplayed').innerText.split('/'));
+        const Modes_played = Utils.converttones(this.element.querySelector('#modaledittunemanager .editmodesplayed').innerText.split('/'));
         const params = {
             main_name: this.element.querySelector('#modaledittunemanager .editmainname').innerText,
             other_names: this.element.querySelector('#modaledittunemanager .editalias').innerText.split('/'),
