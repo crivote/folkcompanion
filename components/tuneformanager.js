@@ -1,7 +1,7 @@
 import { Component } from "../abstract.js";
 import { Controller } from "../startup.js";
 import { Tunemanageredit } from "./tunemanageredit.js";
-import { xanoapi } from "../apis.js";
+import { Xanoapi } from "../apis.js";
 
 export class Tuneformanager extends Component {
     constructor(name, parentel, data) {
@@ -68,7 +68,7 @@ export class Tuneformanager extends Component {
     }
 
     async deletetune() {
-        const result = await xanoapi.deletetune(this.data.id);
+        const result = await Xanoapi.deletetune(this.data.id);
         if (result) {
             delete Controller.tunes[this.data.id];
             const manager= Controller.getinstance('Tunemanager');

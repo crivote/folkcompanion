@@ -1,6 +1,5 @@
 import { Component } from "../abstract.js";
 import { Controller } from "../startup.js";
-import * as apis from "../apis.js";
 
 export class Tunedetail extends Component {
     tune = {};

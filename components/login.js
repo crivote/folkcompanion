@@ -74,7 +74,7 @@ export class Login extends Component {
             this.element.querySelector('.emailerror').textContent = 'Email obligatorio';
         }
         if (!data.password.value) {
-            this.element.querySelector('.passworderror').textContent = 'Password obligatorio';
+            this.element.querySelector('.passworderror').textContent = 'Introduce contraseña';
         }
         return false;
     }
@@ -84,7 +84,7 @@ export class Login extends Component {
         let data = this.getformdata();
         if (this.checkvalue(data)) {
             try {
-                const result = await apis.xanoapi.authcall(data.email.value, data.password.value);
+                const result = await apis.Xanoapi.authcall(data.email.value, data.password.value);
                 if (result) {
                     localStorage.setItem('token', result);
                     this.remove();

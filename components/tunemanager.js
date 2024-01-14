@@ -17,7 +17,7 @@ export class Tunemanager extends Component {
     }
 
     async setup() {
-        this.tunes = await apis.xanoapi.getalltunes();
+        this.tunes = await apis.Xanoapi.getalltunes();
 
         const typeslist = this.tunes.map(tune => tune.Type);
         this.typeslist = [...new Set(typeslist)];

@@ -73,7 +73,7 @@ export class Tunesearch extends Component {
         if (Controller.searchtunes.length > 0) {
             this.tunes = Controller.searchtunes;
         } else {
-            const listtunes = await apis.xanoapi.getalltunessearch();
+            const listtunes = await apis.Xanoapi.getalltunessearch();
             // filter list to exclude tunes already in the tunebook
             const listofids = Controller.screens.Tunebook.tunebook.map(tune => tune.tunes_id);
             this.tunes = listtunes.filter(tune => !listofids.includes(tune.id));

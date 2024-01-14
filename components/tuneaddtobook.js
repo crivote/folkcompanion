@@ -63,7 +63,7 @@ export class Tuneaddtobook extends Component {
         if (Object.hasOwn(Controller.tunes, tuneid)) {
             this.tune = Controller.tunes[tuneid];
         } else {
-            this.tune = await apis.xanoapi.getsingletune(tuneid);
+            this.tune = await apis.Xanoapi.getsingletune(tuneid);
             Controller.tunes[tuneid] = this.tune;
         }
         this.pics = await apis.pexels.search(this.tune.main_name);
@@ -112,7 +112,7 @@ export class Tuneaddtobook extends Component {
             tradition: this.tune.Tradition
         };
         try {
-            const result = await apis.xanoapi.addtotunebook(params);
+            const result = await apis.Xanoapi.addtotunebook(params);
             if (result) {
                 this.remove();
                 Controller.screens.Tunebook.tunebook.push(result);

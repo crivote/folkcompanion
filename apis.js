@@ -1,11 +1,11 @@
 //xano class
-export class xanoapi{
+export class Xanoapi{
     static #url = "https://x8ki-letl-twmt.n7.xano.io/api:JIBL7nZM/";
     static token ='';
 
     static async authcall(user, pass){
         try {
-            const result = await axios.post(xanoapi.#url+'auth/login', {email: user, password: pass});
+            const result = await axios.post(Xanoapi.#url+'auth/login', {email: user, password: pass});
             if (result.status == 200){
                 return result.data.authToken;
             }
@@ -18,29 +18,29 @@ export class xanoapi{
     static returnheader() {
         return {
             headers: {
-                'Authorization': `Bearer ${xanoapi.token}` 
+                'Authorization': `Bearer ${Xanoapi.token}` 
             }
         }
     }
 
     static async getuser(token) {
-        xanoapi.token=token;
+        Xanoapi.token=token;
         const result = await axios.get(
-            xanoapi.#url+'auth/me', 
-            xanoapi.returnheader()
+            Xanoapi.#url+'auth/me', 
+            Xanoapi.returnheader()
         );
         if (result.status == 200) {
             return result.data;
         } else {
-            xanoapi.token = '';
+            Xanoapi.token = '';
             return false
         }
     }
 
     static async getsingletune(id) {
         const result= await axios.get(
-            xanoapi.#url+'tunes/'+id,
-            xanoapi.returnheader()
+            Xanoapi.#url+'tunes/'+id,
+            Xanoapi.returnheader()
         );
         if (result.status == 200) {
             return result.data;
@@ -51,8 +51,8 @@ export class xanoapi{
 
     static async getalltunes() {
         const result= await axios.get(
-            xanoapi.#url+'tunes',
-            xanoapi.returnheader()
+            Xanoapi.#url+'tunes',
+            Xanoapi.returnheader()
         );
         if (result.status == 200) {
             return result.data;
@@ -63,8 +63,8 @@ export class xanoapi{
 
     static async getalltunessearch() {
         const result= await axios.get(
-            xanoapi.#url+'reducedtunes',
-            xanoapi.returnheader()
+            Xanoapi.#url+'reducedtunes',
+            Xanoapi.returnheader()
         );
         if (result.status == 200) {
             return result.data;
@@ -75,8 +75,8 @@ export class xanoapi{
 
     static async gettunebook() {
         const result= await axios.get(
-            xanoapi.#url+'tunebook',
-            xanoapi.returnheader()
+            Xanoapi.#url+'tunebook',
+            Xanoapi.returnheader()
         );
         if (result.status == 200) {
             return result.data;
@@ -87,103 +87,71 @@ export class xanoapi{
 
     static async addtotunes(tune) {
         const result= await axios.post(
-            xanoapi.#url+'tunes',
+            Xanoapi.#url+'tunes',
             tune,
-            xanoapi.returnheader()
+            Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return result.data;
-        } else {
-            return false;
-        }
+        return result.status == 200 ? result.data : false;
     }
 
     static async deletetune(id) {
         const result= await axios.delete(
-            xanoapi.#url+'tunes/'+id,
-            xanoapi.returnheader()
+            Xanoapi.#url+'tunes/'+id,
+            Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return result.status == 200
     }
 
     static async deletetunebooktune(id) {
         const result= await axios.delete(
-            xanoapi.#url+'tunebook/'+id,
-            xanoapi.returnheader()
+            Xanoapi.#url+'tunebook/'+id,
+            Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return result.status == 200
     }
 
     static async addtotunebook(tune) {
         const result= await axios.post(
-            xanoapi.#url+'tunebook',
+            Xanoapi.#url+'tunebook',
             tune,
-            xanoapi.returnheader()
+            Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return result.data;
-        } else {
-            return false;
-        }
+        return result.status == 200 ? result.data : false;
     }
 
     static async edittune(id, tune) {
         const result= await axios.patch(
-            xanoapi.#url+'tunes/'+id,
+            Xanoapi.#url+'tunes/'+id,
             tune,
-            xanoapi.returnheader()
+            Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return result.data;
-        } else {
-            return false;
-        }
+        return result.status == 200 ? result.data : false;
     }
 
     static async edittunebooktune(id, tune) {
         const result= await axios.patch(
-            xanoapi.#url+'tunebook/'+id,
+            Xanoapi.#url+'tunebook/'+id,
             tune,
-            xanoapi.returnheader()
+            Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return result.data;
-        } else {
-            return false;
-        }
+        return result.status == 200 ? result.data : false;
     }
 
     static async addvideo(video) {
         const result= await axios.post(
-            xanoapi.#url+'videos',
+            Xanoapi.#url+'videos',
             video,
-            xanoapi.returnheader()
+            Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return result.data;
-        } else {
-            return false;
-        }
+        return result.status == 200 ? result.data : false;
     }
 
     static async getsecrets() {
         const result= await axios.get(
-            xanoapi.#url+'secrets',
-            xanoapi.returnheader()
+            Xanoapi.#url+'secrets',
+            Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return result.data;
-        } else {
-            return false;
-        }
+        return result.status == 200 ? result.data : false;
     }
 
 }
@@ -244,7 +212,7 @@ export class pexels{
             }
         });
         if (result.status == 200) {
-            const photos = result.data.photos.map(pic => pic.src.medium);
+            const photos = result.data.photos.map(pic => pic.src.large);
             return photos;
         } else {
             return false;
@@ -252,7 +220,7 @@ export class pexels{
     }
 
     static async initialize() {
-        const secrets = await xanoapi.getsecrets();
+        const secrets = await Xanoapi.getsecrets();
         const pexelsrecord = secrets.find(item => item.name == 'pexels');
         pexels.#token = pexelsrecord.value;
     }

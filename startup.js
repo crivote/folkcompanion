@@ -1,3 +1,4 @@
+import abcjs from 'https://cdn.jsdelivr.net/npm/abcjs@6.2.3/+esm';
 import * as apis from "./apis.js";
 import * as components from "./components/index.js";
 
@@ -69,7 +70,7 @@ export class Controller {
 
     static async returntunedata(id) {
         if (!Object.hasOwn(Controller.tunes, id)) {
-            Controller.tunes[id] = await apis.xanoapi.getsingletune(id);
+            Controller.tunes[id] = await apis.Xanoapi.getsingletune(id);
         }
         return Controller.tunes[id];
     }
@@ -101,7 +102,7 @@ export class Controller {
 
         if (token) {
             try {
-                Controller.user = await apis.xanoapi.getuser(token);
+                Controller.user = await apis.Xanoapi.getuser(token);
             } catch (error) {
                 //TODO: si el token falla mostrar componente error para borrar
                 console.log(error);
@@ -129,7 +130,7 @@ export class Controller {
             result = JSON.parse(tunebook);
         }
         else {
-            result = await apis.xanoapi.gettunebook();
+            result = await apis.Xanoapi.gettunebook();
             Controller.updatetunebook(result);
         }
         return result;
@@ -193,9 +194,9 @@ export class Controller {
 
     static playabc(abc) {
         let returnobject = '';
-        if (window.ABCJS.synth.supportsAudio()) {
-            var visualObj = window.ABCJS.renderAbc("*", abc)[0];
-            Controller.midiBuffer = new window.ABCJS.synth.CreateSynth();
+        if (abcjs.synth.supportsAudio()) {
+            const visualObj = abcjs.renderAbc("*", abc)[0];
+            Controller.midiBuffer = new abcjs.synth.CreateSynth();
             Controller.midiBuffer.init(
                 {
                     visualObj: visualObj,
@@ -206,6 +207,9 @@ export class Controller {
                 Controller.midiBuffer.prime()
                 .then(function(response) {
                     Controller.midiBuffer.start();
+                })
+                .then(function(response){
+                    console.log("abc play ends", response);
                 });
             })
             .catch(function(error) {

@@ -106,7 +106,7 @@ export class Videoaddtotune extends Component {
             Performer: this.element.querySelector('[name="artista"]').value,
         };
         try {
-            const result = await apis.xanoapi.addvideo(params);
+            const result = await apis.Xanoapi.addvideo(params);
             if (result) {
                 console.log(result);
                 const link = {
@@ -128,13 +128,12 @@ export class Videoaddtotune extends Component {
                     Estructure: "",
                     Compasses: "",
                     first_reference: "",
-                    media_links: "",
                     trivia: "",
                     ABCsample: "",
                     popularity: "",
                     sortname: ""
                 }
-                const result2 = await apis.xanoapi.edittune(this.data.id, params2);
+                const result2 = await apis.Xanoapi.edittune(this.data.id, params2);
             }
         } catch (error) {
             console.log(error);

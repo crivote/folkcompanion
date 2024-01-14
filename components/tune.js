@@ -73,7 +73,7 @@ export class Tune extends Component {
             rehearsal_days: this.data.rehearsal_days + 1,
             last_rehearsals: datearray.length > 5 ? datearray.slice(0, 5) : datearray
         };
-        const result = await apis.xanoapi.edittunebooktune(this.data.id, params);
+        const result = await apis.Xanoapi.edittunebooktune(this.data.id, params);
         if (result) {
             this.data = result;
             this.element.querySelector('.numrehearsal').textContent = this.data.rehearsal_days;
@@ -87,7 +87,7 @@ export class Tune extends Component {
     }
 
     async deletetune() {
-        const result = await xanoapi.deletetunebooktune(this.data.id);
+        const result = await Xanoapi.deletetunebooktune(this.data.id);
         if (result) {
             delete Controller.tunes[this.data.id];
             const manager= Controller.getinstance('Tunebook');

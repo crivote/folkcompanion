@@ -221,7 +221,7 @@ export class Tunemanageredit extends Component {
             ABCsample: this.element.querySelector('#modaledittunemanager .editabcsample').innerText
         };
         try {
-            const result = await apis.xanoapi.edittune(this.data.id, params);
+            const result = await apis.Xanoapi.edittune(this.data.id, params);
             if (result) {
                 Controller.tunes[this.data.id] = result;
                 const manager= Controller.getinstance('Tunemanager');

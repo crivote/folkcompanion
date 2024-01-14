@@ -170,7 +170,7 @@ export class Tunemanagersearch extends Component {
 
     async savetune(data, el){
         try {
-            const result = await apis.xanoapi.addtotunes(data);
+            const result = await apis.Xanoapi.addtotunes(data);
             if (result) {
                 Controller.screens.Tunemanager.tunes.push(result);
                 Controller.screens.Tunemanager.rendertunes();

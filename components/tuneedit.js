@@ -74,7 +74,7 @@ export class Tuneedit extends Component {
         if (Object.hasOwn(Controller.tunes, this.data.tunes_id)) {
             this.tune = Controller.tunes[this.data.tunes_id];
         } else {
-            this.tune = await apis.xanoapi.getsingletune(this.data.tunes_id);
+            this.tune = await apis.Xanoapi.getsingletune(this.data.tunes_id);
             Controller.tunes[this.data.tunes_id] = this.tune;
         }
         let search = this.data?.Prefered_name && this.data.Prefered_name.length>0 ? this.data.Prefered_name : this.tune.main_name;   
@@ -131,7 +131,7 @@ export class Tuneedit extends Component {
             last_rehearsals: Array.isArray(this.data.last_rehearsals) ? [this.element.querySelector('input[name="lastrehearsal"]').value, ...this.data.last_rehearsals] : [this.element.querySelector('input[name="lastrehearsal"]').value]
         };
         try {
-            const result = await apis.xanoapi.edittunebooktune(this.data.id, params);
+            const result = await apis.Xanoapi.edittunebooktune(this.data.id, params);
             if (result) {
                 this.remove();
                 result._tunes = this.tune;
