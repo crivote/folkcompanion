@@ -203,12 +203,14 @@ export class Controller {
                 }
             )
             .then(function(response) {
+                
+                Controller.midiBuffer.addEventListener("ended", function() {
+                    console.log("La reproducción ha finalizado.");
+                });
+
                 Controller.midiBuffer.prime()
                 .then(function(response) {
                     Controller.midiBuffer.start();
-                })
-                .then(function(response){
-                    console.log("abc play ends", response);
                 });
             })
             .catch(function(error) {
