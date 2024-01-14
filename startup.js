@@ -89,7 +89,7 @@ export class Controller {
     static screens = {};
     static tunebook;
     static midiBuffer;
-    statis player;
+    static player;
     static searchtunes=[];
     // data
     static tunes ={};
