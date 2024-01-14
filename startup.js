@@ -46,11 +46,8 @@ export class Utils {
         const now = new Date();
         date = new Date(date);
         const diff = now.getTime() - date.getTime();
-        if (diff > 0 ) {
-            return Math.ceil(diff / (1000 * 3600 * 24));
-        } else {
-            return false;
-        }
+        const numdays = Math.round(diff / (1000 * 3600 * 24));
+        return numdays > 0 ? numdays : 0;
     }
 
     // formatea fecha para base de datos
@@ -74,6 +71,7 @@ export class Utils {
         });
         return modes;
     }
+
 }
 
 export class Data {
@@ -91,6 +89,7 @@ export class Controller {
     static screens = {};
     static tunebook;
     static midiBuffer;
+    statis player;
     static searchtunes=[];
     // data
     static tunes ={};
@@ -213,7 +212,7 @@ export class Controller {
         if (abcjs.synth.supportsAudio()) {
             const visualObj = abcjs.renderAbc("*", abc)[0];
             Controller.midiBuffer = new abcjs.synth.CreateSynth();
-            Controller.midiBuffer.init(
+            Controller.player=Controller.midiBuffer.init(
                 {
                     visualObj: visualObj,
                     options: {}
@@ -221,7 +220,7 @@ export class Controller {
             )
             .then(function(response) {
                 
-                Controller.midiBuffer.addEventListener("ended", function() {
+                Controller.player.addEventListener("ended", function() {
                     console.log("La reproducción ha finalizado.");
                 });
 

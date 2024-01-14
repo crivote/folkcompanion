@@ -185,6 +185,7 @@ export class Tunemanageredit extends Component {
         }
     }
 
+    // extrae las referencias a servicios externos
     checkservicesid(array) {
         let References=[];
         array.forEach(service => {
@@ -202,7 +203,7 @@ export class Tunemanageredit extends Component {
 
     async updatetune(event) {
         event.preventDefault();
-        const References = this.checkservicesid(['Thesession.org', 'irishtune.info', 'tunearch.org']);
+        const References = this.checkservicesid(['thesession.org', 'irishtune.info', 'tunearch.org']);
         const Modes_played = Utils.converttones(this.element.querySelector('#modaledittunemanager .editmodesplayed').innerText.split('/'));
         const params = {
             main_name: this.element.querySelector('#modaledittunemanager .editmainname').innerText,

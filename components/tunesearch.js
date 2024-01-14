@@ -15,7 +15,7 @@ export class Tunesearch extends Component {
 
     generatehtml() {
         return `<div id="${this.name}" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-            <div class="bg-white p-8 rounded shadow-lg w-1/3">
+            <div class="bg-white p-8 rounded shadow-lg w-1/3 max-h-lvh overflow-auto">
                 <p id="closetunesearch" class="text-right" title="close"><i class="fa fa-times-circle fa-2x"></i></p>
                 <h2 class="text-2xl text-gray-400 font-bold mb-4">Buscar temas para tu repertorio</h2>
                 <input id="tunesearch" type="text" placeholder="escriba parte del nombre">
@@ -87,7 +87,7 @@ export class Tunesearch extends Component {
             Controller.searchtunes = this.tunes;
         }
         this.element.querySelector('#tunesearch').addEventListener('input', this.search.bind(this));
-        this.element.querySelector('#closetunesearch').addEventListener('click', this.hide.bind(this));
+        this.element.querySelector('#closetunesearch').addEventListener('click', this.remove.bind(this));
 
     }
 
@@ -105,20 +105,9 @@ export class Tunesearch extends Component {
                 myinfo.textContent = `Encontrados ${result.length} resultados:`;
                 this.generateresults(result);
             } else {
-                myinfo.textContent = `Sin resultados en la base. ¿Desea buscar en Thesession?`;
+                myinfo.textContent = `Sin resultados en la base.`;
             }
         }
-    }
-
-    async searchThesession(string) {
-        let result = await apis.Thesession.search(string);
-        result = result.map(tune => {
-            return {
-                id: 0,
-                name: ''
-            };
-        });
-        this.generateresults(result);
     }
 
 }
