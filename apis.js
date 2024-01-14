@@ -223,7 +223,7 @@ export class Pexels{
         const secrets = await Xanoapi.getsecrets();
         const Pexelsrecord = secrets.find(item => item.name == 'pexels');
         Pexels.#token = Pexelsrecord.value;
-        const firstresult = await apis.pexels.search('irish folk music');
+        const firstresult = await Pexels.search('irish folk music');
         return firstresult;
     }
 }
