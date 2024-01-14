@@ -119,6 +119,7 @@ export class Controller {
 
     static startapp() {
         Controller.getinstance('Menubar');
+        apis.pexels.initialize();
     }
 
     static async loadtunebook() {

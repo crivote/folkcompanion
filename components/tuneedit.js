@@ -19,7 +19,7 @@ export class Tuneedit extends Component {
             nameslist = nameslist.concat(this.tune.other_names);
         }
         return `<div id="modaledittune" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-            <div class="bg-white p-8 rounded-xl shadow-lg w-1/3 relative">
+            <div class="bg-white p-8 rounded-xl shadow-lg w-1/2 lg:w-1/3 relative">
                 <p id="closeaddtunebook" class="absolute right-4 top-4 text-red-400 text-right" title="close"><i class="fa fa-times-circle fa-2x"></i></p>
                 <h2 class="text-2xl text-blue-400 font-semibold mb-6">Editar tema</h2>
                 <form id="loginform">

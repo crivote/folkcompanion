@@ -1,11 +1,11 @@
 //xano class
 export class xanoapi{
-    static url = "https://x8ki-letl-twmt.n7.xano.io/api:JIBL7nZM/";
+    static #url = "https://x8ki-letl-twmt.n7.xano.io/api:JIBL7nZM/";
     static token ='';
 
     static async authcall(user, pass){
         try {
-            const result = await axios.post(xanoapi.url+'auth/login', {email: user, password: pass});
+            const result = await axios.post(xanoapi.#url+'auth/login', {email: user, password: pass});
             if (result.status == 200){
                 return result.data.authToken;
             }
@@ -26,7 +26,7 @@ export class xanoapi{
     static async getuser(token) {
         xanoapi.token=token;
         const result = await axios.get(
-            xanoapi.url+'auth/me', 
+            xanoapi.#url+'auth/me', 
             xanoapi.returnheader()
         );
         if (result.status == 200) {
@@ -39,7 +39,7 @@ export class xanoapi{
 
     static async getsingletune(id) {
         const result= await axios.get(
-            xanoapi.url+'tunes/'+id,
+            xanoapi.#url+'tunes/'+id,
             xanoapi.returnheader()
         );
         if (result.status == 200) {
@@ -51,7 +51,7 @@ export class xanoapi{
 
     static async getalltunes() {
         const result= await axios.get(
-            xanoapi.url+'tunes',
+            xanoapi.#url+'tunes',
             xanoapi.returnheader()
         );
         if (result.status == 200) {
@@ -63,7 +63,7 @@ export class xanoapi{
 
     static async getalltunessearch() {
         const result= await axios.get(
-            xanoapi.url+'reducedtunes',
+            xanoapi.#url+'reducedtunes',
             xanoapi.returnheader()
         );
         if (result.status == 200) {
@@ -75,7 +75,7 @@ export class xanoapi{
 
     static async gettunebook() {
         const result= await axios.get(
-            xanoapi.url+'tunebook',
+            xanoapi.#url+'tunebook',
             xanoapi.returnheader()
         );
         if (result.status == 200) {
@@ -87,7 +87,7 @@ export class xanoapi{
 
     static async addtotunes(tune) {
         const result= await axios.post(
-            xanoapi.url+'tunes',
+            xanoapi.#url+'tunes',
             tune,
             xanoapi.returnheader()
         );
@@ -100,7 +100,7 @@ export class xanoapi{
 
     static async deletetune(id) {
         const result= await axios.delete(
-            xanoapi.url+'tunes/'+id,
+            xanoapi.#url+'tunes/'+id,
             xanoapi.returnheader()
         );
         if (result.status == 200) {
@@ -112,7 +112,7 @@ export class xanoapi{
 
     static async deletetunebooktune(id) {
         const result= await axios.delete(
-            xanoapi.url+'tunebook/'+id,
+            xanoapi.#url+'tunebook/'+id,
             xanoapi.returnheader()
         );
         if (result.status == 200) {
@@ -124,7 +124,7 @@ export class xanoapi{
 
     static async addtotunebook(tune) {
         const result= await axios.post(
-            xanoapi.url+'tunebook',
+            xanoapi.#url+'tunebook',
             tune,
             xanoapi.returnheader()
         );
@@ -137,7 +137,7 @@ export class xanoapi{
 
     static async edittune(id, tune) {
         const result= await axios.patch(
-            xanoapi.url+'tunes/'+id,
+            xanoapi.#url+'tunes/'+id,
             tune,
             xanoapi.returnheader()
         );
@@ -150,7 +150,7 @@ export class xanoapi{
 
     static async edittunebooktune(id, tune) {
         const result= await axios.patch(
-            xanoapi.url+'tunebook/'+id,
+            xanoapi.#url+'tunebook/'+id,
             tune,
             xanoapi.returnheader()
         );
@@ -163,8 +163,20 @@ export class xanoapi{
 
     static async addvideo(video) {
         const result= await axios.post(
-            xanoapi.url+'videos',
+            xanoapi.#url+'videos',
             video,
+            xanoapi.returnheader()
+        );
+        if (result.status == 200) {
+            return result.data;
+        } else {
+            return false;
+        }
+    }
+
+    static async getsecrets() {
+        const result= await axios.get(
+            xanoapi.#url+'secrets',
             xanoapi.returnheader()
         );
         if (result.status == 200) {
@@ -221,7 +233,7 @@ export class thesession{
 
 // pexels class
 export class pexels{
-    static #token = "jB7AnN8hwz5ociBiA78dRPs9R1cUhgfbcwgmc709wR6Qs8cJxKZX2qfP";
+    static #token;
     static #url = "https://api.pexels.com/v1/";
 
     static async search(searchstring, number=5) {
@@ -237,6 +249,11 @@ export class pexels{
         } else {
             return false;
         }
+    }
 
+    static async initialize() {
+        const secrets = await xanoapi.getsecrets();
+        const pexelsrecord = secrets.find(item => item.name == 'pexels');
+        pexels.#token = pexelsrecord.value;
     }
 }

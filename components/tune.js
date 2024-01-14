@@ -23,10 +23,8 @@ export class Tune extends Component {
     }
 
     generatehtml_card() {
-        return `<div id="tune${this.data.id}" class="relative tunecard shrink-0 xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 mt-16 bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-110">
-
-        <div class="tuneimg border-t-8 border-${Controller.statuscolors[this.data.status]} flex items-center justify-center -mt-6 -mx-6">
-            <img src="${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}" alt="Imagen" class="-mt-16 rounded-full h-36 w-36 object-cover">
+        return `<div id="tune${this.data.id}" class="border-t-8 border-${Controller.statuscolors[this.data.status]} relative tunecard shrink-0 xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 mt-16 bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-110">
+        <div class="tuneimg h-48 -mt-6 -mx-6 bg-cover bg-[url('${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}')]">
         </div>
         <span class="p-1 rounded-md text-sm absolute top-8 uppercase text-white bg-${Controller.statuscolors[this.data.status]} font-bold">${this.data.status}</span>
         <div class="absolute right-6 top-8" title="Nº ensayos">
@@ -39,7 +37,7 @@ export class Tune extends Component {
         <span class="lastrehearsal ml-1">${this.data.last_rehearsals ? 'hace ' + Controller.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
         </h6>
         <p class="tunemodes text-blue-400 font-semibold mb-2">${this.data.type}</p>
-        <div class="flex gap-1 absolute bottom-5 right-5">
+        <div class="flex gap-1 mt-4">
             <button class="rehearsal bg-blue-400 p-1 rounded-md text-white text-bold" title="añadir ensayo"><i class="fa fa-guitar fa-fw fa-lg"></i></button>
             <button class="edittune bg-slate-400 p-1 rounded-md text-white text-bold" title="editar tema"><i class="fa fa-pencil fa-fw fa-lg"></i></button>
             <button class="deletetune bg-red-400 p-1 rounded-md text-white text-bold" title="eliminar tema"><i class="fa fa-trash fa-fw fa-lg"></i></button>
