@@ -19,8 +19,7 @@ export class Mynotification extends Component {
     setup() {
         const mycontent = this.generatehtml();
         this.attachAt(mycontent, false);
-        this.element.querySelector('.notification')
-            .addEventListener('click', this.remove.bind(this));
+        this.element.addEventListener('click', this.remove.bind(this));
     }
 
     generatehtml() {
