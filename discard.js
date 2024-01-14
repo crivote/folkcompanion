@@ -13,7 +13,7 @@ class Render{
     async tuneclick(event) {
         // click on names tag to get the tune card
         if (event.target.classList.contains('tunetag')) {
-            const tunedata = await thesession.gettune(event.target.dataset.id);
+            const tunedata = await Thesession.gettune(event.target.dataset.id);
             this.tunedetails(tunedata);
         }
         // click on tunecard to add to my tunebook
@@ -107,7 +107,7 @@ class ManageInput {
     makeAjaxCall(value) {
         this.inputElement.setAttribute("disabled", "");
         this.renderer.loading();
-        thesession.search(value)
+        Thesession.search(value)
             .then( response => this.showResult(response));
     }
 

@@ -5,7 +5,7 @@ import { Videoaddtotune } from "./videoaddtotune.js";
 
 export class Tunemanageredit extends Component {
     data;
-    thesessionzone;
+    Thesessionzone;
     videolinks;
 
     constructor(name, parentel, data) {
@@ -15,14 +15,14 @@ export class Tunemanageredit extends Component {
     }
 
     generatehtml() {
-        const sessionbool = this.data?.References && this.data.References[0]?.service_name ? this.data.References.find(item => item.service_name == "thesession.org") : false;
+        const sessionbool = this.data?.References && this.data.References[0]?.service_name ? this.data.References.find(item => item.service_name == "Thesession.org") : false;
         const irishtunebool = this.data?.References && this.data.References[0]?.service_name ? this.data.References.find(item => item.service_name == "irishtune.info") : false;
         const tunearchbool = this.data?.References && this.data.References[0]?.service_name ? this.data.References.find(item => item.service_name == "tunearch.org") : false;
         const tonalities = this.data?.Modes_played && this.data.Modes_played[0]?.key ? this.data.Modes_played.map(mode => mode.Key + ' ' + mode.Mode) : [];
 
         let sessionbutton = '';
         if (sessionbool) {
-            sessionbutton = `<button class="refreshthesession bg-purple-500 text-white p-2 rounded-md" data-id="${sessionbool.service_ID}">Completar datos thesession</button>`
+            sessionbutton = `<button class="refreshThesession bg-purple-500 text-white p-2 rounded-md" data-id="${sessionbool.service_ID}">Completar datos Thesession</button>`
         }
         return `<div id="modaledittunemanager" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
             <div class="bg-white p-8 rounded-xl shadow-lg w-4/5 relative flex gap-3 max-h-screen">
@@ -33,7 +33,7 @@ export class Tunemanageredit extends Component {
                     <div class="flex gap-3">
                         <div>
                             <label class="uppercase text-slate-400 text-sm mt-3">thessession</label>
-                            <p class="editthesession border" contenteditable="true">${sessionbool ? sessionbool.service_ID : ''}</p>
+                            <p class="editThesession border" contenteditable="true">${sessionbool ? sessionbool.service_ID : ''}</p>
                         </div>
                         <div>
                             <label class="uppercase text-slate-400 text-sm mt-3">irishtune</label>
@@ -95,7 +95,7 @@ export class Tunemanageredit extends Component {
                         <button class="updatetune px-4 py-3 rounded-md bg-blue-500 text-white text-md font-bold uppercase mx-4">guardar cambios</button>
                     </div>
                 </div>
-                <div class="thesessiondata basis-1/2 shrink-0 overflow-auto">
+                <div class="Thesessiondata basis-1/2 shrink-0 overflow-auto">
                     <p class="mb-2">${sessionbutton}</p>
                 </div>
         </div>`;
@@ -114,7 +114,7 @@ export class Tunemanageredit extends Component {
              <i class="fa fa-circle-play fa-lg"></i></span> ${setting.key} by ${setting.member.name}</li>`);
 
         return `
-        <h2 class="text-2xl text-blue-400 font-semibold mb-6">Datos thesession</h2> 
+        <h2 class="text-2xl text-blue-400 font-semibold mb-6">Datos Thesession</h2> 
 
         <label class="uppercase addtoform text-slate-400 text-sm mt-1"><i class="fa fa-plus-circle fa-lg"></i> titulo</label>
         <p data-target="editmainname">${tune.name}</p>
@@ -154,23 +154,23 @@ export class Tunemanageredit extends Component {
     setup() {
         this.attachAt(this.generatehtml(), false);
         // close window
-        this.thesessionzone = this.element.querySelector('.thesessiondata');
+        this.Thesessionzone = this.element.querySelector('.Thesessiondata');
         this.element.querySelector('#closeaddtunebook').addEventListener('click', this.remove.bind(this));
         this.element.querySelector('.updatetune').addEventListener('click', this.updatetune.bind(this));
 
-        if (this.element?.querySelector('.refreshthesession')) {
-            this.element.querySelector('.refreshthesession').addEventListener('click', this.refreshsession.bind(this));
+        if (this.element?.querySelector('.refreshThesession')) {
+            this.element.querySelector('.refreshThesession').addEventListener('click', this.refreshsession.bind(this));
         }
     }
 
     async refreshsession(event){
-        const thesession = event.currentTarget.dataset.id;
-        const thesessiondata = await apis.thesession.gettune(thesession);
-        this.thesessionzone.innerHTML = this.generatesessionhtml(thesessiondata);
-        this.thesessionzone.querySelectorAll('.addtoform').forEach(el => {
+        const Thesession = event.currentTarget.dataset.id;
+        const Thesessiondata = await apis.Thesession.gettune(Thesession);
+        this.Thesessionzone.innerHTML = this.generatesessionhtml(Thesessiondata);
+        this.Thesessionzone.querySelectorAll('.addtoform').forEach(el => {
             el.addEventListener('click', this.savefromsessiontoform.bind(this));
         });
-        this.thesessionzone.querySelector('.openvideomodal').addEventListener('click', this.openvideomodal.bind(this));
+        this.Thesessionzone.querySelector('.openvideomodal').addEventListener('click', this.openvideomodal.bind(this));
     }
 
     openvideomodal() {
@@ -202,7 +202,7 @@ export class Tunemanageredit extends Component {
 
     async updatetune(event) {
         event.preventDefault();
-        const References = this.checkservicesid(['thesession.org', 'irishtune.info', 'tunearch.org']);
+        const References = this.checkservicesid(['Thesession.org', 'irishtune.info', 'tunearch.org']);
         const Modes_played = Controller.converttones(this.element.querySelector('#modaledittunemanager .editmodesplayed').innerText.split('/'));
         const params = {
             main_name: this.element.querySelector('#modaledittunemanager .editmainname').innerText,

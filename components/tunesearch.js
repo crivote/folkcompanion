@@ -105,13 +105,13 @@ export class Tunesearch extends Component {
                 myinfo.textContent = `Encontrados ${result.length} resultados:`;
                 this.generateresults(result);
             } else {
-                myinfo.textContent = `Sin resultados en la base. ¿Desea buscar en thesession?`;
+                myinfo.textContent = `Sin resultados en la base. ¿Desea buscar en Thesession?`;
             }
         }
     }
 
-    async searchthesession(string) {
-        let result = await apis.thesession.search(string);
+    async searchThesession(string) {
+        let result = await apis.Thesession.search(string);
         result = result.map(tune => {
             return {
                 id: 0,

@@ -66,10 +66,10 @@ export class Tuneaddtobook extends Component {
             this.tune = await apis.Xanoapi.getsingletune(tuneid);
             Controller.tunes[tuneid] = this.tune;
         }
-        this.pics = await apis.pexels.search(this.tune.main_name);
+        this.pics = await apis.Pexels.search(this.tune.main_name);
         if (this.pics.length == 0) {
             if (this.tune.other_names && this.tune.other_names.length > 0) {
-                this.pics = await apis.pexels.search(this.tune.other_names[0]);
+                this.pics = await apis.Pexels.search(this.tune.other_names[0]);
             } 
         }
         this.pics = this.pics.concat(Controller.genericpics);

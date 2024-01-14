@@ -49,7 +49,7 @@ export class Tunemanagersearch extends Component {
         if (el.dataset.enriched == "false") {
             el.dataset.enriched = "true";
             const id = el.dataset.id;
-            this.details = await apis.thesession.gettune(id);
+            this.details = await apis.Thesession.gettune(id);
             let tones = this.details.settings.map(item => item.key);
             tones = [...new Set(tones)];
             el.insertAdjacentHTML(
@@ -100,12 +100,12 @@ export class Tunemanagersearch extends Component {
         const string = event.target.value;
         if (string.length > 6 && !this.blocked) {
             this.blocked = true;
-            let result = await apis.thesession.search(string);
+            let result = await apis.Thesession.search(string);
             if (result.length > 0) {
                 this.myinfo.textContent = `Encontrados ${result.length} resultados:`;
                 this.generateresults(result);
             } else {
-                this.myinfo.textContent = `Sin resultados en thesession para ${string}`;
+                this.myinfo.textContent = `Sin resultados en Thesession para ${string}`;
             }
             this.blocked = false;
         }
@@ -122,7 +122,7 @@ export class Tunemanagersearch extends Component {
             tune?.References &&
             tune.References.some(item =>
                 item?.service_ID == this.details.id
-                && item.service_name == 'thesession.org')
+                && item.service_name == 'Thesession.org')
         );
         
         if (!alreadysaved){
@@ -143,7 +143,7 @@ export class Tunemanagersearch extends Component {
                 Type: type.type,
                 Author: 'trad.',
                 time: type.time,
-                References: [{service_name: 'thesession.org', service_ID: this.details.id}],
+                References: [{service_name: 'Thesession.org', service_ID: this.details.id}],
                 Modes_played: modes, 
                 ABCsample: `L: 1/8
                 K:${this.details.settings[0].key}

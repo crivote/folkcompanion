@@ -115,7 +115,7 @@ export class Tuneedit extends Component {
         event.currentTarget.classList.add('hidden');
         const searchstring = event.currentTarget.value;
         if (searchstring.length > 3) {
-            this.pics = await apis.pexels.search(searchstring, 10);
+            this.pics = await apis.Pexels.search(searchstring, 10);
         }
     }
 

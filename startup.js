@@ -49,9 +49,9 @@ export class Controller {
             data.forEach(item => {
                 let url;
                 switch (item?.service_name) {
-                    case 'thesession.org':
-                        url = 'https://thesession.org/tunes/' + item.service_ID;
-                        result.push(`<a class="bg-yellow-600 px-2" href="${url}" target="_blank">thesession</a>`);
+                    case 'Thesession.org':
+                        url = 'https://Thesession.org/tunes/' + item.service_ID;
+                        result.push(`<a class="bg-yellow-600 px-2" href="${url}" target="_blank">Thesession</a>`);
                         break;
                     case 'irishtune.info':
                         url = 'https://www.irishtune.info/tune/' + item.service_ID;
@@ -97,7 +97,6 @@ export class Controller {
     }
 
     static async getuserdetails() {
-        Controller.genericpics = await apis.pexels.search('irish folk music', 20);
         const token = localStorage.getItem('token');
 
         if (token) {
@@ -118,9 +117,9 @@ export class Controller {
         }
     }
 
-    static startapp() {
+    static async startapp() {
+        Controller.genericpics = apis.Pexels.initialize();
         Controller.getinstance('Menubar');
-        apis.pexels.initialize();
     }
 
     static async loadtunebook() {

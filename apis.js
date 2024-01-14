@@ -156,8 +156,8 @@ export class Xanoapi{
 
 }
 
-// thesession class
-export class thesession{
+// Thesession class
+export class Thesession{
     static async search(searchstring) {
         let page=1;
         let asyncall = await this.singlesearch(searchstring, page);
@@ -199,16 +199,16 @@ export class thesession{
 
 }
 
-// pexels class
-export class pexels{
+// Pexels class
+export class Pexels{
     static #token;
     static #url = "https://api.pexels.com/v1/";
 
     static async search(searchstring, number=5) {
         let result =await axios.get(
-            pexels.#url+'search?query='+searchstring+'&per_page='+number, 
+            Pexels.#url+'search?query='+searchstring+'&per_page='+number, 
             {headers: {
-                'Authorization': pexels.#token 
+                'Authorization': Pexels.#token 
             }
         });
         if (result.status == 200) {
@@ -221,7 +221,9 @@ export class pexels{
 
     static async initialize() {
         const secrets = await Xanoapi.getsecrets();
-        const pexelsrecord = secrets.find(item => item.name == 'pexels');
-        pexels.#token = pexelsrecord.value;
+        const Pexelsrecord = secrets.find(item => item.name == 'Pexels');
+        Pexels.#token = Pexelsrecord.value;
+        const firstresult = await apis.pexels.search('irish folk music');
+        return firstresult;
     }
 }
