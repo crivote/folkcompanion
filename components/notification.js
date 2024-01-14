@@ -1,7 +1,6 @@
 import { Component } from "../abstract.js";
 
 export class Mynotification extends Component {
-    parentelfixed = document.getElementById('notifications');
     typedict = {
         info: {color: 'blue', icon: 'circle-info'},
         danger: {color: 'red', icon: 'circle-exclamation'},
@@ -10,7 +9,8 @@ export class Mynotification extends Component {
     }
 
     constructor(type, message) {
-        super('notification', this.parentelfixed);
+        const parentelfixed = document.getElementById('notifications');
+        super('notification', parentelfixed);
         this.type = type;
         this.message = message;
         this.setup();
