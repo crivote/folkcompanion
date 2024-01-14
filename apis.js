@@ -221,7 +221,7 @@ export class Pexels{
 
     static async initialize() {
         const secrets = await Xanoapi.getsecrets();
-        const Pexelsrecord = secrets.find(item => item.name == 'Pexels');
+        const Pexelsrecord = secrets.find(item => item.name == 'pexels');
         Pexels.#token = Pexelsrecord.value;
         const firstresult = await apis.pexels.search('irish folk music');
         return firstresult;

@@ -143,7 +143,7 @@ export class Tunemanagersearch extends Component {
                 Type: type.type,
                 Author: 'trad.',
                 time: type.time,
-                References: [{service_name: 'Thesession.org', service_ID: this.details.id}],
+                References: [{service_name: 'thesession.org', service_ID: this.details.id}],
                 Modes_played: modes, 
                 ABCsample: `L: 1/8
                 K:${this.details.settings[0].key}
