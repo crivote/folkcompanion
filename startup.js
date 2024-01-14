@@ -149,10 +149,10 @@ export class Controller {
         if (token) {
             try {
                 Data.user = await apis.Xanoapi.getuser(token);
-                new Mynotification('success', 'token válido y datos recuperados.');
+                new components.Mynotification('success', 'token válido y datos recuperados.');
                 Controller.startapp();
             } catch (error) {
-                new Mynotification('warning', 'el token guardado no es válido.');
+                new components.Mynotification('warning', 'el token guardado no es válido.');
                 localStorage.removeItem('token');
                 Controller.login = new components.Login('loginmodal', Controller.htmlelement);
             }
