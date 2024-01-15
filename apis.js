@@ -1,4 +1,4 @@
-import { axios } from "./node_modules/axios/lib/axios.js";
+import axios from 'https://cdn.jsdelivr.net/npm/axios@1.6.5/+esm';
 
 //xano class
 export class Xanoapi{
