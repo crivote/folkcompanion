@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './node_modules/axios/dist/axios.min.js';
 
 //xano class
 export class Xanoapi{
