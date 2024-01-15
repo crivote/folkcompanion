@@ -165,7 +165,14 @@ export class Controller {
         Data.tunes = await apis.Xanoapi.getalltunes();
         if (Data.tunes && Data.tunes.length>0) {
             // add maintitle to othernames for searchs
-            Data.tunes.forEach(tune => tune.other_names.push(tune.main_name));
+            Data.tunes.forEach(tune => {
+                if (tune?.other_names) {
+                    tune.other_names.push(tune.main_name);
+                } else {
+                    tune.other_names=[tune.main_name];
+                }
+
+            });
             new components.Mynotification('success', `cargados ${Data.tunes.length} temas.`);
         }
         Data.tunebook = await await apis.Xanoapi.gettunebook();
