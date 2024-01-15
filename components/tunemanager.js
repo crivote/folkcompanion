@@ -5,7 +5,7 @@ import { Tunemanagersearch } from "./tunemanagersearch.js";
 import * as apis from '../apis.js';
 
 export class Tunemanager extends Component {
-    tunes = [];
+    tunes = Data.tunes;
     filtered = [];
     contentzone = null;
     sortcriteria = 'main_name';
@@ -17,7 +17,6 @@ export class Tunemanager extends Component {
     }
 
     async setup() {
-        this.tunes = await apis.Xanoapi.getalltunes();
 
         const typeslist = this.tunes.map(tune => tune.Type);
         this.typeslist = [...new Set(typeslist)];

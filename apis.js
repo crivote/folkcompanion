@@ -1,3 +1,5 @@
+import { axios } from "axios";
+
 //xano class
 export class Xanoapi{
     static #url = "https://x8ki-letl-twmt.n7.xano.io/api:JIBL7nZM/";

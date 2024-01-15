@@ -75,42 +75,24 @@ export class Utils {
 }
 
 export class Data {
+    // user data
     static user;
+    // all tunes from back
     static tunes;
+    // tunes in user tunebook
     static tunebook;
-}
-
-
-
-export class Controller {
-    static htmlelement;
-    // components
-    static login;
-    static screens = {};
-    static tunebook;
-    static midiBuffer;
-    static player;
-    static searchtunes=[];
-    // data
-    static tunes ={};
-    static genericpics = [];
-    static statusoptions = [
-        'Pendiente',
-        'Aprendiendo',
-        'Acompañar',
-        'Básica',
-        'Fluida',
-        'Dominada'
+    // some pics to add
+    static genericpics;
+    // status para temas por defecto
+    static status = [
+        {value: 1, label: 'Pendiente', color: 'stone-600'},
+        {value: 2, label: 'Aprendiendo', color: 'orange-600'},
+        {value: 3, label: 'Acompañar', color: 'yellow-500'},
+        {value: 4, label: 'Básica', color: 'lime-500'},
+        {value: 5, label: 'Fluida', color: 'green-600'},
+        {value: 6, label: 'Dominada', color: 'emerald-900'},
     ];
-    static statuscolors = {
-        'Pendiente': 'stone-600',
-        'Aprendiendo': 'orange-600',
-        'Acompañar': 'yellow-500',
-        'Básica': 'lime-500',
-        'Fluida': 'green-600',
-        'Dominada': 'emerald-900'
-    };
-    static times = {
+    static rythms = {
         'Double Jig': '6/8',
         'Single Jig': '6/8',
         'Reel': '4/4',
@@ -122,8 +104,19 @@ export class Controller {
         'Mazurka': '4/4',
         'Waltz': '3/4',
     }
+}
 
+export class Controller {
 
+    // elemento donde se instancian componentes
+    static htmlelement = document.getElementById('app');
+
+    // objeto con instancias de componentes cargados en DOM
+    static screens = {};
+
+    static midiBuffer;
+    static player;
+    static searchtunes=[];
 
     static async returntunedata(id) {
         if (!Object.hasOwn(Controller.tunes, id)) {
@@ -132,6 +125,7 @@ export class Controller {
         return Controller.tunes[id];
     }
 
+    // carga un componente o si ya existe devuelve una referencia al mismo.
     static getinstance(componentname) {
         if (Object.hasOwn(components, componentname)) {
             if (!Object.hasOwn(Controller.screens, componentname)) {
@@ -143,6 +137,7 @@ export class Controller {
         }
     }
 
+    // try to identify user from saved token, or show login form
     static async getuserdetails() {
         const token = localStorage.getItem('token');
         if (token) {
@@ -153,16 +148,34 @@ export class Controller {
             } catch (error) {
                 new components.Mynotification('warning', 'el token guardado no es válido.');
                 localStorage.removeItem('token');
-                Controller.login = new components.Login('loginmodal', Controller.htmlelement);
+                Controller.getinstance('Login');
             }
         } else {
             // no hay token guardado, mostrar login
-            Controller.login = new components.Login('loginmodal', Controller.htmlelement);
+            Controller.getinstance('Login');
         }
     }
 
+    // when user is identified, load data from back and render menu
     static async startapp() {
-        Controller.genericpics = apis.Pexels.initialize();
+        Data.genericpics = await apis.Pexels.initialize();
+        if (Data.genericpics && Data.genericpics.length>0) {
+            new components.Mynotification('success', `cargadas ${Data.genericpics.length} imagenes genéricas.`);
+        }
+        Data.tunes = await apis.Xanoapi.getalltunes();
+        if (Data.tunes && Data.tunes.length>0) {
+            // add maintitle to othernames for searchs
+            Data.tunes.forEach(tune => tune.other_names.push(tune.main_name));
+            new components.Mynotification('success', `cargados ${Data.tunes.length} temas.`);
+        }
+        Data.tunebook = await await apis.Xanoapi.gettunebook();
+        if (Data.tunebook && Data.tunebook.length>0) {
+            // add info from tunes to tunebook
+            Data.tunebook.forEach(item => {
+                item.tuneref = Data.tunes.find(tune => tune.id === item.tunes_id);
+            })
+            new components.Mynotification('success', `cargados ${Data.tunebook.length} temas de tu repertorio.`);
+        }
         Controller.getinstance('Menubar');
     }
 
