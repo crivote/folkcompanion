@@ -84,10 +84,10 @@ export class Tune extends Component {
         }
 
         // sumar nuevo ensayo
-        this.data.rehearsal_days + 1,
+        this.data.rehearsal_days++;
 
         const result = await apis.Xanoapi.edittunebooktune(this.data.id, this.data);
-        
+
         if (result) {
             this.element.querySelector('.numrehearsal').textContent = this.data.rehearsal_days;
             this.element.querySelector('.lastrehearsal').textContent = `hace ${Utils.calctimesince(this.data.last_rehearsals[0])} días`;
