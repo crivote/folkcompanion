@@ -184,7 +184,9 @@ export class Controller {
                 } else {
                     tune.other_names=[tune.main_name];
                 }
-                if (tune?.n)
+                if (!tune.sortname || tune.sortname.length == 0) {
+                    tune.sortname = Utils.titleforsort(tune.main_name);
+                }
 
             });
             new components.Mynotification('success', `cargados ${Data.tunes.length} temas.`);
