@@ -32,11 +32,10 @@ export class Tunebook extends Component {
             .forEach(
                 el => el.addEventListener('click', this.changeview.bind(this))
             );
-        // add tunes elements    
     }
 
     async setup() {
-        const typeslist = Data.tunebook.map(tune => tune._tunes.Type);
+        const typeslist = Data.tunebook.map(tune => tune.tuneref.Type);
         this.typeslist = [...new Set(typeslist)];
         const statuslist = this.tunebook.map(tune => tune.status);
         this.statuslist = [...new Set(statuslist)];
@@ -52,8 +51,8 @@ export class Tunebook extends Component {
     rendertunes(list = Data.tunebook) {
         this.contentzone.innerHTML = '';
         this.element.querySelector('#num_of_tunes').innerHTML = list.length + ' temas';
-        this.items = list.map((item) => {
-            return new Tune('tune' + item.id, this.contentzone, item, this.format);
+        this.items = list.map((item, index) => {
+            return new Tune('tune' + item.id, this.contentzone, index, this.format);
         });
     }
 
@@ -91,7 +90,7 @@ export class Tunebook extends Component {
         const myinput = event.target.value;
         if (myinput.length > 0) {
             this.filtered = Data.tunebook.filter(
-                tune => tune._tunes.Type == myinput
+                tune => tune.tuneref.Type == myinput
                     || tune.status == myinput
             );
         }

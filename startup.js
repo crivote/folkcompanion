@@ -72,6 +72,15 @@ export class Utils {
         return modes;
     }
 
+    static videoembed(key) {
+        return `
+        <div class="max-w-3xl mx-auto">
+        <div class="aspect-w-16 aspect-h-9">
+        <iframe class="w-full h-full" src="https://www.youtube.com/embed/${key}" 
+        title="" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen>
+        </iframe></div></div`;
+    }
+
 }
 
 export class Data {
@@ -256,15 +265,6 @@ export class Controller {
         if (Controller.midiBuffer) {
             Controller.midiBuffer.stop();
         }
-    }
-
-    static videoembed(key) {
-        return `
-        <div class="max-w-3xl mx-auto">
-        <div class="aspect-w-16 aspect-h-9">
-        <iframe class="w-full h-full" src="https://www.youtube.com/embed/${key}" 
-        title="" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen>
-        </iframe></div></div`;
     }
 
 };
