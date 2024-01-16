@@ -25,7 +25,7 @@ export class Mynotification extends Component {
     generatehtml() {
         const myelements = this.typedict[this.type];
         return `
-        <div class="notification p-4 mb-4 text-sm text-${myelements.color}-800 rounded-lg bg-${myelements.color}-50" role="${this.type}">
+        <div class="animate__animated animate__fadeInUp notification p-4 mb-4 text-sm text-${myelements.color}-800 rounded-lg bg-${myelements.color}-50" role="${this.type}">
           <i class="fa fa-solid fa-lg fa-${myelements.icon} mr-2"></i><span class="font-medium">${this.message}</span>
         </div>     
         `;
