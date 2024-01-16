@@ -84,6 +84,30 @@ export class Utils {
 }
 
 export class Data {
+
+    //tunebook template
+    static template = {
+        tunebook:  {
+            "tunes_id": 0,
+            "user_id": 0,
+            "custom_type": "",
+            "preferred_img_url": null,
+            "Prefered_name": "",
+            "Preferred_tone": null,
+            "learned_date": null,
+            "status": "Pendiente",
+            "rehearsal_days": 0,
+            "last_rehearsals": null,
+            "statusnum": 0
+        },
+        set: {
+            "user_id": 0,
+            "tunes": [],
+            "title": "",
+            "notes": ""
+        }
+    };
+
     // user data
     static user;
 

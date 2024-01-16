@@ -4,6 +4,7 @@ import * as apis from "../apis.js";
 import { Tuneedit } from "./tuneedit.js";
 
 export class Tune extends Component {
+
     constructor(name, parentel, index, format) {
         super(name, parentel);
         this.index =
@@ -31,6 +32,7 @@ export class Tune extends Component {
 
     generatehtml_card() {
         const mystatus = this.getstatus(this.data.status);
+        const mytype = this.customtype ?? this.tuneref.Type;
 
         return `<div id="tune${this.data.id}" class="flex flex-col border-t-8 border-${mystatus.color} relative tunecard shrink-0 xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-110">
         <div class="tuneimg h-64 -mt-6 -mx-6 bg-center bg-cover bg-[url('${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}')]"></div>
@@ -44,7 +46,7 @@ export class Tune extends Component {
             <span class="lastrehearsal ml-1">${this.data.last_rehearsals ? 'hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
         </h6>
         <h2 class="leading-none tunetitle text-2xl font-semibold text-center mt-6 mb-2 text-slate-500">${this.data.Prefered_name}</h2>
-        <p class="tuneadditionaldata text-slate-300 font-regular uppercase text-sm text-center">${this.data.tuneref.type} ${this.data.tuneref.Author}</p>
+        <p class="tuneadditionaldata text-slate-300 font-regular uppercase text-sm text-center">${mytype} ${this.data.tuneref.Author}</p>
         <div class="flex gap-1 mt-auto justify-center">
             <button class="rehearsal bg-blue-400 p-1 rounded-md text-white text-bold" title="añadir ensayo"><i class="fa fa-bolt fa-fw fa-lg"></i> ensayo</button>
         </div>
@@ -52,6 +54,7 @@ export class Tune extends Component {
     }
 
     generatehtml_list() {
+        console.log(this.data);
         return `<div id="tune${this.data.id}" class="tunelist w-full bg-white border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center">
             <img src="${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}" alt="Imagen" class="rounded-full h-16 w-16 object-cover mr-3">
             <h2 class="tunetitle text-xl font-semibold mr-2">${this.data.Prefered_name}</h2>
