@@ -1,4 +1,5 @@
 import { Component } from "../abstract.js";
+import { Mynotification } from "./notification.js";
 import { Controller, Utils, Data } from "../startup.js";
 import * as apis from "../apis.js";
 import { Tuneedit } from "./tuneedit.js";
@@ -32,9 +33,9 @@ export class Tune extends Component {
 
     generatehtml_card() {
         const mystatus = this.getstatus(this.data.status);
-        const mytype = this.customtype ?? this.tuneref.Type;
+        const mytype = this.data.customtype ?? this.data.tuneref.Type;
 
-        return `<div id="tune${this.data.id}" class="flex flex-col border-t-8 border-${mystatus.color} relative tunecard shrink-0 xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-110">
+        return `<div id="tune${this.data.id}" class="cursor-pointer flex flex-col border-t-8 border-${mystatus.color} relative tunecard shrink-0 xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-110">
         <div class="tuneimg h-64 -mt-6 -mx-6 bg-center bg-cover bg-[url('${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}')]"></div>
         <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase text-slate-700/75 font-bold bg-${mystatus.color}/75" >${mystatus.label}</span>
         <div class="absolute right-6 top-4 px-2 py-1 bg-slate-800/50 text-white/90 rounded-lg" title="Nº ensayos">
@@ -70,23 +71,32 @@ export class Tune extends Component {
     }
 
     async addrehearsal() {
-        let datearray = this.last_rehearsals;
-        if (!Array.isArray(datearray)) {
-            datearray = [];
-        }
-        datearray.unshift(Utils.dateformat());
+        // get a backup of tune in case of back error
+        const backup = JSON.parse(JSON.stringify(this.data)); 
 
-        const params = {
-            status: this.data.status,
-            rehearsal_days: this.data.rehearsal_days + 1,
-            last_rehearsals: datearray.length > 5 ? datearray.slice(0, 5) : datearray
-        };
-        const result = await apis.Xanoapi.edittunebooktune(this.data.id, params);
+        // añadir fecha ensayo
+        if (!Array.isArray(this.data.last_rehearsals)) {
+            this.data.last_rehearsals = [];
+        }
+        this.data.last_rehearsals.unshift(Utils.dateformat());
+        if (this.data.last_rehearsals.length > 5) {
+            this.data.last_rehearsals.slice(0, 5);
+        }
+
+        // sumar nuevo ensayo
+        this.data.rehearsal_days + 1,
+
+        const result = await apis.Xanoapi.edittunebooktune(this.data.id, this.data);
+        
         if (result) {
-            this.data = result;
             this.element.querySelector('.numrehearsal').textContent = this.data.rehearsal_days;
             this.element.querySelector('.lastrehearsal').textContent = `hace ${Utils.calctimesince(this.data.last_rehearsals[0])} días`;
+            new Mynotification('success', `añadido nuevo ensayo.`);
+        } else {
+            this.data = backup;
+            new Mynotification('error', `error al guardar el ensayo.`);
         }
+
     }
 
     viewdetails() {

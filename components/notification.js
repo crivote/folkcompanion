@@ -21,7 +21,7 @@ export class Mynotification extends Component {
         this.attachAt(mycontent, false);
         this.element.addEventListener('click', this.eliminate.bind(this));
         if (this.type == 'success' || this.type == 'info') {
-            setTimeout(this.eliminate.bind(this), 2000);
+            setTimeout(this.eliminate.bind(this), 2500);
         }
     }
 
