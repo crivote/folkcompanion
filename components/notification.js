@@ -19,15 +19,26 @@ export class Mynotification extends Component {
     setup() {
         const mycontent = this.generatehtml();
         this.attachAt(mycontent, false);
-        this.element.addEventListener('click', this.remove.bind(this));
+        this.element.addEventListener('click', this.eliminate.bind(this));
+        if (this.type == 'success' || this.type == 'info') {
+            setTimeout(this.eliminate.bind(this), 2000);
+        }
     }
 
     generatehtml() {
         const myelements = this.typedict[this.type];
         return `
-        <div class="animate__animated animate__fadeInUp notification p-4 mb-4 text-sm text-${myelements.color}-800 rounded-lg bg-${myelements.color}-50" role="${this.type}">
+        <div class="animate__animated animate__fadeInUp notification p-4 mb-4 text-sm text-${myelements.color}-800 rounded-lg bg-${myelements.color}-50 text-right" role="${this.type}">
           <i class="fa fa-solid fa-lg fa-${myelements.icon} mr-2"></i><span class="font-medium">${this.message}</span>
         </div>     
         `;
+    }
+
+    eliminate() {
+        this.element.classList.remove('animate__fadeInUp');
+        this.element.classList.add('animate__backOutRight');
+        this.element.addEventListener('animationend', () => {
+            this.remove();
+        });
     }
 }

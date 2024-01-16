@@ -22,9 +22,7 @@ export class Tune extends Component {
         this.element.querySelector('.rehearsal')
             .addEventListener('click', this.addrehearsal.bind(this));
         this.element
-            .addEventListener('click', this.edittune.bind(this));
-        this.element.querySelector('.deletetune')
-            .addEventListener('click', this.deletetune.bind(this));
+            .addEventListener('click', this.viewdetails.bind(this));
     }
 
     getstatus(status) {
@@ -88,9 +86,8 @@ export class Tune extends Component {
         }
     }
 
-    edittune() {
+    viewdetails() {
         Controller.tuneedit = new Tuneedit('tuneedit', Controller.htmlelement, this.data);
-        
     }
 
     async deletetune() {
