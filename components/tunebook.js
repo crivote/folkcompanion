@@ -37,9 +37,9 @@ export class Tunebook extends Component {
     async setup() {
         const typeslist = Data.tunebook.map(tune => tune.tuneref.Type);
         this.typeslist = [...new Set(typeslist)];
-        const statuslist = this.tunebook.map(tune => tune.status);
+        const statuslist = Data.tunebook.map(tune => tune.status);
         this.statuslist = [...new Set(statuslist)];
-        this.filtered = this.tunebook;
+        this.filtered = Data.tunebook;
 
         // generate HTML
         this.attachAt(this.generatehtml(), false);
@@ -78,6 +78,7 @@ export class Tunebook extends Component {
         if (myinput.length > 0) {
             this.filtered = Data.tunebook.filter(
                 tune => tune.Prefered_name.toLowerCase().includes(myinput.toLowerCase())
+                || tune.tuneref.other_names.join(',').includes(myinput.toLowerCase())
             );
         }
         else {
