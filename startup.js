@@ -86,20 +86,24 @@ export class Utils {
 export class Data {
     // user data
     static user;
+
     // all tunes from back
     static tunes;
+
     // tunes in user tunebook
     static tunebook;
+
     // some pics to add
     static genericpics;
+
     // status para temas por defecto
     static status = [
         {value: 1, label: 'Pendiente', color: 'stone-600'},
-        {value: 2, label: 'Aprendiendo', color: 'orange-600'},
-        {value: 3, label: 'Acompañar', color: 'yellow-500'},
-        {value: 4, label: 'Básica', color: 'lime-500'},
-        {value: 5, label: 'Fluida', color: 'green-600'},
-        {value: 6, label: 'Dominada', color: 'emerald-900'},
+        {value: 2, label: 'Aprendiendo', color: 'orange-600', times: 10},
+        {value: 3, label: 'Acompañar', color: 'yellow-500', days: 15},
+        {value: 4, label: 'Básica', color: 'lime-500', days: 30},
+        {value: 5, label: 'Fluida', color: 'green-600', days: 45},
+        {value: 6, label: 'Dominada', color: 'emerald-900', days: 60},
     ];
     static rythms = {
         'Double Jig': '6/8',
@@ -152,7 +156,7 @@ export class Controller {
         if (token) {
             try {
                 Data.user = await apis.Xanoapi.getuser(token);
-                new components.Mynotification('success', 'token válido y datos recuperados.');
+                new components.Mynotification('success', 'token válido, datos de usuario recuperados.');
                 Controller.startapp();
             } catch (error) {
                 new components.Mynotification('warning', 'el token guardado no es válido.');
@@ -180,6 +184,7 @@ export class Controller {
                 } else {
                     tune.other_names=[tune.main_name];
                 }
+                if (tune?.n)
 
             });
             new components.Mynotification('success', `cargados ${Data.tunes.length} temas.`);
