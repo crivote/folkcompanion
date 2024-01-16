@@ -6,10 +6,10 @@ import { Tuneedit } from "./tuneedit.js";
 
 export class Tune extends Component {
 
-    constructor(name, parentel, index, format) {
+    constructor(name, parentel, id, format) {
         super(name, parentel);
-        this.index =
-        this.data = Data.tunebook[index];
+        this.id = id;
+        this.data = Data.tunebook.find(item => item.id === id);
         this.format = format;
         this.setup();
     }
@@ -70,7 +70,8 @@ export class Tune extends Component {
         </div>`;
     }
 
-    async addrehearsal() {
+    async addrehearsal(event) {
+        event.stopPropagation();
         // get a backup of tune in case of back error
         const backup = JSON.parse(JSON.stringify(this.data)); 
 

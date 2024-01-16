@@ -51,8 +51,8 @@ export class Tunebook extends Component {
     rendertunes(list = Data.tunebook) {
         this.contentzone.innerHTML = '';
         this.element.querySelector('#num_of_tunes').innerHTML = list.length + ' temas';
-        this.items = list.map((item, index) => {
-            return new Tune('tune' + item.id, this.contentzone, index, this.format);
+        this.items = list.map((item) => {
+            return new Tune('tune' + item.id, this.contentzone, item.id, this.format);
         });
     }
 
@@ -78,7 +78,6 @@ export class Tunebook extends Component {
         if (myinput.length > 0) {
             this.filtered = Data.tunebook.filter(
                 tune => tune.Prefered_name.toLowerCase().includes(myinput.toLowerCase())
-                || tune.tuneref.other_names.join(',').includes(myinput.toLowerCase())
             );
         }
         else {
