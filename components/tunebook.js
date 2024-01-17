@@ -21,13 +21,15 @@ export class Tunebook extends Component {
 
     addListeners() {
         this.element.querySelector('#tunebook_search')
-            .addEventListener('input', this.filter.bind(this));
+            .addEventListener('input', this.applyFilter.bind(this));
         this.element.querySelector('#typetune_search')
-            .addEventListener('change', this.typefilter.bind(this));
+            .addEventListener('change', this.applyFilter.bind(this));
         this.element.querySelector('#statustune_search')
-            .addEventListener('change', this.typefilter.bind(this));
+            .addEventListener('change', this.applyFilter.bind(this));
         this.element.querySelector('#addnewtune')
             .addEventListener('click', this.launchsearch.bind(this));
+        this.element.querySelector('.resetfilter')
+            .addEventListener('click', this.resetFilter.bind(this));
         this.element.querySelectorAll('.viewselector')
             .forEach(
                 el => el.addEventListener('click', this.changeview.bind(this))
@@ -58,46 +60,56 @@ export class Tunebook extends Component {
 
     generatehtml() {
         return `<section id="${this.name}">
-        <header class="flex p-6"><h3 class="text-4xl">Mi repertorio <span id="num_of_tunes" class="bg-slate-400 text-white p4 rounded-lg text-md">${Data.tunebook.length} temas</span></h3>
-        <span id="addnewtune"><i class="fa fa-plus-circle fa-2x"></i></span>
-        <div class="ml-auto flex">
-        <div class="flex gap-2 border border-slate-400 rounded-md p-2">
-            <span class="viewselector selected bg-slate-500 text-white" data-format="card"><i class="fa fa-grip fa-lg"></i></span>
-            <span class="viewselector" data-format="list"><i class="fa fa-list fa-lg fa-fw"></i></span>
-        </div>
-        <select id="typetune_search"><option value="">Tipo</option><option> ${this.typeslist.join('</option><option>')}</option></select>
-        <select id="statustune_search"><option value="">Status</option><option> ${this.statuslist.join('</option><option>')}</option></select>
-        Filtrar <input type="text" id="tunebook_search"> <i class="fa fa-filter"></i></div>
+        <header class="p-6">
+            <div class="flex items-center gap-2">
+                <h3 class="text-3xl">Mi repertorio</h3>
+                <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 uppercase text-slate-200 rounded-lg text-md">
+                ${Data.tunebook.length} temas</span></h3>
+                <span class="addnewtune text-blue-600 hover:text-blue-400">
+                <i class="fa fa-plus-circle fa-2x"></i></span>
+                <div class="ml-auto flex items-center gap-3">
+                    <span class="viewselector selected bg-slate-500 text-white" data-format="card"><i class="fa fa-grip fa-lg"></i></span>
+                    <span class="viewselector" data-format="list"><i class="fa fa-list fa-lg fa-fw"></i></span>
+                </div>
+                <select id="typetune_search"><option value="">Tipo</option><option> ${this.typeslist.join('</option><option>')}</option></select>
+                <select id="statustune_search"><option value="">Status</option><option> ${this.statuslist.join('</option><option>')}</option></select>
+                Filtrar <input type="text" id="tunebook_search">
+                <i class="resetfilter fa fa-trash"></i>
+            </div>
         </header>
         <main class="p-6 ${this.format == "card" ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4' : ''}"></main>
         </section>`;
     }
 
-    filter(event) {
-        const myinput = event.target.value;
-        if (myinput.length > 0) {
-            this.filtered = Data.tunebook.filter(
-                tune => tune.Prefered_name.toLowerCase().includes(myinput.toLowerCase())
-            );
-        }
-        else {
-            this.filtered = Data.tunebook;
-        }
-        this.rendertunes(this.filtered);
+    resetFilter() {
+        this.filtered = Data.tunebook;
+        this.element.querySelector('#tunebook_search').value = '';
+        this.element.querySelector('#typetune_search').value = '';
+        this.element.querySelector('#statustune_search').value = '';
     }
 
-    typefilter(event) {
-        const myinput = event.target.value;
-        if (myinput.length > 0) {
-            this.filtered = Data.tunebook.filter(
-                tune => tune.tuneref.Type == myinput
-                    || tune.status == myinput
-            );
-        }
-        else {
-            this.filtered = Data.tunebook;
-        }
-        this.rendertunes(this.filtered);
+    applyFilter() {
+        const valstring = this.element.querySelector('#tunebook_search').value.toLowerCase();
+        const valseltype = this.element.querySelector('#typetune_search').value;
+        const valselstat = this.element.querySelector('#statustune_search').value;
+        this.filtered = Data.tunebook.filter(
+            tune => {
+                let val1 = true;
+                if (valstring != '') {
+                    val1 = tune.Prefered_name.toLowerCase().includes(valstring)
+                    || tune.tuneref.other_names.join(',').toLowerCase().includes(valstring);
+                }
+                let val2 = true;
+                if (valseltype != '') {
+                    val2 = tune.tuneref.Type == valseltype;
+                }
+                let val3 = true;
+                if (valselstat != '') {
+                    val2 = tune.status == valselstat;
+                }
+                return val1 && val2 && val3;
+            }
+        );
     }
 
     changeview(event) {

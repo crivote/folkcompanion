@@ -1,14 +1,16 @@
 import { Component } from "../abstract.js";
-import { Controller } from "../startup.js";
+import { Controller, Data } from "../startup.js";
 import { Tuneformanager } from "./tuneformanager.js";
 import { Tunemanagersearch } from "./tunemanagersearch.js";
 import * as apis from '../apis.js';
 
 export class Tunemanager extends Component {
-    tunes = Data.tunes;
     filtered = [];
+
     contentzone = null;
     sortcriteria = 'main_name';
+
+    // instancias en DOM de las card tunes
     items = [];
 
     constructor(name, parentel) {
@@ -16,19 +18,7 @@ export class Tunemanager extends Component {
         this.setup();
     }
 
-    async setup() {
-
-        const typeslist = this.tunes.map(tune => tune.Type);
-        this.typeslist = [...new Set(typeslist)];
-        const originlist = this.tunes.map(tune => tune.Tradition);
-        this.originlist = [...new Set(originlist.flat())];
-        this.filtered = this.tunes;
-
-        // generate HTML
-        this.attachAt(this.generatehtml(), false);
-        this.contentzone = this.element.querySelector('main');
-
-        // add events
+    addListeners() {
         this.element.querySelector('.tunes_search')
             .addEventListener('input', this.filter.bind(this));
         this.element.querySelector('.typetune_search')
@@ -39,16 +29,31 @@ export class Tunemanager extends Component {
             .addEventListener('click', this.launchsearch.bind(this));
         this.element.querySelector('.tunesorting')
             .addEventListener('change', this.applysort.bind(this));
-        // add tunes elements    
+        this.element.querySelector('.resetfilter')
+            .addEventListener('click', this.resetFilter.bind(this));
+    }
+
+    setup() {
+        const typeslist = Data.tunes.map(tune => tune.Type);
+        this.typeslist = [...new Set(typeslist)];
+        const originlist = Data.tunes.map(tune => tune.Tradition);
+        this.originlist = [...new Set(originlist.flat())];
+        this.filtered = Data.tunes;
+
+        // generate HTML
+        this.attachAt(this.generatehtml(), false);
+        this.contentzone = this.element.querySelector('main');
+        // add events
+        this.addListeners();
         this.rendertunes();
     }
 
-    rendertunes(list = this.tunes) {
+    rendertunes(list = Data.tunes) {
         this.contentzone.innerHTML = '';
         this.element.querySelector('.num_of_tunes').innerHTML = list.length + ' temas';
         list = this.sorter(list);
         this.items = list.map((item) => {
-            return new Tuneformanager('tune' + item.id, this.contentzone, item);
+            return new Tuneformanager('tune' + item.id, this.contentzone, item.id);
         });
     }
 
@@ -69,13 +74,14 @@ export class Tunemanager extends Component {
         return `<section id="${this.name}">
         <header class="p-6">
             <div class="flex items-center gap-2">
-                <h3 class="text-4xl">Todos los temas</h3>
-                <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 uppercase text-slate-200 rounded-lg text-md">${this.tunes.length} temas</span>
+                <h3 class="text-3xl">Todos los temas</h3>
+                <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 uppercase text-slate-200 rounded-lg text-md">${Data.tunes.length} temas</span>
                 <span class="addnewtune text-blue-600 hover:text-blue-400"><i class="fa fa-plus-circle fa-2x"></i></span>
                 <div class="ml-auto flex items-center gap-3">
                     <select class="typetune_search"><option value="">Tipo</option><option> ${this.typeslist.join('</option><option>')}</option></select>
                     <select class="origintune_search"><option value="">Origen</option><option> ${this.originlist.join('</option><option>')}</option></select>
-                    Filtrar <input type="text" class="tunes_search"> <i class="fa fa-filter"></i>
+                    Filtrar <input type="text" class="tunes_search">
+                    <i class="resetfilter fa fa-trash"></i>
                 </div>
             </div>
             <p>sorting by <select class="tunesorting">
@@ -95,40 +101,33 @@ export class Tunemanager extends Component {
         this.rendertunes(this.filtered);
     }
 
+    resetFilter() {
+        this.filtered = Data.tunes;
+        this.element.querySelector('.tunes_search').value = '';
+        this.element.querySelector('.typetune_search').value = '';
+        this.element.querySelector('.origintune_search').value = '';
+    }
+
     filter(event) {
         const myinput = event.target.value;
         if (myinput.length > 0) {
-            this.filtered = this.tunes.filter(
-                tune => {
-                    if (tune.main_name.toLowerCase().includes(myinput.toLowerCase())) {
-                        return true;
-                    } else if (tune?.other_names 
-                        && tune.other_names.join().toLowerCase().includes(myinput.toLowerCase())) {
-                        return true;
-                    }
-
-                    return false;
-                }
+            this.filtered = Data.tunes.filter(
+                tune => tune.main_name.toLowerCase().includes(myinput.toLowerCase()) 
+                || tune.other_names.join().toLowerCase().includes(myinput.toLowerCase())
             );
+            this.rendertunes(this.filtered);
         }
-        else {
-            this.filtered = this.tunes;
-        }
-        this.rendertunes(this.filtered);
     }
 
     typefilter(event) {
         const myinput = event.target.value;
         if (myinput.length > 0) {
-            this.filtered = this.tunes.filter(
+            this.filtered = Data.tunes.filter(
                 tune => tune.Type == myinput
-                    || (tune?.Tradition && tune.Tradition.includes(myinput))
+                || (tune?.Tradition && tune.Tradition.includes(myinput))
             );
+            this.rendertunes(this.filtered);
         }
-        else {
-            this.filtered = this.tunes;
-        }
-        this.rendertunes(this.filtered);
     }
 
     launchsearch() {

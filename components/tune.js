@@ -49,7 +49,7 @@ export class Tune extends Component {
         <h2 class="leading-none tunetitle text-2xl font-semibold text-center mt-6 mb-2 text-slate-500">${this.data.Prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-300 font-regular uppercase text-sm text-center">${mytype} ${this.data.tuneref.Author}</p>
         <div class="flex gap-1 mt-auto justify-center">
-            <button class="rehearsal bg-blue-400 p-1 rounded-md text-white text-bold" title="añadir ensayo"><i class="fa fa-bolt fa-fw fa-lg"></i> ensayo</button>
+            <button class="uppercase font-medium rehearsal bg-blue-600 px-3 py-1 rounded-md text-white text-bold hover:bg-blue-400" title="añadir ensayo"><i class="fa fa-bolt mr-1"></i> añadir ensayo</button>
         </div>
         </div>`;
     }
