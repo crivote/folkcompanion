@@ -52,7 +52,7 @@ export class Tunebook extends Component {
 
     rendertunes(list = Data.tunebook) {
         this.contentzone.innerHTML = '';
-        this.element.querySelector('#num_of_tunes').innerHTML = list.length + ' temas';
+        this.element.querySelector('.num_of_tunes').innerHTML = list.length + ' temas';
         this.items = list.map((item) => {
             return new Tune('tune' + item.id, this.contentzone, item.id, this.format);
         });
