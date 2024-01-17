@@ -14,7 +14,7 @@ export class Tunesearch extends Component {
     }
 
     generatehtml() {
-        return `<div id="${this.name}" class="fixed inset-0 w-1/3 bg-gray-400 flex p-6 shadow-lg">
+        return `<div id="${this.name}" class="animate__animated animate__slideInLeft fixed inset-0 w-1/3 bg-gray-400 flex p-6 shadow-lg">
             <div class="bg-white p-6 w-full rounded max-h-lvh overflow-auto">
                 <p id="closetunesearch" class="text-right" title="close"><i class="fa fa-times-circle fa-2x"></i></p>
                 <h2 class="text-2xl text-gray-400 font-bold mb-4">Buscar temas para tu repertorio</h2>
