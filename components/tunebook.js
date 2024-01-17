@@ -86,6 +86,7 @@ export class Tunebook extends Component {
         this.element.querySelector('#tunebook_search').value = '';
         this.element.querySelector('#typetune_search').value = '';
         this.element.querySelector('#statustune_search').value = '';
+        this.rendertunes();
     }
 
     applyFilter() {
@@ -110,6 +111,7 @@ export class Tunebook extends Component {
                 return val1 && val2 && val3;
             }
         );
+        this.rendertunes(this.filtered);
     }
 
     changeview(event) {
