@@ -46,8 +46,8 @@ export class Tune extends Component {
             <i class="fas fa-calendar"></i> 
             <span class="lastrehearsal ml-1">${this.data.last_rehearsals ? 'hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
         </h6>
-        <h2 class="leading-none tunetitle text-2xl font-semibold text-center mt-6 mb-2 text-slate-500">${this.data.Prefered_name}</h2>
-        <p class="tuneadditionaldata text-slate-300 font-regular uppercase text-sm text-center">${mytype} ${this.data.tuneref.Author}</p>
+        <h2 class="leading-none tunetitle text-xl font-semibold text-center mt-6 mb-1 text-slate-500">${this.data.Prefered_name}</h2>
+        <p class="tuneadditionaldata text-slate-400 font-regular uppercase text-sm text-center mb-2">${mytype} ${this.data.tuneref.Author}</p>
         <div class="flex gap-1 mt-auto justify-center">
             <button class="uppercase font-medium rehearsal bg-blue-600 px-3 py-1 rounded-md text-white text-bold hover:bg-blue-400" title="añadir ensayo"><i class="fa fa-bolt mr-1"></i> añadir ensayo</button>
         </div>

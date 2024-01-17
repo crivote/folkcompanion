@@ -1,12 +1,13 @@
 import { Component } from "../abstract.js";
-import { Controller, Utils } from "../startup.js";
+import { Controller, Utils, Data } from "../startup.js";
 import { Tunemanageredit } from "./tunemanageredit.js";
 import { Xanoapi } from "../apis.js";
 
 export class Tuneformanager extends Component {
-    constructor(name, parentel, data) {
+    constructor(name, parentel, id) {
         super(name, parentel);
-        this.data = data;
+        this.id = id;
+        this.data = Data.tunes.find(item => item.id === id);
         this.setup();
     }
 
@@ -14,7 +15,7 @@ export class Tuneformanager extends Component {
 
     }
 
-    listeners(){
+    addListeners(){
         if (this.data.ABCsample) {
             this.element.querySelector('.playabc')
                 .addEventListener('click', this.playabc.bind(this));
@@ -28,7 +29,7 @@ export class Tuneformanager extends Component {
     async setup() {
         const mycontent = this.generatehtml();
         this.attachAt(mycontent, false);
-        this.listeners();
+        this.addListeners();
     }
 
     generatehtml() {
