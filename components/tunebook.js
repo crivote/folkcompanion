@@ -26,7 +26,7 @@ export class Tunebook extends Component {
             .addEventListener('change', this.applyFilter.bind(this));
         this.element.querySelector('#statustune_search')
             .addEventListener('change', this.applyFilter.bind(this));
-        this.element.querySelector('#addnewtune')
+        this.element.querySelector('.addnewtune')
             .addEventListener('click', this.launchsearch.bind(this));
         this.element.querySelector('.resetfilter')
             .addEventListener('click', this.resetFilter.bind(this));
