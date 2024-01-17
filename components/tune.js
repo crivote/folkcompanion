@@ -25,6 +25,10 @@ export class Tune extends Component {
             .addEventListener('click', this.addrehearsal.bind(this));
         this.element
             .addEventListener('click', this.viewdetails.bind(this));
+        if (this.data.tuneref.ABCsample) {
+            this.element.querySelector('.playabc')
+                .addEventListener('click', this.playabc.bind(this));
+        }
     }
 
     getstatus(status) {
@@ -36,7 +40,10 @@ export class Tune extends Component {
         const mytype = this.data.customtype ?? this.data.tuneref.Type;
 
         return `<div id="tune${this.data.id}" class="cursor-pointer flex flex-col border-t-8 border-${mystatus.color} relative tunecard shrink-0 xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg hover:scale-110">
-        <div class="tuneimg h-64 -mt-6 -mx-6 bg-center bg-cover bg-[url('${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}')]"></div>
+        <div class="tuneimg h-64 -mt-6 -mx-6 bg-center bg-cover bg-[url('${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}')]">
+        ${this.data.tuneref.ABCsample ? 
+            `<i data-abc="${this.data.tuneref.ABCsample}" data-state="stop" class="playabc m-auto fa fa-circle-play fa-2x"></i>`: this.data.main_name.substr(0,1)}</span>
+        </div>
         <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase text-slate-700/75 font-bold bg-${mystatus.color}/75" >${mystatus.label}</span>
         <div class="absolute right-6 top-4 px-2 py-1 bg-slate-800/50 text-white/90 rounded-lg" title="Nº ensayos">
             <i class="fas fa-stopwatch"></i>
@@ -114,6 +121,21 @@ export class Tune extends Component {
             const mytuneobject = manager.items.findIndex(tune => tune.name == 'tune'+this.data.id);
             manager.items.splice(mytuneobject, 1);
             this.remove();
+        }
+    }
+
+    playabc(event) {
+        const el = event.currentTarget;
+        if (el.dataset.state == "playing") {
+            el.dataset.state = "stop";
+            Controller.stopabc();
+            el.classList.remove('fa-circle-stop');
+            el.classList.add('fa-play-circle');
+        } else {
+            el.dataset.state = "playing";
+            Controller.playabc(el.dataset.abc);
+            el.classList.remove('fa-play-circle');
+            el.classList.add('fa-circle-stop');
         }
     }
 

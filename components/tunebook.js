@@ -106,7 +106,7 @@ export class Tunebook extends Component {
                 }
                 let val3 = true;
                 if (valselstat != '') {
-                    val2 = tune.status == valselstat;
+                    val3 = tune.status == valselstat;
                 }
                 return val1 && val2 && val3;
             }
