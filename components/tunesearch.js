@@ -1,11 +1,12 @@
 import { Component } from "../abstract.js";
-import { Controller } from "../startup.js";
+import { Controller, Data } from "../startup.js";
 import * as apis from "../apis.js";
 import { Tuneaddtobook } from "./tuneaddtobook.js";
 
 export class Tunesearch extends Component {
 
-    tunes = [];
+    tunes = Data.tunes;
+    listoftunebookids;
     results;
 
     constructor(name, parentel) {
@@ -34,7 +35,7 @@ export class Tunesearch extends Component {
                 <span class="font-bold">${item.main_name}</span>
                 <em class="ml-2 text-xs text-slate-300">${item.Type}</em>
                 <span class="ml-auto text-xs uppercase">${item?.Tradition ? item.Tradition.join(' · ') : ''}</span>
-            </li>`);
+                </li>`);
         });
         this.results.querySelectorAll('li')
             .forEach(
@@ -67,28 +68,17 @@ export class Tunesearch extends Component {
         }
     }
 
-    async setup() {
-        this.attachAt(this.generatehtml(), false);
-        this.results = this.element.querySelector('.results');
-        if (Controller.searchtunes.length > 0) {
-            this.tunes = Controller.searchtunes;
-        } else {
-            const listtunes = await apis.Xanoapi.getalltunessearch();
-            // filter list to exclude tunes already in the tunebook
-            const listofids = Controller.screens.Tunebook.tunebook.map(tune => tune.tunes_id);
-            this.tunes = listtunes.filter(tune => !listofids.includes(tune.id));
-            this.tunes.forEach(tune => {
-                if (Array.isArray(tune.other_names)) {
-                    tune.other_names.push(tune.main_name);
-                } else {
-                    tune.other_names = [tune.main_name];
-                }
-            });
-            Controller.searchtunes = this.tunes;
-        }
+    addListeners() {
         this.element.querySelector('#tunesearch').addEventListener('input', this.search.bind(this));
         this.element.querySelector('#closetunesearch').addEventListener('click', this.remove.bind(this));
+    }
 
+    setup() {
+        this.attachAt(this.generatehtml(), false);
+        this.results = this.element.querySelector('.results');
+        this.addListeners();
+        // Create a list to exclude tunes already in the tunebook
+        this.listoftunebookids = Data.tunebook.map(tune => tune.tunes_id);
     }
 
     search(event) {
@@ -99,7 +89,9 @@ export class Tunesearch extends Component {
         const string = event.target.value;
         if (string.length > 0) {
             let result = this.tunes.filter((tune) => {
-                return tune.other_names.some(name => name.toLowerCase().includes(string.toLowerCase()));
+                return tune.other_names.some(
+                    name => name.toLowerCase().includes(string.toLowerCase())
+                ) && !this.listoftunebookids.includes(tune.id)
             });
             if (result.length > 0) {
                 myinfo.textContent = `Encontrados ${result.length} resultados:`;
