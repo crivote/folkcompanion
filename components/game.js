@@ -49,7 +49,7 @@ export class Game extends Component {
                 </div>
             </div>
             <ul class="options w-1/2 m-auto border border-slate-200 rounded-md bg-white p-8 shadow-md">
-            ${quizdata.names.forEach(option => `<li class="text-lg p-2 text-center rounded-lg font-medium bg-slate-100 hover:bg-slate-200 cursor-pointer" data-value="${option.id}">${option.name}</li>`)}
+            ${quizdata.names.map(option => `<li class="text-lg p-2 text-center rounded-lg font-medium bg-slate-100 hover:bg-slate-200 cursor-pointer" data-value="${option.id}">${option.name}</li>`).join('')}
             </ul>
         </div>`;
         this.element.querySelector('.playabc')
@@ -74,8 +74,8 @@ export class Game extends Component {
 
     nextturn() {
         this.turns++;
-        this.element.querySelector('.turns').textContent = this.turns;
-        this.element.querySelector('.points').textContent = this.points;
+        this.element.querySelector('.turns').textContent = this.turns + ' intentos';
+        this.element.querySelector('.points').textContent = this.points + ' puntos';
         const quizitems = this.drawnewtune();
         this.rightanswer = quizitems[0];
         this.barajar(quizitems);
