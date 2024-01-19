@@ -62,7 +62,7 @@ export class Game extends Component {
 
     lanzatiempo(event) {
         this.tiempo = new Date();
-        ABCplayer.manageabc(event.currentTarget);
+        ABCplayer.manageabc(event);
     }
 
     startgame() {
@@ -95,12 +95,12 @@ export class Game extends Component {
         this.turns++;
         const tiempoahora = new Date();
         const tiemporespuesta = tiempoahora - this.tiempo;
-        const maxscore = 2000;
+        const maxscore = 1000;
         ABCplayer.stopabc();
         event.currentTarget.classList.add('bg-slate-700', 'text-white', 'font-bold');
         const answer = event.currentTarget.dataset.value;
         if (answer == this.rightanswer.id) {
-            this.points += Math.max(maxscore - tiemporespuesta / 100, 0);
+            this.points += Math.max(Math.floor(maxscore - tiemporespuesta / 100), 0);
             this.showresult('right', 'respuesta correcta');
         } else {
             this.showresult('wrong', 'La respuesta correcta es <strong>'+this.rightanswer.main_name+'</strong>');
