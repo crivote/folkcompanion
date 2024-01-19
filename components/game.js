@@ -110,6 +110,7 @@ export class Game extends Component {
                     ${this.points} Puntos</span> 
                 </h3>
             </div>
+            <button class="newgame">Nueva partida</button>
         </header>
         <main class="p-6"></main>
         </section>`;
