@@ -30,6 +30,9 @@ export class Tunesearch extends Component {
                 <h2 class="text-2xl text-gray-400 font-bold mb-4">Añadir nuevos temas a tu repertorio</h2>
                 <input id="tunesearch" size=40" type="text" placeholder="escribe parte del nombre para ver resultados">
                 <p class="info mt-6 mb-2"></p>
+                <div class="sugestion hidden">
+                    <input type="text" class="titlesugestion" size="40" placeholder="escriba el título del tune que desea">
+                </div>
                 <ul class="results bg-slate-500 text-slate-50 p-2"></ul>
           </div>
         </div>`;
@@ -53,10 +56,14 @@ export class Tunesearch extends Component {
                 ) && !this.listoftunebookids.includes(tune.id)
             });
             if (result.length > 0) {
+                this.element.querySelector('.sugestion').classList.add('hidden');
                 myinfo.textContent = `Encontrados ${result.length} resultados:`;
                 this.generateresults(result);
             } else {
-                myinfo.textContent = `Sin resultados en la base.`;
+                myinfo.textContent = `Sin resultados en la base de datos.
+                Si crees que el tema debería aparecer, por favor escribe el título
+                a continuación e intentaremos añadirlo. Gracias!`;
+                this.element.querySelector('.sugestion').classList.remove('hidden');
             }
         }
     }
