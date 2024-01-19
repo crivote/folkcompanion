@@ -10,3 +10,4 @@ export * from './tunebook_search_result.js'
 export * from './setbook.js';
 export * from './tunemanager_tune.js';
 export * from './notification.js';
+export * from './game.js';
