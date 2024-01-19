@@ -1,5 +1,5 @@
 import { Component } from "../abstract.js";
-import { Data } from "../startup.js";
+import { Data, ABCplayer } from "../startup.js";
 
 export class Game extends Component {
     points;
@@ -46,10 +46,10 @@ export class Game extends Component {
             <div class="flex p-6">
                 <div data-abc="${quizdata.abc}" data-state="stop" class="rounded-full playabc h-48 w-48 bg-slate-600 flex text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
                 <i class=" m-auto fa fa-circle-play fa-5x"></i>
-                <div>
+                </div>
             </div>
             <ul class="options">
-            ${quizdata.names.map( option => `<li class="text-lg p-2 bg-slate-100 hover:bg-slate-200 cursor-pointer" data-value="${option.id}">${option.name}</li>`)}
+            ${quizdata.names.map(option => `<li class="text-lg p-2 bg-slate-100 hover:bg-slate-200 cursor-pointer" data-value="${option.id}">${option.name}</li>`)}
             </ul>
             <div class="animate__animate message hidden absolute top-10 text-lg text-white"></div>
         </div>`;
