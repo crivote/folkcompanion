@@ -1,6 +1,6 @@
 import { Component } from "../abstract.js";
 import { Controller, Utils, Data } from "../startup.js";
-import { Tunemanageredit } from "./tunemanageredit.js";
+import { Tunemanageredit } from "./tunemanager_edittune.js";
 import { Xanoapi } from "../apis.js";
 
 export class Tuneformanager extends Component {

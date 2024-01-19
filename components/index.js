@@ -5,8 +5,8 @@ export * from './tuneedit.js';
 export * from './tunebook.js';
 export * from './tunebook_tune.js';
 export * from './tunebook_search.js';
-export * from './tunebook_addnew.js';
+export * from './tunebook_newtune.js';
 export * from './tunebook_search_result.js'
 export * from './setbook.js';
-export * from './tuneformanager.js';
+export * from './tunemanager_tune.js';
 export * from './notification.js';

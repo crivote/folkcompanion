@@ -1,14 +1,18 @@
 import { Component } from "../abstract.js";
 import { Controller, Data, Utils } from "../startup.js";
 import * as apis from "../apis.js";
+import { Mynotification } from './notification.js';
 
 export class Tuneaddtobook extends Component {
-    tune = {};
-    pics = [];
+    tune;
+    pics;
+    tuneid;
 
     constructor(name, parentel, tuneid) {
         super(name, parentel);
-        this.setup(tuneid);
+        this.tuneid = tuneid;
+        this.tune = Data.tunes.find(tune => tune.id === this.tuneid);
+        this.setup();
     }
 
     generatehtml() {
@@ -59,24 +63,7 @@ export class Tuneaddtobook extends Component {
         </div>`;
     }
 
-    async setup(tuneid) {
-        if (Object.hasOwn(Controller.tunes, tuneid)) {
-            this.tune = Controller.tunes[tuneid];
-        } else {
-            this.tune = await apis.Xanoapi.getsingletune(tuneid);
-            Controller.tunes[tuneid] = this.tune;
-        }
-        this.pics = await apis.Pexels.search(this.tune.main_name);
-        if (this.pics.length == 0) {
-            if (this.tune.other_names && this.tune.other_names.length > 0) {
-                this.pics = await apis.Pexels.search(this.tune.other_names[0]);
-            } 
-        }
-        this.pics = this.pics.concat(Controller.genericpics);
-
-        this.tune.tunekeys = this.tune.Modes_played.map(mode => `${mode.Key} ${mode.Mode}`);
-        this.attachAt(this.generatehtml(), false);
-        // close window
+    addListeners() {
         this.element.querySelector('#closeaddtunebook').addEventListener('click', this.remove.bind(this));
         // change selected image
         this.element.querySelector('.picphoto').addEventListener('click', this.changeimage.bind(this));
@@ -91,30 +78,43 @@ export class Tuneaddtobook extends Component {
             .forEach(el => el.addEventListener('change', this.changeselectvalue.bind(this)));
         // add tune
         this.element.querySelector('form').addEventListener('submit', this.addtune.bind(this));
+    }
 
+    async setup() {
+        this.pics = await apis.Pexels.search(this.tune.main_name);
+        if (this.pics.length == 0) {
+            if (this.tune.other_names && this.tune.other_names.length > 0) {
+                this.pics = await apis.Pexels.search(this.tune.other_names[0]);
+            } 
+        }
+        this.pics = this.pics.concat(Data.genericpics);
+        this.tune.tunekeys = this.tune.Modes_played.map(mode => `${mode.Key} ${mode.Mode}`);
+        this.attachAt(this.generatehtml(), false);
+        this.addListeners();
     }
 
     async addtune(event) {
         event.preventDefault();
-        const lastrehearsal = this.element.querySelector('input[name="lastrehearsal"]').value;
-        const params = {
-            tunes_id: this.tune.id,
-            user_id: Data.user.id,
-            preferred_img_url: this.element.querySelector('.picphoto').src,
-            Prefered_name: this.element.querySelector('h4.datatitulo').textContent,
-            Preferred_tone: this.element.querySelector('h4.datatonalidad').textContent,
-            learned_date: this.element.querySelector('input[name="date"]').value,
-            status: this.element.querySelector('h4.datastatus').textContent,
-            rehearsal_days: this.element.querySelector('input[name="rehearsals"]').value,
-            last_rehearsals: lastrehearsal ? [lastrehearsal] : null,
-            type: this.tune.Type,
-            Author: this.tune.Author,
-            tradition: this.tune.Tradition
-        };
+
+        // explore array of fields and add if they have value
+        const inputselectors = [
+            {field: 'preferred_img_url', selector: '.picphoto', value: 'src'},
+            {field: 'Prefered_name', selector: '.datatitulo', value: 'textContent'},
+            {field: 'Preferred_tone', selector: '.datatonalidad', value: 'textContent'},
+            {field: 'learned_date', selector: 'input[name="date"]', value: 'value'},
+            {field: 'status', selector: '.datastatus', value: 'textContent'},
+            {field: 'rehearsal_days', selector: 'input[name="rehearsals"]', value: 'value'},
+            {field: 'last_rehearsals', selector: '[name="lastrehearsal"]', value: 'value'}
+        ];
+        const params = Utils.populatefromform(Data.template.tunebook, this.element, inputselectors);
+        params.tunes_id = this.tuneid;
+        params.user_id = Data.user.id;
+
         try {
             const result = await apis.Xanoapi.addtotunebook(params);
             if (result) {
                 this.remove();
+                new Mynotification('success', `Se ha añadido el tema a tu tunebook.`);
                 Controller.screens.Tunebook.tunebook.push(result);
                 Controller.updatetunebook(Controller.screens.Tunebook.tunebook);
                 Controller.screens.Tunebook.rendertunes();

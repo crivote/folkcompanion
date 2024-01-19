@@ -30,6 +30,17 @@ export class Utils {
         return result;
     }
 
+    static populatefromform(template, el, inputarray){
+        const filledtemplate = { ...template };
+        inputarray.forEach(param => {
+            const field = el.querySelector(param.selector);
+            if (field && field[param.value] && Object.hasOwn(filledtemplate, param.field)) {
+                filledtemplate[param.field] = field[param.value]
+            }
+        });
+        return filledtemplate;
+    }
+
     // devuelve versión del nombre para ordenar (sin articulos al inicio)
     static titleforsort(title) {
         title = title.toLowerCase();
@@ -97,7 +108,7 @@ export class Data {
             "learned_date": null,
             "status": "Pendiente",
             "rehearsal_days": 0,
-            "last_rehearsals": null,
+            "last_rehearsals": [],
             "statusnum": 0
         },
         set: {

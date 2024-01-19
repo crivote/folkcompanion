@@ -1,6 +1,6 @@
 import { Component } from "../abstract.js";
 import { Controller, Data, ABCplayer } from "../startup.js";
-import { Tuneaddtobook } from "./tunebook_addnew.js";
+import { Tuneaddtobook } from "./tunebook_newtune.js";
 
 export class Tunesearchresult extends Component {
 

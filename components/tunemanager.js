@@ -1,7 +1,7 @@
 import { Component } from "../abstract.js";
 import { Controller, Data } from "../startup.js";
-import { Tuneformanager } from "./tuneformanager.js";
-import { Tunemanagersearch } from "./tunemanagersearch.js";
+import { Tuneformanager } from "./tunemanager_tune.js";
+import { Tunemanagersearch } from "./tunemanager_search.js";
 import * as apis from '../apis.js';
 
 export class Tunemanager extends Component {
