@@ -32,6 +32,7 @@ export class Tunesearch extends Component {
                 <p class="info mt-6 mb-2"></p>
                 <div class="sugestion hidden">
                     <input type="text" class="titlesugestion" size="40" placeholder="escriba el título del tune que desea">
+                    <button class="sendsugestion bg-blue-600 text-white p-2 rounded-md uppercase">enviar</button>
                 </div>
                 <ul class="results bg-slate-500 text-slate-50 p-2"></ul>
           </div>
@@ -78,7 +79,7 @@ export class Tunesearch extends Component {
 
     eliminate() {
         this.element.classList.remove('animate__slideInLeft');
-        this.element.classList.add('animate__slideOutRight');
+        this.element.classList.add('animate__slideOutLeft');
         this.element.addEventListener('animationend', () => {
             this.remove();
         });
