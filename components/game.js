@@ -48,8 +48,8 @@ export class Game extends Component {
                 <i class=" m-auto fa fa-circle-play fa-5x"></i>
                 </div>
             </div>
-            <ul class="options w-1/2 m-auto border border-slate-200 rounded-md bg-white p-8 shadow-md">
-            ${quizdata.names.map(option => `<li class="text-lg p-2 text-center rounded-lg font-medium bg-slate-100 hover:bg-slate-200 cursor-pointer" data-value="${option.id}">${option.name}</li>`).join('')}
+            <ul class="options divide-y w-1/2 m-auto border border-slate-200 rounded-md bg-white p-8 shadow-md">
+            ${quizdata.names.map(option => `<li class="text-lg p-4 text-center font-medium bg-slate-100 hover:bg-slate-200 cursor-pointer" data-value="${option.id}">${option.name}</li>`).join('')}
             </ul>
         </div>`;
         this.element.querySelector('.playabc')
@@ -88,7 +88,7 @@ export class Game extends Component {
 
     checkanswer(event) {
         ABCplayer.stopabc();
-        event.currentTarget.classList.add('bg-slate-700 text-white font-bold');
+        event.currentTarget.classList.add('bg-slate-700', 'text-white', 'font-bold');
         const answer = event.currentTarget.dataset.value;
         if (answer == this.rightanswer.id) {
             this.points = this.points + 100;
