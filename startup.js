@@ -269,7 +269,7 @@ export class Controller {
 
 };
 
-class ABCplayer {
+export class ABCplayer {
 
     static playabc(abc) {
         if (abcjs.synth.supportsAudio()) {
