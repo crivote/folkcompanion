@@ -1,6 +1,6 @@
 import { Component } from "../abstract.js";
 import { Mynotification } from "./notification.js";
-import { Controller, Utils, Data } from "../startup.js";
+import { Controller, Utils, Data, ABCplayer } from "../startup.js";
 import * as apis from "../apis.js";
 import { Tuneedit } from "./tuneedit.js";
 
@@ -27,7 +27,7 @@ export class Tune extends Component {
             .addEventListener('click', this.viewdetails.bind(this));
         if (this.data.tuneref.ABCsample) {
             this.element.querySelector('.playabc')
-                .addEventListener('click', this.playabc.bind(this));
+                .addEventListener('click', ABCplayer.manageabc);
         }
     }
 

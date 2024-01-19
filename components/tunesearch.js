@@ -1,5 +1,5 @@
 import { Component } from "../abstract.js";
-import { Controller, Data } from "../startup.js";
+import { Controller, Data, ABCplayer } from "../startup.js";
 import * as apis from "../apis.js";
 import { Tuneaddtobook } from "./tuneaddtobook.js";
 
@@ -26,6 +26,17 @@ export class Tunesearch extends Component {
         </div>`;
     }
 
+    addListenersresult() {
+        this.results.querySelectorAll('li')
+            .forEach(
+                el => el.addEventListener('click', this.showmodaltune.bind(this))
+            );
+        this.results.querySelectorAll('.player')
+            .forEach(
+                el => el.addEventListener('click', ABCplayer.manageabc)
+            );
+    }
+
     generateresults(items) {
         this.results.innerHTML = '';
         items.forEach(item => {
@@ -37,35 +48,12 @@ export class Tunesearch extends Component {
                 <span class="ml-auto text-xs uppercase">${item?.Tradition ? item.Tradition.join(' · ') : ''}</span>
                 </li>`);
         });
-        this.results.querySelectorAll('li')
-            .forEach(
-                el => el.addEventListener('click', this.showmodaltune.bind(this))
-            );
-        this.results.querySelectorAll('.player')
-            .forEach(
-                el => el.addEventListener('click', this.playabc.bind(this))
-            );
+        addListenersresult();
     }
 
     showmodaltune(event) {
         const id = event.currentTarget.dataset.id;
         Controller.Tuneaddtobook = new Tuneaddtobook('addtunetobook', Controller.htmlelement, id);
-    }
-
-    playabc(event) {
-        event.stopPropagation();
-        const el = event.currentTarget;
-        if (el.dataset.state == "playing") {
-            el.dataset.state = "stop";
-            Controller.stopabc();
-            el.querySelector('i').classList.remove('fa-circle-stop');
-            el.querySelector('i').classList.add('fa-play-circle');
-        } else {
-            el.dataset.state = "playing";
-            this.abcplayer = Controller.playabc(el.dataset.abc);
-            el.querySelector('i').classList.remove('fa-play-circle');
-            el.querySelector('i').classList.add('fa-circle-stop');
-        }
     }
 
     addListeners() {
