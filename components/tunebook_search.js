@@ -71,7 +71,7 @@ export class Tunesearch extends Component {
 
     eliminate() {
         this.element.classList.remove('animate__slideInLeft');
-        this.element.classList.add('animate__slideInRight');
+        this.element.classList.add('animate__slideOutRight');
         this.element.addEventListener('animationend', () => {
             this.remove();
         });

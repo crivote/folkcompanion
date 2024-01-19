@@ -1,6 +1,7 @@
 import { Component } from "../abstract.js";
 import { Controller, Data, ABCplayer } from "../startup.js";
 import { Tuneaddtobook } from "./tunebook_addnew.js";
+import { Tunebook } from "./tunebook.js";
 
 export class Tunesearchresult extends Component {
 
@@ -24,12 +25,13 @@ export class Tunesearchresult extends Component {
 
     addListeners() {
         this.element.addEventListener('click', this.showmodaltune.bind(this));
-        this.element.querySelector('.player').addEventListener('click', ABCplayer.manageabc);
+        if (this.tunedetail?.ABCsample.length > 0) {
+            this.element.querySelector('.player').addEventListener('click', ABCplayer.manageabc);
+        }
     }
 
-    showmodaltune(event) {
-        const id = event.currentTarget.dataset.id;
-        Controller.Tuneaddtobook = new Tuneaddtobook('addtunetobook', Controller.htmlelement, id);
+    showmodaltune() {
+        Tunebook.subelements.push(new Tuneaddtobook('addtunetobook', Controller.htmlelement, this.tunedetail.id));
     }
 
     setup() {
