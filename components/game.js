@@ -48,8 +48,8 @@ export class Game extends Component {
                 <i class=" m-auto fa fa-circle-play fa-5x"></i>
                 </div>
             </div>
-            <ul class="options">
-            ${quizdata.names.map(option => `<li class="text-lg p-2 bg-slate-100 hover:bg-slate-200 cursor-pointer" data-value="${option.id}">${option.name}</li>`)}
+            <ul class="options w-1/2 m-auto border border-slate-200 rounded-md bg-white p-8 shadow-md">
+            ${quizdata.names.map(option => `<li class="text-lg p-2 rounded-lg font-medium bg-slate-100 hover:bg-slate-200 cursor-pointer" data-value="${option.id}">${option.name}</li>`)}
             </ul>
             <div class="animate__animate message hidden absolute top-10 text-lg text-white"></div>
         </div>`;
@@ -93,9 +93,9 @@ export class Game extends Component {
         const el = this.gamezone.querySelector('.message');
         el.textContent = text;
         if (state == 'right') {
-            el.classList.add('bg-green-700, animate__bounceIn');
+            el.classList.add('bg-green-700', 'animate__bounceIn');
         } else {
-            el.classList.add('bg-red-600, animate__wobble');
+            el.classList.add('bg-red-600', 'animate__wobble');
         }
         el.classList.remove('hidden');
         el.addEventListener('click', this.nextturn.bind(this));
