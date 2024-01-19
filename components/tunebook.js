@@ -61,7 +61,7 @@ export class Tunebook extends Component {
     generatehtml() {
         return `<section id="${this.name}">
         <header class="p-6">
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
                 <h3 class="text-3xl">Mi repertorio</h3>
                 <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 uppercase text-slate-200 rounded-lg text-md">
                 ${Data.tunebook.length} temas</span></h3>
