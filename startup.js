@@ -267,6 +267,10 @@ export class Controller {
         else return '';
     }
 
+};
+
+class ABCplayer {
+
     static playabc(abc) {
         if (abcjs.synth.supportsAudio()) {
             const visualObj = abcjs.renderAbc("*", abc)[0];
@@ -298,4 +302,19 @@ export class Controller {
         }
     }
 
-};
+    static manageabc(event) {
+        event.stopPropagation();
+        const el = event.currentTarget;
+        if (el.dataset.state == "playing") {
+            el.dataset.state = "stop";
+            ABCplayer.stopabc();
+            el.querySelector('i').classList.remove('fa-circle-stop');
+            el.querySelector('i').classList.add('fa-play-circle');
+        } else {
+            el.dataset.state = "playing";
+            ABCplayer.playabc(el.dataset.abc);
+            el.querySelector('i').classList.remove('fa-play-circle');
+            el.querySelector('i').classList.add('fa-circle-stop');
+        }
+    }
+}

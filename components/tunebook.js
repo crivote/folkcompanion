@@ -1,18 +1,18 @@
 import { Component } from "../abstract.js";
 import { Controller, Data } from "../startup.js";
-import { Tunesearch } from "./tunesearch.js";
-import { Tune } from "./tune.js";
+import { Tunesearch } from "./tunebook_search.js";
+import { Tune } from "./tunebook_tune.js";
 
 export class Tunebook extends Component {
     filtered = [];
 
     // instancias en DOM de las card tunes
     items = [];
-
     typeslist = [];
     statuslist = [];
     contentzone = null;
     format = 'card';
+    subelements = [];
 
     constructor(name, parentel) {
         super(name, parentel);
@@ -127,6 +127,6 @@ export class Tunebook extends Component {
     }
 
     launchsearch() {
-        Controller.tunesearch = new Tunesearch('tunesearch', this.element);
+        this.subelements.push(new Tunesearch('tunesearch', this.element));
     }
 }
