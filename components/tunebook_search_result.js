@@ -17,13 +17,13 @@ export class Tunesearchresult extends Component {
         ${this.tunedetail?.ABCsample ? `<span data-state="stop" data-abc="${this.tunedetail.ABCsample}" class="player rounded-full bg-black p-1 w-8 h-8 flex"><i class="fa fa-play-circle fa-lg m-auto"></i></span>` : ''}
         <span class="font-bold">${this.tunedetail.main_name}</span>
         <em class="text-xs text-slate-300">${this.tunedetail.Type}</em>
-        <span class="ml-auto text-xs uppercase">${this.tunedetail?.Tradition ? this.tunedetail.Tradition.join(' · ') : ''}</span>
-        <span class="ml-auto"><i class="fa fa-star mr-1">${this.tunedetail.popularity}</span>
+        <span class="text-xs uppercase">${this.tunedetail?.Tradition ? this.tunedetail.Tradition.join(' · ') : ''}</span>
+        <span class="ml-auto"><i class="fa fa-star mr-1"></i>${this.tunedetail.popularity}</span>
         </li>`;
     }
 
     addListeners() {
-        this.element.querySelector('li').addEventListener('click', this.showmodaltune.bind(this));
+        this.element.addEventListener('click', this.showmodaltune.bind(this));
         this.element.querySelector('.player').addEventListener('click', ABCplayer.manageabc);
     }
 
