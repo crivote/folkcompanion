@@ -20,7 +20,7 @@ export class Game extends Component {
     async setup() {
         this.turns = 0;
         this.points = 0;
-        this.drawbase = Data.tunes.filter(tune => tune?.ABCsample.length > 0);
+        this.drawbase = Data.tunes.filter(tune => tune.ABCsample && tune.ABCsample.length > 0);
 
         // generate HTML
         this.attachAt(this.generatehtml(), false);
