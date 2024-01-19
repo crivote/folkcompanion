@@ -32,7 +32,7 @@ export class Game extends Component {
         const maxnumber = this.drawbase.length;
         const drawing = [];
         let randomnumber, drawedtune;
-        for(let i = 1; i < 5 ; i++) {
+        for(let i = 1; i < 6 ; i++) {
             randomnumber = Math.floor(Math.random() * (maxnumber + 1));
             drawedtune = { ...this.drawbase[randomnumber]};
             drawing.push(drawedtune);
@@ -49,7 +49,7 @@ export class Game extends Component {
                 </div>
             </div>
             <ul class="options w-1/2 m-auto border border-slate-200 rounded-md bg-white p-8 shadow-md">
-            ${quizdata.names.map(option => `<li class="text-lg p-2 rounded-lg font-medium bg-slate-100 hover:bg-slate-200 cursor-pointer" data-value="${option.id}">${option.name}</li>`)}
+            ${quizdata.names.forEach(option => `<li class="text-lg p-2 text-center rounded-lg font-medium bg-slate-100 hover:bg-slate-200 cursor-pointer" data-value="${option.id}">${option.name}</li>`)}
             </ul>
         </div>`;
         this.element.querySelector('.playabc')
@@ -87,6 +87,8 @@ export class Game extends Component {
     }
 
     checkanswer(event) {
+        ABCplayer.stopabc();
+        event.currentTarget.classList.add('bg-slate-700 text-white font-bold');
         const answer = event.currentTarget.dataset.value;
         if (answer == this.rightanswer.id) {
             this.points = this.points + 100;
@@ -97,7 +99,7 @@ export class Game extends Component {
     }
 
     showresult(state, text) {
-        const htmlcontent = `<div class="animate__animate ${state == 'right' ? 'bg-green-700 animate__bounceIn' : 'bg-red-600 animate__wobble'} message shadow-xl absolute top-64 p-12 rounded-lg text-3xl text-white left-1/3 right-1/3 text-center">${text}</div>`;
+        const htmlcontent = `<div class="animate__animate ${state == 'right' ? 'bg-green-700 animate__bounceIn' : 'bg-red-600 animate__backInDown'} message shadow-xl absolute top-64 p-12 rounded-lg text-3xl text-white left-1/3 right-1/3 text-center">${text}</div>`;
         this.gamezone.insertAdjacentHTML("beforeend", htmlcontent);
         this.gamezone.querySelector('.message').addEventListener('click', this.nextturn.bind(this));
     }
