@@ -34,9 +34,9 @@ export class Tuneaddtobook extends Component {
                             <p>${this.tune?.Tradition ? this.tune.Tradition.join(' · ') : ''}</p>
                         </div>
                     </div>
-                    ${Controller.generateformfield('titulo', 'titulo favorito', this.tune.main_name, this.tune.other_names)}
-                    ${Controller.generateformfield('tonalidad', 'tonalidad preferida', this.tune.tunekeys[0], this.tune.tunekeys)}
-                    ${Controller.generateformfield('status', 'status de ejecución', Controller.statusoptions[0], Controller.statusoptions)}
+                    ${Utils.generateformfield('titulo', 'titulo favorito', this.tune.main_name, this.tune.other_names)}
+                    ${Utils.generateformfield('tonalidad', 'tonalidad preferida', this.tune.tunekeys[0], this.tune.tunekeys)}
+                    ${Utils.generateformfield('status', 'status de ejecución', Data.status[0].label, Data.status.map(sta => sta.label))}
                     <div class="flex items-center justify-center border-b border-slate-200 h-0 my-6">
                         <span class="shownext text-blue-500 border-4 border-white"><i class="fa fa-plus-circle fa-lg"></i></span>
                     </div>
