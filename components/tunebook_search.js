@@ -37,7 +37,7 @@ export class Tunesearch extends Component {
 
     addListeners() {
         this.element.querySelector('#tunesearch').addEventListener('input', this.search.bind(this));
-        this.element.querySelector('#closetunesearch').addEventListener('click', this.remove.bind(this));
+        this.element.querySelector('#closetunesearch').addEventListener('click', this.eliminate.bind(this));
     }
 
     search(event) {
@@ -67,6 +67,14 @@ export class Tunesearch extends Component {
             return new Tunesearchresult('tune' + item.id, this.resultszone, item.id);
         });
 
+    }
+
+    eliminate() {
+        this.element.classList.remove('animate__slideInLeft');
+        this.element.classList.add('animate__slideInRight');
+        this.element.addEventListener('animationend', () => {
+            this.remove();
+        });
     }
 
 }
