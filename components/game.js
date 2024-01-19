@@ -6,6 +6,7 @@ export class Game extends Component {
     turns;
     drawbase;
     rightanswer;
+    tiempo;
 
     constructor(name, parentel) {
         super(name, parentel);
@@ -53,10 +54,15 @@ export class Game extends Component {
             </ul>
         </div>`;
         this.element.querySelector('.playabc')
-            .addEventListener('click', ABCplayer.manageabc);
+            .addEventListener('click', this.lanzatiempo.bind(this);
         this.element.querySelectorAll('.options li').forEach(el => {
            el.addEventListener('click', this.checkanswer.bind(this));
         });
+    }
+
+    lanzatiempo(event) {
+        this.tiempo = new Date();
+        ABCplayer.manageabc(event.currentTarget);
     }
 
     startgame() {
@@ -73,7 +79,6 @@ export class Game extends Component {
     }
 
     nextturn() {
-        this.turns++;
         this.element.querySelector('.turns').textContent = this.turns + ' intentos';
         this.element.querySelector('.points').textContent = this.points + ' puntos';
         const quizitems = this.drawnewtune();
@@ -87,11 +92,15 @@ export class Game extends Component {
     }
 
     checkanswer(event) {
+        this.turns++;
+        const tiempoahora = new Date();
+        const tiemporespuesta = tiempoahora - this.tiempo;
+        const maxscore = 2000;
         ABCplayer.stopabc();
         event.currentTarget.classList.add('bg-slate-700', 'text-white', 'font-bold');
         const answer = event.currentTarget.dataset.value;
         if (answer == this.rightanswer.id) {
-            this.points = this.points + 100;
+            this.points += Math.max(maxscore - tiemporespuesta / 100, 0);
             this.showresult('right', 'respuesta correcta');
         } else {
             this.showresult('wrong', 'La respuesta correcta es <strong>'+this.rightanswer.main_name+'</strong>');
