@@ -54,7 +54,7 @@ export class Game extends Component {
             </ul>
         </div>`;
         this.element.querySelector('.playabc')
-            .addEventListener('click', this.lanzatiempo.bind(this);
+            .addEventListener('click', this.lanzatiempo.bind(this));
         this.element.querySelectorAll('.options li').forEach(el => {
            el.addEventListener('click', this.checkanswer.bind(this));
         });
@@ -108,7 +108,7 @@ export class Game extends Component {
     }
 
     showresult(state, text) {
-        const htmlcontent = `<div class="animate__animate ${state == 'right' ? 'bg-green-700 animate__bounceIn' : 'bg-red-600 animate__backInDown'} message shadow-xl absolute top-64 p-12 rounded-lg text-3xl text-white left-1/3 right-1/3 text-center">${text}</div>`;
+        const htmlcontent = `<div class="animate__animate ${state == 'right' ? 'animate__bounceIn bg-green-700' : 'animate__backInDown bg-red-600'} message shadow-xl absolute top-64 p-12 rounded-lg text-3xl text-white left-1/3 right-1/3 text-center">${text}</div>`;
         this.gamezone.insertAdjacentHTML("beforeend", htmlcontent);
         this.gamezone.querySelector('.message').addEventListener('click', this.nextturn.bind(this));
     }
