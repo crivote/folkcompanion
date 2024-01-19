@@ -68,6 +68,8 @@ export class Game extends Component {
 
     nextturn() {
         this.turns++;
+        this.element.querySelector('.turns').textContent = this.turns;
+        this.element.querySelector('.points').textContent = this.points;
         const quizitems = this.drawnewtune();
         this.rightanswer = quizitems[0];
         const quizdata = {
@@ -106,7 +108,7 @@ export class Game extends Component {
                 <h3 class="text-3xl">Juego</h3>
                     <span class="turns bg-slate-400 text-sm px-2 py-1 uppercase text-slate-200 rounded-lg text-md">
                     ${this.turns} Intentos</span> 
-                    <span class="turns bg-slate-400 text-sm px-2 py-1 uppercase text-slate-200 rounded-lg text-md">
+                    <span class="points bg-slate-400 text-sm px-2 py-1 uppercase text-slate-200 rounded-lg text-md">
                     ${this.points} Puntos</span> 
                 </h3>
             </div>
