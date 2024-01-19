@@ -13,11 +13,11 @@ export class Tunesearchresult extends Component {
     }
 
     generatehtml() {
-        return `<li class="flex items-baseline px-4 py-3 border-y border-slate-400" data-id="${tunedetail.id}">
-        ${tunedetail?.ABCsample ? `<span data-state="stop" data-abc="${tunedetail.ABCsample}" class="player rounded-full bg-black"><i class="fa fa-play-circle fa-lg mr-2"></i></span>` : ''}
-        <span class="font-bold">${tunedetail.main_name}</span>
-        <em class="ml-2 text-xs text-slate-300">${tunedetail.Type}</em>
-        <span class="ml-auto text-xs uppercase">${tunedetail?.Tradition ? tunedetail.Tradition.join(' · ') : ''}</span>
+        return `<li class="flex items-baseline px-4 py-3 border-y border-slate-400" data-id="${this.tunedetail.id}">
+        ${this.tunedetail?.ABCsample ? `<span data-state="stop" data-abc="${this.tunedetail.ABCsample}" class="player rounded-full bg-black"><i class="fa fa-play-circle fa-lg mr-2"></i></span>` : ''}
+        <span class="font-bold">${this.tunedetail.main_name}</span>
+        <em class="ml-2 text-xs text-slate-300">${this.tunedetail.Type}</em>
+        <span class="ml-auto text-xs uppercase">${this.tunedetail?.Tradition ? this.tunedetail.Tradition.join(' · ') : ''}</span>
         </li>`;
     }
 
