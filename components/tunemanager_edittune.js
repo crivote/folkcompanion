@@ -1,7 +1,6 @@
 import { Component } from "../abstract.js";
 import { Controller, Utils } from "../startup.js";
 import * as apis from "../apis.js";
-import { Videoaddtotune } from "./videos_addvideo.js";
 
 export class Tunemanageredit extends Component {
     data;
@@ -146,7 +145,6 @@ export class Tunemanageredit extends Component {
         <ul>${comments.join('')}</ul>
         </details>
         
-        <button class="openvideomodal px-4 py-3 rounded-md bg-orange-500 text-white text-md font-bold uppercase mx-4">añadir videos</button>
         `;
         
     }
@@ -170,11 +168,6 @@ export class Tunemanageredit extends Component {
         this.Thesessionzone.querySelectorAll('.addtoform').forEach(el => {
             el.addEventListener('click', this.savefromsessiontoform.bind(this));
         });
-        this.Thesessionzone.querySelector('.openvideomodal').addEventListener('click', this.openvideomodal.bind(this));
-    }
-
-    openvideomodal() {
-        Controller.tuneedit = new Videoaddtotune('videoaddtotune', Controller.htmlelement, this.data, this.videolinks);
     }
 
     savefromsessiontoform(event) {
