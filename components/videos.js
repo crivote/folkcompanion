@@ -67,7 +67,7 @@ export class Videos extends Component {
                 <i class="fa fa-plus-circle fa-2x"></i></span>
             </div>
         </header>
-        <main class="p-6 grid grid-cols-2 lg:grid-cols-3 gap-2"></main>
+        <main class="p-6 grid md:grid-cols-2 xl:grid-cols-3 gap-2"></main>
         </section>`;
     }
 
