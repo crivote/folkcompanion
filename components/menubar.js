@@ -9,6 +9,16 @@ export class Menubar extends Component {
             role: 'admin'
         },
         {
+            tag: 'Gestión videos',
+            name: 'Videos',
+            role: 'admin'
+        },
+        {
+            tag: 'Peticiones',
+            name: 'Suggestions',
+            role: 'admin'
+        },
+        {
             tag: 'Mi repertorio',
             name: 'Tunebook',
             role: 'all'

@@ -73,7 +73,7 @@ export class Tunebook extends Component {
                 </div>
                 <select id="typetune_search"><option value="">Tipo</option><option> ${this.typeslist.join('</option><option>')}</option></select>
                 <select id="statustune_search"><option value="">Status</option><option> ${this.statuslist.join('</option><option>')}</option></select>
-                Filtrar <input type="text" id="tunebook_search">
+                Filtrar <input type="search" id="tunebook_search">
                 <i class="resetfilter fa fa-trash"></i>
             </div>
         </header>

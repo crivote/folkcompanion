@@ -100,7 +100,7 @@ export class Tune extends Component {
         if (result) {
             this.element.querySelector('.numrehearsal').textContent = this.data.rehearsal_days;
             this.element.querySelector('.lastrehearsal').textContent = `hace ${Utils.calctimesince(this.data.last_rehearsals[0])} días`;
-            new Mynotification('success', `añadido nuevo ensayo.`);
+            new Mynotification('success', `añadido nuevo ensayo de ${this.data.Prefered_name}.`);
         } else {
             this.data = backup;
             new Mynotification('error', `error al guardar el ensayo.`);

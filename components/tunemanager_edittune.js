@@ -1,7 +1,7 @@
 import { Component } from "../abstract.js";
 import { Controller, Utils } from "../startup.js";
 import * as apis from "../apis.js";
-import { Videoaddtotune } from "./videoaddtotune.js";
+import { Videoaddtotune } from "./videos_addvideo.js";
 
 export class Tunemanageredit extends Component {
     data;

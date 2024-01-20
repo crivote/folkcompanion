@@ -44,11 +44,7 @@ export class Xanoapi{
             Xanoapi.#url+'tunes/'+id,
             Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return result.data;
-        } else {
-            return false;
-        }
+        return result.status == 200 ? result.data : false;
     }
 
     static async getalltunes() {
@@ -56,23 +52,7 @@ export class Xanoapi{
             Xanoapi.#url+'tunes',
             Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return result.data;
-        } else {
-            return false;
-        }
-    }
-
-    static async getalltunessearch() {
-        const result= await axios.get(
-            Xanoapi.#url+'reducedtunes',
-            Xanoapi.returnheader()
-        );
-        if (result.status == 200) {
-            return result.data;
-        } else {
-            return false;
-        }
+        return result.status == 200 ? result.data : false;
     }
 
     static async gettunebook() {
@@ -80,11 +60,7 @@ export class Xanoapi{
             Xanoapi.#url+'tunebook',
             Xanoapi.returnheader()
         );
-        if (result.status == 200) {
-            return result.data;
-        } else {
-            return false;
-        }
+        return result.status == 200 ? result.data : false;
     }
 
     static async addtotunes(tune) {
@@ -148,6 +124,23 @@ export class Xanoapi{
         return result.status == 200 ? result.data : false;
     }
 
+    static async getallvideos() {
+        const result= await axios.get(
+            Xanoapi.#url+'videos',
+            Xanoapi.returnheader()
+        );
+        return result.status == 200 ? result.data : false;
+    }
+
+    static async editvideo(id, video) {
+        const result= await axios.patch(
+            Xanoapi.#url+'videos/'+id,
+            video,
+            Xanoapi.returnheader()
+        );
+        return result.status == 200 ? result.data : false;
+    }
+
     static async getsecrets() {
         const result= await axios.get(
             Xanoapi.#url+'secrets',
@@ -156,6 +149,57 @@ export class Xanoapi{
         return result.status == 200 ? result.data : false;
     }
 
+    static async addsuggestion(suggestion) {
+        const result = await axios.post(
+            Xanoapi.#url+'suggestions',
+            suggestion,
+            Xanoapi.returnheader()
+        );
+        return result.status == 200 ? result.data : false;
+    }
+
+    static async getallsuggestions() {
+        const result = await axios.get(
+            Xanoapi.#url+'suggestions',
+            Xanoapi.returnheader()
+        );
+        return result.status == 200 ? result.data : false;
+    }
+
+    static async editsuggestion(id, suggestion) {
+        const result= await axios.patch(
+            Xanoapi.#url+'suggestions/'+id,
+            suggestion,
+            Xanoapi.returnheader()
+        );
+        return result.status == 200 ? result.data : false;
+    }
+
+    static async getsetbook() {
+        const result = await axios.get(
+            Xanoapi.#url+'sets',
+            Xanoapi.returnheader()
+        );
+        return result.status == 200 ? result.data : false;
+    }
+
+    static async addtosetbook(set) {
+        const result= await axios.post(
+            Xanoapi.#url+'sets',
+            set,
+            Xanoapi.returnheader()
+        );
+        return result.status == 200 ? result.data : false;
+    }
+
+    static async editsetbookset(id, set) {
+        const result= await axios.patch(
+            Xanoapi.#url+'sets/'+id,
+            tune,
+            Xanoapi.returnheader()
+        );
+        return result.status == 200 ? result.data : false;
+    }
 }
 
 // Thesession class

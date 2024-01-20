@@ -2,7 +2,7 @@ import { Component } from "../abstract.js";
 import { Controller } from "../startup.js";
 import * as apis from "../apis.js";
 
-export class Videoaddtotune extends Component {
+export class Videoadd extends Component {
     data = {};
     videolist = [];
     videozone;

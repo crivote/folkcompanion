@@ -85,11 +85,33 @@ export class Utils {
 
     static videoembed(key) {
         return `
-        <div class="max-w-3xl mx-auto">
         <div class="aspect-w-16 aspect-h-9">
         <iframe class="w-full h-full" src="https://www.youtube.com/embed/${key}" 
         title="" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"  allowFullScreen>
-        </iframe></div></div`;
+        </iframe></div>`;
+    }
+
+    static generateformfield(name, label, value, select) {
+        return `
+        <div class="flex border-2 p-4 border-slate-100 bg-slate-50 rounded-md mb-4">
+            <div>
+                <label class="uppercase text-slate-400 text-sm">${label}</label>
+                <h4 class="data${name} font-semibold text-slate-600 text-xl">${value}</h4>
+            </div>
+            ${ select ? this.generateselect(select, "data"+name) : ''}
+        </div>`;
+    }
+
+    static generateselect(data, name) {
+        if (Array.isArray(data) && data.length>1){
+            return `<div class="ml-auto">
+                <div class="edit-toggle"><i class="fa fa-edit fa-lg"></i></div>
+                <select data-element="${name}" class="edit-select hidden mt-2 text-sm font-semibold border-0 text-blue-400 bg-blue-200 rounded-md uppercase" name="status">
+                    <option>${data.join('</option><option>')}</option>
+                </select>
+            </div>`;
+        }
+        else return '';
     }
 
 }
@@ -99,23 +121,28 @@ export class Data {
     //tunebook template
     static template = {
         tunebook:  {
-            "tunes_id": 0,
-            "user_id": 0,
-            "custom_type": "",
-            "preferred_img_url": null,
-            "Prefered_name": "",
-            "Preferred_tone": null,
-            "learned_date": null,
-            "status": "Pendiente",
-            "rehearsal_days": 0,
-            "last_rehearsals": [],
-            "statusnum": 0
+            user_id: 0,
+            custom_type: '',
+            preferred_img_url: '',
+            Prefered_name: '',
+            Preferred_tone: '',
+            learned_date: '',
+            status: '',
+            rehearsal_days: 0,
+            last_rehearsals: [],
+            statusnum: 0
         },
         set: {
-            "user_id": 0,
-            "tunes": [],
-            "title": "",
-            "notes": ""
+            user_id: 0,
+            tunes: [],
+            title: '',
+            notes: ''
+        }, 
+        suggestion: {
+            type_of_suggestion: '',
+            user_id: 0,
+            content: '',
+            status: ''
         }
     };
 
@@ -127,6 +154,12 @@ export class Data {
 
     // tunes in user tunebook
     static tunebook;
+
+    // sets in user setbook
+    static setbook;
+
+    // all videos from back
+    static videos;
 
     // some pics to add
     static genericpics;
@@ -226,7 +259,7 @@ export class Controller {
             });
             new components.Mynotification('success', `cargados ${Data.tunes.length} temas.`);
         }
-        Data.tunebook = await await apis.Xanoapi.gettunebook();
+        Data.tunebook = await apis.Xanoapi.gettunebook();
         if (Data.tunebook && Data.tunebook.length>0) {
             // add info from tunes to tunebook
             Data.tunebook.forEach(item => {
@@ -234,48 +267,13 @@ export class Controller {
             })
             new components.Mynotification('success', `cargados ${Data.tunebook.length} temas de tu repertorio.`);
         }
+
+        Data.setbook = await apis.Xanoapi.getsetbook();
+        if (Data.setbook && Data.setbook.length>0) {
+            new components.Mynotification('success', `cargados ${Data.setbook.length} sets de tu repertorio.`);
+        }
+
         Controller.getinstance('Menubar');
-    }
-
-    static async loadtunebook() {
-        const tunebook = sessionStorage.getItem('tunebook');
-        let result ="";
-        if (tunebook) { 
-            result = JSON.parse(tunebook);
-        }
-        else {
-            result = await apis.Xanoapi.gettunebook();
-            Controller.updatetunebook(result);
-        }
-        return result;
-    }
-
-    static updatetunebook(tunebook) {
-        sessionStorage.setItem('tunebook', JSON.stringify(tunebook));
-    }
-
-
-    static generateformfield(name, label, value, select) {
-        return `
-        <div class="flex border-2 p-4 border-slate-100 bg-slate-50 rounded-md mb-4">
-            <div>
-                <label class="uppercase text-slate-400 text-sm">${label}</label>
-                <h4 class="data${name} font-semibold text-slate-600 text-xl">${value}</h4>
-            </div>
-            ${ select ? this.generateselect(select, "data"+name) : ''}
-        </div>`;
-    }
-
-    static generateselect(data, name) {
-        if (Array.isArray(data) && data.length>1){
-            return `<div class="ml-auto">
-                <div class="edit-toggle"><i class="fa fa-edit fa-lg"></i></div>
-                <select data-element="${name}" class="edit-select hidden mt-2 text-sm font-semibold border-0 text-blue-400 bg-blue-200 rounded-md uppercase" name="status">
-                    <option>${data.join('</option><option>')}</option>
-                </select>
-            </div>`;
-        }
-        else return '';
     }
 
 };
