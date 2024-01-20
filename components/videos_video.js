@@ -33,16 +33,16 @@ export class Video extends Component {
 
     generatehtml() {
         console.log(this.data);
-        return `<div id="video${this.data.id}" class="videolist w-full bg-white border-b-2 border-slate200 rounded-md flex items-center">
-            <div class="mythumbvideo w-auto h-full min-w-72 min-h-48 bg-cover bg-center bg-[url('${this.data.thumb_url}')]">
+        return `<div id="video${this.data.id}" class="videolist w-full bg-white border-b-2 border-slate200 rounded-md flex items-center border border-slate-300">
+            <div class="mythumbvideo w-auto h-full min-w-96 min-h-48 bg-cover bg-center bg-[url('${this.data.thumb_url}')]">
                 <div class="hidden w-full">
                 ${Utils.videoembed(this.data.url)}
                 </div>
             </div>
             <div class="p-6 flex">
                 <div>
-                    <h2 class="title text-xl font-semibold">${this.data.Title}</h2>
-                    <p class="otherdata text-slate-600 font-semibold">${this.data.type}  ${this.data.Performer}</p>
+                    <h2 class="title text-lg font-semibold">${this.data.Title}</h2>
+                    <p class="otherdata text-slate-600 text-sm"><span class="bg-slate-100 text-slate-500 font-light uppercase text-xs p-2 rounded-lg">${this.data.type}</span>  ${this.data.Performer}</p>
                 </div>
                 <div class="flex gap-1 ml-auto items-center">
                     <span class="numrehearsal bg-slate-100 text-white p-2 rounded-lg">${this.data?.tunes ? `<i class="fa fa-circle-check text-green-600"></i>` : `<i class="fa fa-times-circle text-red-600"></i>`}</span>
