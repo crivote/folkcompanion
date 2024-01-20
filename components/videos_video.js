@@ -34,7 +34,7 @@ export class Video extends Component {
     generatehtml() {
         console.log(this.data);
         return `<div id="video${this.data.id}" class="videolist w-full bg-white border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-2">
-            <div class="thumbvideo w-64 h-auto bg-cover bg-center" bg-[url(${this.data.thumb_url}')]">
+            <div class="thumbvideo w-64 h-auto bg-cover bg-center bg-[url('${this.data.thumb_url}')]">
                 <div class="hidden w-full">
                 ${Utils.videoembed(this.url)}
                 </div>
