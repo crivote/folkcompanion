@@ -29,7 +29,9 @@ export class Videos extends Component {
                 // add info from tunes to tunebook
                 Data.videos.forEach(video => {
                     const mytunes = Data.tunes.filter(tune => tune?.media_links 
-                        && tune.media_links.some(link => link.videos_id == video.id) );
+                        && tune.media_links.length > 0
+                        && tune.media_links[0] != null                        
+                        && tune.media_links.some(link => link?.videos_id == video.id) );
                     if (mytunes) {
                         video.tunes = mytunes.map(tune => tune.id);
                     }
