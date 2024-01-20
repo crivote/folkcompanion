@@ -27,8 +27,9 @@ export class Video extends Component {
             .addEventListener('click', this.deletevideo.bind(this));
     }
 
-    generatesubitemtune(idtune) {
-        return ``;
+    gettunedata(idtune) {
+        const tune = Data.tunes.find(tune => tune.id == idtune);
+        return `<li>${tune.main_name} ${tune.Type}</li>`;
     }
 
     generatehtml() {
@@ -49,6 +50,9 @@ export class Video extends Component {
                     <button class="editbutton bg-blue-400 p-1 rounded-md text-white text-bold" title="editar"><i class="fa fa-edit fa-fw fa-lg"></i></button>
                     <button class="deletebutton bg-red-400 p-1 rounded-md text-white text-bold" title="eliminar"><i class="fa fa-trash fa-fw fa-lg"></i></button>
                 </div>
+                <ul class="list-disc">
+                ${this.data.tunes.map(id => this.gettunedata(id)).join('')}
+                </ul>
             </div>
         </div>`;
     }
