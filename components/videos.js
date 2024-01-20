@@ -24,7 +24,7 @@ export class Videos extends Component {
 
     async setup() {
         if (!Data.videos) {
-            Data.videos = await apis.Xanoapi.getvideos();
+            Data.videos = await apis.Xanoapi.getallvideos();
             if (Data.videos && Data.videos.length>0) {
                 // add info from tunes to tunebook
                 Data.videos.forEach(video => {
