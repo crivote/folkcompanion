@@ -3,6 +3,7 @@ import { Mynotification } from "./notification.js";
 import { Data } from "../startup.js";
 import { Video } from './videos_video.js';
 import { Videoadd } from "./videos_addvideo.js";
+import * as apis from "../apis.js";
 
 export class Videos extends Component {
 
