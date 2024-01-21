@@ -6,9 +6,13 @@ export class Videoadd extends Component {
 
     videozone;
     thumbzone;
-    constructor(name, parentel) {
+    videokey; 
+    constructor(name, parentel, videokey='') {
         super(name, parentel);
         this.setup();
+        if (videokey != ''){
+            this.videokey = videokey;
+        }
     }
 
     addListeners() {
@@ -18,7 +22,7 @@ export class Videoadd extends Component {
         this.element.querySelectorAll('.loadvideo').forEach(el => 
             el.addEventListener('change', this.loadvideo.bind(this)));
         // add current video to db
-        this.element.querySelector('form').addEventListener('submit', this.addvideo.bind(this));
+        this.element.querySelector('.sendbutton').addEventListener('click', this.addvideo.bind(this));
         this.element.querySelector('.tuneselector').addEventListener('change', this.processselector.bind(this));
     }
 
@@ -37,48 +41,49 @@ export class Videoadd extends Component {
                 <div class="flex justify-center gap-3">
                     <input class="loadvideo" type="text" placeholder="paste a youtube ID">
                 </div>
-                <section data-key="" class="my-8" id="videocontainer"></section>
-                <form id="videoform">
-                    <div class="flex gap-6 bg-slate-100 border border-slate-300 p-4 justify-center">
-                        <img class="border-4 border-slate-500 rounded-lg w-64 h-full" id="thumbvideo">
-                        <div class="flex flex-col gap-2">
+                <div class="mt-6 flex gap-5">
+                    <section class="w-1/2" id="videocontainer"></section>
+                    <div class="flex flex-col gap-2">
+                        <div>
+                            <label class="uppercase text-slate-400 text-sm mt-4">titulo</label><br>
+                            <input class="w-full" type="text" name="titulo">
+                        </div>
+                        <div>
+                            <label class="uppercase text-slate-400 text-sm mt-4">artista</label><br>
+                            <input class="w-full" type="text" name="artista">
+                        </div>
+                        <div>
+                            <label class="uppercase text-slate-400 text-sm mt-4">Notas</label><br>
+                            <textarea class="w-full" type="text" name="notas"></textarea>
+                        </div>
+                        <div>
+                            <label class="uppercase text-slate-400 text-sm">tipo video</label>
+                            <select name="type">
+                                ${Data.videotypes.map(type => `<option>${type}</option>`).join('')}
+                            </select>
+                        </div>
+
+                        <section class="tunesaddition bg-slate-100 border border-slate-300 p-4">
+
+                        <div id="datatune1" class="flex gap-3 tunecontainer">
                             <div>
-                                <label class="uppercase text-slate-400 text-sm mt-4">titulo</label><br>
-                                <input class="w-full" type="text" name="titulo">
+                                <datalist id="alltunes">
+                                    ${Data.tunes.map(tune => `<option value="${tune.id}">${tune.main_name}</option>`).join('')}
+                                </datalist>
+                                <input list="alltunes" class="tuneselector" name="tune1selector" >
+                                <input class="hidden" type="text" name="tune1final">
                             </div>
                             <div>
-                                <label class="uppercase text-slate-400 text-sm mt-4">artista</label><br>
-                                <input class="w-full" type="text" name="artista">
+                                <label class="uppercase text-slate-400 text-sm mt-4">inicio</label>
+                                <input class="" type="number" name="inicio1">
                             </div>
                             <div>
-                                <label class="uppercase text-slate-400 text-sm mt-4">Notas</label><br>
-                                <textarea class="w-full" type="text" name="notas"></textarea>
+                                <label class="uppercase text-slate-400 text-sm mt-4">final</label>
+                                <input class="" type="number" name="final1">
                             </div>
+                        </div>
+                        <div id="datatune2" class="hidden flex gap-3 tunecontainer">
                             <div>
-                                <label class="uppercase text-slate-400 text-sm">tipo video</label>
-                                <select name="type">
-                                    ${Data.videotypes.map(type => `<option>${type}</option>`).join('')}
-                                </select>
-                            </div>
-                            <div id="datatune1" class="flex gap-3 tunecontainer">
-                                <div>
-                                    <datalist id="alltunes">
-                                        ${Data.tunes.map(tune => `<option value="${tune.id}">${tune.main_name}</option>`).join('')}
-                                    </datalist>
-                                    <input list="alltunes" class="tuneselector" name="tune1selector" >
-                                    <input class="hidden" type="text" name="tune1final">
-                                </div>
-                                <div>
-                                    <label class="uppercase text-slate-400 text-sm mt-4">inicio</label>
-                                    <input class="" type="number" name="inicio1">
-                                </div>
-                                <div>
-                                    <label class="uppercase text-slate-400 text-sm mt-4">final</label>
-                                    <input class="" type="number" name="final1">
-                                </div>
-                            </div>
-                            <div id="datatune2" class="hidden flex gap-3 tunecontainer">
-                                <div>
                                     <input list="alltunes" class="tuneselector" name="tune2selector" >
                                     <input class="hidden" type="text" name="tune2final">
                                 </div>
@@ -120,12 +125,12 @@ export class Videoadd extends Component {
                                 </div>
                             </div>
                         </div>
+                        </section>
                     </div>
 
                     <div class="flex items-center justify-center mt-6">
-                        <button class="px-4 py-3 rounded-md bg-blue-500 text-white text-md font-bold uppercase mr-4" type="submit">añadir video</button>
+                        <button disabled class="sendbutton px-4 py-3 rounded-md bg-blue-500 text-white text-md font-bold uppercase mr-4">añadir video</button>
                     </div>
-                </form>
             <div>
         </div>`;
     }
@@ -134,7 +139,7 @@ export class Videoadd extends Component {
         const el = event.currentTarget;
         if (el.value != "") {
             el.classList.add('hidden');
-            const tunename = Data.tune.find(tune => tune.id == el.value);
+            const tunename = Data.tunes.find(tune => tune.id == el.value);
             el.nextSibling.classList.value = tunename.main_name;
             const next = el.closest('.tunecontainer')?.nextSibling;
             if (next) {
@@ -147,8 +152,8 @@ export class Videoadd extends Component {
         event.preventDefault();
         //TODO: comprobar que el video no ha sido ya añadido antes
         const params = {
-            url: this.videozone.dataset.key,
-            thumb_url: this.thumbzone.src,
+            url: this.videokey,
+            thumb_url: `https://i3.ytimg.com/vi/${this.videokey}/hqdefault.jpg`,
             type: this.element.querySelector('[name="type"]').value,
             Title: this.element.querySelector('[name="titulo"]').value,
             Performer: this.element.querySelector('[name="artista"]').value,
@@ -191,9 +196,9 @@ export class Videoadd extends Component {
 
     loadvideo(event) {
         let key = event.currentTarget.value;
-        this.videozone.dataset.key = key;
+        this.videokey = key;
         this.videozone.innerHTML = Utils.videoembed(key); 
-        this.thumbzone.src = `https://i3.ytimg.com/vi/${key}/hqdefault.jpg`;
+        this.element.querySelector('.sendbutton').disabled = false;
     }
 
 }
