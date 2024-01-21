@@ -46,13 +46,14 @@ export class Tune extends Component {
             <i class=" m-auto fa fa-circle-play fa-5x"></i><span>` : '' }
         </div>
         <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase text-slate-700/75 font-bold bg-${mystatus.color}/75" >${mystatus.label}</span>
-        <div class="absolute right-6 top-4 px-2 py-1 bg-slate-800/50 text-white/90 rounded-lg" title="Nº ensayos">
+        <div class="absolute right-6 top-4 px-2 py-1 bg-blue-800/50 text-white/90 rounded-lg" title="Tonalidad">
             <i class="fas fa-stopwatch"></i>
-            <span class="numrehearsal ml-1">${this.data.rehearsal_days}</span>
+            <span class="numrehearsal ml-1">${this.data.Preferred_tone}</span>
         </div>
         <h6 class="text-center text-sm text-slate-800/75 p-1 uppercase -mt-10 bg-white/75 rounded-lg">
             <i class="fas fa-calendar"></i> 
             <span class="lastrehearsal ml-1">${this.data.last_rehearsals ? 'hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
+            <span class="numrehearsal ml-3">${this.data.rehearsal_days}</span>
         </h6>
         <h2 class="leading-none tunetitle text-xl font-semibold text-center mt-6 mb-1 text-slate-500">${this.data.Prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase text-sm text-center mb-2">${mytype} ${this.data.tuneref.Author}</p>
@@ -63,7 +64,6 @@ export class Tune extends Component {
     }
 
     generatehtml_list() {
-        console.log(this.data);
         return `<div id="tune${this.data.id}" class="tunelist w-full bg-white border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center">
             <img src="${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}" alt="Imagen" class="rounded-full h-16 w-16 object-cover mr-3">
             <h2 class="tunetitle text-xl font-semibold mr-2">${this.data.Prefered_name}</h2>
