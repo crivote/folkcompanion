@@ -36,7 +36,7 @@ export class Videos extends Component {
                         video.tunes = mytunes.map(tune => tune.id);
                     }
                 });
-                new Mynotification('success', `cargados ${Data.tunebook.length} videos.`);
+                new Mynotification('success', `cargados ${Data.videos.length} videos.`);
             }
         }
         this.filtered = Data.videos;

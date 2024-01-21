@@ -173,6 +173,7 @@ export class Data {
         {value: 5, label: 'Fluida', color: 'green-600', days: 45},
         {value: 6, label: 'Dominada', color: 'emerald-900', days: 60},
     ];
+    
     static rythms = {
         'Double Jig': '6/8',
         'Single Jig': '6/8',
@@ -184,7 +185,16 @@ export class Data {
         'Polka' : '2/4',
         'Mazurka': '4/4',
         'Waltz': '3/4',
-    }
+    };
+
+    static videotypes = [
+        'album',
+        'live event',
+        'tv record',
+        'home record',
+        'learning',
+        'others'
+    ];
 }
 
 export class Controller {
