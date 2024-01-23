@@ -45,7 +45,7 @@ export class Tunebook extends Component {
         this.typeslist = [...new Set(typeslist)];
         const statuslist = Data.tunebook.map(tune => tune.status);
         this.statuslist = [...new Set(statuslist)];
-        const tonelist = Data.tunebook.map(tune => tune.Prefered_tone);
+        const tonelist = Data.tunebook.map(tune => tune.Preferred_tone);
         this.tonelist = [...new Set(tonelist)];
         this.filtered = Data.tunebook;
 
