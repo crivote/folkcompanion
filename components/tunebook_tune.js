@@ -73,8 +73,8 @@ export class Tune extends Component {
         return `<div id="tune${this.data.id}" class="tunelist w-full bg-white border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center">
             <img src="${this.data.preferred_img_url ?? `https://picsum.photos/200/200?random=${this.data.id}`}" alt="Imagen" class="rounded-full h-16 w-16 object-cover mr-3">
             ${this.data.tuneref.ABCsample ? 
-                `<span data-abc="${this.data.tuneref.ABCsample}" data-state="stop" class="playabc text-slate-700/30 hover:text-slate-700/75 m-auto">
-                <i class=" m-auto fa fa-circle-play fa-lg"></i><span>` : '' }
+                `<p data-abc="${this.data.tuneref.ABCsample}" data-state="stop" class="playabc text-slate-700/30 hover:text-slate-700/75">
+                <i class="fa fa-circle-play fa-lg"></i><p>` : '' }
             <h2 class="tunetitle text-xl font-semibold mr-2">${this.data.Prefered_name}</h2>
             <p class="tunemodes text-blue-400 font-semibold mr-2">${this.data.type}</p>
             <p class="tunealiases text-gray-500">${this.data.status}</p>
