@@ -1,6 +1,7 @@
 import { Component } from "../abstract.js";
-import { Controller, Utils, Data } from "../startup.js";
+import { Utils, Data } from "../startup.js";
 import * as apis from "../apis.js";
+import { Mynotification } from "./notification.js";
 
 export class Videoadd extends Component {
 
@@ -112,7 +113,7 @@ export class Videoadd extends Component {
                             </div>
                             <div id="datatune4" class="hidden flex gap-3 tunecontainer">
                                 <div>
-                                    <input list="alltunes"class="tuneselector" name="tune3selector" >
+                                    <input list="alltunes"class="tuneselector" name="tune4selector" >
                                     <input class="hidden" type="text" name="tune3final">
                                 </div>
                                 <div>
@@ -140,7 +141,8 @@ export class Videoadd extends Component {
         if (el.value != "") {
             el.classList.add('hidden');
             const tunename = Data.tunes.find(tune => tune.id == el.value);
-            el.nextSibling.classList.value = tunename.main_name;
+            el.nextSibling.classList.remove('hidden');
+            el.nextSibling.value = tunename.main_name;
             const next = el.closest('.tunecontainer')?.nextSibling;
             if (next) {
                 next.classList.remove('hidden');
@@ -163,6 +165,19 @@ export class Videoadd extends Component {
         try {
             const result = await apis.Xanoapi.addvideo(params);
             if (result) {
+                new Mynotification('success', `Se ha guardado el vídeo.`);
+
+                // save links to video in tunes
+                const tunesids = [];
+                const els = ['tune1selector', 'tune2selector', 'tune3selector', 'tune4selector'];
+
+                els.forEach( elname => {
+                    const el = this.element.querySelector(elname);
+                    if (el.value != '') {
+                        tunesids.push(el.value);
+                    }
+                });
+
                 const link = {
                     videos_id: result.id,
                     start_time: this.element.querySelector('[name="inicio"]').value,
@@ -190,6 +205,7 @@ export class Videoadd extends Component {
                 const result2 = await apis.Xanoapi.edittune(this.data.id, params2);
             }
         } catch (error) {
+            new Mynotification('error', `No se ha podido guardar el vídeo.`);
             console.log(error);
         }
     }

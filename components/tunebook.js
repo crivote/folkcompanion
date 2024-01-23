@@ -7,9 +7,11 @@ export class Tunebook extends Component {
     filtered = [];
 
     // instancias en DOM de las card tunes
-    items = [];
+    tune_instances = [];
+
     typeslist = [];
     statuslist = [];
+    toneslist = [];
     contentzone = null;
     format = 'card';
     subelements = [];
@@ -20,11 +22,13 @@ export class Tunebook extends Component {
     }
 
     addListeners() {
-        this.element.querySelector('#tunebook_search')
+        this.element.querySelector('#tunebook_filter')
             .addEventListener('input', this.applyFilter.bind(this));
-        this.element.querySelector('#typetune_search')
+        this.element.querySelector('#typetune_filter')
             .addEventListener('change', this.applyFilter.bind(this));
-        this.element.querySelector('#statustune_search')
+        this.element.querySelector('#tonetune_filter')
+            .addEventListener('change', this.applyFilter.bind(this));
+        this.element.querySelector('#statustune_filter')
             .addEventListener('change', this.applyFilter.bind(this));
         this.element.querySelector('.addnewtune')
             .addEventListener('click', this.launchsearch.bind(this));
@@ -41,6 +45,8 @@ export class Tunebook extends Component {
         this.typeslist = [...new Set(typeslist)];
         const statuslist = Data.tunebook.map(tune => tune.status);
         this.statuslist = [...new Set(statuslist)];
+        const tonelist = Data.tunebook.map(tune => tune.Prefered_tone);
+        this.tonelist = [...new Set(tonelist)];
         this.filtered = Data.tunebook;
 
         // generate HTML
@@ -53,7 +59,7 @@ export class Tunebook extends Component {
     rendertunes(list = Data.tunebook) {
         this.contentzone.innerHTML = '';
         this.element.querySelector('.num_of_tunes').innerHTML = list.length + ' temas';
-        this.items = list.map((item) => {
+        this.tune_instances = list.map((item) => {
             return new Tune('tune' + item.id, this.contentzone, item.id, this.format);
         });
     }
@@ -71,9 +77,11 @@ export class Tunebook extends Component {
                     <span class="viewselector selected bg-slate-500 text-white" data-format="card"><i class="fa fa-grip fa-lg"></i></span>
                     <span class="viewselector" data-format="list"><i class="fa fa-list fa-lg fa-fw"></i></span>
                 </div>
-                <select id="typetune_search"><option value="">Tipo</option><option> ${this.typeslist.join('</option><option>')}</option></select>
-                <select id="statustune_search"><option value="">Status</option><option> ${this.statuslist.join('</option><option>')}</option></select>
-                Filtrar <input type="search" id="tunebook_search">
+                <select id="typetune_filter"><option value="">Tipo</option><option> ${this.typeslist.join('</option><option>')}</option></select>
+                <select id="statustune_filter"><option value="">Status</option><option> ${this.statuslist.join('</option><option>')}</option></select>
+                <select id="tonetune_filter"><option value="">Tone</option><option> ${this.tonelist.join('</option><option>')}</option></select>
+
+                Filtrar <input type="search" id="tunebook_filter">
                 <i class="resetfilter fa fa-trash"></i>
             </div>
         </header>
@@ -83,16 +91,18 @@ export class Tunebook extends Component {
 
     resetFilter() {
         this.filtered = Data.tunebook;
-        this.element.querySelector('#tunebook_search').value = '';
-        this.element.querySelector('#typetune_search').value = '';
-        this.element.querySelector('#statustune_search').value = '';
+        this.element.querySelector('#tunebook_filter').value = '';
+        this.element.querySelector('#typetune_filter').value = '';
+        this.element.querySelector('#statustune_filter').value = '';
+        this.element.querySelector('#tonetune_filter').value = '';
         this.rendertunes();
     }
 
     applyFilter() {
-        const valstring = this.element.querySelector('#tunebook_search').value.toLowerCase();
-        const valseltype = this.element.querySelector('#typetune_search').value;
-        const valselstat = this.element.querySelector('#statustune_search').value;
+        const valstring = this.element.querySelector('#tunebook_filter').value.toLowerCase();
+        const valseltype = this.element.querySelector('#typetune_filter').value;
+        const valselstat = this.element.querySelector('#statustune_filter').value;
+        const valselton = this.element.querySelector('#tonetune_filter').value;
         this.filtered = Data.tunebook.filter(
             tune => {
                 let val1 = true;
@@ -108,7 +118,11 @@ export class Tunebook extends Component {
                 if (valselstat != '') {
                     val3 = tune.status == valselstat;
                 }
-                return val1 && val2 && val3;
+                let val4 = true;
+                if (valselton != '') {
+                    val4 = tune.Prefered_tone == valseton;
+                }
+                return val1 && val2 && val3 && val4;
             }
         );
         this.rendertunes(this.filtered);

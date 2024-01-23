@@ -20,6 +20,12 @@ export class Tune extends Component {
         this.addlisteners();
     }
 
+    refresh() {
+        const mycontent = this['generatehtml_' + this.format]();
+        this.element.outerHTML = mycontent;
+        this.addlisteners();
+    }
+
     addlisteners() {
         this.element.querySelector('.rehearsal')
             .addEventListener('click', this.addrehearsal.bind(this));
@@ -47,13 +53,13 @@ export class Tune extends Component {
         </div>
         <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase text-slate-700/75 font-bold bg-${mystatus.color}/75" >${mystatus.label}</span>
         <div class="absolute right-6 top-4 px-2 py-1 bg-blue-800/50 text-white/90 rounded-lg" title="Tonalidad">
-            <i class="fas fa-stopwatch"></i>
+            <i class="fas fa-music"></i>
             <span class="numrehearsal ml-1">${this.data.Preferred_tone}</span>
         </div>
         <h6 class="text-center text-sm text-slate-800/75 p-1 uppercase -mt-10 bg-white/75 rounded-lg">
             <i class="fas fa-calendar"></i> 
             <span class="lastrehearsal ml-1">${this.data.last_rehearsals ? 'hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
-            <span class="numrehearsal ml-3">${this.data.rehearsal_days}</span>
+            <span class="numrehearsal ml-3"><i class="fas fa-clipboard-check"></i> ${this.data.rehearsal_days}</span>
         </h6>
         <h2 class="leading-none tunetitle text-xl font-semibold text-center mt-6 mb-1 text-slate-500">${this.data.Prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase text-sm text-center mb-2">${mytype} ${this.data.tuneref.Author}</p>
@@ -98,8 +104,7 @@ export class Tune extends Component {
         const result = await apis.Xanoapi.edittunebooktune(this.data.id, this.data);
 
         if (result) {
-            this.element.querySelector('.numrehearsal').textContent = this.data.rehearsal_days;
-            this.element.querySelector('.lastrehearsal').textContent = `hace ${Utils.calctimesince(this.data.last_rehearsals[0])} días`;
+            this.refresh();
             new Mynotification('success', `añadido nuevo ensayo de ${this.data.Prefered_name}.`);
         } else {
             this.data = backup;
@@ -115,29 +120,16 @@ export class Tune extends Component {
     async deletetune() {
         const result = await Xanoapi.deletetunebooktune(this.data.id);
         if (result) {
-
-            const manager= Controller.getinstance('Tunebook');
-            let mytuneindex = manager.tunes.findIndex(tune => tune.id == this.data.id);
-            manager.tunes.splice(mytuneindex, 1);
-            const mytuneobject = manager.items.findIndex(tune => tune.name == 'tune'+this.data.id);
-            manager.items.splice(mytuneobject, 1);
+            let mytuneindex = Data.tunes.findIndex(tune => tune.id == this.data.id);
+            Data.tunes.splice(mytuneindex, 1);
+            const mytunebook= Controller.getinstance('Tunebook');
+            const mytuneobject = mytunebook.tune_instances.findIndex(tune => tune.name == 'tune'+this.data.id);
+            mytunebook.tune_instances.splice(mytuneobject, 1);
+            new Mynotification('success', `eliminando ${this.data.Prefered_name} del repertorio.`);
             this.remove();
-        }
-    }
 
-    playabc(event) {
-        event.stopPropagation();
-        const el = event.currentTarget;
-        if (el.dataset.state == "playing") {
-            el.dataset.state = "stop";
-            Controller.stopabc();
-            el.classList.remove('fa-circle-stop');
-            el.classList.add('fa-play-circle');
         } else {
-            el.dataset.state = "playing";
-            Controller.playabc(el.dataset.abc);
-            el.classList.remove('fa-play-circle');
-            el.classList.add('fa-circle-stop');
+            new Mynotification('error', `no se ha podido eliminar el tema.`);
         }
     }
 
