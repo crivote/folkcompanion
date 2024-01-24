@@ -58,7 +58,7 @@ export class Tune extends Component {
         <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase text-slate-700/75 font-bold bg-${mystatus.color}/75" >${mystatus.label}</span>
         <div class="absolute right-6 top-4 px-2 py-1 bg-blue-800/50 text-white/90 rounded-lg" title="Tonalidad">
             <i class="fas fa-music"></i>
-            <span class="numrehearsal ml-1">${this.data.Preferred_tone}</span>
+            <span class="numrehearsal ml-1 font-light uppercase">${this.data.Preferred_tone ?? ''}</span>
         </div>
         <h6 class="text-center text-sm text-slate-800/75 p-1 uppercase -mt-10 bg-white/75 rounded-lg">
             <i class="fas fa-calendar"></i> 
@@ -69,8 +69,8 @@ export class Tune extends Component {
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase text-sm text-center mb-2">${mytype} ${this.data.tuneref.Author}</p>
         <div class="flex gap-1 mt-auto justify-center">
             <button class="uppercase font-medium rehearsal bg-blue-500 px-3 py-1 rounded-md text-white text-bold hover:bg-blue-700" title="añadir ensayo"><i class="fa fa-bolt mr-1"></i> añadir ensayo</button>
-            <button class="uppercase font-medium edittune bg-slate-400 px-3 py-1 rounded-md text-white text-bold hover:bg-slate-700" title="borrar tema"><i class="fa fa-blog"></i></button>
-            <button class="uppercase font-medium deletetune bg-red-500 px-3 py-1 rounded-md text-white text-bold hover:bg-red-700" title="borrar tema"><i class="fa fa-bin"></i></button>
+            <button class="uppercase font-medium edittune bg-slate-400 px-3 py-1 rounded-md text-white text-bold hover:bg-slate-700" title="borrar tema"><i class="fa fa-clog"></i></button>
+            <button class="uppercase font-medium deletetune bg-red-500 px-3 py-1 rounded-md text-white text-bold hover:bg-red-700" title="borrar tema"><i class="fa fa-trash"></i></button>
         </div>
         </div>`;
     }
@@ -88,6 +88,7 @@ export class Tune extends Component {
                 <span class="numrehearsal bg-slate-500 text-white p-2 rounded-lg">${this.data.rehearsal_days} ensayos</span>
                 <span class="lastrehearsal">${this.data.last_rehearsals ? 'último hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) + ' días' : 'nunca'}</span>
                 <button class="rehearsal bg-blue-400 p-1 rounded-md text-white text-bold" title="añadir ensayo"><i class="fa fa-guitar fa-fw fa-lg"></i></button>
+                <button class="edittune bg-red-400 p-1 rounded-md text-white text-bold" title="editar tema"><i class="fa fa-clog fa-fw fa-lg"></i></button>
                 <button class="deletetune bg-red-400 p-1 rounded-md text-white text-bold" title="eliminar tema"><i class="fa fa-trash fa-fw fa-lg"></i></button>
             </div>
         </div>`;
@@ -128,11 +129,11 @@ export class Tune extends Component {
 
     quickedit() {
         const mytunebook = Controller.getinstance('Tunebook');
-        mytunebook.subelements.push(new Tunebasicedit(tuneedit, mytunebook.element, this.data.id));
+        mytunebook.subelements.push(new Tunebasicedit('modaltuneedit', mytunebook.element, this.data.id));
     }
 
     async deletetune() {
-        const result = await Xanoapi.deletetunebooktune(this.data.id);
+        const result = await apis.Xanoapi.deletetunebooktune(this.data.id);
         if (result) {
             let mytuneindex = Data.tunes.findIndex(tune => tune.id == this.data.id);
             Data.tunes.splice(mytuneindex, 1);
