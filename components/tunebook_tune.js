@@ -2,7 +2,7 @@ import { Component } from "../abstract.js";
 import { Mynotification } from "./notification.js";
 import { Controller, Utils, Data, ABCplayer } from "../startup.js";
 import * as apis from "../apis.js";
-import { Tuneedit } from "./tuneedit.js";
+import { Tunebasicedit } from "./tunebook_basicedit.js";
 
 export class Tune extends Component {
 
@@ -29,6 +29,10 @@ export class Tune extends Component {
     addlisteners() {
         this.element.querySelector('.rehearsal')
             .addEventListener('click', this.addrehearsal.bind(this));
+        this.element.querySelector('.deletetune')
+            .addEventListener('click', this.deletetune.bind(this));
+        this.element.querySelector('.edittune')
+            .addEventListener('click', this.quickedit.bind(this));
         this.element
             .addEventListener('click', this.viewdetails.bind(this));
         if (this.data.tuneref.ABCsample) {
@@ -64,7 +68,9 @@ export class Tune extends Component {
         <h2 class="leading-none tunetitle text-xl font-semibold text-center mt-6 mb-1 text-slate-500">${this.data.Prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase text-sm text-center mb-2">${mytype} ${this.data.tuneref.Author}</p>
         <div class="flex gap-1 mt-auto justify-center">
-            <button class="uppercase font-medium rehearsal bg-blue-600 px-3 py-1 rounded-md text-white text-bold hover:bg-blue-400" title="añadir ensayo"><i class="fa fa-bolt mr-1"></i> añadir ensayo</button>
+            <button class="uppercase font-medium rehearsal bg-blue-500 px-3 py-1 rounded-md text-white text-bold hover:bg-blue-700" title="añadir ensayo"><i class="fa fa-bolt mr-1"></i> añadir ensayo</button>
+            <button class="uppercase font-medium edittune bg-slate-400 px-3 py-1 rounded-md text-white text-bold hover:bg-slate-700" title="borrar tema"><i class="fa fa-blog"></i></button>
+            <button class="uppercase font-medium deletetune bg-red-500 px-3 py-1 rounded-md text-white text-bold hover:bg-red-700" title="borrar tema"><i class="fa fa-bin"></i></button>
         </div>
         </div>`;
     }
@@ -117,7 +123,12 @@ export class Tune extends Component {
     }
 
     viewdetails() {
-        Controller.tuneedit = new Tuneedit('tuneedit', Controller.htmlelement, this.data);
+        //Controller.tuneedit = new Tuneedit('tuneedit', Controller.htmlelement, this.data);
+    }
+
+    quickedit() {
+        const mytunebook = Controller.getinstance('Tunebook');
+        mytunebook.subelements.push(new Tunebasicedit(tuneedit, mytunebook.element, this.data.id));
     }
 
     async deletetune() {
