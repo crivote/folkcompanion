@@ -1,71 +1,71 @@
-import { Component } from "../abstract.js";
-import { Data } from "../startup.js";
-import { Tunesearch } from "./tunebook_search.js";
-import { Tune } from "./tunebook_tune.js";
+import {Component} from '../abstract.js';
+import {Data} from '../startup.js';
+import {Tunesearch} from './tunebook_search.js';
+import {Tune} from './tunebook_tune.js';
 
 export class Tunebook extends Component {
-    filtered = [];
+  filtered = [];
 
-    // instancias en DOM de las card tunes
-    tune_instances = [];
+  // instancias en DOM de las card tunes
+  tune_instances = [];
 
-    typeslist = [];
-    statuslist = [];
-    toneslist = [];
-    contentzone = null;
-    format = 'card';
-    subelements = [];
+  typeslist = [];
+  statuslist = [];
+  toneslist = [];
+  contentzone = null;
+  format = 'card';
+  subelements = [];
 
-    constructor(name, parentel) {
-        super(name, parentel);
-        this.setup();
-    }
+  constructor(name, parentel) {
+    super(name, parentel);
+    this.setup();
+  }
 
-    addListeners() {
-        this.element.querySelector('#tunebook_filter')
-            .addEventListener('input', this.applyFilter.bind(this));
-        this.element.querySelector('#typetune_filter')
-            .addEventListener('change', this.applyFilter.bind(this));
-        this.element.querySelector('#tonetune_filter')
-            .addEventListener('change', this.applyFilter.bind(this));
-        this.element.querySelector('#statustune_filter')
-            .addEventListener('change', this.applyFilter.bind(this));
-        this.element.querySelector('.addnewtune')
-            .addEventListener('click', this.launchsearch.bind(this));
-        this.element.querySelector('.resetfilter')
-            .addEventListener('click', this.resetFilter.bind(this));
-        this.element.querySelectorAll('.viewselector')
-            .forEach(
-                el => el.addEventListener('click', this.changeview.bind(this))
-            );
-    }
+  addListeners() {
+    this.element.querySelector('#tunebook_filter')
+        .addEventListener('input', this.applyFilter.bind(this));
+    this.element.querySelector('#typetune_filter')
+        .addEventListener('change', this.applyFilter.bind(this));
+    this.element.querySelector('#tonetune_filter')
+        .addEventListener('change', this.applyFilter.bind(this));
+    this.element.querySelector('#statustune_filter')
+        .addEventListener('change', this.applyFilter.bind(this));
+    this.element.querySelector('.addnewtune')
+        .addEventListener('click', this.launchsearch.bind(this));
+    this.element.querySelector('.resetfilter')
+        .addEventListener('click', this.resetFilter.bind(this));
+    this.element.querySelectorAll('.viewselector')
+        .forEach(
+            (el) => el.addEventListener('click', this.changeview.bind(this)),
+        );
+  }
 
-    async setup() {
-        const typeslist = Data.tunebook.map(tune => tune.tuneref.Type);
-        this.typeslist = [...new Set(typeslist)];
-        const statuslist = Data.tunebook.map(tune => tune.status);
-        this.statuslist = [...new Set(statuslist)];
-        const tonelist = Data.tunebook.map(tune => tune.Preferred_tone);
-        this.tonelist = [...new Set(tonelist)];
-        this.filtered = Data.tunebook;
+  async setup() {
+    const typeslist = Data.tunebook.map((tune) => tune.tuneref.Type);
+    this.typeslist = [...new Set(typeslist)];
+    const statuslist = Data.tunebook.map((tune) => tune.status);
+    this.statuslist = [...new Set(statuslist)];
+    const tonelist = Data.tunebook.map((tune) => tune.Preferred_tone);
+    this.tonelist = [...new Set(tonelist)];
+    this.filtered = Data.tunebook;
 
-        // generate HTML
-        this.attachAt(this.generatehtml(), false);
-        this.contentzone = this.element.querySelector('main');
-        this.addListeners();
-        this.rendertunes();
-    }
+    // generate HTML
+    this.attachAt(this.generatehtml(), false);
+    this.contentzone = this.element.querySelector('main');
+    this.addListeners();
+    this.rendertunes();
+  }
 
-    rendertunes(list = Data.tunebook) {
-        this.contentzone.innerHTML = '';
-        this.element.querySelector('.num_of_tunes').innerHTML = list.length + ' temas';
-        this.tune_instances = list.map((item) => {
-            return new Tune('tune' + item.id, this.contentzone, item.id, this.format);
-        });
-    }
+  rendertunes(list = Data.tunebook) {
+    this.contentzone.innerHTML = '';
+    this.element.querySelector('.num_of_tunes').innerHTML = list.length + ' temas';
+    this.tune_instances = list.map((item) => {
+      return new Tune('tune' + item.id, this.contentzone, item.id, this.format);
+    });
+  }
 
-    generatehtml() {
-        return `<section id="${this.name}">
+  generatehtml() {
+    return `<section id="${this.name}">
         <header class="p-6">
             <div class="flex flex-wrap items-center gap-2">
                 <h3 class="text-3xl">Mi repertorio</h3>
@@ -85,62 +85,62 @@ export class Tunebook extends Component {
                 <i class="resetfilter fa fa-trash"></i>
             </div>
         </header>
-        <main class="p-6 ${this.format == "card" ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4' : ''}"></main>
+        <main class="p-6 ${this.format == 'card' ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4' : ''}"></main>
         </section>`;
-    }
+  }
 
-    resetFilter() {
-        this.filtered = Data.tunebook;
-        this.element.querySelector('#tunebook_filter').value = '';
-        this.element.querySelector('#typetune_filter').value = '';
-        this.element.querySelector('#statustune_filter').value = '';
-        this.element.querySelector('#tonetune_filter').value = '';
-        this.rendertunes();
-    }
+  resetFilter() {
+    this.filtered = Data.tunebook;
+    this.element.querySelector('#tunebook_filter').value = '';
+    this.element.querySelector('#typetune_filter').value = '';
+    this.element.querySelector('#statustune_filter').value = '';
+    this.element.querySelector('#tonetune_filter').value = '';
+    this.rendertunes();
+  }
 
-    applyFilter() {
-        const valstring = this.element.querySelector('#tunebook_filter').value.toLowerCase();
-        const valseltype = this.element.querySelector('#typetune_filter').value;
-        const valselstat = this.element.querySelector('#statustune_filter').value;
-        const valselton = this.element.querySelector('#tonetune_filter').value;
-        this.filtered = Data.tunebook.filter(
-            tune => {
-                let val1 = true;
-                if (valstring != '') {
-                    val1 = tune.Prefered_name.toLowerCase().includes(valstring)
-                    || tune.tuneref.other_names.join(',').toLowerCase().includes(valstring);
-                }
-                let val2 = true;
-                if (valseltype != '') {
-                    val2 = tune.tuneref.Type == valseltype;
-                }
-                let val3 = true;
-                if (valselstat != '') {
-                    val3 = tune.status == valselstat;
-                }
-                let val4 = true;
-                if (valselton != '') {
-                    val4 = tune.Prefered_tone == valseton;
-                }
-                return val1 && val2 && val3 && val4;
-            }
-        );
-        this.rendertunes(this.filtered);
-    }
+  applyFilter() {
+    const valstring = this.element.querySelector('#tunebook_filter').value.toLowerCase();
+    const valseltype = this.element.querySelector('#typetune_filter').value;
+    const valselstat = this.element.querySelector('#statustune_filter').value;
+    const valselton = this.element.querySelector('#tonetune_filter').value;
+    this.filtered = Data.tunebook.filter(
+        (tune) => {
+          let val1 = true;
+          if (valstring != '') {
+            val1 = tune.Prefered_name.toLowerCase().includes(valstring) ||
+                    tune.tuneref.other_names.join(',').toLowerCase().includes(valstring);
+          }
+          let val2 = true;
+          if (valseltype != '') {
+            val2 = tune.tuneref.Type == valseltype;
+          }
+          let val3 = true;
+          if (valselstat != '') {
+            val3 = tune.status == valselstat;
+          }
+          let val4 = true;
+          if (valselton != '') {
+            val4 = tune.Prefered_tone == valseton;
+          }
+          return val1 && val2 && val3 && val4;
+        },
+    );
+    this.rendertunes(this.filtered);
+  }
 
-    changeview(event) {
-        const myinput = event.currentTarget;
-        const newformat = myinput.dataset.format;
-        if (newformat != this.format) {
-            this.element.querySelector('.viewselector.selected').classList.remove('selected', 'bg-slate-500', 'text-white');
-            myinput.classList.add('selected', 'bg-slate-500', 'text-white');
-            this.format = myinput.dataset.format;
-            this.rendertunes();
-            this.contentzone.classList.toggle('grid');
-        }  
+  changeview(event) {
+    const myinput = event.currentTarget;
+    const newformat = myinput.dataset.format;
+    if (newformat != this.format) {
+      this.element.querySelector('.viewselector.selected').classList.remove('selected', 'bg-slate-500', 'text-white');
+      myinput.classList.add('selected', 'bg-slate-500', 'text-white');
+      this.format = myinput.dataset.format;
+      this.rendertunes();
+      this.contentzone.classList.toggle('grid');
     }
+  }
 
-    launchsearch() {
-        this.subelements.push(new Tunesearch('tunesearch', this.element));
-    }
+  launchsearch() {
+    this.subelements.push(new Tunesearch('tunesearch', this.element));
+  }
 }
