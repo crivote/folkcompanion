@@ -257,8 +257,10 @@ export class Controller {
         if (Data.tunes && Data.tunes.length>0) {
             // add maintitle to othernames for searchs
             Data.tunes.forEach(tune => {
-                if (tune?.other_names) {
-                    tune.other_names.push(tune.main_name);
+                if (tune?.other_names){
+                    if (!tune.other_names.includes(tune.main_name)) {
+                        tune.other_names.push(tune.main_name);
+                    }
                 } else {
                     tune.other_names=[tune.main_name];
                 }
