@@ -224,17 +224,17 @@ export const Data = {
     },
   },
   // user data
-  user: {},
+  user: '',
   // all tunes from back
-  tunes: {},
+  tunes: '',
   // tunes in user tunebook
-  tunebook: {},
+  tunebook: '',
   // sets in user setbook
-  setbook: {},
+  setbook: '',
   // all videos from back
-  videos: {},
+  videos: '',
   // some pics to add
-  genericpics: {},
+  genericpics: '',
   // status para temas por defecto
   status: [
     {value: 1, label: 'Pendiente', color: 'stone-600'},
