@@ -5,17 +5,30 @@ import {Video} from './videos_video.js';
 import {Videoadd} from './videos_addvideo.js';
 import * as apis from '../apis.js';
 
+/**
+ * video list component
+ */
 export class Videos extends Component {
   // instancias en DOM de las videocards
   items = [];
   videozone = null;
   subelements = [];
 
+  /**
+   * Constructor
+   *
+   * @param {string} name
+   * @param {HTMLBodyElement} parentel
+   */
   constructor(name, parentel) {
     super(name, parentel);
     this.setup();
   }
 
+  /**
+   * Add event listeners
+   *
+   */
   addListeners() {
     this.element.querySelector('.addnewvideo')
         .addEventListener('click', this.modalnewvideo.bind(this));

@@ -93,9 +93,11 @@ export class Game extends Component {
    * Generates a turn, draws options, set values and call renderer
    */
   nextturn() {
-    if (this.turns > this.numofturns) {
+    if (this.turns == this.numofturns) {
+      this.gamezone.innerHTML = '';
       this.showresult('right',
-          `Fin de la partida. Has obtenido ${this.points} puntos en total.`);
+          `Fin de la partida. Has obtenido ${this.points} 
+          puntos en ${this.turns} preguntas.`);
     } else {
       this.element.querySelector('.turns')
           .textContent = this.turns + ' intentos';
