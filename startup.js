@@ -330,7 +330,7 @@ export class Controller {
   /**
    * Load data and launch app menu
    */
-  static async startapp() {
+  static startapp() {
     Promise.all([
       Controller.loadGenericPics,
       Controller.loadAlltunes,
