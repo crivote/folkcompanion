@@ -332,10 +332,10 @@ export class Controller {
    */
   static startapp() {
     Promise.all([
-      Controller.loadGenericPics,
-      Controller.loadAlltunes,
-      Controller.loadUserTunebook,
-      Controller.loadUserSetbook,
+      Controller.loadGenericPics(),
+      Controller.loadAlltunes(),
+      Controller.loadUserTunebook(),
+      Controller.loadUserSetbook(),
     ]).then(
         (result) => {
           Controller.getinstance('Menubar');
@@ -352,7 +352,13 @@ export class Controller {
           'success',
           `cargadas ${Data.genericpics.length} imagenes genéricas.`,
       );
+      return true;
     }
+    new components.Mynotification(
+        'danger',
+        `error al cargar fotos genericas.`,
+    );
+    throw new Error('error');
   }
 
   /**
@@ -378,7 +384,13 @@ export class Controller {
           'success',
           `cargados ${Data.tunes.length} temas.`,
       );
+      return true;
     }
+    new components.Mynotification(
+        'danger',
+        `error al cargar todos los temas.`,
+    );
+    throw new Error('error');
   }
 
   /**
@@ -395,7 +407,13 @@ export class Controller {
           'success',
           `cargados ${Data.tunebook.length} temas de tu repertorio.`,
       );
+      return true;
     }
+    new components.Mynotification(
+        'info',
+        `no tienes nada en tu repertorio.`,
+    );
+    return true;
   }
 
   /**
@@ -408,7 +426,13 @@ export class Controller {
           'success',
           `cargados ${Data.setbook.length} sets de tu repertorio.`,
       );
+      return true;
     }
+    new components.Mynotification(
+        'info',
+        `no tienes ningun set.`,
+    );
+    return true;
   }
 }
 
