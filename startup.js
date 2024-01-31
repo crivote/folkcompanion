@@ -334,8 +334,6 @@ export class Controller {
     Promise.all([
       Controller.loadGenericPics(),
       Controller.loadAlltunes(),
-      Controller.loadUserTunebook(),
-      Controller.loadUserSetbook(),
     ]).then(
         (result) => {
           Controller.getinstance('Menubar');
@@ -384,6 +382,7 @@ export class Controller {
           'success',
           `cargados ${Data.tunes.length} temas.`,
       );
+      await Controller.loadUserTunebook();
       return true;
     }
     new components.Mynotification(
@@ -407,6 +406,7 @@ export class Controller {
           'success',
           `cargados ${Data.tunebook.length} temas de tu repertorio.`,
       );
+      await Controller.loadUserSetbook();
       return true;
     }
     new components.Mynotification(
