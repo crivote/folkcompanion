@@ -1,90 +1,90 @@
-import { Component } from "../abstract.js";
-import { Controller, Data } from "../startup.js";
+import {Component} from '../abstract.js';
+import {Controller, Data} from '../startup.js';
 
 export class Menubar extends Component {
-    pages = [
-        {
-            tag: 'Gestión temas',
-            name: 'Tunemanager',
-            role: 'admin'
-        },
-        {
-            tag: 'Gestión videos',
-            name: 'Videos',
-            role: 'admin'
-        },
-        {
-            tag: 'Peticiones',
-            name: 'Suggestions',
-            role: 'admin'
-        },
-        {
-            tag: 'Mi repertorio',
-            name: 'Tunebook',
-            role: 'all'
-        },
-        {
-            tag: 'Mis sets',
-            name: 'Setbook',
-            role: 'all'
-        },
-        {
-            tag: 'Ensayar',
-            name: 'Rehearsallist',
-            role: 'all'
-        },
-        {
-            tag: 'Juego',
-            name: 'Game',
-            role: 'all'
-        },
-        {
-            tag: 'Estadísticas',
-            name: 'Stats',
-            role: 'all'
-        },
-    ];
+  pages = [
+    {
+      tag: 'Gestión temas',
+      name: 'Tunemanager',
+      role: 'admin',
+    },
+    {
+      tag: 'Gestión videos',
+      name: 'Videos',
+      role: 'admin',
+    },
+    {
+      tag: 'Peticiones',
+      name: 'Suggestions',
+      role: 'admin',
+    },
+    {
+      tag: 'Mi repertorio',
+      name: 'Tunebook',
+      role: 'all',
+    },
+    {
+      tag: 'Mis sets',
+      name: 'Setbook',
+      role: 'all',
+    },
+    {
+      tag: 'Ensayar',
+      name: 'Rehearsallist',
+      role: 'all',
+    },
+    {
+      tag: 'Juego',
+      name: 'Game',
+      role: 'all',
+    },
+    {
+      tag: 'Estadísticas',
+      name: 'Stats',
+      role: 'all',
+    },
+  ];
 
-    constructor(name, parentel) {
-        super(name, parentel);
-        this.setup();
+  constructor(name, parentel) {
+    super(name, parentel);
+    this.setup();
+  }
+
+  setup() {
+    this.attachAt(this.generatehtml(), false);
+    this.element.querySelector('#logout')
+        .addEventListener('click', this.closesession.bind(this));
+    this.element.querySelectorAll('#mainnav > span').forEach((el) => {
+      el.addEventListener('click', this.showcomponent.bind(this));
+    });
+  }
+
+  showcomponent(event) {
+    const newitem = event.currentTarget;
+    if (!newitem.classList.contains('selected')) {
+      const selected = this.element.querySelector('#mainnav .selected');
+      if (selected) {
+        const selectedcomponent = selected.dataset.nav;
+        const oldcomponent = Controller.getinstance(selectedcomponent);
+        oldcomponent.hide();
+        selected.classList.remove('selected', 'font-bold', 'bg-cyan-50', 'text-indigo-900');
+      }
+
+      const newitemcomponent = newitem.dataset.nav;
+      Controller.getinstance(newitemcomponent);
+      newitem.classList.add('selected', 'font-bold', 'bg-cyan-50', 'text-indigo-900');
     }
+  }
 
-    setup() {
-        this.attachAt(this.generatehtml(), false);
-        this.element.querySelector('#logout')
-            .addEventListener('click', this.closesession.bind(this));
-        this.element.querySelectorAll('#mainnav > span').forEach(el => {
-            el.addEventListener('click', this.showcomponent.bind(this));
-        });
-    }
+  generatehtml() {
+    let menu = '';
+    this.pages.forEach((item) => {
+      if (item.role == 'all' || item.role == Data.user?.role) {
+        menu = menu + `<span class="rounded-t-md px-4 py-2 hover:font-bold" data-nav="${item.name}">${item.tag}</span>`;
+      }
+    });
 
-    showcomponent(event) {
-        let newitem = event.currentTarget;
-        if (!newitem.classList.contains('selected')) {
-            let selected = this.element.querySelector('#mainnav .selected');
-            if (selected) {
-                let selectedcomponent = selected.dataset.nav;
-                let oldcomponent = Controller.getinstance(selectedcomponent);
-                oldcomponent.hide();
-                selected.classList.remove('selected', 'font-bold', 'bg-cyan-50', 'text-indigo-900');
-            }
-            
-            let newitemcomponent = newitem.dataset.nav;
-            Controller.getinstance(newitemcomponent);
-            newitem.classList.add('selected', 'font-bold', 'bg-cyan-50', 'text-indigo-900');
-        }
-    }
-
-    generatehtml() {
-        let menu = '';
-        this.pages.forEach(item => {
-            if (item.role == "all" || item.role == Data.user?.role) {
-                menu = menu + `<span class="rounded-t-md px-4 py-2 hover:font-bold" data-nav="${item.name}">${item.tag}</span>`
-            }
-        })
-
-        return `
+    return `
         <header id="${this.name}" class="">
         <div class="menubar flex bg-indigo-700 text-white">
 
@@ -97,14 +97,13 @@ export class Menubar extends Component {
         </div>
         </div>
         </header>`;
-    }
+  }
 
-    closesession() {
-        Data.user = '';
-        localStorage.removeItem('token');
-        this.remove();
-        Controller.tunebook.remove();
-        Controller.getuserdetails();
-    }
-
+  closesession() {
+    Data.user = '';
+    localStorage.removeItem('token');
+    this.remove();
+    Controller.tunebook.remove();
+    Controller.getuserdetails();
+  }
 }

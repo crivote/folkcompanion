@@ -1,24 +1,23 @@
-import { Component } from "../abstract.js";
-import { Controller } from "../startup.js";
-import * as apis from "../apis.js";
+import {Component} from '../abstract.js';
+import {Controller} from '../startup.js';
+import * as apis from '../apis.js';
 
 
 export class Login extends Component {
+  constructor(name, parentel) {
+    super(name, parentel);
+    this.setup();
+  }
 
-    constructor(name, parentel) {
-        super(name, parentel);
-        this.setup();
-    }
+  setup() {
+    const htmlcontent = this.generatehtml();
+    this.attachAt(htmlcontent);
+    this.element.querySelector('#sendlogin')
+        .addEventListener('click', this.action.bind(this));
+  }
 
-    setup() {
-        const htmlcontent = this.generatehtml();
-        this.attachAt(htmlcontent);
-        this.element.querySelector('#sendlogin')
-            .addEventListener('click', this.action.bind(this));
-    }
-
-    generatehtml() {
-        return `<div id="${this.name}" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
+  generatehtml() {
+    return `<div id="${this.name}" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
         <div class="bg-white p-8 rounded shadow-lg w-128">
           <h2 class="text-2xl text-gray-400 font-bold mb-4">Inicio de Sesión</h2>
           <form id="loginform">
@@ -59,43 +58,42 @@ export class Login extends Component {
           </form>
         </div>
       </div>`;
+  }
+
+  getformdata() {
+    return this.element.querySelector('#loginform').elements;
+  };
+
+  checkvalue(data) {
+    if (data.email.value &&
+            data.password.value) {
+      return true;
     }
-
-    getformdata() {
-        return this.element.querySelector("#loginform").elements;
-    };
-
-    checkvalue(data) {
-        if (data.email.value
-            && data.password.value) {
-            return true;
-        }
-        if (!data.email.value) {
-            this.element.querySelector('.emailerror').textContent = 'Email obligatorio';
-        }
-        if (!data.password.value) {
-            this.element.querySelector('.passworderror').textContent = 'Introduce contraseña';
-        }
-        return false;
+    if (!data.email.value) {
+      this.element.querySelector('.emailerror').textContent = 'Email obligatorio';
     }
-
-    async action(e) {
-        e.preventDefault();
-        let data = this.getformdata();
-        if (this.checkvalue(data)) {
-            try {
-                const result = await apis.Xanoapi.authcall(data.email.value, data.password.value);
-                if (result) {
-                    localStorage.setItem('token', result);
-                    this.remove();
-                    Controller.getuserdetails();
-                } else {
-                    this.element.querySelector('.generalerror').textContent = 'Error en login';
-                }
-
-            } catch (error) {
-                console.log(error);
-            }
-        }
+    if (!data.password.value) {
+      this.element.querySelector('.passworderror').textContent = 'Introduce contraseña';
     }
+    return false;
+  }
+
+  async action(e) {
+    e.preventDefault();
+    const data = this.getformdata();
+    if (this.checkvalue(data)) {
+      try {
+        const result = await apis.Xanoapi.authcall(data.email.value, data.password.value);
+        if (result) {
+          localStorage.setItem('token', result);
+          this.remove();
+          Controller.getuserdetails();
+        } else {
+          this.element.querySelector('.generalerror').textContent = 'Error en login';
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 }

@@ -1,63 +1,62 @@
-import { Component } from "../abstract.js";
-import { Mynotification } from "./notification.js";
-import { Data } from "../startup.js";
-import { Video } from './videos_video.js';
-import { Videoadd } from "./videos_addvideo.js";
-import * as apis from "../apis.js";
+import {Component} from '../abstract.js';
+import {Mynotification} from './notification.js';
+import {Data} from '../startup.js';
+import {Video} from './videos_video.js';
+import {Videoadd} from './videos_addvideo.js';
+import * as apis from '../apis.js';
 
 export class Videos extends Component {
+  // instancias en DOM de las videocards
+  items = [];
+  videozone = null;
+  subelements = [];
 
-    // instancias en DOM de las videocards
-    items = [];
-    videozone = null;
-    subelements = [];
+  constructor(name, parentel) {
+    super(name, parentel);
+    this.setup();
+  }
 
-    constructor(name, parentel) {
-        super(name, parentel);
-        this.setup();
-    }
+  addListeners() {
+    this.element.querySelector('.addnewvideo')
+        .addEventListener('click', this.modalnewvideo.bind(this));
+  }
 
-    addListeners() {
-        this.element.querySelector('.addnewvideo')
-            .addEventListener('click', this.modalnewvideo.bind(this));
-    }
-
-    async setup() {
-        if (!Data.videos) {
-            Data.videos = await apis.Xanoapi.getallvideos();
-            if (Data.videos && Data.videos.length>0) {
-                // add info from tunes to tunebook
-                Data.videos.forEach(video => {
-                    const mytunes = Data.tunes.filter(tune => tune?.media_links 
-                        && tune.media_links.length > 0
-                        && tune.media_links[0] != null                        
-                        && tune.media_links.some(link => link?.videos_id == video.id) );
-                    if (mytunes) {
-                        video.tunes = mytunes.map(tune => tune.id);
-                    }
-                });
-                new Mynotification('success', `cargados ${Data.videos.length} videos.`);
-            }
-        }
-        this.filtered = Data.videos;
-
-        // generate HTML
-        this.attachAt(this.generatehtml(), false);
-        this.videozone = this.element.querySelector('main');
-        this.addListeners();
-        this.rendervideos();
-    }
-
-    rendervideos(list = Data.videos) {
-        this.videozone.innerHTML = '';
-        this.element.querySelector('.num_of_videos').innerHTML = list.length + ' videos';
-        this.items = list.map((item) => {
-            return new Video('video' + item.id, this.videozone, item.id);
+  async setup() {
+    if (!Data.videos) {
+      Data.videos = await apis.Xanoapi.getallvideos();
+      if (Data.videos && Data.videos.length>0) {
+        // add info from tunes to tunebook
+        Data.videos.forEach((video) => {
+          const mytunes = Data.tunes.filter((tune) => tune?.media_links &&
+                        tune.media_links.length > 0 &&
+                        tune.media_links[0] != null &&
+                        tune.media_links.some((link) => link?.videos_id == video.id) );
+          if (mytunes) {
+            video.tunes = mytunes.map((tune) => tune.id);
+          }
         });
+        new Mynotification('success', `cargados ${Data.videos.length} videos.`);
+      }
     }
+    this.filtered = Data.videos;
 
-    generatehtml() {
-        return `<section id="${this.name}">
+    // generate HTML
+    this.attachAt(this.generatehtml(), false);
+    this.videozone = this.element.querySelector('main');
+    this.addListeners();
+    this.rendervideos();
+  }
+
+  rendervideos(list = Data.videos) {
+    this.videozone.innerHTML = '';
+    this.element.querySelector('.num_of_videos').innerHTML = list.length + ' videos';
+    this.items = list.map((item) => {
+      return new Video('video' + item.id, this.videozone, item.id);
+    });
+  }
+
+  generatehtml() {
+    return `<section id="${this.name}">
         <header class="p-6">
             <div class="flex flex-wrap items-center gap-2">
                 <h3 class="text-3xl">Videos guardados</h3>
@@ -69,9 +68,9 @@ export class Videos extends Component {
         </header>
         <main class="p-6 grid lg:grid-cols-2 gap-3"></main>
         </section>`;
-    }
+  }
 
-    modalnewvideo() {
-        this.subelements.push(new Videoadd('newvideo', this.element));
-    }
+  modalnewvideo() {
+    this.subelements.push(new Videoadd('newvideo', this.element));
+  }
 }
