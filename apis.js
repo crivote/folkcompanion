@@ -171,6 +171,12 @@ export class Xanoapi {
     return result.status == 200 ? result.data : false;
   }
 
+  /**
+   * Add a new suggestion
+   *
+   * @param {object} suggestion
+   * @return {object}
+   */
   static async addsuggestion(suggestion) {
     const result = await axios.post(
         Xanoapi.#url+'suggestions',

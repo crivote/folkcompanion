@@ -331,15 +331,15 @@ export class Controller {
    * Load data and launch app menu
    */
   static async startapp() {
-    const result= await Promise.all([
+    Promise.all([
       Controller.loadGenericPics,
       Controller.loadAlltunes,
-      Controller.loadUserSetbook,
       Controller.loadUserTunebook,
-    ]);
-    if (result) {
-      Controller.getinstance('Menubar');
-    }
+      Controller.loadUserSetbook,
+    ]).then(
+        (result) => {
+          Controller.getinstance('Menubar');
+        });
   }
 
   /**
