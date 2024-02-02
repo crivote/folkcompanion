@@ -93,21 +93,21 @@ export class Tune extends Component {
          ${mystatus.label}</span>
          ${this.data.Preferred_tone ?
         `<div class="absolute right-6 top-4 px-2 py-1 bg-blue-800/50 
-        text-white/90 rounded-lg font-xs" title="Tonalidad">
+        text-white/90 rounded-lg text-xs" title="Tonalidad">
             <i class="fas fa-music"></i>
-            <span class="numrehearsal ml-1 font-light uppercase">
-            ${this.data.Prefered_tone}
+            <span class="numrehearsal ml-1 font-medium uppercase">
+            ${this.data.Preferred_tone}
            </span>
         </div>`: ''}
-        <div class="flex gap-4">
-        <p class="text-center text-sm text-slate-800/75 p-1 uppercase -mt-10 
+        <div class="flex gap-4 items-center justify-center -mt-10">
+        <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
         bg-white/75 rounded-lg">
             <i class="fas fa-calendar"></i> 
             <span class="lastrehearsal ml-1">${this.data.last_rehearsals ?
               'hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) +
               ' días' : 'nunca'}</span>
         </p>
-        <p class="text-center text-sm text-slate-800/75 p-1 uppercase -mt-10 
+        <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
         bg-white/75 rounded-lg">
             <span class="numrehearsal ml-3"><i class="fas fa-clipboard-check">
             </i>

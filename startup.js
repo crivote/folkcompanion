@@ -56,6 +56,7 @@ export class Utils {
     let newitems = [...new Set(items)];
     if (newitems.includes(null)) {
       newitems = newitems.filter((item) => item != null);
+      newitems.sort();
     }
     return newitems;
   }
