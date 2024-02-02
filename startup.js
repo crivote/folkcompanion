@@ -53,7 +53,7 @@ export class Utils {
    * @return {array}
    */
   static getUniqueValues(items) {
-    newitems = [...new Set(items)];
+    let newitems = [...new Set(items)];
     if (newitems.includes(null)) {
       newitems = newitems.filter((item) => item != null);
     }
