@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Data} from '../startup.js';
+import {Utils, Data} from '../startup.js';
 import {Tunesearch} from './tunebook_search.js';
 import {Tune} from './tunebook_tune.js';
 
@@ -37,12 +37,12 @@ export class Tunebook extends Component {
    * Generar html del componente y asignar eventos
    */
   async setup() {
-    const typeslist = Data.tunebook.map((tune) => tune.tuneref.Type);
-    this.typeslist = [...new Set(typeslist)];
-    const statuslist = Data.tunebook.map((tune) => tune.status);
-    this.statuslist = [...new Set(statuslist)];
-    const tonelist = Data.tunebook.map((tune) => tune.Preferred_tone);
-    this.tonelist = [...new Set(tonelist)];
+    this.typeslist = Utils.getUniquevalues(
+        Data.tunebook.map((tune) => tune.tuneref.Type));
+    this.statuslist = Utils.getUniqueValues(
+        Data.tunebook.map((tune) => tune.status));
+    this.tonelist = Utils.getUniqueValues(
+        Data.tunebook.map((tune) => tune.Preferred_tone));
     this.filtered = Data.tunebook;
 
     const mycontent = this.generatehtml();
@@ -52,7 +52,6 @@ export class Tunebook extends Component {
     } else {
       this.attachAt(mycontent, false);
     }
-    this.attachAt(this.generatehtml(), false);
     this.contentzone = this.element.querySelector('main');
     this.addListeners();
     this.rendertunes();

@@ -91,26 +91,32 @@ export class Tune extends Component {
         <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase
          text-slate-700/75 font-bold bg-${mystatus.color}/75" >
          ${mystatus.label}</span>
-        <div class="absolute right-6 top-4 px-2 py-1 bg-blue-800/50 
-        text-white/90 rounded-lg" title="Tonalidad">
+         ${this.data.Preferred_tone ?
+        `<div class="absolute right-6 top-4 px-2 py-1 bg-blue-800/50 
+        text-white/90 rounded-lg font-xs" title="Tonalidad">
             <i class="fas fa-music"></i>
             <span class="numrehearsal ml-1 font-light uppercase">
-            ${this.data.Preferred_tone ?? ''}</span>
-        </div>
-        <h6 class="text-center text-sm text-slate-800/75 p-1 uppercase -mt-10 
+            ${this.data.Prefered_tone}
+           </span>
+        </div>`: ''}
+        <div class="flex gap-4">
+        <p class="text-center text-sm text-slate-800/75 p-1 uppercase -mt-10 
         bg-white/75 rounded-lg">
             <i class="fas fa-calendar"></i> 
             <span class="lastrehearsal ml-1">${this.data.last_rehearsals ?
               'hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) +
               ' días' : 'nunca'}</span>
+        </p>
+        <p class="text-center text-sm text-slate-800/75 p-1 uppercase -mt-10 
+        bg-white/75 rounded-lg">
             <span class="numrehearsal ml-3"><i class="fas fa-clipboard-check">
             </i>
              ${this.data.rehearsal_days}</span>
-        </h6>
+        </p></div>
         <h2 class="leading-none tunetitle text-xl font-semibold text-center 
         mt-6 mb-1 text-slate-500">${this.data.Prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
-        text-sm text-center mb-2">${mytype} ${this.data.tuneref.Author}</p>
+        text-sm text-center mb-2">${mytype} | ${this.data.tuneref.Author}</p>
         <div class="flex gap-1 mt-auto justify-center">
             <button class="uppercase font-medium rehearsal bg-blue-500 px-3 
             py-1 rounded-md text-white text-bold hover:bg-blue-700" 

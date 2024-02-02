@@ -47,6 +47,20 @@ export class Utils {
   }
 
   /**
+   * Get unique values array
+   *
+   * @param {array} items
+   * @return {array}
+   */
+  static getUniqueValues(items) {
+    newitems = [...new Set(items)];
+    if (newitems.includes(null)) {
+      newitems = newitems.filter((item) => item != null);
+    }
+    return newitems;
+  }
+
+  /**
    * genera codigo html para elemento de formulario
    *
    * @param {*} template
