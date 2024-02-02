@@ -93,16 +93,17 @@ export class Game extends Component {
    * Generates a turn, draws options, set values and call renderer
    */
   nextturn() {
+    this.element.querySelector('.turns')
+        .textContent = this.turns + ' intentos';
+    this.element.querySelector('.points')
+        .textContent = this.points + ' puntos';
     if (this.turns == this.numofturns) {
       this.gamezone.innerHTML = '';
+      // TODO guardar puntuación máxima en el objeto user
       this.showresult('right',
           `Fin de la partida. Has obtenido ${this.points} 
           puntos en ${this.turns} preguntas.`);
     } else {
-      this.element.querySelector('.turns')
-          .textContent = this.turns + ' intentos';
-      this.element.querySelector('.points')
-          .textContent = this.points + ' puntos';
       const quizitems = this.drawnewtunegroup();
       const quizdata = {
         abc: this.rightanswer.ABCsample,

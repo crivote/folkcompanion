@@ -37,7 +37,7 @@ export class Tunebook extends Component {
    * Generar html del componente y asignar eventos
    */
   async setup() {
-    this.typeslist = Utils.getUniquevalues(
+    this.typeslist = Utils.getUniqueValues(
         Data.tunebook.map((tune) => tune.tuneref.Type));
     this.statuslist = Utils.getUniqueValues(
         Data.tunebook.map((tune) => tune.status));
