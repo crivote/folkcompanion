@@ -38,7 +38,6 @@ export class Video extends Component {
         <div class="mythumbvideo w-auto h-full min-w-96 min-h-48 bg-cover 
         bg-center bg-[url('${this.data.thumb_url}')]">
               <div class="hidden w-full">
-              ${Utils.videoembed(this.data.url)}
               </div>
           </div>
           <div class="px-4 py-2 flex-col">
@@ -66,6 +65,7 @@ export class Video extends Component {
 
   showvideo(event) {
     const el = event.currentTarget.firstElementChild;
+    el.innerHTML = Utils.videoembed(this.data.url);
     el.classList.remove('hidden');
   }
 
