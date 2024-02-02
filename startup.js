@@ -279,6 +279,15 @@ export const Data = {
     'learning',
     'others',
   ],
+  tones: {
+    'A': 'la',
+    'B': 'si',
+    'C': 'do',
+    'D': 're',
+    'E': 'mi',
+    'F': 'fa',
+    'G': 'sol',
+  },
 };
 
 /**

@@ -163,6 +163,7 @@ export class Tunebook extends Component {
         .value.toLowerCase();
     const valseltype = this.element.querySelector('#typetune_filter').value;
     const valselstat = this.element.querySelector('#statustune_filter').value;
+    const valseltona = this.element.querySelector('#tonetune_filter').value;
     this.filtered = Data.tunebook.filter(
         (tune) => {
           let val1 = true;
@@ -181,8 +182,8 @@ export class Tunebook extends Component {
             val3 = tune.status == valselstat;
           }
           let val4 = true;
-          if (this.element.querySelector('#tonetune_filter').value != '') {
-            val4 = tune.Prefered_tone == valseton;
+          if (valseltona != '') {
+            val4 = tune.Preferred_tone == valseltona;
           }
           return val1 && val2 && val3 && val4;
         },
