@@ -9,6 +9,7 @@ import {Tune} from './tunebook_tune.js';
 export class Tunebook extends Component {
   // filtro para temas del repertorio
   filtered = [];
+  sortcriteria = 'name';
   // instancias en DOM de las card tunes
   tune_instances = [];
   // listas para filtros select
@@ -84,17 +85,20 @@ export class Tunebook extends Component {
         .forEach(
             (el) => el.addEventListener('click', this.changeview.bind(this)),
         );
+    this.element.querySelector('.tunesorting')
+        .addEventListener('change', this.applysort.bind(this));
   }
 
   /**
    * Renderiza las instancias de tune y las guarda en this.instances
    *
-   * @param {tunes[]} list
+   * @param {array} list
    */
   rendertunes(list = Data.tunebook) {
     this.contentzone.innerHTML = '';
     this.element.querySelector('.num_of_tunes').innerHTML =
-      list.length + ' temas';
+        list.length + ' temas';
+    list = this.sorter(list);
     this.tune_instances = list.map((item) => {
       return new Tune('tune' + item.id, this.contentzone, item.id, this.format);
     });
@@ -106,40 +110,81 @@ export class Tunebook extends Component {
    * @return {string}
    */
   generatehtml() {
-    return `<section id="${this.name}">
-        <header class="p-6">
-            <div class="flex flex-wrap items-center gap-2">
-                <h3 class="text-3xl">Mi repertorio</h3>
-                <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 
-                uppercase text-slate-200 rounded-lg text-md">
-                ${Data.tunebook.length} temas</span></h3>
-                <span class="addnewtune text-blue-600 hover:text-blue-400">
-                <i class="fa fa-plus-circle fa-2x"></i></span>
-                <div class="ml-auto flex items-center gap-3">
-                    <span class="viewselector selected bg-slate-500 
-                    text-white" data-format="card">
-                    <i class="fa fa-grip fa-lg"></i></span>
-                    <span class="viewselector" data-format="list">
-                    <i class="fa fa-list fa-lg fa-fw"></i></span>
-                </div>
-                <select id="typetune_filter"><option value="">Tipo</option>
-                <option> ${this.typeslist.join('</option><option>')}
-                </option></select>
-                <select id="statustune_filter"><option value="">Status</option>
-                <option> ${this.statuslist.join('</option><option>')}
-                </option></select>
-                <select id="tonetune_filter"><option value="">Tone</option>
-                <option> ${this.tonelist.join('</option><option>')}
-                </option></select>
+    return `
+    <section id="${this.name}">
+      <header class="p-6">
+        <div class="flex flex-wrap items-center gap-2">
+          <h3 class="text-3xl">Mi repertorio</h3>
+          <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 
+          uppercase text-slate-200 rounded-lg text-md">
+          ${Data.tunebook.length} temas</span></h3>
+          <span class="addnewtune text-blue-600 hover:text-blue-400">
+          <i class="fa fa-plus-circle fa-2x"></i></span>
+          <div class="ml-auto flex items-center gap-3">
+              <span class="viewselector selected bg-slate-500 
+              text-white" data-format="card">
+              <i class="fa fa-grip fa-lg"></i></span>
+              <span class="viewselector" data-format="list">
+              <i class="fa fa-list fa-lg fa-fw"></i></span>
+          </div>
+          <select id="typetune_filter"><option value="">Tipo</option>
+          <option> ${this.typeslist.join('</option><option>')}
+          </option></select>
+          <select id="statustune_filter"><option value="">Status</option>
+          <option> ${this.statuslist.join('</option><option>')}
+          </option></select>
+          <select id="tonetune_filter"><option value="">Tone</option>
+          <option> ${this.tonelist.join('</option><option>')}
+          </option></select>
 
-                Filtrar <input type="search" id="tunebook_filter">
-                <i class="resetfilter fa fa-trash"></i>
-            </div>
-        </header>
-        <main class="p-6 ${this.format == 'card' ?
-        `grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
-        lg:grid-cols-4 xl:grid-cols-5 gap-4` : ''}"></main>
-        </section>`;
+            Filtrar <input type="search" id="tunebook_filter">
+            <i class="resetfilter fa fa-trash"></i>
+        </div>
+        <p>sorting by 
+          <select class="tunesorting">
+            <option selected value="Preferred_name">Nombre</option>
+            <option value="status">status</option>
+            <option value="lastofrehear">Ultimo ensayo</option>
+            <option value="Preferred_tone">tonalidad</option>
+            <option value="rehearsal_days">numero ensayos</option>
+          </select>
+        </p>
+      </header>
+      <main class="p-6 ${this.format == 'card' ?
+      `grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
+      lg:grid-cols-4 xl:grid-cols-5 gap-4` : ''}">
+      </main>
+    </section>`;
+  }
+
+  /**
+ * Ordenar listado
+ *
+ * @param {array} list
+ * @return {array} list
+ */
+  sorter(list) {
+    list.sort((a, b) => {
+      if (a[this.sortcriteria] < b[this.sortcriteria]) {
+        return -1;
+      } else if (a[this.sortcriteria] > b[this.sortcriteria]) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    return list;
+  }
+
+  /**
+   * Cambiar el criterio filtrado
+   *
+   * @param {event} event
+   */
+  applysort(event) {
+    const myinput = event.target.value;
+    this.sortcriteria = myinput;
+    this.rendertunes(this.filtered);
   }
 
   /**

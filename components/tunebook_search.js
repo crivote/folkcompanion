@@ -1,6 +1,8 @@
 import {Component} from '../abstract.js';
 import {Data} from '../startup.js';
 import {Tunesearchresult} from './tunebook_search_result.js';
+import {Mynotification} from './notification.js';
+import * as apis from '../apis.js';
 
 /**
  * componente buscar temas para añadir a repertorio
@@ -55,9 +57,9 @@ export class Tunesearch extends Component {
                 placeholder="escribe parte del nombre para ver resultados">
                 <p class="info mt-6 mb-2"></p>
                 <div class="sugestion hidden">
-                    <input type="text" class="titlesugestion" size="40" 
+                    <input type="text" class="titlesuggestion" size="40" 
                     placeholder="escriba el título del tune que desea">
-                    <button class="sendsugestion bg-blue-600 text-white p-2 
+                    <button class="sendsuggestion bg-blue-600 text-white p-2 
                     rounded-md uppercase">enviar</button>
                 </div>
                 <ul class="results bg-slate-500 text-slate-50 p-2"></ul>
@@ -76,7 +78,7 @@ export class Tunesearch extends Component {
     this.element.querySelector('#closetunesearch')
         .addEventListener('click', this.eliminate.bind(this));
     // enviar sugerencia
-    this.element.querySelector('.sendsugestion')
+    this.element.querySelector('.sendsuggestion')
         .addEventListener('click', this.suggestion.bind(this));
   }
 
@@ -104,6 +106,8 @@ export class Tunesearch extends Component {
         myinfo.textContent = `Encontrados ${result.length} resultados:`;
         this.generateresults(result);
       } else {
+        this.resultszone.innerHTML = '';
+        this.resultInstances = '';
         myinfo.textContent = `Sin resultados en la base de datos.
             Si crees que el tema debería aparecer, por favor escribe el título
             a continuación e intentaremos añadirlo. Gracias!`;
@@ -141,6 +145,22 @@ export class Tunesearch extends Component {
    * @param {event} event
    */
   async suggestion(event) {
-
+    const suggestion = this.element.querySelector('.titlesuggestion').value;
+    if (suggestion) {
+      template = {...Data.template.suggestion};
+      template.type_of_suggestion = 'tune';
+      template.user_id = Data.user.id;
+      template.content = suggestion;
+      template.status = 'waiting';
+      const result = await apis.Xanoapi.addsuggestion(template);
+      if (result) {
+        this.setup();
+        new Mynotification('success',
+            `Se ha guardado su petición.`);
+      } else {
+        this.data = backup;
+        new Mynotification('error', `error al guardar la petición.`);
+      }
+    }
   }
 }

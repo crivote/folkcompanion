@@ -12,18 +12,19 @@ export class Tunebasicedit extends Component {
   constructor(name, parentel, id) {
     super(name, parentel);
     this.tune = Data.tunebook.find((item) => item.id === id);
+    this.tune.tunekeys = this.tune.tuneref?.Modes_played.map(
+        (mode) => `${Data.tones[mode.Key]} ${mode.Mode.substring(0, 3)}`);
     this.setup();
   }
 
   /**
    * Generate html for component
-   * 
+   *
    * @return {string}
    */
   generatehtml() {
     const nameslist = this.tune.tuneref?.other_names;
-    const tunekeys = this.tune.tuneref?.Modes_played.map(
-        (mode) => `${Data.tones[mode.Key]} ${mode.Mode.substring(0, 3)}`);
+
 
     return `<div id="modaledittune" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
             <div class="bg-white p-8 rounded-xl shadow-lg w-1/2 lg:w-1/3 relative">
@@ -47,9 +48,9 @@ export class Tunebasicedit extends Component {
                             <p>${this.tune.tuneref?.Tradition.join(' · ') ?? ''}</p>
                         </div>
                     </div>
-                    ${Utils.generateformfield('titulo', 'titulo favorito', this.data.Prefered_name ?? this.tune.tuneref.main_name, nameslist)}
-                    ${Utils.generateformfield('tonalidad', 'tonalidad preferida', this.data.Preferred_tone ?? this.tune.tunekeys[0], this.tune.tunekeys)}
-                    ${Utils.generateformfield('status', 'status de ejecución', this.data.status, Data.status.map((status) => status.label))}
+                    ${Utils.generateformfield('titulo', 'titulo favorito', this.tune.Prefered_name ?? this.tune.tuneref.main_name, nameslist)}
+                    ${Utils.generateformfield('tonalidad', 'tonalidad preferida', this.tune.Preferred_tone ?? this.tune.tunekeys[0], this.tune.tunekeys)}
+                    ${Utils.generateformfield('status', 'status de ejecución', this.tune.status, Data.status.map((status) => status.label))}
                     <div class="flex items-center justify-center border-b border-slate-200 h-0 my-6">
                         <span class="shownext text-blue-500 border-4 border-white"><i class="fa fa-plus-circle fa-lg"></i></span>
                     </div>

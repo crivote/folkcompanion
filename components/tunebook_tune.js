@@ -109,7 +109,7 @@ export class Tune extends Component {
         </p>
         <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
         bg-white/75 rounded-lg">
-            <span class="numrehearsal ml-3"><i class="fas fa-clipboard-check">
+            <span class="numrehearsal"><i class="fas fa-clipboard-check">
             </i>
              ${this.data.rehearsal_days}</span>
         </p></div>
@@ -124,7 +124,7 @@ export class Tune extends Component {
             añadir ensayo</button>
             <button class="uppercase font-medium edittune bg-slate-400 px-3 py-1
             rounded-md text-white text-bold hover:bg-slate-700" 
-            title="borrar tema"><i class="fa fa-clog"></i></button>
+            title="edicion rapida"><i class="fa fa-gear"></i></button>
             <button class="uppercase font-medium deletetune bg-red-500 px-3 py-1
              rounded-md text-white text-bold hover:bg-red-700" 
              title="borrar tema"><i class="fa fa-trash"></i></button>
@@ -165,7 +165,7 @@ export class Tune extends Component {
                 text-bold" title="añadir ensayo"><i class="fa fa-guitar 
                 fa-fw fa-lg"></i></button>
                 <button class="edittune bg-red-400 p-1 rounded-md text-white 
-                text-bold" title="editar tema"><i class="fa fa-clog fa-fw 
+                text-bold" title="editar tema"><i class="fa fa-gear fa-fw 
                 fa-lg"></i></button>
                 <button class="deletetune bg-red-400 p-1 rounded-md text-white 
                 text-bold" title="eliminar tema"><i class="fa fa-trash fa-fw 
