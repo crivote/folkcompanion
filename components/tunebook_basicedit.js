@@ -48,8 +48,8 @@ export class Tunebasicedit extends Component {
                             <p>${this.tune.tuneref?.Tradition.join(' · ') ?? ''}</p>
                         </div>
                     </div>
-                    ${Utils.generateformfield('titulo', 'titulo favorito', this.tune.Prefered_name ?? this.tune.tuneref.main_name, nameslist)}
-                    ${Utils.generateformfield('tonalidad', 'tonalidad preferida', this.tune.Preferred_tone ?? this.tune.tunekeys[0], this.tune.tunekeys)}
+                    ${Utils.generateformfield('titulo', 'titulo favorito', this.tune.prefered_name ?? this.tune.tuneref.main_name, nameslist)}
+                    ${Utils.generateformfield('tonalidad', 'tonalidad preferida', this.tune.prefered_tone ?? this.tune.tunekeys[0], this.tune.tunekeys)}
                     ${Utils.generateformfield('status', 'status de ejecución', this.tune.status, Data.status.map((status) => status.label))}
                     <div class="flex items-center justify-center border-b border-slate-200 h-0 my-6">
                         <span class="shownext text-blue-500 border-4 border-white"><i class="fa fa-plus-circle fa-lg"></i></span>
@@ -126,8 +126,8 @@ export class Tunebasicedit extends Component {
     event.preventDefault();
     const params = {
       preferred_img_url: this.element.querySelector('.picphoto').src,
-      Prefered_name: this.element.querySelector('h4.datatitulo').textContent,
-      Preferred_tone: this.element.querySelector('h4.datatonalidad').textContent,
+      prefered_name: this.element.querySelector('h4.datatitulo').textContent,
+      prefered_tone: this.element.querySelector('h4.datatonalidad').textContent,
       learned_date: this.element.querySelector('input[name="date"]').value,
       status: this.element.querySelector('h4.datastatus').textContent,
       rehearsal_days: this.element.querySelector('input[name="rehearsals"]').value,

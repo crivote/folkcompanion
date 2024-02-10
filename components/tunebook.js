@@ -9,7 +9,7 @@ import {Tune} from './tunebook_tune.js';
 export class Tunebook extends Component {
   // filtro para temas del repertorio
   filtered = [];
-  sortcriteria = 'name';
+  sortcriteria = 'prefered_name';
   // instancias en DOM de las card tunes
   tune_instances = [];
   // listas para filtros select
@@ -43,7 +43,7 @@ export class Tunebook extends Component {
     this.statuslist = Utils.getUniqueValues(
         Data.tunebook.map((tune) => tune.status));
     this.tonelist = Utils.getUniqueValues(
-        Data.tunebook.map((tune) => tune.Preferred_tone));
+        Data.tunebook.map((tune) => tune.prefered_tone));
     this.filtered = Data.tunebook;
 
     const mycontent = this.generatehtml();
@@ -142,10 +142,10 @@ export class Tunebook extends Component {
         </div>
         <p>sorting by 
           <select class="tunesorting">
-            <option selected value="Preferred_name">Nombre</option>
+            <option selected value="prefered_name">Nombre</option>
             <option value="status">status</option>
             <option value="lastofrehear">Ultimo ensayo</option>
-            <option value="Preferred_tone">tonalidad</option>
+            <option value="prefered_tone">tonalidad</option>
             <option value="rehearsal_days">numero ensayos</option>
           </select>
         </p>
@@ -213,7 +213,7 @@ export class Tunebook extends Component {
         (tune) => {
           let val1 = true;
           if (valstring != '') {
-            val1 = tune.Prefered_name.toLowerCase().includes(valstring) ||
+            val1 = tune.prefered_name.toLowerCase().includes(valstring) ||
                 tune.tuneref.other_names.join(',')
                     .toLowerCase()
                     .includes(valstring);
@@ -228,7 +228,7 @@ export class Tunebook extends Component {
           }
           let val4 = true;
           if (valseltona != '') {
-            val4 = tune.Preferred_tone == valseltona;
+            val4 = tune.prefered_tone == valseltona;
           }
           return val1 && val2 && val3 && val4;
         },

@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Data} from '../startup.js';
+import {Data, Controller} from '../startup.js';
 import {Tunesearchresult} from './tunebook_search_result.js';
 import {Mynotification} from './notification.js';
 import * as apis from '../apis.js';
@@ -136,6 +136,10 @@ export class Tunesearch extends Component {
     this.element.classList.add('animate__slideOutLeft');
     this.element.addEventListener('animationend', () => {
       this.remove();
+      const mytunebook= Controller.getinstance('Tunebook');
+      const myreference = mytunebook.subelements.findIndex(
+          (item) => item.name == this.name);
+      mytunebook.subelements.splice(myreference, 1);
     });
   }
 
@@ -147,7 +151,7 @@ export class Tunesearch extends Component {
   async suggestion(event) {
     const suggestion = this.element.querySelector('.titlesuggestion').value;
     if (suggestion) {
-      template = {...Data.template.suggestion};
+      const template = {...Data.template.suggestion};
       template.type_of_suggestion = 'tune';
       template.user_id = Data.user.id;
       template.content = suggestion;

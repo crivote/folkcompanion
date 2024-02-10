@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Controller, Data} from '../startup.js';
+import {Data} from '../startup.js';
 import {Tuneformanager} from './tunemanager_tune.js';
 import {Tunemanagersearch} from './tunemanager_search.js';
 
@@ -13,6 +13,8 @@ export class Tunemanager extends Component {
 
   // instancias en DOM de las card tunes
   tuneInstances = [];
+  // array de subcomponentes instanciados
+  subelements = [];
 
   /**
    * Constructor
@@ -91,9 +93,9 @@ export class Tunemanager extends Component {
     this.element.querySelector('.tunes_search')
         .addEventListener('input', this.filter.bind(this));
     this.element.querySelector('.typetune_search')
-        .addEventListener('change', this.typefilter.bind(this));
+        .addEventListener('change', this.filter.bind(this));
     this.element.querySelector('.origintune_search')
-        .addEventListener('change', this.typefilter.bind(this));
+        .addEventListener('change', this.filter.bind(this));
     this.element.querySelector('.addnewtune')
         .addEventListener('click', this.launchsearch.bind(this));
     this.element.querySelector('.tunesorting')
@@ -136,43 +138,69 @@ export class Tunemanager extends Component {
     return list;
   }
 
-
+  /**
+   * Cambiar criterio orden
+   *
+   * @param {event} event
+   */
   applysort(event) {
     const myinput = event.target.value;
     this.sortcriteria = myinput;
     this.rendertunes(this.filtered);
   }
 
+  /**
+   * Borrar todos los filtros
+   */
   resetFilter() {
     this.filtered = Data.tunes;
     this.element.querySelector('.tunes_search').value = '';
     this.element.querySelector('.typetune_search').value = '';
     this.element.querySelector('.origintune_search').value = '';
+    this.rendertunes();
   }
 
-  filter(event) {
-    const myinput = event.target.value;
-    if (myinput.length > 0) {
-      this.filtered = Data.tunes.filter(
-          (tune) => tune.main_name.toLowerCase().includes(myinput.toLowerCase()) ||
-                tune.other_names.join().toLowerCase().includes(myinput.toLowerCase()),
-      );
-      this.rendertunes(this.filtered);
-    }
+  /**
+   * filtrar relación de tunes por nombre
+   *
+   * @param {event} event
+   */
+  filter() {
+    const valtext = this.element.querySelector('.tunes_search')
+        .value.toLowerCase();
+    const valtype = this.element.querySelector('.typetune_search')
+        .value.toLowerCase();
+    const valtrad = this.element.querySelector('.origintune_search')
+        .value.toLowerCase();
+
+    this.filtered = Data.tunes.filter(
+        (tune) => {
+          let val1 = true;
+          if (valtext) {
+            val1 = tune.main_name.toLowerCase()
+                .includes(myinput.toLowerCase()) ||
+                tune.other_names.join().toLowerCase()
+                    .includes(myinput.toLowerCase());
+          }
+          let val2 = true;
+          if (valtype) {
+            val2 = tune.Type == valtype;
+          }
+          let val3 = true;
+          if (valtrad) {
+            val3 = tune.Tradition.includes(valtrad);
+          }
+          return val1 && val2 && val3;
+        },
+    );
+    this.rendertunes(this.filtered);
   }
 
-  typefilter(event) {
-    const myinput = event.target.value;
-    if (myinput.length > 0) {
-      this.filtered = Data.tunes.filter(
-          (tune) => tune.Type == myinput ||
-                (tune?.Tradition && tune.Tradition.includes(myinput)),
-      );
-      this.rendertunes(this.filtered);
-    }
-  }
-
+  /**
+   * Abrir subcomponente para añadir temas
+   */
   launchsearch() {
-    Controller.tunemanagersearch = new Tunemanagersearch('tunemanagersearch', this.element);
+    this.subelements.push(
+        new Tunemanagersearch('tunemanagersearch', this.element));
   }
 }

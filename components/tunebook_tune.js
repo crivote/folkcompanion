@@ -91,12 +91,12 @@ export class Tune extends Component {
         <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase
          text-slate-700/75 font-bold bg-${mystatus.color}/75" >
          ${mystatus.label}</span>
-         ${this.data.Preferred_tone ?
+         ${this.data.prefered_tone ?
         `<div class="absolute right-6 top-4 px-2 py-1 bg-blue-800/50 
         text-white/90 rounded-lg text-xs" title="Tonalidad">
             <i class="fas fa-music"></i>
             <span class="numrehearsal ml-1 font-medium uppercase">
-            ${this.data.Preferred_tone}
+            ${this.data.prefered_tone}
            </span>
         </div>`: ''}
         <div class="flex gap-4 items-center justify-center -mt-10">
@@ -114,7 +114,7 @@ export class Tune extends Component {
              ${this.data.rehearsal_days}</span>
         </p></div>
         <h2 class="leading-none tunetitle text-xl font-semibold text-center 
-        mt-6 mb-1 text-slate-500">${this.data.Prefered_name}</h2>
+        mt-6 mb-1 text-slate-500">${this.data.prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-sm text-center mb-2">${mytype} | ${this.data.tuneref.Author}</p>
         <div class="flex gap-1 mt-auto justify-center">
@@ -149,7 +149,7 @@ export class Tune extends Component {
                 hover:text-slate-700/75">
                 <i class="fa fa-circle-play fa-lg"></i><p>` : '' }
             <h2 class="tunetitle text-xl font-semibold mr-2">
-            ${this.data.Prefered_name}</h2>
+            ${this.data.prefered_name}</h2>
             <p class="tunemodes text-blue-400 font-semibold mr-2">
             ${this.data.type}</p>
             <p class="tunealiases text-gray-500">${this.data.status}</p>
@@ -201,7 +201,7 @@ export class Tune extends Component {
     if (result) {
       this.setup();
       new Mynotification('success',
-          `añadido nuevo ensayo de ${this.data.Prefered_name}.`);
+          `añadido nuevo ensayo de ${this.data.prefered_name}.`);
     } else {
       this.data = backup;
       new Mynotification('error', `error al guardar el ensayo.`);
@@ -234,12 +234,9 @@ export class Tune extends Component {
       const mytuneindex = Data.tunes.findIndex(
           (tune) => tune.id == this.data.id);
       Data.tunes.splice(mytuneindex, 1);
-      const mytunebook= Controller.getinstance('Tunebook');
-      const mytuneobject = mytunebook.tune_instances.findIndex(
-          (tune) => tune.name == 'tune'+this.data.id);
-      mytunebook.tune_instances.splice(mytuneobject, 1);
+      Utils.removeInstanceRef(this.name, 'Tunebook', 'tune_instances');
       new Mynotification('success',
-          `eliminando ${this.data.Prefered_name} del repertorio.`);
+          `eliminando ${this.data.prefered_name} del repertorio.`);
       this.remove();
     } else {
       new Mynotification('error', `no se ha podido eliminar el tema.`);

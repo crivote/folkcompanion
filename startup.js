@@ -205,6 +205,21 @@ export class Utils {
             </div>`;
     } else return '';
   }
+
+  /**
+   * remove instance ref from array of parent component
+   *
+   * @param {string} name
+   * @param {string} component
+   * @param {string} property
+   */
+  static removeInstanceRef(name, component, property) {
+    const componentref = Controller.getinstance(component);
+    const index = componentref[property].findIndex(
+        (item) => item.name == name,
+    );
+    componentref[property].splice(index, 1);
+  }
 }
 
 /**
@@ -217,13 +232,13 @@ export const Data = {
       user_id: 0,
       custom_type: '',
       preferred_img_url: '',
-      Prefered_name: '',
-      Preferred_tone: '',
+      prefered_name: '',
+      prefered_tone: '',
       learned_date: '',
       status: '',
       rehearsal_days: 0,
       last_rehearsals: [],
-      statusnum: 0,
+      status_num: 0,
     },
     set: {
       user_id: 0,
@@ -236,6 +251,7 @@ export const Data = {
       user_id: 0,
       content: '',
       status: '',
+      notes: '',
     },
   },
   // user data

@@ -97,8 +97,8 @@ export class Tuneaddtobook extends Component {
     // explore array of fields and add if they have value
     const inputselectors = [
       {field: 'preferred_img_url', selector: '.picphoto', value: 'src'},
-      {field: 'Prefered_name', selector: '.datatitulo', value: 'textContent'},
-      {field: 'Preferred_tone', selector: '.datatonalidad', value: 'textContent'},
+      {field: 'prefered_name', selector: '.datatitulo', value: 'textContent'},
+      {field: 'prefered_tone', selector: '.datatonalidad', value: 'textContent'},
       {field: 'learned_date', selector: 'input[name="date"]', value: 'value'},
       {field: 'status', selector: '.datastatus', value: 'textContent'},
       {field: 'rehearsal_days', selector: 'input[name="rehearsals"]', value: 'value'},
