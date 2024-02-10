@@ -144,7 +144,7 @@ export class Tunebook extends Component {
           <select class="tunesorting">
             <option selected value="prefered_name">Nombre</option>
             <option value="status">status</option>
-            <option value="lastofrehear">Ultimo ensayo</option>
+            <option value="dayssincelastrehear">Ultimo ensayo</option>
             <option value="prefered_tone">tonalidad</option>
             <option value="rehearsal_days">numero ensayos</option>
           </select>

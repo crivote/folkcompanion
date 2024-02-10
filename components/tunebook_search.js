@@ -33,9 +33,12 @@ export class Tunesearch extends Component {
    */
   setup() {
     // Create a list to exclude tunes already in the tunebook
-    this.listoftunebookids = Data.tunebook.map((tune) => tune.tunes_id);
-
-    this.attachAt(this.generatehtml(), false);
+    const mycontent = this.generatehtml();
+    if (this.element) {
+      this.element.outerHTML = mycontent;
+    } else {
+      this.attachAt(mycontent, false);
+    }
     this.resultszone = this.element.querySelector('.results');
     this.addListeners();
   }
@@ -91,15 +94,14 @@ export class Tunesearch extends Component {
     const myinfo = this.element.querySelector('.info');
     const suggestion = this.element.querySelector('.sugestion');
     myinfo.textContent = '';
-    const string = event.target.value;
+    const string = event.target.value.toLowerCase();
 
     if (string.length > 0) {
       // filtrar tunes excluyendo ya en el repertorio
-      const result = this.tunes.filter((tune) => {
-        return tune.other_names.some(
-            (name) => name.toLowerCase().includes(string.toLowerCase()),
-        ) && !this.listoftunebookids.includes(tune.id);
-      });
+      const result = this.tunes.filter((tune) =>
+        tune.other_names.some(
+            (name) => name.toLowerCase().includes(string)),
+      );
 
       if (result.length > 0) {
         suggestion.classList.add('hidden');

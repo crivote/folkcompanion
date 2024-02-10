@@ -220,6 +220,32 @@ export class Utils {
     );
     componentref[property].splice(index, 1);
   }
+
+  /**
+   * Calcula intervalo medio en dias entre fechas
+   *
+   * @param {array} datearray
+   * @return {number} mediaEnDias
+   */
+  static getMeanRehear(datearray) {
+    // Convertir fechas a milisegundos desde el 1 de enero de 1970
+    const fechasEnMilisegundos =
+        datearray.map((fecha) => new Date(fecha).getTime());
+
+    // Calcular la diferencia en milisegundos entre fechas consecutivas
+    const intervalosEnMilisegundos = [];
+    for (let i = 1; i < fechasEnMilisegundos.length; i++) {
+      const intervalo = fechasEnMilisegundos[i] - fechasEnMilisegundos[i - 1];
+      intervalosEnMilisegundos.push(intervalo);
+    }
+
+    // Calcular la media de los intervalos en días
+    const mediaEnMilisegundos = intervalosEnMilisegundos
+        .reduce((acumulador, valorActual) =>
+          acumulador + valorActual, 0) / intervalosEnMilisegundos.length;
+    const mediaEnDias = mediaEnMilisegundos / (1000 * 60 * 60 * 24);
+    return Math.round(mediaEnDias);
+  }
 }
 
 /**
@@ -441,8 +467,10 @@ export class Controller {
       // add info from tunes to tunebook
       Data.tunebook.forEach((item) => {
         item.tuneref = Data.tunes.find((tune) => tune.id === item.tunes_id);
-        item.lastofrehear = item.last_rehearsals.length > 0 ?
+        item.dayssincelastrehear = item?.last_rehearsals.length > 0 ?
             Utils.calctimesince(item.last_rehearsals[0]) : null;
+        item.meanRehear = item?.last_rehearsals.length > 1 ?
+            Utils.getMeanRehear(item.last_rehearsals) : null;
       });
       new components.Mynotification(
           'success',

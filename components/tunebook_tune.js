@@ -102,17 +102,24 @@ export class Tune extends Component {
         <div class="flex gap-4 items-center justify-center -mt-10">
         <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
         bg-white/75 rounded-lg">
-            <i class="fas fa-calendar"></i> 
-            <span class="lastrehearsal ml-1">${this.data.last_rehearsals ?
-              'hace ' + Utils.calctimesince(this.data.last_rehearsals[0]) +
-              ' días' : 'nunca'}</span>
+            <i class="fas fa-calendar-check"></i> 
+            <span class="lastrehearsal ml-1">${this.data?.dayssincelastrehear ?
+              'hace ' + this.data.dayssincelastrehear + ' días' :
+              'nunca'}</span>
         </p>
         <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
         bg-white/75 rounded-lg">
             <span class="numrehearsal"><i class="fas fa-clipboard-check">
             </i>
-             ${this.data.rehearsal_days}</span>
-        </p></div>
+             ${this.data?.rehearsal_days ?? 'nunca'}</span>
+        </p>
+        <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
+        bg-white/75 rounded-lg">
+            <span class="meanrehear"><i class="fas fa-scale-balanced">
+            </i>
+             ${this.data?.meanRehear ?? 'n/a'}</span>
+        </p>
+        </div>
         <h2 class="leading-none tunetitle text-xl font-semibold text-center 
         mt-6 mb-1 text-slate-500">${this.data.prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
