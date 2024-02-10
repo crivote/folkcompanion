@@ -9,7 +9,7 @@ import {Tune} from './tunebook_tune.js';
 export class Tunebook extends Component {
   // filtro para temas del repertorio
   filtered = [];
-  sortcriteria = 'prefered_name';
+  sortcriteria = 'titlesort';
   // instancias en DOM de las card tunes
   tune_instances = [];
   // listas para filtros select
@@ -142,7 +142,7 @@ export class Tunebook extends Component {
         </div>
         <p>sorting by 
           <select class="tunesorting">
-            <option selected value="prefered_name">Nombre</option>
+            <option selected value="titlesort">Nombre</option>
             <option value="status">status</option>
             <option value="dayssincelastrehear">Ultimo ensayo</option>
             <option value="prefered_tone">tonalidad</option>
@@ -166,9 +166,9 @@ export class Tunebook extends Component {
   sorter(list) {
     list.sort((a, b) => {
       if (a[this.sortcriteria] < b[this.sortcriteria]) {
-        return -1;
+        return this.sortcriteria == 'dayssincelastrehear' ? 1 : -1;
       } else if (a[this.sortcriteria] > b[this.sortcriteria]) {
-        return 1;
+        return this.sortcriteria == 'dayssincelastrehear' ? -1 : 1;
       } else {
         return 0;
       }

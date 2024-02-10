@@ -19,7 +19,7 @@ export class Tunesearchresult extends Component {
   constructor(name, parentel, id) {
     super(name, parentel);
     this.tunedetail = Data.tunes.find((tune) => tune.id === id);
-    this.isintunebook = Data.tunebook.some((tune) => tune.id == id);
+    this.isintunebook = Data.tunebook.some((tune) => tune.tunes_id == id);
     this.setup();
   }
 
