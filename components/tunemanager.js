@@ -9,7 +9,7 @@ import {Tunemanagersearch} from './tunemanager_search.js';
 export class Tunemanager extends Component {
   filtered = [];
   contentzone = null;
-  sortcriteria = 'main_name';
+  sortcriteria = 'sortname';
 
   // instancias en DOM de las card tunes
   tuneInstances = [];
@@ -75,7 +75,7 @@ export class Tunemanager extends Component {
         </div>
         <p>sorting by 
           <select class="tunesorting">
-            <option selected value="main_name">Nombre</option>
+            <option selected value="sortname">Nombre</option>
             <option value="Type">Tipo</option>
             <option value="popularity">Popularidad</option>
           </select>
@@ -177,10 +177,8 @@ export class Tunemanager extends Component {
         (tune) => {
           let val1 = true;
           if (valtext) {
-            val1 = tune.main_name.toLowerCase()
-                .includes(myinput.toLowerCase()) ||
-                tune.other_names.join().toLowerCase()
-                    .includes(myinput.toLowerCase());
+            val1 = tune.other_names.join().toLowerCase()
+                .includes(valtext);
           }
           let val2 = true;
           if (valtype) {

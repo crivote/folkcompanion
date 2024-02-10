@@ -109,9 +109,9 @@ export class Tune extends Component {
         </p>
         <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
         bg-white/75 rounded-lg">
-            <span class="numrehearsal"><i class="fas fa-clipboard-check">
+            <span class="numrehearsal"><i class="fas fa-stopwatch">
             </i>
-             ${this.data?.rehearsal_days ?? 'nunca'}</span>
+             ${this.data?.rehearsal_days}</span>
         </p>
         <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
         bg-white/75 rounded-lg">

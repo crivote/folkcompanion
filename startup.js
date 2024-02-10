@@ -231,7 +231,8 @@ export class Utils {
     // Convertir fechas a milisegundos desde el 1 de enero de 1970
     const fechasEnMilisegundos =
         datearray.map((fecha) => new Date(fecha).getTime());
-
+    // Cambiar orden a cronologico (mas antiguo antes)
+    fechasEnMilisegundos.reverse();
     // Calcular la diferencia en milisegundos entre fechas consecutivas
     const intervalosEnMilisegundos = [];
     for (let i = 1; i < fechasEnMilisegundos.length; i++) {
