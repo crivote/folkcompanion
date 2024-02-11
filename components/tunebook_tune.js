@@ -28,10 +28,7 @@ export class Tune extends Component {
    * Generates HTML, adds to the parent element and set listeners
    */
   setup() {
-    this.data.titlesort = Utils.titleforsort(this.data.prefered_name);
-    this.data.dayssincelastrehear = this.data?.last_rehearsals.length > 0 ?
-        Utils.calctimesince(this.data.last_rehearsals[0]) : null;
-    this.data.meanRehear = Utils.getMeanRehear(this.data.last_rehearsals);
+    this.calculateValues();
     const mycontent = this['generatehtml_' + this.format]();
     if (this.element) {
       this.element.outerHTML = mycontent;
@@ -39,6 +36,16 @@ export class Tune extends Component {
       this.attachAt(mycontent, false);
     }
     this.addlisteners();
+  }
+
+  /**
+   * Generate calculated values from data
+   */
+  calculateValues() {
+    this.data.titlesort = Utils.titleforsort(this.data.prefered_name);
+    this.data.dayssincelastrehear = this.data?.last_rehearsals.length > 0 ?
+        Utils.calctimesince(this.data.last_rehearsals[0]) : null;
+    this.data.meanRehear = Utils.getMeanRehear(this.data.last_rehearsals);
   }
 
   /**
@@ -210,9 +217,10 @@ export class Tune extends Component {
     const result = await apis.Xanoapi.edittunebooktune(this.data.id, this.data);
 
     if (result) {
-      const tunebook = Controller.getinstance('Tunebook');
+      this.calculateValues();
       new Mynotification('success',
-          `añadido nuevo ensayo de ${this.data.prefered_name}.`);
+      `añadido nuevo ensayo de ${this.data.prefered_name}.`);
+      const tunebook = Controller.getinstance('Tunebook');
       tunebook.rendertunes(tunebook.filtered);
     } else {
       this.data = backup;
