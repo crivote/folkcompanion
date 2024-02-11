@@ -67,7 +67,7 @@ export class Utils {
    * @param {object} tunebookTune
    * @return {object} tunebookTune
    */
-  calcValueforTunes(tunebookTune) {
+  static calcValueforTunes(tunebookTune) {
     tunebookTune.titlesort = Utils.titleforsort(tunebookTune.prefered_name);
     tunebookTune.dayssincelastrehear =
         tunebookTune?.last_rehearsals.length > 0 ?
