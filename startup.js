@@ -165,13 +165,17 @@ export class Utils {
    * @return {html}
    */
   static generateformfield(name, label, value, select) {
+    let arrayok = false;
+    if (Array.isArray(select) && select.length > 1) {
+      arrayok = true;
+    }
     return `
-      <div class="flex border-2 p-4 border-slate-100 bg-slate-50 
-      rounded-md mb-4 formcomponent">
+      <div class="flex flex-col border-2 p-4 border-slate-100 bg-slate-50 
+      rounded-md mb-4 ${arrayok ? `formcomponent` : 'staticcomponent'}">
         <label class="uppercase text-slate-400 text-sm">${label}</label>
         <h4 data-name="${name}" class="formelement font-semibold 
         text-slate-600 text-xl">${value}</h4>
-        ${select ? this.generateselect(select, 'data' + name) : ''}
+        ${arrayok ? this.generateselect(select, 'data' + name) : ''}
       </div>`;
   }
 

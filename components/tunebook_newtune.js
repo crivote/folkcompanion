@@ -135,7 +135,7 @@ export class Tuneaddtobook extends Component {
                     <button class="px-4 py-3 rounded-md bg-blue-500 
                     text-white text-md font-bold uppercase mr-4" 
                     type="submit">${this.isNew ? `Añadir tema`:
-                    `Guardar cambios`}<</button>
+                    `Guardar cambios`}</button>
                 </div>
               </form>
             <div>
@@ -290,8 +290,7 @@ export class Tuneaddtobook extends Component {
     const select = el.querySelector('select');
     title.classList.add('hidden');
     select.classList.remove('hidden');
-    select.focus();
-    select.click();
+    select.size = select.options.length;
   }
 
   /**
