@@ -26,16 +26,16 @@ export class Tunedetail extends Component {
                 <h2 class="text-2xl text-blue-400 font-semibold mb-6">Editar tema</h2>
                     <div class="flex items-center justify-center -mb-4 gap-4">
                         <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
-                            <p>${this.tune.Type} (${this.tune.time})</p>
-                            <p>${this.tune.Compasses} compases</p>
+                            <p>${this.tune.type} (${this.tune.time})</p>
+                            <p>${this.tune.compasses} compases</p>
                             <p>${this.tune.Estructure}</p>
                         </div>
                         <div class="relative">
                         <span class="searchphoto absolute top-2 right-2 bg-slate-600 text-white rounded-full w-8 h-8 text-center p-1"><i class="fa fa-search fa-lg"></i></span>
                         </div>
                         <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
-                            <p>${this.tune.Author}</p>
-                            <p>${this.tune?.Tradition ? this.tune.Tradition.join(' · ') : ''}</p>
+                            <p>${this.tune.author}</p>
+                            <p>${this.tune?.tradition ? this.tune.tradition.join(' · ') : ''}</p>
                         </div>
                     </div>
 

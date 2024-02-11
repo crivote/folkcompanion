@@ -39,7 +39,7 @@ export class Tunebook extends Component {
    */
   async setup() {
     this.typeslist = Utils.getUniqueValues(
-        Data.tunebook.map((tune) => tune.tuneref.Type));
+        Data.tunebook.map((tune) => tune.tuneref.type));
     this.statuslist = Utils.getUniqueValues(
         Data.tunebook.map((tune) => tune.status));
     this.tonelist = Utils.getUniqueValues(
@@ -220,7 +220,7 @@ export class Tunebook extends Component {
           }
           let val2 = true;
           if (valseltype != '') {
-            val2 = tune.tuneref.Type == valseltype;
+            val2 = tune.tuneref.type == valseltype;
           }
           let val3 = true;
           if (valselstat != '') {

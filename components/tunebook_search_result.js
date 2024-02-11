@@ -47,9 +47,9 @@ export class Tunesearchresult extends Component {
           class="player rounded-full bg-black p-1 w-8 h-8 flex">
           <i class="fa fa-play-circle fa-lg m-auto"></i></span>` : ''}
         <span class="font-bold">${this.tunedetail.main_name}</span>
-        <em class="text-xs text-slate-300">${this.tunedetail.Type}</em>
-        <span class="text-xs uppercase">${this.tunedetail?.Tradition ?
-          this.tunedetail.Tradition.join(' · ') : ''}</span>
+        <em class="text-xs text-slate-300">${this.tunedetail.type}</em>
+        <span class="text-xs uppercase">${this.tunedetail?.tradition ?
+          this.tunedetail.tradition.join(' · ') : ''}</span>
         ${this.tunedetail.popularity ? `<span class="ml-auto bg-slate-600
         p-1 rounded-lg text-xs w-16 text-center" title="popularidad">
         <i class="fa fa-star mr-1"></i>

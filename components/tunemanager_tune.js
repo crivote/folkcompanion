@@ -39,9 +39,9 @@ export class Tuneformanager extends Component {
             <span class="bg-slate-200 rounded-md text-xs p-1 w-16 shrink-0"><i class="fa fa-star fa-lg mr-1 text-yellow-600"></i>${this.data.popularity ?? 0}</span>
             <h2 class="tunetitle text-xl font-semibold mr-2">${this.data.main_name}</h2>
             ${this.data?.other_names ? `<span class="bg-blue-400 text-white rounded-md text-xs p-1" title="${this.data.other_names.join(' / ')}">${this.data.other_names.length}</span>` : ''}
-            <p class="tunemodes text-blue-400 font-semibold mr-2">${this.data.Type}</p>
-            <p class="tunealiases text-gray-500">${this.data.Author}</p>
-            <p class="text-gray-500">${this.data?.Tradition ? this.data?.Tradition.join(' · ') : ''}</p>
+            <p class="tunemodes text-blue-400 font-semibold mr-2">${this.data.type}</p>
+            <p class="tunealiases text-gray-500">${this.data.author}</p>
+            <p class="text-gray-500">${this.data?.tradition ? this.data?.tradition.join(' · ') : ''}</p>
             <div class="flex gap-2 ml-auto items-center">
                 ${links.join(' ')}
                 <span>${this.checkcontent(this.data.Modes_played, 'tonalidades')}</span>

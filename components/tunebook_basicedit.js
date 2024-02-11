@@ -33,8 +33,8 @@ export class Tunebasicedit extends Component {
                 <form id="loginform">
                     <div class="flex items-center justify-center -mb-4 gap-4">
                         <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
-                            <p>${this.tune.tuneref.Type} (${this.tune.time})</p>
-                            <p>${this.tune.tuneref.Compasses} compases</p>
+                            <p>${this.tune.tuneref.type} (${this.tune.time})</p>
+                            <p>${this.tune.tuneref.compasses} compases</p>
                             <p>${this.tune.tuneref.Estructure}</p>
                         </div>
                         <div class="relative">
@@ -44,8 +44,8 @@ export class Tunebasicedit extends Component {
                             </span>
                         </div>
                         <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
-                            <p>${this.tune.tuneref.Author}</p>
-                            <p>${this.tune.tuneref?.Tradition.join(' · ') ?? ''}</p>
+                            <p>${this.tune.tuneref.author}</p>
+                            <p>${this.tune.tuneref?.tradition.join(' · ') ?? ''}</p>
                         </div>
                     </div>
                     ${Utils.generateformfield('titulo', 'titulo favorito', this.tune.prefered_name ?? this.tune.tuneref.main_name, nameslist)}

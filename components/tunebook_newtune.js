@@ -31,13 +31,11 @@ export class Tuneaddtobook extends Component {
    * Cargar contenido componente
    */
   async setup() {
-    this.pics = await apis.Pexels.search(this.tune.main_name);
-    if (this.pics.length == 0) {
-      if (this.tune.other_names && this.tune.other_names.length > 0) {
-        this.pics = await apis.Pexels.search(this.tune.other_names[0]);
-      }
-    }
+    this.pics = await apis.Pexels.search(this.tune.other_names[0]);
     this.pics = this.pics.concat(Data.genericpics);
+    if (!this.isNew) {
+      this.pics.unshift(this.tune.preferred_img_url);
+    }
     this.attachAt(this.generatehtml(), false);
     this.addListeners();
   }
@@ -64,16 +62,16 @@ export class Tuneaddtobook extends Component {
             <form id="loginform">
               <div class="flex items-center justify-center -mb-4 gap-4">
                 <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
-                  <p>${tuneref.Type} (${tuneref.time})</p>
-                  <p>${tuneref.Compasses} compases</p>
+                  <p>${tuneref.type} (${tuneref.time})</p>
+                  <p>${tuneref.compasses} compases</p>
                   <p>${tuneref.Estructure}</p>
                 </div>
                 <img class="picphoto rounded-full h-48 w-48 border-8 
                 border-slate-200 object-cover object-center" 
                 src="${this.pics[0]}">
                 <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
-                  <p>${tuneref.Author}</p>
-                  <p>${tuneref?.Tradition ? tuneref.Tradition.join(' · ') : ''}
+                  <p>${tuneref.author}</p>
+                  <p>${tuneref?.tradition ? tuneref.tradition.join(' · ') : ''}
                   </p>
                 </div>
               </div>
@@ -87,13 +85,13 @@ export class Tuneaddtobook extends Component {
       'tonalidad',
       'tonalidad preferida',
       tuneref.tunekeys[0],
-      tuneref.tunekeys
+      tuneref.tunekeys,
   )}
   ${Utils.generateformfield(
-    'status',
-    'status de ejecución',
-    Data.status[0].label,
-    Data.status.map((sta) => sta.label)
+      'status',
+      'status de ejecución',
+      Data.status[0].label,
+      Data.status.map((sta) => sta.label),
   )}
               <div class="flex items-center justify-center border-b 
               border-slate-200 h-0 my-6">

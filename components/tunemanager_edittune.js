@@ -55,7 +55,7 @@ export class Tunemanageredit extends Component {
                     <div class="flex gap-3">
                         <div>
                             <label class="uppercase text-slate-400 text-sm mt-3">tipo</label>
-                            <p class="edittype border" contenteditable="true">${this.data.Type}</p>
+                            <p class="edittype border" contenteditable="true">${this.data.type}</p>
                         </div>
                         <div>
                             <label class="uppercase text-slate-400 text-sm mt-3">tiempo</label> 
@@ -63,7 +63,7 @@ export class Tunemanageredit extends Component {
                         </div>
                         <div>
                             <label class="uppercase text-slate-400 text-sm mt-3">compases</label>
-                            <p class="editcompases border" contenteditable="true">${this.data.Compasses}</p>
+                            <p class="editcompases border" contenteditable="true">${this.data.compasses}</p>
                         </div>
                         <div>
                             <label class="uppercase text-slate-400 text-sm mt-3">estructura</label>
@@ -76,10 +76,10 @@ export class Tunemanageredit extends Component {
                     </div>
 
                     <label class="uppercase text-slate-400 text-sm mt-3">autor</label>
-                    <p class="editautor border" contenteditable="true">${this.data.Author}</p>
+                    <p class="editautor border" contenteditable="true">${this.data.author}</p>
 
                     <label class="uppercase text-slate-400 text-sm mt-3">tradicion</label>
-                    <p class="edittradition border" contenteditable="true">${this.data?.Tradition ? this.data.Tradition.join(' / ') : ''}</p>
+                    <p class="edittradition border" contenteditable="true">${this.data?.tradition ? this.data.tradition.join(' / ') : ''}</p>
 
                     <label class="uppercase text-slate-400 text-sm mt-3">trivia</label>
                     <p class="edittrivia border" contenteditable="true">${this.data.trivia}</p>
@@ -201,14 +201,14 @@ export class Tunemanageredit extends Component {
         const params = {
             main_name: this.element.querySelector('#modaledittunemanager .editmainname').innerText,
             other_names: this.element.querySelector('#modaledittunemanager .editalias').innerText.split('/'),
-            Type: this.element.querySelector('#modaledittunemanager .edittype').innerText,
-            Author: this.element.querySelector('#modaledittunemanager .editautor').innerText,
+            type: this.element.querySelector('#modaledittunemanager .edittype').innerText,
+            author: this.element.querySelector('#modaledittunemanager .editautor').innerText,
             time: this.element.querySelector('#modaledittunemanager .edittime').innerText,
-            Tradition: this.element.querySelector('#modaledittunemanager .edittradition').innerText.split('/'),
+            tradition: this.element.querySelector('#modaledittunemanager .edittradition').innerText.split('/'),
             References: References,
             Modes_played: Modes_played,
             Estructure: this.element.querySelector('#modaledittunemanager .editestructure').innerText,
-            Compasses: this.element.querySelector('#modaledittunemanager .editcompases').innerText,
+            compasses: this.element.querySelector('#modaledittunemanager .editcompases').innerText,
             trivia: this.element.querySelector('#modaledittunemanager .edittrivia').innerText,
             popularity: this.element.querySelector('#modaledittunemanager .editpopularity').innerText,
             sortname: this.element.querySelector('#modaledittunemanager .editsortname').innerText,

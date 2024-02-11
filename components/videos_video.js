@@ -28,7 +28,7 @@ export class Video extends Component {
 
   gettunedata(idtune) {
     const tune = Data.tunes.find((tune) => tune.id == idtune);
-    return `<li>${tune.main_name} ${tune.Type}</li>`;
+    return `<li>${tune.main_name} ${tune.type}</li>`;
   }
 
   generatehtml() {

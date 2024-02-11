@@ -77,7 +77,7 @@ export class Tune extends Component {
    */
   generatehtml_card() {
     const mystatus = this.getstatus(this.data.status);
-    const mytype = this.data.customtype ?? this.data.tuneref.Type;
+    const mytype = this.data.customtype ?? this.data.tuneref.type;
 
     return `<div id="tune${this.data.id}" class="cursor-pointer flex flex-col 
     border-t-8 border-${mystatus.color} relative tunecard shrink-0 
@@ -128,7 +128,7 @@ export class Tune extends Component {
         <h2 class="leading-none tunetitle text-xl font-semibold text-center 
         mt-6 mb-1 text-slate-500">${this.data.prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
-        text-sm text-center mb-2">${mytype} | ${this.data.tuneref.Author}</p>
+        text-sm text-center mb-2">${mytype} | ${this.data.tuneref.author}</p>
         <div class="flex gap-1 mt-auto justify-center">
             <button class="uppercase font-medium rehearsal bg-blue-500 px-3 
             py-1 rounded-md text-white text-bold hover:bg-blue-700" 

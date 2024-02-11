@@ -30,9 +30,9 @@ export class Tunemanager extends Component {
    * poblar filtros y renderizar contenido
    */
   setup() {
-    const typeslist = Data.tunes.map((tune) => tune.Type);
+    const typeslist = Data.tunes.map((tune) => tune.type);
     this.typeslist = [...new Set(typeslist)];
-    const originlist = Data.tunes.map((tune) => tune.Tradition);
+    const originlist = Data.tunes.map((tune) => tune.tradition);
     this.originlist = [...new Set(originlist.flat())];
     this.filtered = Data.tunes;
 
@@ -76,7 +76,7 @@ export class Tunemanager extends Component {
         <p>sorting by 
           <select class="tunesorting">
             <option selected value="sortname">Nombre</option>
-            <option value="Type">Tipo</option>
+            <option value="type">Tipo</option>
             <option value="popularity">Popularidad</option>
           </select>
         </p>
@@ -182,11 +182,11 @@ export class Tunemanager extends Component {
           }
           let val2 = true;
           if (valtype) {
-            val2 = tune.Type == valtype;
+            val2 = tune.type == valtype;
           }
           let val3 = true;
           if (valtrad) {
-            val3 = tune.Tradition.includes(valtrad);
+            val3 = tune.tradition.includes(valtrad);
           }
           return val1 && val2 && val3;
         },
