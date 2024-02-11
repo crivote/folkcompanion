@@ -31,7 +31,8 @@ export class Tuneaddtobook extends Component {
    * Cargar contenido componente
    */
   async setup() {
-    this.pics = await apis.Pexels.search(this.tune.other_names[0]);
+    this.pics = await apis.Pexels.search(this.isNew ? this.tune.other_names[0] :
+      this.tune.prefered_name);
     this.pics = this.pics.concat(Data.genericpics);
     if (!this.isNew) {
       this.pics.unshift(this.tune.preferred_img_url);
