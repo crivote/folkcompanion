@@ -468,11 +468,6 @@ export class Controller {
       // add info from tunes to tunebook
       Data.tunebook.forEach((item) => {
         item.tuneref = Data.tunes.find((tune) => tune.id === item.tunes_id);
-        item.titlesort = Utils.titleforsort(item.prefered_name);
-        item.dayssincelastrehear = item?.last_rehearsals.length > 0 ?
-            Utils.calctimesince(item.last_rehearsals[0]) : null;
-        item.meanRehear = item?.last_rehearsals.length > 1 ?
-            Utils.getMeanRehear(item.last_rehearsals) : null;
       });
       new components.Mynotification(
           'success',

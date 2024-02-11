@@ -4,6 +4,7 @@
 export class Component {
   // reference to the DOM element rendered
   element = null;
+  // TODO add reference to parent instance
 
   /**
    * Constructor
@@ -51,6 +52,7 @@ export class Component {
   /**
    * Remove html element
    */
+  // TODO: add instance deletion using properties
   remove() {
     this.element.remove();
   }

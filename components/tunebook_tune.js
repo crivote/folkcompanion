@@ -2,7 +2,7 @@ import {Component} from '../abstract.js';
 import {Mynotification} from './notification.js';
 import {Controller, Utils, Data, ABCplayer} from '../startup.js';
 import * as apis from '../apis.js';
-import {Tunebasicedit} from './tunebook_basicedit.js';
+import {Tuneaddtobook} from './tunebook_newtune.js';
 
 /**
  * Tune for tunebook component
@@ -28,6 +28,11 @@ export class Tune extends Component {
    * Generates HTML, adds to the parent element and set listeners
    */
   setup() {
+    this.data.titlesort = Utils.titleforsort(this.data.prefered_name);
+    this.data.dayssincelastrehear = this.data?.last_rehearsals.length > 0 ?
+        Utils.calctimesince(item.last_rehearsals[0]) : null;
+    this.data.meanRehear = item?.last_rehearsals.length > 1 ?
+        Utils.getMeanRehear(item.last_rehearsals) : null;
     const mycontent = this['generatehtml_' + this.format]();
     if (this.element) {
       this.element.outerHTML = mycontent;
@@ -206,9 +211,10 @@ export class Tune extends Component {
     const result = await apis.Xanoapi.edittunebooktune(this.data.id, this.data);
 
     if (result) {
-      this.setup();
+      const tunebook = Controller.getinstance('Tunebook');
       new Mynotification('success',
           `añadido nuevo ensayo de ${this.data.prefered_name}.`);
+      tunebook.rendertunes(tunebook.filtered);
     } else {
       this.data = backup;
       new Mynotification('error', `error al guardar el ensayo.`);
@@ -228,8 +234,8 @@ export class Tune extends Component {
    */
   quickedit() {
     const mytunebook = Controller.getinstance('Tunebook');
-    mytunebook.subelements.push(new Tunebasicedit(
-        'modaltuneedit', mytunebook.element, this.data.id));
+    mytunebook.subelements.push(new Tuneaddtobook(
+        'modaltuneedit', mytunebook.element, this.data.id, 'edit'));
   }
 
   /**
