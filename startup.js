@@ -228,24 +228,27 @@ export class Utils {
    * @return {number} mediaEnDias
    */
   static getMeanRehear(datearray) {
-    // Convertir fechas a milisegundos desde el 1 de enero de 1970
-    const fechasEnMilisegundos =
-        datearray.map((fecha) => new Date(fecha).getTime());
-    // Cambiar orden a cronologico (mas antiguo antes)
-    fechasEnMilisegundos.reverse();
-    // Calcular la diferencia en milisegundos entre fechas consecutivas
-    const intervalosEnMilisegundos = [];
-    for (let i = 1; i < fechasEnMilisegundos.length; i++) {
-      const intervalo = fechasEnMilisegundos[i] - fechasEnMilisegundos[i - 1];
-      intervalosEnMilisegundos.push(intervalo);
-    }
+    if (Array.isArray(datearray) && datearray.length > 1) {
+      // Convertir fechas a milisegundos desde el 1 de enero de 1970
+      const fechasEnMilisegundos =
+          datearray.map((fecha) => new Date(fecha).getTime());
+      // Cambiar orden a cronologico (mas antiguo antes)
+      fechasEnMilisegundos.reverse();
+      // Calcular la diferencia en milisegundos entre fechas consecutivas
+      const intervalosEnMilisegundos = [];
+      for (let i = 1; i < fechasEnMilisegundos.length; i++) {
+        const intervalo = fechasEnMilisegundos[i] - fechasEnMilisegundos[i - 1];
+        intervalosEnMilisegundos.push(intervalo);
+      }
 
-    // Calcular la media de los intervalos en días
-    const mediaEnMilisegundos = intervalosEnMilisegundos
-        .reduce((acumulador, valorActual) =>
-          acumulador + valorActual, 0) / intervalosEnMilisegundos.length;
-    const mediaEnDias = mediaEnMilisegundos / (1000 * 60 * 60 * 24);
-    return Math.round(mediaEnDias);
+      // Calcular la media de los intervalos en días
+      const mediaEnMilisegundos = intervalosEnMilisegundos
+          .reduce((acumulador, valorActual) =>
+            acumulador + valorActual, 0) / intervalosEnMilisegundos.length;
+      const mediaEnDias = mediaEnMilisegundos / (1000 * 60 * 60 * 24);
+      return Math.round(mediaEnDias);
+    }
+    return null;
   }
 }
 

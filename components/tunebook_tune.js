@@ -30,9 +30,8 @@ export class Tune extends Component {
   setup() {
     this.data.titlesort = Utils.titleforsort(this.data.prefered_name);
     this.data.dayssincelastrehear = this.data?.last_rehearsals.length > 0 ?
-        Utils.calctimesince(item.last_rehearsals[0]) : null;
-    this.data.meanRehear = item?.last_rehearsals.length > 1 ?
-        Utils.getMeanRehear(item.last_rehearsals) : null;
+        Utils.calctimesince(this.data.last_rehearsals[0]) : null;
+    this.data.meanRehear = Utils.getMeanRehear(this.data.last_rehearsals);
     const mycontent = this['generatehtml_' + this.format]();
     if (this.element) {
       this.element.outerHTML = mycontent;
