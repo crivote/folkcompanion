@@ -160,8 +160,8 @@ export class Tuneaddtobook extends Component {
         .forEach((el) =>
           el.addEventListener('change', this.changeselectvalue.bind(this)));
     // add tune
-    this.element.querySelector('form')
-        .addEventListener('submit', this.savetunedata.bind(this));
+    this.element.querySelector('button')
+        .addEventListener('click', this.savetunedata.bind(this));
     // show input to search pics
     this.element.querySelector('.searchphoto')
         .addEventListener('click', this.showinputforpicsearch.bind(this));
@@ -181,7 +181,7 @@ export class Tuneaddtobook extends Component {
     const params = {...Data.template.tunebook};
     params.tunes_id = this.isNew ? this.tune.id : this.tune.tuneref.id;
     params.user_id = Data.user.id;
-    params.preferred_img_url = this.element.querySelector(picphoto).src;
+    params.preferred_img_url = this.element.querySelector('.picphoto').src;
     params.prefered_name = this.element.querySelector('.datatitulo')
         .textContent;
     params.prefered_tone = this.element.querySelector('.datatonalidad')
@@ -300,7 +300,7 @@ export class Tuneaddtobook extends Component {
    */
   changeselectvalue(event) {
     const el = event.currentTarget;
-    event.stopImmediatePropagation;
+    event.stopImmediatePropagation();
     const textel = el.previousElementSibling;
     // esconder select tras cambio valor y mostrar icono edicion
     el.classList.add('hidden');
