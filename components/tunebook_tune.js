@@ -28,7 +28,6 @@ export class Tune extends Component {
    * Generates HTML, adds to the parent element and set listeners
    */
   setup() {
-    this.calculateValues();
     const mycontent = this['generatehtml_' + this.format]();
     if (this.element) {
       this.element.outerHTML = mycontent;
@@ -36,16 +35,6 @@ export class Tune extends Component {
       this.attachAt(mycontent, false);
     }
     this.addlisteners();
-  }
-
-  /**
-   * Generate calculated values from data
-   */
-  calculateValues() {
-    this.data.titlesort = Utils.titleforsort(this.data.prefered_name);
-    this.data.dayssincelastrehear = this.data?.last_rehearsals.length > 0 ?
-        Utils.calctimesince(this.data.last_rehearsals[0]) : null;
-    this.data.meanRehear = Utils.getMeanRehear(this.data.last_rehearsals);
   }
 
   /**
@@ -217,9 +206,9 @@ export class Tune extends Component {
     const result = await apis.Xanoapi.edittunebooktune(this.data.id, this.data);
 
     if (result) {
-      this.calculateValues();
+      this.data = Utils.calcValueforTunes(this.data);
       new Mynotification('success',
-      `añadido nuevo ensayo de ${this.data.prefered_name}.`);
+          `añadido nuevo ensayo de ${this.data.prefered_name}.`);
       const tunebook = Controller.getinstance('Tunebook');
       tunebook.rendertunes(tunebook.filtered);
     } else {
@@ -251,9 +240,9 @@ export class Tune extends Component {
   async deletetune() {
     const result = await apis.Xanoapi.deletetunebooktune(this.data.id);
     if (result) {
-      const mytuneindex = Data.tunes.findIndex(
+      const mytuneindex = Data.tunebook.findIndex(
           (tune) => tune.id == this.data.id);
-      Data.tunes.splice(mytuneindex, 1);
+      Data.tunebook.splice(mytuneindex, 1);
       Utils.removeInstanceRef(this.name, 'Tunebook', 'tune_instances');
       new Mynotification('success',
           `eliminando ${this.data.prefered_name} del repertorio.`);

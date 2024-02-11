@@ -52,23 +52,31 @@ export class Tuneaddtobook extends Component {
     );
 
     return `
-    <div id="modaladdtune" class="fixed inset-0 bg-gray-500 bg-opacity-75 
+    <div id="${this.isNew ? 'modaladdtune' : 'modaledittune'}" 
+    class="fixed inset-0 bg-gray-500 bg-opacity-75 
     flex items-center justify-center">
       <div class="bg-white p-8 rounded-xl shadow-lg w-1/3 relative">
         <p id="closeaddtunebook" class="absolute right-4 top-4 text-red-400 
         text-right" title="close"><i class="fa fa-times-circle fa-2x"></i></p>
           <h2 class="text-2xl text-blue-400 font-semibold mb-6">
-          Añadir tema a tu repertorio</h2>
-            <form id="loginform">
+          ${this.isNew ? `Añadir tema a tu repertorio`: `Editar tema`}</h2>
+            <form id="editform">
               <div class="flex items-center justify-center -mb-4 gap-4">
                 <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
                   <p>${tuneref.type} (${tuneref.time})</p>
                   <p>${tuneref.compasses} compases</p>
                   <p>${tuneref.Estructure}</p>
                 </div>
-                <img class="picphoto rounded-full h-48 w-48 border-8 
-                border-slate-200 object-cover object-center" 
-                src="${this.pics[0]}">
+                <div class="relative">
+                  <img class="picphoto rounded-full h-48 w-48 border-8 
+                  border-slate-200 object-cover object-center" 
+                  src="${this.pics[0]}">
+                  <span class="searchphoto absolute top-2 right-2 bg-slate-600 
+                  rounded-full w-8 h-8 text-center p-1">
+                      <i class="fa fa-search fa-lg"></i>
+                      <input class="searchpics hidden" type="text">
+                  </span>
+                </div>          
                 <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
                   <p>${tuneref.author}</p>
                   <p>${tuneref?.tradition ? tuneref.tradition.join(' · ') : ''}
@@ -78,53 +86,55 @@ export class Tuneaddtobook extends Component {
   ${Utils.generateformfield(
       'titulo',
       'titulo favorito',
-      tuneref.main_name,
+      this.isNew ? tuneref.main_name : this.tune.prefered_name,
       tuneref.other_names,
   )}
- ${Utils.generateformfield(
+  ${Utils.generateformfield(
       'tonalidad',
       'tonalidad preferida',
-      tuneref.tunekeys[0],
+      this.isNew ? tuneref.tunekeys[0] : this.tune.prefered_tone,
       tuneref.tunekeys,
   )}
   ${Utils.generateformfield(
       'status',
       'status de ejecución',
-      Data.status[0].label,
+      this.isNew ? Data.status[0].label : this.tune.status,
       Data.status.map((sta) => sta.label),
   )}
               <div class="flex items-center justify-center border-b 
               border-slate-200 h-0 my-6">
-                  <span class="shownext text-blue-500 border-4 border-white">
-                  <i class="fa fa-plus-circle fa-lg"></i></span>
               </div>
-              <div class="hidden flex border-2 p-4 border-slate-100 
-              bg-slate-50 rounded-md mb-4 gap-3">
+              <div class="flex border-2 p-4 border-slate-100 
+              bg-slate-50 rounded-md mb-4 gap-3 justify-between">
                 <div class="flex flex-col">
                     <label class="uppercase text-slate-400 text-sm">
                     aprendido</label>
                     <input class="font-semibold border-0 text-blue-400 
                     bg-blue-200 rounded-md uppercase"type="date" 
-                    name="date" value="${Utils.dateformat()}">
+                    name="learneddate" value="${this.isNew ?
+                      Utils.dateformat() : this.tune.learned_date}">
                 </div>
                 <div class="flex flex-col">
                     <label class="uppercase text-slate-400 text-sm">
                     ensayos</label>
-                    <input class="font-semibold border-0 text-blue-400 
-                    bg-blue-200 rounded-md" type="number" value="0" 
-                    min="0" name="rehearsals">
+                    <input class="font-semibold border-0 text-blue-400 w-24
+                    text-right bg-blue-200 rounded-md" type="number" value="
+                    ${this.isNew ? 0 : this.tune.rehearsal_days}" 
+                    min="0" name="numrehearsals">
                 </div>
                 <div class="flex flex-col">
                   <label class="uppercase text-slate-400 text-sm">Último</label>
                     <input class="font-semibold border-0 text-blue-400 
                     bg-blue-200 rounded-md uppercase" type="date" 
-                    name="lastrehearsal" value="">
+                    name="lastrehearsal" value="${this.isNew ? '' :
+                      this.tune?.last_rehearsals[0] ?? ''}">
                   </div>
                 </div>
                 <div class="flex items-center justify-center">
                     <button class="px-4 py-3 rounded-md bg-blue-500 
                     text-white text-md font-bold uppercase mr-4" 
-                    type="submit">añadir al repertorio</button>
+                    type="submit">${this.isNew ? `Añadir tema`:
+                    `Guardar cambios`}<</button>
                 </div>
               </form>
             <div>
@@ -141,54 +151,124 @@ export class Tuneaddtobook extends Component {
     this.element.querySelector('.picphoto')
         .addEventListener('click', this.changeimage.bind(this));
     // show select control to change value
-    this.element.querySelectorAll('.edit-toggle')
+    this.element.querySelectorAll('.formcomponent')
         .forEach((el) =>
           el.addEventListener('click', this.showeditselect.bind(this)));
-    // toggle show additional controls
-    this.element.querySelectorAll('.shownext')
-        .forEach((el) =>
-          el.addEventListener('click', this.shownextel.bind(this)));
     // change value of select field
     this.element.querySelectorAll('.edit-select')
         .forEach((el) =>
           el.addEventListener('change', this.changeselectvalue.bind(this)));
     // add tune
     this.element.querySelector('form')
-        .addEventListener('submit', this.addtune.bind(this));
+        .addEventListener('submit', this.savetunedata.bind(this));
+    // show input to search pics
+    this.element.querySelector('.searchphoto')
+        .addEventListener('click', this.showinputforpicsearch.bind(this));
+    // search pics
+    this.element.querySelector('.searchpics')
+        .addEventListener('change', this.searchpics.bind(this));
   }
 
-
-  async addtune(event) {
+  /**
+   * Save data from the form
+   *
+   * @param {event} event
+   */
+  async savetunedata(event) {
     event.preventDefault();
 
-    // explore array of fields and add if they have value
-    const inputselectors = [
-      {field: 'preferred_img_url', selector: '.picphoto', value: 'src'},
-      {field: 'prefered_name', selector: '.datatitulo', value: 'textContent'},
-      {field: 'prefered_tone', selector: '.datatonalidad', value: 'textContent'},
-      {field: 'learned_date', selector: 'input[name="date"]', value: 'value'},
-      {field: 'status', selector: '.datastatus', value: 'textContent'},
-      {field: 'rehearsal_days', selector: 'input[name="rehearsals"]', value: 'value'},
-      {field: 'last_rehearsals', selector: '[name="lastrehearsal"]', value: 'value'},
-    ];
-    const params = Utils.populatefromform(Data.template.tunebook, this.element, inputselectors);
-    params.tunes_id = this.tune.id;
+    const params = {...Data.template.tunebook};
+    params.tunes_id = this.isNew ? this.tune.id : this.tune.tuneref.id;
     params.user_id = Data.user.id;
+    params.preferred_img_url = this.element.querySelector(picphoto).src;
+    params.prefered_name = this.element.querySelector('.datatitulo')
+        .textContent;
+    params.prefered_tone = this.element.querySelector('.datatonalidad')
+        .textContent;
+    params.status = this.element.querySelector('.datastatus').textContent;
+    params.learned_date = this.element
+        .querySelector('input[name="learneddate"]').value;
+    params.rehearsal_days = this.element
+        .querySelector('input[name="numrehearsals"]').value;
+    let rehearsalsarray = [];
+    if (!this.isNew && Array.isArray(this.tune.last_rehearsals)) {
+      rehearsalsarray = this.tune.last_rehearsals;
+    }
+    const lastrehearsalvalue = this.element
+        .querySelector('input[name="lastrehearsal"]').value;
+    if (lastrehearsalvalue) {
+      rehearsalsarray.unshift(lastrehearsalvalue);
+    }
+    params.last_rehearsals = rehearsalsarray;
+    const statusobject = Data.status.find(
+        (status) => status.label == params.status);
+    params.status_num = statusobject.value ?? 0;
 
-    try {
-      const result = await apis.Xanoapi.addtotunebook(params);
-      if (result) {
-        this.remove();
-        new Mynotification('success', `Se ha añadido el tema a tu tunebook.`);
-        Controller.screens.Tunebook.tunebook.push(result);
-        Controller.updatetunebook(Controller.screens.Tunebook.tunebook);
-        Controller.screens.Tunebook.rendertunes();
+    if (this.isNew) {
+      try {
+        const result = await apis.Xanoapi.addtotunebook(params);
+        if (result) {
+          result.tuneref = Data.tunes.find(
+              (tune) => tune.id === result.tunes_id);
+          result = Utils.calcValueforTunes(result);
+          Data.tunebook.push(result);
+          new Mynotification('success', `Se ha añadido el tema a tu tunebook.`);
+          const tunebook = Controller.getinstance('Tunebook');
+          tunebook.rendertunes(tunebook.filtered);
+          this.remove();
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      try {
+        const result =
+          await apis.Xanoapi.edittunebooktune(this.data.id, params);
+        if (result) {
+          const myindex = Data.tunebook.findIndex(
+              (tune) => tune.id == this.data.id);
+          Data.tunebook[myindex] = {...Data.tunebook[myindex], ...result};
+          Data.tunebook[myindex] =
+              Utils.calcValueforTunes(Data.tunebook[myindex]);
+          new Mynotification('success',
+              `Se han guardado los cambios en el tema.`);
+          const tunebook = Controller.getinstance('Tunebook');
+          tunebook.rendertunes(tunebook.filtered);
+          this.remove();
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
+  /**
+   * Show input for searching pics
+   */
+  showinputforpicsearch() {
+    this.element.querySelector('.searchpics').classList.remove('hidden');
+  }
+
+  /**
+   * Search pics from string of text
+   *
+   * @param {event} event
+   */
+  async searchpics(event) {
+    event.currentTarget.classList.add('hidden');
+    const searchstring = event.currentTarget.value;
+    if (searchstring.length > 3) {
+      this.pics = await apis.Pexels.search(searchstring, 10);
+      new Mynotification('success',
+          `Se han encontrado imágenes nuevas. Pulse para verlas.`);
+    }
+  }
+
+  /**
+   * Change the displayed image on click
+   *
+   * @param {event} event
+   */
   changeimage(event) {
     const el = event.currentTarget;
     if (this.pics[0] === el.src) {
@@ -198,34 +278,32 @@ export class Tuneaddtobook extends Component {
     el.src = this.pics.shift();
   }
 
-  shownextel(event) {
-    const el = event.currentTarget;
-    const target = el.parentElement.nextElementSibling;
-    const icon = el.querySelector('i');
-    if (icon.classList.contains('fa-plus-circle')) {
-      icon.classList.replace('fa-plus-circle', 'fa-circle-minus');
-      target.classList.remove('hidden');
-    } else {
-      icon.classList.replace('fa-circle-minus', 'fa-plus-circle');
-      target.classList.add('hidden');
-    }
-  }
-
+  /**
+   * Show select for the title
+   *
+   * @param {event} event
+   */
   showeditselect(event) {
     const el = event.currentTarget;
-    const select = el.nextElementSibling;
-    el.classList.add('hidden');
+    const title= el.querySelector('h4');
+    const select = el.querySelector('select');
+    title.classList.add('hidden');
     select.classList.remove('hidden');
+    select.focus();
     select.click();
   }
 
+  /**
+   * Update value of h4 on select change
+   *
+   * @param {event} event
+   */
   changeselectvalue(event) {
     const el = event.currentTarget;
-    const editbutton = el.previousElementSibling;
-    const textel = el.parentElement.previousElementSibling.querySelector('h4');
+    const textel = el.previousElementSibling;
     // esconder select tras cambio valor y mostrar icono edicion
     el.classList.add('hidden');
-    editbutton.classList.remove('hidden');
     textel.textContent = el.value;
+    textel.classList.remove('hidden');
   }
 }

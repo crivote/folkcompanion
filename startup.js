@@ -62,26 +62,19 @@ export class Utils {
   }
 
   /**
-   * genera codigo html para elemento de formulario
+   * Calcula valores extra para temas de repertorio
    *
-   * @param {*} template
-   * @param {*} el
-   * @param {*} inputarray
-   * @return {html} filledtemplate
+   * @param {object} tunebookTune
+   * @return {object} tunebookTune
    */
-  static populatefromform(template, el, inputarray) {
-    const filledtemplate = {...template};
-    inputarray.forEach((param) => {
-      const field = el.querySelector(param.selector);
-      if (
-        field &&
-        field[param.value] &&
-        Object.hasOwn(filledtemplate, param.field)
-      ) {
-        filledtemplate[param.field] = field[param.value];
-      }
-    });
-    return filledtemplate;
+  calcValueforTunes(tunebookTune) {
+    tunebookTune.titlesort = Utils.titleforsort(tunebookTune.prefered_name);
+    tunebookTune.dayssincelastrehear =
+        tunebookTune?.last_rehearsals.length > 0 ?
+        Utils.calctimesince(tunebookTune.last_rehearsals[0]) : null;
+    tunebookTune.meanRehear =
+        Utils.getMeanRehear(tunebookTune.last_rehearsals);
+    return tunebookTune;
   }
 
   /**
@@ -163,7 +156,7 @@ export class Utils {
   }
 
   /**
-   * Genera html para campo form estático o select
+   * Genera html para campo form estático
    *
    * @param {string} name
    * @param {string} label
@@ -174,14 +167,11 @@ export class Utils {
   static generateformfield(name, label, value, select) {
     return `
       <div class="flex border-2 p-4 border-slate-100 bg-slate-50 
-      rounded-md mb-4">
-          <div>
-              <label class="uppercase text-slate-400 text-sm">${label}</label>
-              <h4 data-name="${name}" class="formelement font-semibold 
-              text-slate-600 text-xl">
-              ${value}</h4>
-          </div>
-          ${select ? this.generateselect(select, 'data' + name) : ''}
+      rounded-md mb-4 formcomponent">
+        <label class="uppercase text-slate-400 text-sm">${label}</label>
+        <h4 data-name="${name}" class="formelement font-semibold 
+        text-slate-600 text-xl">${value}</h4>
+        ${select ? this.generateselect(select, 'data' + name) : ''}
       </div>`;
   }
 
@@ -194,15 +184,13 @@ export class Utils {
    */
   static generateselect(data, name) {
     if (Array.isArray(data) && data.length > 1) {
-      return `<div class="ml-auto">
-                <div class="edit-toggle"><i class="fa fa-edit fa-lg"></i></div>
-                <select data-element="${name}" 
-                class="edit-select hidden mt-2 text-sm font-semibold border-0 
-                text-blue-400 
-                bg-blue-200 rounded-md uppercase" name="status">
-                    <option>${data.join('</option><option>')}</option>
-                </select>
-            </div>`;
+      return `
+      <select data-element="${name}" 
+        class="edit-select hidden mt-2 text-sm font-semibold border-0 
+        text-blue-400 
+        bg-blue-200 rounded-md uppercase" name="status">
+            <option>${data.join('</option><option>')}</option>
+      </select>`;
     } else return '';
   }
 
@@ -259,13 +247,13 @@ export const Data = {
   // data templates
   template: {
     tunebook: {
+      tunes_id: 0,
       user_id: 0,
-      custom_type: '',
       preferred_img_url: '',
       prefered_name: '',
       prefered_tone: '',
-      learned_date: '',
       status: '',
+      learned_date: '',
       rehearsal_days: 0,
       last_rehearsals: [],
       status_num: 0,
@@ -471,6 +459,7 @@ export class Controller {
       // add info from tunes to tunebook
       Data.tunebook.forEach((item) => {
         item.tuneref = Data.tunes.find((tune) => tune.id === item.tunes_id);
+        item = Utils.calcValueforTunes(item);
       });
       new components.Mynotification(
           'success',
