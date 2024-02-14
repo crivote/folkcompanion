@@ -243,10 +243,10 @@ export class Tune extends Component {
       const mytuneindex = Data.tunebook.findIndex(
           (tune) => tune.id == this.data.id);
       Data.tunebook.splice(mytuneindex, 1);
-      Utils.removeInstanceRef(this.name, 'Tunebook', 'tune_instances');
       new Mynotification('success',
           `eliminando ${this.data.prefered_name} del repertorio.`);
-      this.remove();
+      const tunebook = Controller.getinstance('Tunebook');
+      tunebook.rendertunes(tunebook.filtered);
     } else {
       new Mynotification('error', `no se ha podido eliminar el tema.`);
     }
