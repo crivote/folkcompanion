@@ -49,8 +49,10 @@ export class Tunesearch extends Component {
    * @return {string}
    */
   generatehtml() {
-    return `<div id="${this.name}" class="animate__animated animate__slideInLeft
-     fixed inset-0 w-1/3 bg-gray-400 flex p-6 shadow-lg">
+    return `
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75">
+    <div id="${this.name}" class="animate__animated animate__slideInLeft
+     fixed inset-0 w-1/2 lg:w-1/3 bg-gray-400 flex p-6 shadow-lg">
             <div class="bg-white p-6 w-full rounded max-h-lvh overflow-auto">
                 <p id="closetunesearch" class="text-right" title="close">
                 <i class="fa fa-times-circle fa-2x"></i></p>
@@ -67,7 +69,8 @@ export class Tunesearch extends Component {
                 </div>
                 <ul class="results bg-slate-500 text-slate-50 p-2"></ul>
           </div>
-        </div>`;
+        </div>
+      </div>`;
   }
 
   /**
