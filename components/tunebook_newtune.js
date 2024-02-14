@@ -211,7 +211,7 @@ export class Tuneaddtobook extends Component {
 
     if (this.isNew) {
       try {
-        const result = await apis.Xanoapi.addtotunebook(params);
+        let result = await apis.Xanoapi.addtotunebook(params);
         if (result) {
           result.tuneref = Data.tunes.find(
               (tune) => tune.id === result.tunes_id);
@@ -228,10 +228,10 @@ export class Tuneaddtobook extends Component {
     } else {
       try {
         const result =
-          await apis.Xanoapi.edittunebooktune(this.data.id, params);
+          await apis.Xanoapi.edittunebooktune(this.tune.id, params);
         if (result) {
           const myindex = Data.tunebook.findIndex(
-              (tune) => tune.id == this.data.id);
+              (tune) => tune.id == this.tune.id);
           Data.tunebook[myindex] = {...Data.tunebook[myindex], ...result};
           Data.tunebook[myindex] =
               Utils.calcValueforTunes(Data.tunebook[myindex]);
