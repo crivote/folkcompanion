@@ -111,7 +111,7 @@ export class Tuneaddtobook extends Component {
                 <div class="flex flex-col">
                     <label class="uppercase text-slate-400 text-sm">
                     aprendido</label>
-                    <input class="font-semibold border-0 text-blue-400 
+                    <input class="font-semibold text-sm border-0 text-blue-400 
                     bg-blue-200 rounded-md uppercase"type="date" 
                     name="learneddate" value="${this.isNew ?
                       Utils.dateformat() : this.tune.learned_date}">
@@ -119,14 +119,16 @@ export class Tuneaddtobook extends Component {
                 <div class="flex flex-col">
                     <label class="uppercase text-slate-400 text-sm">
                     ensayos</label>
-                    <input class="font-semibold border-0 text-blue-400 w-24
+                    <input class="font-semibold text-sm border-0 
+                    text-blue-400 w-24
                     text-right bg-blue-200 rounded-md" type="number" value="
                     ${this.isNew ? 0 : this.tune.rehearsal_days}" 
                     min="0" name="numrehearsals">
                 </div>
                 <div class="flex flex-col">
                   <label class="uppercase text-slate-400 text-sm">Último</label>
-                    <input class="font-semibold border-0 text-blue-400 
+                    <input class="font-semibold text-sm border-0 
+                    text-blue-400 
                     bg-blue-200 rounded-md uppercase" type="date" 
                     name="lastrehearsal" value="${this.isNew ? '' :
                       this.tune?.last_rehearsals[0] ?? ''}">
@@ -159,7 +161,7 @@ export class Tuneaddtobook extends Component {
     // change value of select field
     this.element.querySelectorAll('.edit-select')
         .forEach((el) =>
-          el.addEventListener('change', this.changeselectvalue.bind(this)));
+          el.addEventListener('click', this.changeselectvalue.bind(this)));
     // add tune
     this.element.querySelector('button')
         .addEventListener('click', this.savetunedata.bind(this));
@@ -300,8 +302,8 @@ export class Tuneaddtobook extends Component {
    * @param {event} event
    */
   changeselectvalue(event) {
-    const el = event.currentTarget;
     event.stopImmediatePropagation();
+    const el = event.currentTarget;
     const textel = el.previousElementSibling;
     // esconder select tras cambio valor y mostrar icono edicion
     el.classList.add('hidden');

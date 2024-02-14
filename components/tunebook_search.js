@@ -58,7 +58,7 @@ export class Tunesearch extends Component {
                 <i class="fa fa-times-circle fa-2x"></i></p>
                 <h2 class="text-2xl text-gray-400 font-bold mb-4">
                 Añadir nuevos temas a tu repertorio</h2>
-                <input id="tunesearch" size=40" type="text" 
+                <input id="tunesearch" class="w-full" type="text" 
                 placeholder="escribe parte del nombre para ver resultados">
                 <p class="info mt-6 mb-2"></p>
                 <div class="sugestion hidden">

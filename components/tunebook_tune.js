@@ -88,14 +88,13 @@ export class Tune extends Component {
              text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
             <i class=" m-auto fa fa-circle-play fa-5x"></i><span>` : '' }
         </div>
-        <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase
+        <span class="px-2 py-1 rounded-md text-xs absolute top-4 uppercase
          text-slate-700/75 font-bold bg-${mystatus.color}/75" >
          ${mystatus.label}</span>
          ${this.data.prefered_tone ?
         `<div class="absolute right-6 top-4 px-2 py-1 bg-blue-800/50 
         text-white/90 rounded-lg text-xs" title="Tonalidad">
-            <i class="fas fa-music"></i>
-            <span class="numrehearsal ml-1 font-medium uppercase">
+            <span class="ml-1 font-medium uppercase">
             ${this.data.prefered_tone}
            </span>
         </div>`: ''}
