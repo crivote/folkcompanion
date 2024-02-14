@@ -74,7 +74,7 @@ export class Tune extends Component {
     const mystatus = this.getstatus(this.data.status);
     const mytype = this.data.customtype ?? this.data.tuneref.type;
 
-    return `<div id="tune${this.data.id}" class="cursor-pointer flex flex-col 
+    return `<div id="tune${this.data.id}" class="group cursor-pointer flex flex-col 
     border-t-8 border-${mystatus.color} relative tunecard shrink-0 
     xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 bg-white shadow-md 
     rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg 
@@ -124,11 +124,12 @@ export class Tune extends Component {
         mt-6 mb-1 text-slate-500">${this.data.prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-sm text-center mb-2">${mytype} | ${this.data.tuneref.author}</p>
-        <div class="flex gap-1 mt-auto justify-center">
+        <div class="flex gap-1 mt-auto justify-center opacity-0 
+        transition-opacity duration-300 group-hover:opacity-100
+        -translate-y-full group-hover:translate-y-0">
             <button class="uppercase font-medium rehearsal bg-blue-500 px-3 
             py-1 rounded-md text-white text-bold hover:bg-blue-700" 
-            title="añadir ensayo"><i class="fa fa-bolt mr-1"></i> 
-            añadir ensayo</button>
+            title="añadir ensayo"><i class="fa fa-bolt mr-1"></i></button>
             <button class="uppercase font-medium edittune bg-slate-400 px-3 py-1
             rounded-md text-white text-bold hover:bg-slate-700" 
             title="edicion rapida"><i class="fa fa-gear"></i></button>
