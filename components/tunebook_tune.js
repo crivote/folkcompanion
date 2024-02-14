@@ -74,8 +74,8 @@ export class Tune extends Component {
     const mystatus = this.getstatus(this.data.status);
     const mytype = this.data.customtype ?? this.data.tuneref.type;
 
-    return `<div id="tune${this.data.id}" class="group cursor-pointer flex flex-col 
-    border-t-8 border-${mystatus.color} relative tunecard shrink-0 
+    return `<div id="tune${this.data.id}" class="group cursor-pointer flex 
+    flex-col border-t-8 border-${mystatus.color} relative tunecard shrink-0 
     xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 bg-white shadow-md 
     rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg 
     hover:scale-110">
@@ -84,8 +84,8 @@ export class Tune extends Component {
           `https://picsum.photos/200/200?random=${this.data.id}`}')]">
         ${this.data.tuneref.ABCsample ?
             `<span data-abc="${this.data.tuneref.ABCsample}" data-state="stop"
-             class="playabc text-white/30 hover:text-white/75 m-auto 
-             drop-shadow-xl">
+             class="opacity-0 transition group-hover:opacity-100 playabc
+             text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
             <i class=" m-auto fa fa-circle-play fa-5x"></i><span>` : '' }
         </div>
         <span class="px-2 py-1 rounded-md text-sm absolute top-4 uppercase
@@ -100,24 +100,24 @@ export class Tune extends Component {
            </span>
         </div>`: ''}
         <div class="flex gap-4 items-center justify-center -mt-10">
-        <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
-        bg-white/75 rounded-lg">
+        <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase 
+        bg-white/50 rounded-lg">
             <i class="fas fa-calendar-check"></i> 
             <span class="lastrehearsal ml-1">${this.data?.dayssincelastrehear ?
-              'hace ' + this.data.dayssincelastrehear + ' días' :
+              this.data.dayssincelastrehear + ' d' :
               'nunca'}</span>
         </p>
-        <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
-        bg-white/75 rounded-lg">
+        <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase 
+        bg-white/50 rounded-lg">
             <span class="numrehearsal"><i class="fas fa-stopwatch">
             </i>
              ${this.data?.rehearsal_days}</span>
         </p>
-        <p class="text-center text-sm text-slate-800/75 px-2 py-1 uppercase 
-        bg-white/75 rounded-lg">
+        <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase 
+        bg-white/50 rounded-lg">
             <span class="meanrehear"><i class="fas fa-scale-balanced">
             </i>
-             ${this.data?.meanRehear ?? 'n/a'}</span>
+             ${this.data?.meanRehear + ' d' ?? 'n/a'}</span>
         </p>
         </div>
         <h2 class="leading-none tunetitle text-xl font-semibold text-center 
@@ -126,7 +126,7 @@ export class Tune extends Component {
         text-sm text-center mb-2">${mytype} | ${this.data.tuneref.author}</p>
         <div class="flex gap-1 mt-auto justify-center opacity-0 
         transition-opacity duration-300 group-hover:opacity-100
-        -translate-y-full group-hover:translate-y-0">
+        scale-0 group-hover:scale-100">
             <button class="uppercase font-medium rehearsal bg-blue-500 px-3 
             py-1 rounded-md text-white text-bold hover:bg-blue-700" 
             title="añadir ensayo"><i class="fa fa-bolt mr-1"></i></button>
