@@ -135,9 +135,9 @@ export class Tuneaddtobook extends Component {
                   </div>
                 </div>
                 <div class="flex items-center justify-center">
-                    <button class="px-4 py-3 rounded-md bg-blue-500 
+                    <button class="savedata px-4 py-3 rounded-md bg-blue-500 
                     text-white text-md font-bold uppercase mr-4" 
-                    type="submit">${this.isNew ? `Añadir tema`:
+                    >${this.isNew ? `Añadir tema`:
                     `Guardar cambios`}</button>
                 </div>
               </form>
@@ -163,7 +163,7 @@ export class Tuneaddtobook extends Component {
         .forEach((el) =>
           el.addEventListener('click', this.changeselectvalue.bind(this)));
     // add tune
-    this.element.querySelector('button')
+    this.element.querySelector('button.savedata')
         .addEventListener('click', this.savetunedata.bind(this));
     // show input to search pics
     this.element.querySelector('.searchphoto')

@@ -189,10 +189,10 @@ export class Utils {
   static generateselect(data, name) {
     if (Array.isArray(data) && data.length > 1) {
       return `
-      <select data-element="${name}" 
+      <select
         class="edit-select hidden mt-2 text-sm font-semibold border-0 
         text-blue-400 
-        bg-blue-200 rounded-md uppercase" name="status">
+        bg-blue-200 rounded-md uppercase" name="${name}">
             <option>${data.join('</option><option>')}</option>
       </select>`;
     } else return '';
