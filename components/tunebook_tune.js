@@ -244,7 +244,7 @@ export class Tune extends Component {
           (tune) => tune.id == this.data.id);
       Data.tunebook.splice(mytuneindex, 1);
       new Mynotification('success',
-          `eliminando ${this.data.prefered_name} del repertorio.`);
+          `eliminado el tema ${this.data.prefered_name} del repertorio.`);
       const tunebook = Controller.getinstance('Tunebook');
       tunebook.rendertunes(tunebook.filtered);
     } else {
