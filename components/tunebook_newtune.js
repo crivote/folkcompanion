@@ -185,11 +185,12 @@ export class Tuneaddtobook extends Component {
     params.tunes_id = this.isNew ? this.tune.id : this.tune.tuneref.id;
     params.user_id = Data.user.id;
     params.preferred_img_url = this.element.querySelector('.picphoto').src;
-    params.prefered_name = this.element.querySelector('.datatitulo')
+    params.prefered_name = this.element.querySelector('[data-name="titulo"]')
         .textContent;
-    params.prefered_tone = this.element.querySelector('.datatonalidad')
+    params.prefered_tone = this.element.querySelector('[data-name="tonalidad"]')
         .textContent;
-    params.status = this.element.querySelector('.datastatus').textContent;
+    params.status = this.element.querySelector('[data-name="status"]')
+        .textContent;
     params.learned_date = this.element
         .querySelector('input[name="learneddate"]').value;
     params.rehearsal_days = this.element
@@ -289,9 +290,8 @@ export class Tuneaddtobook extends Component {
    */
   showeditselect(event) {
     const el = event.currentTarget;
-    const title= el.querySelector('h4');
     const select = el.querySelector('select');
-    title.classList.add('hidden');
+    // title.classList.add('hidden');
     select.classList.remove('hidden');
     select.size = select.options.length;
   }
@@ -309,6 +309,6 @@ export class Tuneaddtobook extends Component {
     el.classList.add('hidden');
     el.size = 1;
     textel.textContent = el.value;
-    textel.classList.remove('hidden');
+    // textel.classList.remove('hidden');
   }
 }

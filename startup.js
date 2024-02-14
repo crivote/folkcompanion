@@ -190,8 +190,8 @@ export class Utils {
     if (Array.isArray(data) && data.length > 1) {
       return `
       <select
-        class="edit-select hidden mt-2 text-sm font-semibold border-0 
-        text-blue-400 
+        class="absolute border border-blue-400 shadow-lg edit-select
+        hidden mt-2 text-sm font-semibold border-0 text-blue-400 
         bg-blue-200 rounded-md uppercase" name="${name}">
             <option>${data.join('</option><option>')}</option>
       </select>`;
