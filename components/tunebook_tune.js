@@ -122,7 +122,8 @@ export class Tune extends Component {
         <h2 class="leading-none tunetitle text-xl font-medium text-center 
         mt-7 mb-2 text-blue-900">${this.data.prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
-        text-xs text-center mb-2"><span class="font-medium mr-1">${mytype}</span> ${this.data.tuneref.author}</p>
+        text-xs text-center mb-2"><span class="font-medium mr-1">${mytype}
+        </span>${this.data.tuneref.author}</p>
         <div class="flex gap-1 mt-auto justify-center opacity-0 
         transition-opacity duration-300 group-hover:opacity-100
         scale-0 group-hover:scale-100">
