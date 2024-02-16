@@ -79,7 +79,7 @@ export class Tune extends Component {
     xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 bg-white shadow-md 
     rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg 
     hover:scale-110">
-        <div class="tuneimg flex h-64 -mt-6 -mx-6 bg-center bg-cover 
+        <div class="tuneimg flex h-52 -mt-6 -mx-6 bg-center bg-cover 
         bg-[url('${this.data.preferred_img_url ??
           `https://picsum.photos/200/200?random=${this.data.id}`}')]">
         ${this.data.tuneref.ABCsample ?
@@ -119,10 +119,10 @@ export class Tune extends Component {
              ${this.data?.meanRehear + ' d' ?? 'n/a'}</span>
         </p>
         </div>
-        <h2 class="leading-none tunetitle text-xl font-semibold text-center 
-        mt-6 mb-1 text-slate-500">${this.data.prefered_name}</h2>
+        <h2 class="leading-none tunetitle text-xl font-medium text-center 
+        mt-7 mb-2 text-blue-900">${this.data.prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
-        text-sm text-center mb-2">${mytype} | ${this.data.tuneref.author}</p>
+        text-xs text-center mb-2">${mytype} | ${this.data.tuneref.author}</p>
         <div class="flex gap-1 mt-auto justify-center opacity-0 
         transition-opacity duration-300 group-hover:opacity-100
         scale-0 group-hover:scale-100">
