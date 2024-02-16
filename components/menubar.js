@@ -8,12 +8,12 @@ import {Controller, Data} from '../startup.js';
 export class Menubar extends Component {
   pages = [
     {
-      tag: 'Gestión temas',
+      tag: 'temas',
       name: 'Tunemanager',
       role: 'admin',
     },
     {
-      tag: 'Gestión videos',
+      tag: 'videos',
       name: 'Videos',
       role: 'admin',
     },
@@ -77,16 +77,16 @@ export class Menubar extends Component {
     let menu = '';
     this.pages.forEach((item) => {
       if (item.role == 'all' || item.role == Data.user?.role) {
-        menu = menu + `<span class="rounded-t-md px-4 py-2 hover:font-bold" 
-        data-nav="${item.name}">${item.tag}</span>`;
+        menu = menu + `<span class="cursor-pointer rounded-t-md px-4 py-2 
+        hover:font-bold" data-nav="${item.name}">${item.tag}</span>`;
       }
     });
     return `
       <header id="${this.name}" class="">
-      <div class="menubar flex bg-indigo-700 text-white">
+      <div class="menubar flex bg-indigo-800 text-white">
 
-      <nav id="mainnav" class="uppercase flex gap-3 mx-5 
-      translate-y-2 text-slate-200">
+      <nav id="mainnav" class="uppercase flex mx-5 
+      translate-y-1 text-slate-200 text-sm leading-none items-end">
           ${menu}
       </nav>
       <div class="user ml-auto mr-6">
