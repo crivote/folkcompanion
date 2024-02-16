@@ -88,6 +88,8 @@ export class Tunebook extends Component {
         );
     this.element.querySelector('.tunesorting')
         .addEventListener('change', this.applysort.bind(this));
+    this.element.querySelector('.sortorder')
+        .addEventListener('click', this.changesortorder.bind(this));
   }
 
   /**
@@ -150,7 +152,8 @@ export class Tunebook extends Component {
             <i class="resetfilter fa fa-eraser"></i>
           </div>
         </div>
-        <p><span class="sortorder"><i class="fa-solid ${this.sort == 'ASC' ?
+        <p><span class="sortorder"><i class="fa-solid 
+        ${this.sortorder == 'ASC' ?
         'fa-arrow-down-short-wide' : 'fa-arrow-up-wide-short'}"></i></span>
           <select class="tunesorting text-sm bg-cyan-200 text-cyan-500 p-1 
           rounded-md border-0">

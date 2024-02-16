@@ -49,7 +49,7 @@ export class Tuneaddtobook extends Component {
   generatehtml() {
     const tuneref = this.isNew ? this.tune : this.tune.tuneref;
     tuneref.tunekeys = tuneref.Modes_played.map(
-        (mode) => `${mode.Key} ${mode.Mode.substring(0, 3)}`,
+        (mode) => `${mode.Key} ${mode.Mode}`,
     );
 
     return `

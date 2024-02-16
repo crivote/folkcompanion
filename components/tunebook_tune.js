@@ -95,7 +95,7 @@ export class Tune extends Component {
         `<div class="absolute right-6 top-4 px-2 py-1 bg-blue-800/50 
         text-white/90 rounded-lg text-xs" title="Tonalidad">
             <span class="ml-1 font-medium uppercase">
-            ${this.data.prefered_tone}
+            ${this.data.prefered_tone.substring(0, 5)}
            </span>
         </div>`: ''}
         <div class="flex gap-4 items-center justify-center -mt-10">
