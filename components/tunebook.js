@@ -143,7 +143,7 @@ export class Tunebook extends Component {
           <option> ${this.tonelist.join('</option><option>')}
           </option></select>
             <i class="fas fa-filter"></i>
-             <input type="search" id="tunebook_filter" w-32 rounded-md 
+             <input type="search" id="tunebook_filter" class="w-32 rounded-md 
             bg-white/50 p-1 text-sm text-slate-500 border-slate-300">
             <i class="resetfilter fa fa-trash"></i>
         </div>
