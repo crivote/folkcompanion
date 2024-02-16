@@ -121,7 +121,8 @@ export class Tuneaddtobook extends Component {
                     <input class="font-semibold text-sm border-0 
                     text-blue-400 w-24
                     text-right bg-blue-200 rounded-md" type="number" value="
-                    ${this.isNew ? 0 : this.tune.rehearsal_days}" 
+                    ${this.isNew ? 0 :
+                    Number.parseInt(this.tune.rehearsal_days)}" 
                     min="0" name="numrehearsals">
                 </div>
                 <div class="flex flex-col">
@@ -202,6 +203,9 @@ export class Tuneaddtobook extends Component {
         .querySelector('input[name="lastrehearsal"]').value;
     if (lastrehearsalvalue) {
       rehearsalsarray.unshift(lastrehearsalvalue);
+      if (rehearsalsarray.length > 5) {
+        rehearsalsarray = rehearsalsarray.slice(0, 5);
+      }
     }
     params.last_rehearsals = rehearsalsarray;
     const statusobject = Data.status.find(
