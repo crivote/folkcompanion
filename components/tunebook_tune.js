@@ -99,22 +99,22 @@ export class Tune extends Component {
            </span>
         </div>`: ''}
         <div class="flex gap-2 items-center justify-center -mt-8 rounded-md
-        w-fit mx-auto px-2 bg-white:50 group-hover:bg-white-75">
+        w-fit mx-auto px-2 bg-white/35 group-hover:bg-white/85">
         <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
-            <i class="fas fa-calendar-check"></i> 
-            <span class="lastrehearsal ml-1">${this.data?.dayssincelastrehear ?
+            <i class="opacity-75 fas fa-calendar-check">
+            </i> <span class="lastrehearsal ml-1">
+            ${this.data?.dayssincelastrehear ?
               this.data.dayssincelastrehear + 'd' :
               'nunca'}</span>
         </p>
         <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
-            <span class="numrehearsal"><i class="fas fa-stopwatch">
-            </i>
-             ${this.data?.rehearsal_days}</span>
+            <span class="numrehearsal"><i class="opacity-75 fas fa-stopwatch">
+            </i> ${this.data?.rehearsal_days}</span>
         </p>
         <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
-            <span class="meanrehear"><i class="fas fa-scale-balanced">
-            </i>
-             ${this.data?.meanRehear + 'd' ?? 'n/a'}</span>
+            <span class="meanrehear">
+            <i class="opacity-75 fas fa-scale-balanced">
+            </i> ${this.data?.meanRehear + 'd' ?? 'n/a'}</span>
         </p>
         </div>
         <h2 class="leading-none tunetitle text-xl font-medium text-center 
