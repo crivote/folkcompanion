@@ -181,9 +181,9 @@ export class Tunebook extends Component {
   sorter(list) {
     list.sort((a, b) => {
       if (a[this.sortcriteria] < b[this.sortcriteria]) {
-        return this.sortorder == 'ASC' ? 1 : -1;
-      } else if (a[this.sortcriteria] > b[this.sortcriteria]) {
         return this.sortorder == 'ASC' ? -1 : 1;
+      } else if (a[this.sortcriteria] > b[this.sortcriteria]) {
+        return this.sortorder == 'ASC' ? 1 : -1;
       } else {
         return 0;
       }

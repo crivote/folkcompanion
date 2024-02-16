@@ -98,29 +98,27 @@ export class Tune extends Component {
             ${this.data.prefered_tone.substring(0, 5)}
            </span>
         </div>`: ''}
-        <div class="flex gap-4 items-center justify-center -mt-10">
-        <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase 
-        bg-white/50 rounded-lg">
+        <div class="flex gap-2 items-center justify-center -mt-8 rounded-md
+        w-fit mx-auto px-2 bg-white:50 group-hover:bg-white-75">
+        <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
             <i class="fas fa-calendar-check"></i> 
             <span class="lastrehearsal ml-1">${this.data?.dayssincelastrehear ?
-              this.data.dayssincelastrehear + ' d' :
+              this.data.dayssincelastrehear + 'd' :
               'nunca'}</span>
         </p>
-        <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase 
-        bg-white/50 rounded-lg">
+        <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
             <span class="numrehearsal"><i class="fas fa-stopwatch">
             </i>
              ${this.data?.rehearsal_days}</span>
         </p>
-        <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase 
-        bg-white/50 rounded-lg">
+        <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
             <span class="meanrehear"><i class="fas fa-scale-balanced">
             </i>
-             ${this.data?.meanRehear + ' d' ?? 'n/a'}</span>
+             ${this.data?.meanRehear + 'd' ?? 'n/a'}</span>
         </p>
         </div>
         <h2 class="leading-none tunetitle text-xl font-medium text-center 
-        mt-7 mb-2 text-blue-900">${this.data.prefered_name}</h2>
+        mt-5 mb-2 text-blue-900">${this.data.prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-xs text-center mb-2"><span class="font-medium mr-1 text-slate-500">
         ${mytype}</span>${this.data.tuneref.author}</p>
