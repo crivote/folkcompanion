@@ -121,32 +121,34 @@ export class Tunebook extends Component {
           ${Data.tunebook.length} temas</span></h3>
           <span class="addnewtune text-blue-600 hover:text-blue-400">
           <i class="fa fa-plus-circle fa-2x"></i></span>
-          <div class="ml-auto flex items-center gap-3">
+          <div class="ml-auto flex items-center gap-3 mr-3">
               <span class="viewselector selected bg-slate-500 
               text-white" data-format="card">
               <i class="fa fa-grip fa-lg"></i></span>
               <span class="viewselector" data-format="list">
               <i class="fa fa-list fa-lg fa-fw"></i></span>
           </div>
-          <select id="typetune_filter" class="text-sm 
-          bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
-          <option value="">Tipo</option>
-          <option> ${this.typeslist.join('</option><option>')}
-          </option></select>
-          <select id="statustune_filter" class="text-sm 
-          bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
-          <option value="">Status</option>
-          <option> ${this.statuslist.join('</option><option>')}
-          </option></select>
-          <select id="tonetune_filter" class="text-sm 
-          bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
-          <option value="">Tone</option>
-          <option> ${this.tonelist.join('</option><option>')}
-          </option></select>
+          <div class="border border-slate-400 p-2 rounded-md">
+            <select id="typetune_filter" class="text-sm 
+            bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+            <option value="">tipo</option>
+            <option> ${this.typeslist.join('</option><option>')}
+            </option></select>
+            <select id="statustune_filter" class="text-sm 
+            bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+            <option value="">status</option>
+            <option> ${this.statuslist.join('</option><option>')}
+            </option></select>
+            <select id="tonetune_filter" class="text-sm 
+            bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+            <option value="">tono</option>
+            <option> ${this.tonelist.join('</option><option>')}
+            </option></select>
             <i class="fas fa-filter"></i>
-             <input type="search" id="tunebook_filter" class="w-32 rounded-md 
+            <input type="search" id="tunebook_filter" class="w-32 rounded-md 
             bg-white/50 p-1 text-sm text-slate-500 border-slate-300">
-            <i class="resetfilter fa fa-trash"></i>
+            <i class="resetfilter fa fa-eraser"></i>
+          </div>
         </div>
         <p><span class="sortorder"><i class="fa-solid ${this.sort == 'ASC' ?
         'fa-arrow-down-short-wide' : 'fa-arrow-up-wide-short'}"></i></span>
