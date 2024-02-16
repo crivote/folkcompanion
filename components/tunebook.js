@@ -10,6 +10,7 @@ export class Tunebook extends Component {
   // filtro para temas del repertorio
   filtered = [];
   sortcriteria = 'titlesort';
+  sortorder = 'ASC';
   // instancias en DOM de las card tunes
   tune_instances = [];
   // listas para filtros select
@@ -147,7 +148,8 @@ export class Tunebook extends Component {
             bg-white/50 p-1 text-sm text-slate-500 border-slate-300">
             <i class="resetfilter fa fa-trash"></i>
         </div>
-        <p><i class="fa-solid fa-arrow-down-short-wide"></i>  
+        <p><span class="sortorder"><i class="fa-solid ${this.sort == 'ASC' ?
+        'fa-arrow-down-short-wide' : 'fa-arrow-up-wide-short'}"></i></span>
           <select class="tunesorting text-sm bg-cyan-200 text-cyan-500 p-1 
           rounded-md border-0">
             <option selected value="titlesort">Nombre</option>
@@ -174,9 +176,9 @@ export class Tunebook extends Component {
   sorter(list) {
     list.sort((a, b) => {
       if (a[this.sortcriteria] < b[this.sortcriteria]) {
-        return this.sortcriteria == 'dayssincelastrehear' ? 1 : -1;
+        return this.sortorder == 'ASC' ? 1 : -1;
       } else if (a[this.sortcriteria] > b[this.sortcriteria]) {
-        return this.sortcriteria == 'dayssincelastrehear' ? -1 : 1;
+        return this.sortorder == 'ASC' ? -1 : 1;
       } else {
         return 0;
       }
@@ -195,6 +197,21 @@ export class Tunebook extends Component {
     this.rendertunes(this.filtered);
   }
 
+  /**
+   * cambiar sentido de ordenacion
+   */
+  changesortorder() {
+    this.sortorder = this.sortorder == 'ASC' ? 'DESC' : 'ASC';
+    const myel = this.element.querySelector('.sortorder i');
+    if (this.sortorder == 'ASC') {
+      myel.classList.remove('fa-arrow-up-wide-short');
+      myel.classList.add('fa-arrow-down-short-wide');
+    } else {
+      myel.classList.remove('fa-arrow-down-short-wide');
+      myel.classList.add('fa-arrow-up-wide-short');
+    }
+    this.rendertunes(this.filtered);
+  }
   /**
    * Vaciar filtros y pintar todos los temas
    *
