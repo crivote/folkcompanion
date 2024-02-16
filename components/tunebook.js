@@ -127,17 +127,17 @@ export class Tunebook extends Component {
               <span class="viewselector" data-format="list">
               <i class="fa fa-list fa-lg fa-fw"></i></span>
           </div>
-          <select id="typetune_filter" class="tunesorting text-sm 
+          <select id="typetune_filter" class="text-sm 
           bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
           <option value="">Tipo</option>
           <option> ${this.typeslist.join('</option><option>')}
           </option></select>
-          <select id="statustune_filter" class="tunesorting text-sm 
+          <select id="statustune_filter" class="text-sm 
           bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
           <option value="">Status</option>
           <option> ${this.statuslist.join('</option><option>')}
           </option></select>
-          <select id="tonetune_filter" class="tunesorting text-sm 
+          <select id="tonetune_filter" class="text-sm 
           bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
           <option value="">Tone</option>
           <option> ${this.tonelist.join('</option><option>')}

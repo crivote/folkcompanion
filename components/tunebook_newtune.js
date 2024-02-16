@@ -120,9 +120,8 @@ export class Tuneaddtobook extends Component {
                     ensayos</label>
                     <input class="font-semibold text-sm border-0 
                     text-blue-400 w-24
-                    text-right bg-blue-200 rounded-md" type="number" value="
-                    ${this.isNew ? 0 :
-                    Number.parseInt(this.tune.rehearsal_days)}" 
+                    text-right bg-blue-200 rounded-md" type="number" 
+                    value="${this.isNew ? 0 : this.tune.rehearsal_days}"
                     min="0" name="numrehearsals">
                 </div>
                 <div class="flex flex-col">
