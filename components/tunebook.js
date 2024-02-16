@@ -127,21 +127,28 @@ export class Tunebook extends Component {
               <span class="viewselector" data-format="list">
               <i class="fa fa-list fa-lg fa-fw"></i></span>
           </div>
-          <select id="typetune_filter"><option value="">Tipo</option>
+          <select id="typetune_filter" class="tunesorting text-sm 
+          bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+          <option value="">Tipo</option>
           <option> ${this.typeslist.join('</option><option>')}
           </option></select>
-          <select id="statustune_filter"><option value="">Status</option>
+          <select id="statustune_filter" class="tunesorting text-sm 
+          bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+          <option value="">Status</option>
           <option> ${this.statuslist.join('</option><option>')}
           </option></select>
-          <select id="tonetune_filter"><option value="">Tone</option>
+          <select id="tonetune_filter" class="tunesorting text-sm 
+          bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+          <option value="">Tone</option>
           <option> ${this.tonelist.join('</option><option>')}
           </option></select>
 
             Filtrar <input type="search" id="tunebook_filter">
             <i class="resetfilter fa fa-trash"></i>
         </div>
-        <p>sorting by 
-          <select class="tunesorting">
+        <p><i class="fa-solid fa-arrow-down-short-wide"></i>  
+          <select class="tunesorting text-sm bg-cyan-200 text-cyan-500 p-1 
+          rounded-md border-0">
             <option selected value="titlesort">Nombre</option>
             <option value="status">status</option>
             <option value="dayssincelastrehear">Ultimo ensayo</option>
