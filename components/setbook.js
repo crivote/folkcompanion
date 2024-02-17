@@ -40,7 +40,7 @@ export class Setbook extends Component {
       <header class="p-6">
         <div class="flex flex-wrap items-center gap-2">
           <h3 class="text-3xl">Mis sets</h3>
-          <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 
+          <span class="num_of_sets bg-slate-400 text-sm px-2 py-1 
           uppercase text-slate-200 rounded-lg text-md">
           ${Data.setbook.length} sets</span>
           <span class="addnewset text-blue-600 hover:text-blue-400">
