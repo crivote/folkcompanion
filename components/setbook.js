@@ -70,7 +70,7 @@ export class Setbook extends Component {
     this.element.querySelector('.num_of_sets').innerHTML =
       list.length + ' sets';
     this.items = list.map((item) => {
-      return new Set('set' + item.id, this.contentzone, item);
+      return new Set('set' + item.id, this.contentzone, item.id);
     });
   }
 
