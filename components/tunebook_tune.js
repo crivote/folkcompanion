@@ -237,6 +237,7 @@ export class Tune extends Component {
    * Delete the tune from data and remove html element
    */
   async deletetune() {
+    // TODO revisar setbook por si hay algun set con el tune borrado.
     const result = await apis.Xanoapi.deletetunebooktune(this.data.id);
     if (result) {
       const mytuneindex = Data.tunebook.findIndex(
