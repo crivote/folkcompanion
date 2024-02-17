@@ -47,11 +47,15 @@ export class Set extends Component {
               <h3 class="text-base font-semibold text-gray-900">
               ${mytune.prefered_name}</h3>
               <span class="block text-xs font-normal text-gray-500">
-              ${tune.notes}</span>
+              ${mytune.tuneref.Estructure} · 
+              ${mytune.tuneref.compasses ?
+                mytune.tuneref.compasses + ' compases · ' : ''}
+              <em>${tune.notes}</em></span>
             </div>
           </div>
-          <p class="text-sm font-medium text-slate-500">
-          ${mytune.tuneref.type} ${mytune.prefered_tone}</p>
+          <p class="text-sm font-regular text-slate-400">
+          ${mytune.tuneref.type} <span class="uppercase font-bold ml-1">
+          ${mytune.prefered_tone}</span></p>
         </div>
       </div>`;
     });
