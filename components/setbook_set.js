@@ -34,7 +34,7 @@ export class Set extends Component {
    * @return {string}
    */
   generatehtml() {
-    const tunes = '';
+    let tunes = '';
     this.data.tunes.forEach((tune) => {
       const mytune = Data.tunebook.find((item) => item.id === tune.tunebook_id);
       tunes += `
