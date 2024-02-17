@@ -67,7 +67,7 @@ export class Setbook extends Component {
    */
   rendersets(list) {
     this.contentzone.innerHTML = '';
-    this.element.querySelector('#num_of_sets').innerHTML =
+    this.element.querySelector('.num_of_sets').innerHTML =
       list.length + ' sets';
     this.items = list.map((item) => {
       return new Set('set' + item.id, this.contentzone, item);
