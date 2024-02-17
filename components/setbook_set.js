@@ -87,7 +87,7 @@ export class Set extends Component {
   /**
    * Add listeners to the html component
    */
-  addlisteners() {
+  addListeners() {
     this.element.querySelector('.rehearsal')
         .addEventListener('click', this.addrehearsal.bind(this));
     this.element.querySelector('.editset')
