@@ -56,7 +56,7 @@ export class Setbook extends Component {
      */
   addListeners() {
     // filtrar titulo
-    this.element.querySelector('#addnewset')
+    this.element.querySelector('.addnewset')
         .addEventListener('input', this.createnewset.bind(this));
   }
 
