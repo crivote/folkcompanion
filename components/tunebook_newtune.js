@@ -84,23 +84,23 @@ export class Tuneaddtobook extends Component {
                   </p>
                 </div>
               </div>
-  ${Utils.generateformfield(
+        ${Utils.generateformfield(
       'titulo',
       'titulo favorito',
-      this.isNew ? tuneref.main_name : this.tune.prefered_name,
-      tuneref.other_names,
+            this.isNew ? tuneref.main_name : this.tune.prefered_name,
+            tuneref.other_names,
   )}
-  ${Utils.generateformfield(
+        ${Utils.generateformfield(
       'tonalidad',
       'tonalidad preferida',
-      this.isNew ? tuneref.tunekeys[0] : this.tune.prefered_tone,
-      tuneref.tunekeys,
+            this.isNew ? tuneref.tunekeys[0] : this.tune.prefered_tone,
+            tuneref.tunekeys,
   )}
-  ${Utils.generateformfield(
+        ${Utils.generateformfield(
       'status',
       'status de ejecución',
-      this.isNew ? Data.status[0].label : this.tune.status,
-      Data.status.map((sta) => sta.label),
+            this.isNew ? Data.status[0].label : this.tune.status,
+            Data.status.map((sta) => sta.label),
   )}
               <div class="flex items-center justify-center border-b 
               border-slate-200 h-0 my-6">

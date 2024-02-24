@@ -47,6 +47,23 @@ export class Utils {
   }
 
   /**
+   * Extract ID from youtubeurl
+   *
+   * @param {string} url
+   * @return {string} youtubeId
+   */
+  static extractYoutubeID(url) {
+    // eslint-disable-next-line max-len
+    const regExp =/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/[\w]+\?v=)(\w{11})|(?:youtu\.be\/(\w{11}))/;
+    const match = url.match(regExp);
+    // Si se encontró un ID de YouTube en la URL, devolverlo
+    if (match) {
+      return match[1] ? match[1] : match[2];
+    }
+    return null;
+  }
+
+  /**
    * Get unique values array
    *
    * @param {array} items
@@ -164,7 +181,7 @@ export class Utils {
    * @param {array} select
    * @return {html}
    */
-  static generateformfield(name, label, value, select) {
+  static generateformfield(name, label, value, select = null) {
     let arrayok = false;
     if (Array.isArray(select) && select.length > 1) {
       arrayok = true;
@@ -173,8 +190,9 @@ export class Utils {
       <div class="flex flex-col border-2 p-4 border-slate-100 bg-slate-50 
       rounded-md mb-4 ${arrayok ? `formcomponent` : 'staticcomponent'}">
         <label class="uppercase text-slate-400 text-sm">${label}</label>
+        ${arrayok ? '<span><i class="fa fa-edit"></i></span>' : ''}
         <h4 data-name="${name}" class="formelement font-semibold 
-        text-slate-600 text-xl">${value}</h4>
+        text-slate-600 text-xl">${value}</h4> 
         ${arrayok ? this.generateselect(select, 'data' + name) : ''}
       </div>`;
   }
@@ -189,12 +207,11 @@ export class Utils {
   static generateselect(data, name) {
     if (Array.isArray(data) && data.length > 1) {
       return `
-      <select
-        class="absolute border border-blue-400 shadow-lg edit-select
+      <ul class="absolute border border-blue-400 shadow-lg edit-select
         hidden mt-2 text-sm font-semibold border-0 text-blue-400 
         bg-blue-200 rounded-md uppercase" name="${name}">
-            <option>${data.join('</option><option>')}</option>
-      </select>`;
+            <li>${data.join('</li><li>')}</li>
+      </ul>`;
     } else return '';
   }
 
