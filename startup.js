@@ -209,7 +209,8 @@ export class Utils {
       return `
       <ul class="absolute border border-blue-400 shadow-lg edit-select
         hidden mt-2 text-sm font-semibold border-0 text-blue-400 
-        bg-blue-200 rounded-md uppercase" name="${name}">
+        bg-blue-200 rounded-md uppercase p-4 max-h-64 overflow-scroll"
+        name="${name}">
             <li>${data.join('</li><li>')}</li>
       </ul>`;
     } else return '';

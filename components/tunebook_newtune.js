@@ -158,7 +158,7 @@ export class Tuneaddtobook extends Component {
         .forEach((el) =>
           el.addEventListener('click', this.showeditselect.bind(this)));
     // change value of select field
-    this.element.querySelectorAll('.edit-select')
+    this.element.querySelectorAll('.edit-select li')
         .forEach((el) =>
           el.addEventListener('click', this.changeselectvalue.bind(this)));
     // add tune
@@ -292,10 +292,9 @@ export class Tuneaddtobook extends Component {
    */
   showeditselect(event) {
     const el = event.currentTarget;
-    const select = el.querySelector('select');
+    const select = el.querySelector('.edit-select');
     // title.classList.add('hidden');
     select.classList.remove('hidden');
-    select.size = select.options.length;
   }
 
   /**
@@ -306,11 +305,10 @@ export class Tuneaddtobook extends Component {
   changeselectvalue(event) {
     event.stopImmediatePropagation();
     const el = event.currentTarget;
-    const textel = el.previousElementSibling;
+    const list = el.parentNode;
+    const textel = list.previousSibling;
     // esconder select tras cambio valor y mostrar icono edicion
-    el.classList.add('hidden');
-    el.size = 1;
-    textel.textContent = el.value;
-    // textel.classList.remove('hidden');
+    list.classList.add('hidden');
+    textel.textContent = el.textContent;
   }
 }

@@ -8,6 +8,7 @@ import {Mynotification} from './notification.js';
  *
  **/
 export class Videoadd extends Component {
+  videokey;
   videozone;
   video;
   isNew;
@@ -26,6 +27,7 @@ export class Videoadd extends Component {
     if (!this.isNew) {
       this.video = Data.videos.find((video) => video.id == videoid);
       this.tunes = this.video.tunes;
+      this.videokey = this.video.url;
     }
     this.setup();
   }
@@ -143,8 +145,8 @@ export class Videoadd extends Component {
     const url = event.currentTarget.value;
     const youtubeid = Utils.extractYoutubeID(url);
     if (youtubeid) {
-      this.videokey = key;
-      this.videozone.innerHTML = Utils.videoembed(key);
+      this.videokey = youtubeid;
+      this.videozone.innerHTML = Utils.videoembed(youtubeid);
       this.element.querySelector('.sendbutton').disabled = false;
     }
   }
