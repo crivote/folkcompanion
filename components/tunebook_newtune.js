@@ -306,7 +306,7 @@ export class Tuneaddtobook extends Component {
     event.stopImmediatePropagation();
     const el = event.currentTarget;
     const list = el.parentNode;
-    const textel = list.previousSibling;
+    const textel = list.previousElementSibling;
     // esconder select tras cambio valor y mostrar icono edicion
     list.classList.add('hidden');
     textel.textContent = el.textContent;
