@@ -56,12 +56,13 @@ export class Tuneaddtobook extends Component {
     <div id="${this.isNew ? 'modaladdtune' : 'modaledittune'}" 
     class="fixed inset-0 bg-gray-500 bg-opacity-75 
     flex items-center justify-center">
-      <div class="bg-white p-8 rounded-xl shadow-lg relative">
+      <div class="bg-white p-8 rounded-xl shadow-lg relative 
+      max-h-full overflow-scroll">
         <p id="closeaddtunebook" class="absolute right-4 top-4 text-red-400 
         text-right" title="close"><i class="fa fa-times-circle fa-2x"></i></p>
           <h2 class="text-2xl text-blue-400 font-semibold mb-6">
           ${this.isNew ? `Añadir tema a tu repertorio`: `Editar tema`}</h2>
-            <form id="editform">
+            <section id="editform">
               <div class="flex items-center justify-center -mb-4 gap-4">
                 <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
                   <p>${tuneref.type} (${tuneref.time})</p>
@@ -72,10 +73,13 @@ export class Tuneaddtobook extends Component {
                   <img class="picphoto rounded-full h-48 w-48 border-8 
                   border-slate-200 object-cover object-center" 
                   src="${this.pics[0]}">
-                  <span class="searchphoto absolute top-2 right-2 bg-slate-600 
-                  rounded-full w-8 h-8 text-center p-1">
-                      <i class="fa fa-search fa-lg"></i>
-                      <input class="searchpics hidden" type="text">
+                  <span class="searchphoto absolute top-2 left-2 p-2 bg-white/75
+                  w-10 hover:w-48 h-10 border border-slate-300 rounded-lg 
+                  overflow-hidden transition-all ease-in-out">
+                      <i class="fa fa-search fa-lg" aria-hidden="true"></i>
+                      <input type="text" placeholder="busqueda de imagen" 
+                      class="searchpics w-32 ml-2 py-0 px-2 txt-sm rounded-md 
+                      border border-slate-200">
                   </span>
                 </div>          
                 <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
@@ -139,7 +143,7 @@ export class Tuneaddtobook extends Component {
                     >${this.isNew ? `Añadir tema`:
                     `Guardar cambios`}</button>
                 </div>
-              </form>
+              </section>
             <div>
         </div>`;
   }
