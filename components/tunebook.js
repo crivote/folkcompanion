@@ -125,10 +125,10 @@ export class Tunebook extends Component {
           <i class="fa fa-plus-circle fa-2x"></i></span>
           <div class="ml-auto flex items-center gap-3 mr-3">
               <span class="viewselector selected bg-slate-500 
-              text-white" data-format="card">
-              <i class="fa fa-grip fa-lg"></i></span>
-              <span class="viewselector" data-format="list">
-              <i class="fa fa-list fa-lg fa-fw"></i></span>
+              text-white p-1 rounded-md" data-format="card">
+              <i class="fa fa-fw fa-grip fa-lg"></i></span>
+              <span class="viewselector p-1 rounded-md" data-format="list">
+              <i class="fa fa-fw fa-list fa-lg fa-fw"></i></span>
           </div>
           <div class="border border-slate-400 p-2 rounded-md">
             <select id="typetune_filter" class="text-sm 

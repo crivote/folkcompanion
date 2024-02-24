@@ -125,10 +125,12 @@ export class Game extends Component {
     const drawing = [];
     let randomnumber;
     let drawedtune;
-    for (let i = 1; i < this.numoftunes + 1; i++) {
+    while (drawing.length < this.numoftunes) {
       randomnumber = Math.floor(Math.random() * (maxnumber + 1));
       drawedtune = {...this.drawbase[randomnumber]};
-      drawing.push(drawedtune);
+      if (!drawing.includes(drawedtune)) {
+        drawing.push(drawedtune);
+      }
     }
     this.rightanswer = drawing[0];
     return this.barajar(drawing);
