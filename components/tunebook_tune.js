@@ -145,6 +145,7 @@ export class Tune extends Component {
    * @return {string}
    */
   generatehtml_list() {
+    const mystatus = this.getstatus(this.data.status);
     return `<div id="tune${this.data.id}" class="tunelist w-full bg-white
      border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-3">
       <div class="tuneimg flex h-20 w-20 bg-center bg-cover mr-3
