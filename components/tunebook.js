@@ -165,8 +165,8 @@ export class Tunebook extends Component {
           <select class="tunesorting text-sm bg-cyan-200 text-cyan-500 p-1 
           rounded-md border-0">
           ${this.criterialist.map(
-      (item)=> `<option ${item.selected ? 'selected' : ''}
-      value="${item.value}">${item.label}</option`)
+      (item)=> `<option ${item?.selected ? 'selected' : ''}
+      value="${item.value}">${item.label}</option>`)
       .join('')}
           </select>
         </p>
