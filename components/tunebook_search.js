@@ -52,7 +52,7 @@ export class Tunesearch extends Component {
     return `
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75">
     <div id="${this.name}" class="animate__animated animate__slideInLeft
-     fixed inset-0 w-1/2 lg:w-1/3 bg-gray-400 flex p-6 shadow-lg">
+     fixed inset-0 w-full md:w-2/3 lg:w-1/2 xl:w-2/5 bg-gray-400 flex p-6 shadow-lg">
             <div class="bg-white p-6 w-full rounded max-h-lvh overflow-auto">
                 <p id="closetunesearch" class="text-right" title="close">
                 <i class="fa fa-times-circle fa-2x"></i></p>
@@ -67,7 +67,7 @@ export class Tunesearch extends Component {
                     <button class="sendsuggestion bg-blue-600 text-white p-2 
                     rounded-md uppercase">enviar</button>
                 </div>
-                <ul class="results bg-slate-500 text-slate-50 p-2"></ul>
+                <ul class="results hidden bg-slate-500 text-slate-50 p-2"></ul>
           </div>
         </div>
       </div>`;
@@ -127,10 +127,15 @@ export class Tunesearch extends Component {
    * @param {array} items
    */
   generateresults(items) {
-    this.resultszone.innerHTML = '';
-    this.resultInstances = items.map((item) => {
-      return new Tunesearchresult('tune' + item.id, this.resultszone, item.id);
-    });
+    if (items.length > 0);
+      this.resultszone.classList.remove('hidden');
+      this.resultszone.innerHTML = '';
+      this.resultInstances = items.map((item) => {
+        return new Tunesearchresult('tune' + item.id, this.resultszone, item.id);
+      });
+    } else {
+      this.resultszone.classList.add('hidden');
+    }
   }
 
   /**

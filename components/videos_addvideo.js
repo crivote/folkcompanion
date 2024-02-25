@@ -67,7 +67,8 @@ export class Videoadd extends Component {
     return `
     <div id="modalvideoadd" class="fixed inset-0 bg-gray-500 bg-opacity-75 
     flex items-center justify-center">
-      <div class="bg-white p-8 rounded-xl shadow-lg w-3/4 relative">
+      <div class="bg-white p-8 rounded-xl shadow-lg w-auto relative
+      max-h-full overflow-scroll">
         <p id="closeaddvideo" class="absolute right-4 top-4 text-red-400 
         text-right" title="close"><i class="fa fa-times-circle fa-2x"></i></p>
         <h2 class="text-2xl text-blue-400 font-semibold mb-6">
