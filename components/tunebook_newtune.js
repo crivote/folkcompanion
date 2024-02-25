@@ -12,7 +12,7 @@ export class Tuneaddtobook extends Component {
   isNew;
 
   /**
-   * Consxtructor
+   * Constructor
    *
    * @param {string} name
    * @param {HTMLBodyElement} parentel
@@ -134,7 +134,7 @@ export class Tuneaddtobook extends Component {
                     text-blue-400 
                     bg-blue-200 rounded-md uppercase" type="date" 
                     name="lastrehearsal" value="${this.isNew ? '' :
-                      this.tune?.last_rehearsals[0] ?? ''}">
+                      Utils.dateformat(this.tune?.last_rehearsals[0]) ?? ''}">
                   </div>
                 </div>
                 <div class="flex items-center justify-center">
@@ -206,8 +206,8 @@ export class Tuneaddtobook extends Component {
         .querySelector('input[name="lastrehearsal"]').value;
     if (lastrehearsalvalue) {
       rehearsalsarray.unshift(lastrehearsalvalue);
-      if (rehearsalsarray.length > 5) {
-        rehearsalsarray = rehearsalsarray.slice(0, 5);
+      if (rehearsalsarray.length > 10) {
+        rehearsalsarray = rehearsalsarray.slice(0, 10);
       }
     }
     params.last_rehearsals = rehearsalsarray;

@@ -146,28 +146,31 @@ export class Tune extends Component {
    */
   generatehtml_list() {
     return `<div id="tune${this.data.id}" class="tunelist w-full bg-white
-     border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center">
-            <img src="${this.data.preferred_img_url ??
-              `https://picsum.photos/200/200?random=${this.data.id}`}" 
-              alt="Imagen" class="rounded-full h-16 w-16 object-cover mr-3">
-            ${this.data.tuneref.ABCsample ?
-                `<p data-abc="${this.data.tuneref.ABCsample}" 
-                data-state="stop" class="playabc text-slate-700/30 
-                hover:text-slate-700/75">
-                <i class="fa fa-circle-play fa-lg"></i><p>` : '' }
-            <h2 class="tunetitle text-xl font-semibold mr-2">
-            ${this.data.prefered_name}</h2>
-            <p class="tunemodes text-blue-400 font-semibold mr-2">
-            ${this.data.type}</p>
-            <p class="tunealiases text-gray-500">${this.data.status}</p>
-            <div class="flex gap-1 ml-auto items-center">
+     border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-3">
+      <div class="tuneimg flex h-20 w-20 bg-center bg-cover mr-3
+      bg-[url('${this.data.preferred_img_url ??
+        `https://picsum.photos/200/200?random=${this.data.id}`}')]">
+      ${this.data.tuneref.ABCsample ?
+          `<span data-abc="${this.data.tuneref.ABCsample}" data-state="stop"
+            class="opacity-0 transition group-hover:opacity-100 playabc
+            text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
+          <i class="m-auto fa fa-circle-play"></i><span>` : '' }
+      </div>
+      <div>
+        <h2 class="tunetitle text-xl font-semibold mr-2">
+        ${this.data.prefered_name}</h2>
+        <p class="tunemodes text-blue-400 font-semibold mr-2">
+        ${this.data.type}</p>
+      </div>
+        <span class="px-2 py-1 w-20 text-center rounded-md text-xs absolute 
+        top-4 left-3 uppercase text-slate-700/75 font-bold
+        bg-${mystatus.color}/75">${mystatus.label}</span>            
+         <div class="flex gap-1 ml-auto items-center">
                 <span class="numrehearsal bg-slate-500 text-white p-2
-                 rounded-lg">
-                ${this.data.rehearsal_days} ensayos</span>
+                 rounded-lg"> ${this.data.rehearsal_days}</span>
                 <span class="lastrehearsal">${this.data.last_rehearsals ?
-                  'último hace ' +
-                Utils.calctimesince(this.data.last_rehearsals[0]) + ' días' :
-                'nunca'}</span>
+                Utils.calctimesince(this.data.last_rehearsals[0]) + ' d' :
+                'n/a'}</span>
                 <button class="rehearsal bg-blue-400 p-1 rounded-md text-white 
                 text-bold" title="añadir ensayo"><i class="fa fa-guitar 
                 fa-fw fa-lg"></i></button>
@@ -195,9 +198,11 @@ export class Tune extends Component {
     if (!Array.isArray(this.data.last_rehearsals)) {
       this.data.last_rehearsals = [];
     }
-    this.data.last_rehearsals.unshift(Utils.dateformat());
-    if (this.data.last_rehearsals.length > 5) {
-      this.data.last_rehearsals.slice(0, 5);
+    const now = new Date();
+    this.data.last_rehearsalDate = now.valueOf();
+    this.data.last_rehearsals.unshift(now.valueOf());
+    if (this.data.last_rehearsals.length > 10) {
+      this.data.last_rehearsals.slice(0, 10);
     }
 
     // sumar nuevo ensayo

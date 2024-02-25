@@ -86,8 +86,11 @@ export class Utils {
    */
   static calcValueforTunes(tunebookTune) {
     tunebookTune.titlesort = Utils.titleforsort(tunebookTune.prefered_name);
+    tunebookTune.lastrehearsalDate =
+    tunebookTune.last_rehearsals.length > 0 && tunebookTune.last_rehearsals[0] ?
+    tunebookTune.last_rehearsals[0] : Number.MAX_VALUE;
     tunebookTune.dayssincelastrehear =
-        tunebookTune?.last_rehearsals.length > 0 ?
+        tunebookTune.lastrehearsalDate < Number.MAX_VALUE ?
         Utils.calctimesince(tunebookTune.last_rehearsals[0]) : null;
     tunebookTune.meanRehear =
         Utils.getMeanRehear(tunebookTune.last_rehearsals);
@@ -125,7 +128,7 @@ export class Utils {
   }
 
   /**
-   * Convierte fecha a formato SQL
+   * Convierte fecha a formato ISO datetime
    *
    * @param {Date | undefined} date
    * @return {string}
@@ -135,7 +138,7 @@ export class Utils {
       date = new Date();
     }
     date = date.toISOString();
-    return date.substring(0, 10);
+    return date.substring(0, 16);
   }
 
   /**

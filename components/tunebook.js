@@ -9,6 +9,13 @@ import {Tune} from './tunebook_tune.js';
 export class Tunebook extends Component {
   // filtro para temas del repertorio
   filtered = [];
+  criterialist = [
+    {value: 'titlesort', label: 'nombre', selected: true},
+    {value: 'status', label: 'status'},
+    {value: 'lastrehearsalDate', label: 'último ensayo'},
+    {value: 'prefered_tone', label: 'tonalidad'},
+    {value: 'rehearsal_days', label: 'nº ensayos'},
+  ];
   sortcriteria = 'titlesort';
   sortorder = 'ASC';
   // instancias en DOM de las card tunes
@@ -123,7 +130,7 @@ export class Tunebook extends Component {
           ${Data.tunebook.length} temas</span></h3>
           <span class="addnewtune text-blue-600 hover:text-blue-400">
           <i class="fa fa-plus-circle fa-2x"></i></span>
-          <div class="ml-auto flex items-center gap-3 mr-3">
+          <div class="ml-auto flex items-center gap-1 mr-3">
               <span class="viewselector selected bg-slate-500 
               text-white p-1 rounded-md" data-format="card">
               <i class="fa fa-fw fa-grip fa-lg"></i></span>
@@ -157,11 +164,10 @@ export class Tunebook extends Component {
         'fa-arrow-down-short-wide' : 'fa-arrow-up-wide-short'}"></i></span>
           <select class="tunesorting text-sm bg-cyan-200 text-cyan-500 p-1 
           rounded-md border-0">
-            <option selected value="titlesort">Nombre</option>
-            <option value="status">status</option>
-            <option value="dayssincelastrehear">Ultimo ensayo</option>
-            <option value="prefered_tone">tonalidad</option>
-            <option value="rehearsal_days">numero ensayos</option>
+          ${this.criterialist.map(
+      (item)=> `<option ${item.selected ? 'selected' : ''}
+      value="${item.value}">${item.label}</option`)
+      .join('')}
           </select>
         </p>
       </header>
