@@ -88,9 +88,8 @@ export class Utils {
     tunebookTune.titlesort = Utils.titleforsort(tunebookTune.prefered_name);
     tunebookTune.lastrehearsalDate =
     tunebookTune.last_rehearsals.length > 0 && tunebookTune.last_rehearsals[0] ?
-    tunebookTune.last_rehearsals[0] : Number.MAX_VALUE;
-    tunebookTune.dayssincelastrehear =
-        tunebookTune.lastrehearsalDate < Number.MAX_VALUE ?
+    tunebookTune.last_rehearsals[0] : 0;
+    tunebookTune.dayssincelastrehear = tunebookTune.lastrehearsalDate ?
         Utils.calctimesince(tunebookTune.last_rehearsals[0]) : null;
     tunebookTune.meanRehear =
         Utils.getMeanRehear(tunebookTune.last_rehearsals);
