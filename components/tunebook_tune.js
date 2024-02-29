@@ -62,7 +62,7 @@ export class Tune extends Component {
    * @return {object}
    */
   getstatus(status) {
-    return Data.status.find((item) => item.label == status);
+    return Data.status.find((item) => item.value == status);
   }
 
   /**
@@ -71,8 +71,7 @@ export class Tune extends Component {
    * @return {string}
    */
   generatehtml_card() {
-    const mystatus = this.getstatus(this.data.status);
-    const mytype = this.data.customtype ?? this.data.tuneref.type;
+    const mystatus = this.getstatus(this.data.status_num);
 
     return `<div id="tune${this.data.id}" class="group cursor-pointer flex 
     flex-col border-t-8 border-${mystatus.color} relative tunecard shrink-0 
@@ -122,7 +121,7 @@ export class Tune extends Component {
         mt-5 mb-2 text-blue-900">${this.data.prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-xs text-center mb-2"><span class="font-medium mr-1 text-slate-500">
-        ${mytype}</span>${this.data.tuneref.author}</p>
+        ${this.data.tuneref.type}</span>${this.data.tuneref.author}</p>
         <div class="flex gap-1 mt-auto justify-center opacity-0 
         transition-opacity duration-300 group-hover:opacity-100
         scale-0 group-hover:scale-100">
@@ -145,7 +144,7 @@ export class Tune extends Component {
    * @return {string}
    */
   generatehtml_list() {
-    const mystatus = this.getstatus(this.data.status);
+    const mystatus = this.getstatus(this.data.status_num);
     return `<div id="tune${this.data.id}" class="tunelist w-full bg-white
      border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-3">
       <div class="tuneimg flex h-20 w-20 bg-center bg-cover mr-3
@@ -160,8 +159,9 @@ export class Tune extends Component {
       <div>
         <h2 class="tunetitle text-xl font-semibold mr-2">
         ${this.data.prefered_name}</h2>
-        <p class="tunemodes text-blue-400 font-semibold mr-2">
-        ${this.data.type}</p>
+        <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
+        text-xs mb-2"><span class="font-medium mr-1 text-slate-500">
+        ${this.data.tuneref.type}</span>${this.data.tuneref.author}</p>
       </div>
         <span class="px-2 py-1 w-20 text-center rounded-md text-xs absolute 
         top-4 left-3 uppercase text-slate-700/75 font-bold
