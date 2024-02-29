@@ -43,17 +43,22 @@ export class Tunebook extends Component {
   }
 
   /**
+   * Generar items de listados filtro.
+   */
+  generateFilterList() {
+    this.typeslist = Utils.getUniqueValues(
+        Data.tunebook.map((tune) => tune.tuneref.type)).sort();
+    this.statuslist = Utils.getUniqueValues(
+        Data.tunebook.map((tune) => tune.status)).sort();
+    this.tonelist = Utils.getUniqueValues(
+        Data.tunebook.map((tune) => tune.prefered_tone)).sort();
+  }
+
+  /**
    * Generar html del componente y asignar eventos
    */
   async setup() {
-    this.typeslist = Utils.getUniqueValues(
-        Data.tunebook.map((tune) => tune.tuneref.type));
-    this.statuslist = Utils.getUniqueValues(
-        Data.tunebook.map((tune) => tune.status));
-    this.tonelist = Utils.getUniqueValues(
-        Data.tunebook.map((tune) => tune.prefered_tone));
     this.filtered = Data.tunebook;
-
     const mycontent = this.generatehtml();
     // generate HTML
     if (this.element) {
@@ -120,6 +125,7 @@ export class Tunebook extends Component {
    * @return {string}
    */
   generatehtml() {
+    this.generateFilterList();
     return `
     <section id="${this.name}">
       <header class="p-6">
