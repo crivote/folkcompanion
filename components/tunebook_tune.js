@@ -157,15 +157,15 @@ export class Tune extends Component {
           <i class="m-auto fa fa-circle-play"></i><span>` : '' }
       </div>
       <div>
+        <p class="px-2 py-1 w-20 text-center rounded-md text-xs absolute 
+        top-4 left-3 uppercase text-slate-700/75 font-bold
+        bg-${mystatus.color}/75">${mystatus.label}</p>            
         <h2 class="tunetitle text-xl font-semibold mr-2">
         ${this.data.prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-xs mb-2"><span class="font-medium mr-1 text-slate-500">
         ${this.data.tuneref.type}</span>${this.data.tuneref.author}</p>
       </div>
-        <span class="px-2 py-1 w-20 text-center rounded-md text-xs absolute 
-        top-4 left-3 uppercase text-slate-700/75 font-bold
-        bg-${mystatus.color}/75">${mystatus.label}</span>            
          <div class="flex gap-1 ml-auto items-center">
                 <span class="numrehearsal bg-slate-500 text-white p-2
                  rounded-lg"> ${this.data.rehearsal_days}</span>
