@@ -135,6 +135,8 @@ export class Utils {
   static dateformat(date) {
     if (date === undefined) {
       date = new Date();
+    } else if (!date instanceof Date) {
+      date = new Date(date);
     }
     date = date.toISOString();
     return date.substring(0, 16);
