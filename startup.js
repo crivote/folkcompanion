@@ -130,16 +130,18 @@ export class Utils {
    * Convierte fecha a formato ISO datetime
    *
    * @param {Date | undefined} date
+   * @param {string} type
    * @return {string}
    */
-  static dateformat(date) {
+  static dateformat(date, type = 'short') {
     if (date === undefined) {
       date = new Date();
     } else if (!(date instanceof Date)) {
       date = new Date(date);
     }
     date = date.toISOString();
-    return date.substring(0, 16);
+    const mylength = type == 'short' ? 10 : 16;
+    return date.substring(0, mylength);
   }
 
   /**

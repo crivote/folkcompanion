@@ -132,9 +132,10 @@ export class Tuneaddtobook extends Component {
                   <label class="uppercase text-slate-400 text-sm">Último</label>
                     <input class="font-semibold text-sm border-0 
                     text-blue-400 
-                    bg-blue-200 rounded-md uppercase" type="date" 
+                    bg-blue-200 rounded-md uppercase" type="datetime-local" 
                     name="lastrehearsal" value="${this.isNew ? '' :
-                      Utils.dateformat(this.tune?.last_rehearsals[0]) ?? ''}">
+                      Utils.dateformat(this.tune?.last_rehearsals[0], 'long') ??
+                      ''}">
                   </div>
                 </div>
                 <div class="flex items-center justify-center">
