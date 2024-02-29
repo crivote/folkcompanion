@@ -23,7 +23,7 @@ export class Videoadd extends Component {
    */
   constructor(name, parentel, videoid = '') {
     super(name, parentel);
-    this.isNew = videoid === '';
+    this.isNew = (videoid == '');
     if (!this.isNew) {
       this.video = Data.videos.find((video) => video.id == videoid);
       this.tunes = this.video.tunes;
@@ -161,6 +161,11 @@ export class Videoadd extends Component {
 
   }
 
+  /**
+   * guardar video en db
+   *
+   * @param {event} event
+   */
   async addvideo(event) {
     event.preventDefault();
     // TODO: comprobar que el video no ha sido ya añadido antes
@@ -180,7 +185,8 @@ export class Videoadd extends Component {
 
         // save links to video in tunes
         const tunesids = [];
-        const els = ['tune1selector', 'tune2selector', 'tune3selector', 'tune4selector'];
+        const els =
+          ['tune1selector', 'tune2selector', 'tune3selector', 'tune4selector'];
 
         els.forEach( (elname) => {
           const el = this.element.querySelector(elname);
@@ -194,7 +200,8 @@ export class Videoadd extends Component {
           start_time: this.element.querySelector('[name="inicio"]').value,
           end_time: this.element.querySelector('[name="final"]').value,
         };
-        const medialinks = this.data?.medialinks ? this.data.medialinks.push(link) : [link];
+        const medialinks =
+            this.data?.medialinks ? this.data.medialinks.push(link) : [link];
         const params2 = {
           media_links: medialinks,
           main_name: '',
@@ -220,5 +227,4 @@ export class Videoadd extends Component {
       console.log(error);
     }
   }
-
 }
