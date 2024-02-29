@@ -145,7 +145,7 @@ export class Tune extends Component {
    */
   generatehtml_list() {
     const mystatus = this.getstatus(this.data.status_num);
-    return `<div id="tune${this.data.id}" class="tunelist w-full bg-white
+    return `<div id="tune${this.data.id}" class="tunelist group w-full bg-white
      border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-3">
       <div class="tuneimg flex h-20 w-20 bg-center bg-cover mr-3
       bg-[url('${this.data.preferred_img_url ??
@@ -154,10 +154,10 @@ export class Tune extends Component {
           `<span data-abc="${this.data.tuneref.ABCsample}" data-state="stop"
             class="opacity-0 transition group-hover:opacity-100 playabc
             text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
-          <i class="m-auto fa fa-circle-play"></i><span>` : '' }
+          <i class="m-auto fa fa-circle-play fa-3x"></i><span>` : '' }
       </div>
       <div>
-        <p class="px-2 py-1 w-20 text-center rounded-md text-xs absolute 
+        <p class="px-2 py-1 w-20 text-center rounded-md text-xs 
         top-4 left-3 uppercase text-slate-700/75 font-bold
         bg-${mystatus.color}/75">${mystatus.label}</p>            
         <h2 class="tunetitle text-xl font-semibold mr-2">
