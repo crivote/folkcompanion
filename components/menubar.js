@@ -66,6 +66,8 @@ export class Menubar extends Component {
   setup() {
     this.attachAt(this.generatehtml(), false);
     this.addListeners();
+    // launch tunebook
+    this.element.querySelector('#mainnav span[data-nav="Tunebook"]').click();
   }
 
   /**
