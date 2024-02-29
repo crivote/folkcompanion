@@ -11,7 +11,7 @@ export class Tunebook extends Component {
   filtered = [];
   criterialist = [
     {value: 'titlesort', label: 'nombre', selected: true},
-    {value: 'status', label: 'status'},
+    {value: 'status_num', label: 'status'},
     {value: 'lastrehearsalDate', label: 'último ensayo'},
     {value: 'prefered_tone', label: 'tonalidad'},
     {value: 'rehearsal_days', label: 'nº ensayos'},
@@ -292,7 +292,7 @@ export class Tunebook extends Component {
       myinput.classList.add('selected', 'bg-slate-500', 'text-white');
       this.format = myinput.dataset.format;
       this.contentzone.classList.toggle('grid');
-      this.rendertunes();
+      this.rendertunes(this.filtered);
     }
   }
 
