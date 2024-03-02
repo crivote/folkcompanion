@@ -113,8 +113,6 @@ export class Tunebook extends Component {
    */
   rendertunes() {
     this.contentzone.innerHTML = '';
-    this.element.querySelector('.num_of_tunes').innerHTML =
-        this.filtered.length + ' temas';
     list = this.sorter(this.filtered);
     this.tune_instances = list.map((item) => {
       return new Tune('tune' + item.id, this.contentzone, item.id, this.format);
@@ -135,7 +133,7 @@ export class Tunebook extends Component {
           <h3 class="text-3xl">Mi repertorio</h3>
           <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 
           uppercase text-slate-200 rounded-lg text-md">
-          ${Data.tunebook.length} temas</span></h3>
+          ${this.filtered.length} temas</span></h3>
           <span class="addnewtune text-blue-600 hover:text-blue-400">
           <i class="fa fa-plus-circle fa-2x"></i></span>
           <div class="ml-auto flex items-center gap-1 mr-3">
