@@ -178,8 +178,8 @@ export class Tunebook extends Component {
         </p>
       </header>
       <main class="p-6 ${this.format == 'card' ?
-      `grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
-      lg:grid-cols-4 gap-6` : ''}">
+        `grid gap-6` : ''}" 
+        style="grid-template-columns: repeat(auto-fit, 350px);">
       </main>
     </section>`;
   }

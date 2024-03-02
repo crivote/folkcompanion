@@ -74,10 +74,9 @@ export class Tune extends Component {
     const mystatus = this.getstatus(this.data.status_num);
 
     return `<div id="tune${this.data.id}" class="group cursor-pointer flex 
-    flex-col border-t-8 border-${mystatus.color} relative tunecard shrink-0 
-    xl-2:basis-1/5 xl:basis-1/4 lg:basis-1/3 md:basic-1/2 bg-white shadow-md 
-    rounded-md p-6 transition duration-300 ease-in-out hover:shadow-lg 
-    hover:scale-110">
+    flex-col border-t-8 border-${mystatus.color} relative tunecard 
+    bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out 
+    hover:shadow-lg hover:scale-110">
         <div class="tuneimg flex h-52 -mt-6 -mx-6 bg-center bg-cover 
         bg-[url('${this.data.preferred_img_url ??
           `https://picsum.photos/200/200?random=${this.data.id}`}')]">
