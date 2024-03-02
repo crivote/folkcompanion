@@ -59,12 +59,15 @@ export class Tunebook extends Component {
    *
    * @param {array} filter
    */
-  async setup(filter = Data.tunebook) {
+  setup(filter = Data.tunebook) {
     this.filtered = filter;
     const mycontent = this.generatehtml();
     // generate HTML
     if (this.element) {
-      this.element.outerHTML = mycontent;
+      const clon = this.element.cloneNode(true);
+      clon.outerHTML = mycontent;
+      this.element.parentNode.replaceChild(clon, this.element);
+      this.element = clon;
     } else {
       this.attachAt(mycontent, false);
     }
