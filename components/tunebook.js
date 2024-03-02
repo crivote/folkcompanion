@@ -111,11 +111,11 @@ export class Tunebook extends Component {
    *
    * @param {array} list
    */
-  rendertunes(list = Data.tunebook) {
+  rendertunes() {
     this.contentzone.innerHTML = '';
     this.element.querySelector('.num_of_tunes').innerHTML =
-        list.length + ' temas';
-    list = this.sorter(list);
+        this.filtered.length + ' temas';
+    list = this.sorter(this.filtered);
     this.tune_instances = list.map((item) => {
       return new Tune('tune' + item.id, this.contentzone, item.id, this.format);
     });
