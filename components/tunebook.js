@@ -113,7 +113,7 @@ export class Tunebook extends Component {
    */
   rendertunes() {
     this.contentzone.innerHTML = '';
-    list = this.sorter(this.filtered);
+    const list = this.sorter(this.filtered);
     this.tune_instances = list.map((item) => {
       return new Tune('tune' + item.id, this.contentzone, item.id, this.format);
     });
