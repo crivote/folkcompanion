@@ -36,6 +36,18 @@ export class Component {
   }
 
   /**
+   * Change all the content of an element keeping the reference
+   *
+   * @param {*} newhtml
+   */
+  replace(newhtml) {
+    const clon = this.element.cloneNode(true);
+    clon.outerHTML = newhtml;
+    this.element.parentNode.replaceChild(clon, this.element);
+    this.element = clon;
+  }
+
+  /**
    * Hide html element
    */
   hide() {
@@ -52,8 +64,8 @@ export class Component {
   /**
    * Remove html element
    */
-  // TODO: add instance deletion using properties
   remove() {
+    // TODO: add instance deletion using properties
     this.element.remove();
   }
 }

@@ -30,10 +30,7 @@ export class Tune extends Component {
   setup() {
     const mycontent = this['generatehtml_' + this.format]();
     if (this.element) {
-      const clon = this.element.cloneNode(true);
-      clon.outerHTML = mycontent;
-      this.element.parentNode.replaceChild(clon, this.element);
-      this.element = clon;
+      this.replace(mycontent);
     } else {
       this.attachAt(mycontent, false);
     }
