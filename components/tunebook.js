@@ -56,9 +56,11 @@ export class Tunebook extends Component {
 
   /**
    * Generar html del componente y asignar eventos
+   *
+   * @param {array} filter
    */
-  async setup() {
-    this.filtered = Data.tunebook;
+  async setup(filter = Data.tunebook) {
+    this.filtered = filter;
     const mycontent = this.generatehtml();
     // generate HTML
     if (this.element) {
@@ -137,10 +139,13 @@ export class Tunebook extends Component {
           <span class="addnewtune text-blue-600 hover:text-blue-400">
           <i class="fa fa-plus-circle fa-2x"></i></span>
           <div class="ml-auto flex items-center gap-1 mr-3">
-              <span class="viewselector selected bg-slate-500 
-              text-white p-1 rounded-md" data-format="card">
+            <span class="viewselector p-1 rounded-md
+            ${this.format == 'card' ? 'selected bg-slate-500 text-white' : ''}"
+            data-format="card">
               <i class="fa fa-fw fa-grip fa-lg"></i></span>
-              <span class="viewselector p-1 rounded-md" data-format="list">
+            <span class="viewselector p-1 rounded-md
+            ${this.format == 'list' ? 'selected bg-slate-500 text-white' : ''}"
+            data-format="list">
               <i class="fa fa-fw fa-list fa-lg fa-fw"></i></span>
           </div>
           <div class="border border-slate-400 p-2 rounded-md">
@@ -179,7 +184,8 @@ export class Tunebook extends Component {
       </header>
       <main class="p-6 ${this.format == 'card' ?
         `grid gap-6` : ''}" 
-        style="grid-template-columns: repeat(auto-fit, 350px);">
+        style="grid-template-columns: repeat(auto-fit, 350px);
+        justify-content: center;">
       </main>
     </section>`;
   }
@@ -211,7 +217,7 @@ export class Tunebook extends Component {
   applysort(event) {
     const myinput = event.target.value;
     this.sortcriteria = myinput;
-    this.rendertunes(this.filtered);
+    this.setup(this.filtered);
   }
 
   /**
@@ -227,7 +233,7 @@ export class Tunebook extends Component {
       myel.classList.remove('fa-arrow-down-short-wide');
       myel.classList.add('fa-arrow-up-wide-short');
     }
-    this.rendertunes(this.filtered);
+    this.setup(this.filtered);
   }
   /**
    * Vaciar filtros y pintar todos los temas
@@ -238,8 +244,7 @@ export class Tunebook extends Component {
     this.element.querySelector('#typetune_filter').value = '';
     this.element.querySelector('#statustune_filter').value = '';
     this.element.querySelector('#tonetune_filter').value = '';
-    this.filtered = Data.tunebook;
-    this.rendertunes();
+    this.setup();
   }
 
   /**
@@ -275,7 +280,7 @@ export class Tunebook extends Component {
           return val1 && val2 && val3 && val4;
         },
     );
-    this.rendertunes(this.filtered);
+    this.setup(this.filtered);
   }
 
   /**
@@ -292,7 +297,7 @@ export class Tunebook extends Component {
       myinput.classList.add('selected', 'bg-slate-500', 'text-white');
       this.format = myinput.dataset.format;
       this.contentzone.classList.toggle('grid');
-      this.rendertunes(this.filtered);
+      this.setup(this.filtered);
     }
   }
 

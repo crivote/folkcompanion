@@ -245,7 +245,7 @@ export class Tuneaddtobook extends Component {
           new Mynotification('success',
               `Se han guardado los cambios en el tema.`);
           const tunebook = Controller.getinstance('Tunebook');
-          tunebook.rendertunes(tunebook.filtered);
+          tunebook.setup(tunebook.filtered);
           this.remove();
         }
       } catch (error) {

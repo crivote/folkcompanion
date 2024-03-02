@@ -156,7 +156,7 @@ export class Tune extends Component {
           <i class="m-auto fa fa-circle-play fa-3x"></i><span>` : '' }
       </div>
       <div>
-        <p class="px-2 py-1 w-20 text-center rounded-md text-xs 
+        <p class="px-2 py-1 w-32 text-center rounded-md text-xs 
         top-4 left-3 uppercase text-slate-700/75 font-bold
         bg-${mystatus.color}/75">${mystatus.label}</p>            
         <h2 class="tunetitle text-xl font-semibold mr-2">
@@ -215,7 +215,7 @@ export class Tune extends Component {
       new Mynotification('success',
           `añadido nuevo ensayo de ${this.data.prefered_name}.`);
       const tunebook = Controller.getinstance('Tunebook');
-      tunebook.rendertunes(tunebook.filtered);
+      tunebook.setup(tunebook.filtered);
     } else {
       this.data = backup;
       new Mynotification('error', `error al guardar el ensayo.`);
