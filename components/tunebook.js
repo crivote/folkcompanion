@@ -141,9 +141,11 @@ export class Tunebook extends Component {
           ${this.generateHTMLfilter()}
           </div>
         </div>
-        <p class="filternotice hidden">Mostrando 
-        <span class="numfiltered"></span> temas filtrados
-        <span class="resetfilter"><i class="fa fa-times-circle"></i></span>
+        <p class="filternotice bg-slate-500 rounded-lg text-white p-2 text-xs 
+        mb-2 w-64 flex uppercase hidden">Mostrando 
+        <span class="numfiltered mx-1 font-bold"></span> temas filtrados
+        <span class="resetfilter ml-auto cursor-pointer hover:text-white/75">
+        <i class="fa fa-times-circle fa-lg"></i></span>
         </p>
         <p><span class="sortorder"><i class="fa-solid 
         ${this.sortorder == 'ASC' ?
@@ -173,6 +175,7 @@ export class Tunebook extends Component {
   generateHTMLfilter() {
     this.generateFilterList();
     return `
+    <i class="fas fa-filter"></i>
     <select id="typetune_filter" class="text-sm 
     bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
     <option value="">tipo</option>
@@ -188,9 +191,9 @@ export class Tunebook extends Component {
     <option value="">tono</option>
     <option> ${this.tonelist.join('</option><option>')}
     </option></select>
-    <i class="fas fa-filter"></i>
-    <input type="search" id="tunebook_filter" class="w-32 rounded-md 
-    bg-white/50 p-1 text-sm text-slate-500 border-slate-300">`;
+    <input type="search" id="tunebook_filter" placeholder="busqueda por texto"
+    class="w-32 rounded-md bg-white/50 p-1 text-sm text-slate-500 
+    border-slate-300">`;
   }
 
   /**
