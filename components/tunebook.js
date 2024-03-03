@@ -12,7 +12,7 @@ export class Tunebook extends Component {
   criterialist = [
     {value: 'titlesort', label: 'nombre', selected: true},
     {value: 'status_num', label: 'status'},
-    {value: 'lastrehearsalDate', label: 'último ensayo'},
+    {value: 'last_rehearsalDate', label: 'último ensayo'},
     {value: 'prefered_tone', label: 'tonalidad'},
     {value: 'rehearsal_days', label: 'nº ensayos'},
   ];
@@ -300,10 +300,14 @@ export class Tunebook extends Component {
           return val1 && val2 && val3 && val4;
         },
     );
-    this.filternotice.querySelector('.numfiltered').textContent =
-        this.filtered.length;
-    this.filternotice.classList.remove('hidden');
-    this.rendertunes();
+    if (this.filtered.length < Data.tunebook.length) {
+      this.filternotice.querySelector('.numfiltered').textContent =
+      this.filtered.length;
+      this.filternotice.classList.remove('hidden');
+      this.rendertunes();
+    } else {
+      this.resetFilter();
+    }
   }
 
   /**

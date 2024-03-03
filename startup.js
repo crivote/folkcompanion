@@ -79,21 +79,17 @@ export class Utils {
   }
 
   /**
-   * Calcula valores extra para temas de repertorio
+   * Añade valores extra para temas de repertorio
    *
    * @param {object} tunebookTune
-   * @return {object} tunebookTune
    */
   static calcValueforTunes(tunebookTune) {
     tunebookTune.titlesort = Utils.titleforsort(tunebookTune.prefered_name);
-    tunebookTune.lastrehearsalDate =
-    tunebookTune.last_rehearsals.length > 0 && tunebookTune.last_rehearsals[0] ?
-    tunebookTune.last_rehearsals[0] : 0;
-    tunebookTune.dayssincelastrehear = tunebookTune.lastrehearsalDate ?
-        Utils.calctimesince(tunebookTune.last_rehearsals[0]) : null;
+    const firstvaliddate = tunebookTune?.last_rehearsals.find(
+        (item) => item !== null && item !== undefined && item !== 0);
+    tunebookTune.last_rehearsalDate = firstvaliddate ?? 0;
     tunebookTune.meanRehear =
         Utils.getMeanRehear(tunebookTune.last_rehearsals);
-    return tunebookTune;
   }
 
   /**
