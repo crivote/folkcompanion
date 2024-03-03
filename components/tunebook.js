@@ -43,18 +43,6 @@ export class Tunebook extends Component {
   }
 
   /**
-   * Generar items de listados filtro.
-   */
-  generateFilterList() {
-    this.typeslist = Utils.getUniqueValues(
-        Data.tunebook.map((tune) => tune.tuneref.type)).sort();
-    this.statuslist = Utils.getUniqueValues(
-        Data.tunebook.map((tune) => tune.status)).sort();
-    this.tonelist = Utils.getUniqueValues(
-        Data.tunebook.map((tune) => tune.prefered_tone)).sort();
-  }
-
-  /**
    * Generar html del componente y asignar eventos
    *
    * @param {array} filter
@@ -69,6 +57,9 @@ export class Tunebook extends Component {
       this.attachAt(mycontent, false);
     }
     this.contentzone = this.element.querySelector('main');
+    this.filterzone = this.element.querySelector('.filtercomponent');
+    this.filternotice = this.element.querySelector('.filternotice');
+    this.counter = this.element.querySelector('.tunecounter');
     this.addListeners();
     this.rendertunes();
   }
@@ -125,7 +116,6 @@ export class Tunebook extends Component {
    * @return {string}
    */
   generatehtml() {
-    this.generateFilterList();
     return `
     <section id="${this.name}">
       <header class="p-6">
@@ -133,7 +123,8 @@ export class Tunebook extends Component {
           <h3 class="text-3xl">Mi repertorio</h3>
           <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 
           uppercase text-slate-200 rounded-lg text-md">
-          ${this.filtered.length} temas</span></h3>
+          <span class="tunecounter">${this.filtered.length}</span> temas
+          </span></h3>
           <span class="addnewtune text-blue-600 hover:text-blue-400">
           <i class="fa fa-plus-circle fa-2x"></i></span>
           <div class="ml-auto flex items-center gap-1 mr-3">
@@ -146,28 +137,14 @@ export class Tunebook extends Component {
             data-format="list">
               <i class="fa fa-fw fa-list fa-lg fa-fw"></i></span>
           </div>
-          <div class="border border-slate-400 p-2 rounded-md">
-            <select id="typetune_filter" class="text-sm 
-            bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
-            <option value="">tipo</option>
-            <option> ${this.typeslist.join('</option><option>')}
-            </option></select>
-            <select id="statustune_filter" class="text-sm 
-            bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
-            <option value="">status</option>
-            <option> ${this.statuslist.join('</option><option>')}
-            </option></select>
-            <select id="tonetune_filter" class="text-sm 
-            bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
-            <option value="">tono</option>
-            <option> ${this.tonelist.join('</option><option>')}
-            </option></select>
-            <i class="fas fa-filter"></i>
-            <input type="search" id="tunebook_filter" class="w-32 rounded-md 
-            bg-white/50 p-1 text-sm text-slate-500 border-slate-300">
-            <i class="resetfilter fa fa-eraser"></i>
+          <div class="filtercomponent border border-slate-400 p-2 rounded-md">
+          ${this.generateHTMLfilter()}
           </div>
         </div>
+        <p class="filternotice hidden">Mostrando 
+        <span class="numfiltered"></span> temas filtrados
+        <span class="resetfilter"><i class="fa fa-times-circle"></i></span>
+        </p>
         <p><span class="sortorder"><i class="fa-solid 
         ${this.sortorder == 'ASC' ?
         'fa-arrow-down-short-wide' : 'fa-arrow-up-wide-short'}"></i></span>
@@ -189,11 +166,51 @@ export class Tunebook extends Component {
   }
 
   /**
- * Ordenar listado
- *
- * @param {array} list
- * @return {array} list
- */
+   * Generates filter component
+   *
+   * @return {string} html
+   */
+  generateHTMLfilter() {
+    this.generateFilterList();
+    return `
+    <select id="typetune_filter" class="text-sm 
+    bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+    <option value="">tipo</option>
+    <option> ${this.typeslist.join('</option><option>')}
+    </option></select>
+    <select id="statustune_filter" class="text-sm 
+    bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+    <option value="">status</option>
+    <option> ${this.statuslist.join('</option><option>')}
+    </option></select>
+    <select id="tonetune_filter" class="text-sm 
+    bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+    <option value="">tono</option>
+    <option> ${this.tonelist.join('</option><option>')}
+    </option></select>
+    <i class="fas fa-filter"></i>
+    <input type="search" id="tunebook_filter" class="w-32 rounded-md 
+    bg-white/50 p-1 text-sm text-slate-500 border-slate-300">`;
+  }
+
+  /**
+   * Generar items de listados filtro.
+   */
+  generateFilterList() {
+    this.typeslist = Utils.getUniqueValues(
+        Data.tunebook.map((tune) => tune.tuneref.type)).sort();
+    this.statuslist = Utils.getUniqueValues(
+        Data.tunebook.map((tune) => tune.status)).sort();
+    this.tonelist = Utils.getUniqueValues(
+        Data.tunebook.map((tune) => tune.prefered_tone)).sort();
+  }
+
+  /**
+   * Ordenar listado
+   *
+   * @param {array} list
+   * @return {array} list
+   */
   sorter(list) {
     list.sort((a, b) => {
       if (a[this.sortcriteria] < b[this.sortcriteria]) {
@@ -215,7 +232,7 @@ export class Tunebook extends Component {
   applysort(event) {
     const myinput = event.target.value;
     this.sortcriteria = myinput;
-    this.setup(this.filtered);
+    this.rendertunes();
   }
 
   /**
@@ -231,7 +248,7 @@ export class Tunebook extends Component {
       myel.classList.remove('fa-arrow-down-short-wide');
       myel.classList.add('fa-arrow-up-wide-short');
     }
-    this.setup(this.filtered);
+    this.rendertunes();
   }
   /**
    * Vaciar filtros y pintar todos los temas
@@ -242,7 +259,9 @@ export class Tunebook extends Component {
     this.element.querySelector('#typetune_filter').value = '';
     this.element.querySelector('#statustune_filter').value = '';
     this.element.querySelector('#tonetune_filter').value = '';
-    this.setup();
+    this.filtered = Data.tunebook;
+    this.filternotice.classList.add('hidden');
+    this.rendertunes();
   }
 
   /**
@@ -278,7 +297,10 @@ export class Tunebook extends Component {
           return val1 && val2 && val3 && val4;
         },
     );
-    this.setup(this.filtered);
+    this.filternotice.querySelector('.numfiltered').textContent =
+        this.filtered.length;
+    this.filternotice.classList.remove('hidden');
+    this.rendertunes();
   }
 
   /**
@@ -295,7 +317,7 @@ export class Tunebook extends Component {
       myinput.classList.add('selected', 'bg-slate-500', 'text-white');
       this.format = myinput.dataset.format;
       this.contentzone.classList.toggle('grid');
-      this.setup(this.filtered);
+      this.rendertunes();
     }
   }
 

@@ -41,10 +41,9 @@ export class Component {
    * @param {*} newhtml
    */
   replace(newhtml) {
-    const clon = this.element.cloneNode(true);
+    const clon = this.element.cloneNode(false);
     clon.outerHTML = newhtml;
-    this.element.parentNode.replaceChild(clon, this.element);
-    this.element = clon;
+    this.element = this.element.parentNode.replaceChild(clon, this.element);
   }
 
   /**
