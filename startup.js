@@ -115,31 +115,36 @@ export class Utils {
    * @return {number} numdays
    */
   static calctimesince(mydate) {
-    const now = new Date();
-    const prev = new Date(mydate);
-    const diferencia = now - prev;
-    let cadenasalida = '';
-    const totalMeses = Math.floor(diferencia / (1000 * 60 * 60 * 24 * 30));
-    if (totalMeses > 0) {
-      cadenasalida =+ `${totalMeses} mes${totalMeses > 1 ? 'es' : ''} `;
-    }
-    const diasRestantes = diferencia % (1000 * 60 * 60 * 24 * 30);
-    const totalDias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
-    if (totalDias > 0) {
-      cadenasalida =+ `${totalDias} día${totalDias > 1 ? 's' : ''} `;
-    }
-    const horasRestantes = diasRestantes % (1000 * 60 * 60 * 24);
-    const totalHoras = Math.floor(horasRestantes / (1000 * 60 * 60));
-    if (totalMeses == 0 && totalHoras > 0) {
-      cadenasalida =+ `${totalHoras}h `;
-    }
-    const minutosRestantes = horasRestantes % (1000 * 60 * 60);
-    const totalMinutos = Math.floor(minutosRestantes / (1000 * 60));
-    if (totalMeses == 0 && totalDias == 0 && totalMinutos > 0) {
-      cadenasalida =+ `${totalHoras}m`;
-    }
-    if (cadenasalida == '') {
-      cadenasalida = 'ahora';
+    if (typeof mydate == 'number') {
+      const now = new Date();
+      const prev = new Date(mydate);
+      const diferencia = now - prev;
+      let cadenasalida = '';
+      const totalMeses = Math.floor(diferencia / (1000 * 60 * 60 * 24 * 30));
+      if (totalMeses > 0) {
+        cadenasalida.concat('',
+            `${totalMeses} mes${totalMeses > 1 ? 'es' : ''}`);
+      }
+      const diasRestantes = diferencia % (1000 * 60 * 60 * 24 * 30);
+      const totalDias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
+      if (totalDias > 0) {
+        cadenasalida.concat(' ' `${totalDias} día${totalDias > 1 ? 's' : ''}`);
+      }
+      const horasRestantes = diasRestantes % (1000 * 60 * 60 * 24);
+      const totalHoras = Math.floor(horasRestantes / (1000 * 60 * 60));
+      if (totalMeses == 0 && totalHoras > 0) {
+        cadenasalida.concat(' ', `${totalHoras}h`);
+      }
+      const minutosRestantes = horasRestantes % (1000 * 60 * 60);
+      const totalMinutos = Math.floor(minutosRestantes / (1000 * 60));
+      if (totalMeses == 0 && totalDias == 0 && totalMinutos > 0) {
+        cadenasalida.concat(' ', `${totalMinutos}m`);
+      }
+      if (cadenasalida == '') {
+        cadenasalida = 'ahora';
+      }
+    } else {
+      cadenasalida = 'nunca';
     }
     return cadenasalida;
   }
