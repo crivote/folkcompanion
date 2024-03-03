@@ -111,15 +111,37 @@ export class Utils {
   /**
    * Devuelve el numero de dias desde una fecha
    *
-   * @param {string} date
+   * @param {number} mydate
    * @return {number} numdays
    */
-  static calctimesince(date) {
+  static calctimesince(mydate) {
     const now = new Date();
-    date = new Date(date);
-    const diff = now.getTime() - date.getTime();
-    const numdays = Math.round(diff / (1000 * 3600 * 24));
-    return numdays > 0 ? numdays : 0;
+    const prev = new Date(mydate);
+    const diferencia = now - prev;
+    let cadenasalida = '';
+    const totalMeses = Math.floor(diferencia / (1000 * 60 * 60 * 24 * 30));
+    if (totalMeses > 0) {
+      cadenasalida =+ `${totalMeses} mes${totalMeses > 1 ? 'es' : ''} `;
+    }
+    const diasRestantes = diferencia % (1000 * 60 * 60 * 24 * 30);
+    const totalDias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
+    if (totalDias > 0) {
+      cadenasalida =+ `${totalDias} día${totalDias > 1 ? 's' : ''} `;
+    }
+    const horasRestantes = diasRestantes % (1000 * 60 * 60 * 24);
+    const totalHoras = Math.floor(horasRestantes / (1000 * 60 * 60));
+    if (totalMeses == 0 && totalHoras > 0) {
+      cadenasalida =+ `${totalHoras}h `;
+    }
+    const minutosRestantes = horasRestantes % (1000 * 60 * 60);
+    const totalMinutos = Math.floor(minutosRestantes / (1000 * 60));
+    if (totalMeses == 0 && totalDias == 0 && totalMinutos > 0) {
+      cadenasalida =+ `${totalHoras}m`;
+    }
+    if (cadenasalida == '') {
+      cadenasalida = 'ahora';
+    }
+    return cadenasalida;
   }
 
   /**
