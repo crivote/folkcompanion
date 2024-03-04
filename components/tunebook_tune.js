@@ -101,9 +101,7 @@ export class Tune extends Component {
         <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
             <i class="opacity-75 fas fa-calendar-check">
             </i> <span class="lastrehearsal ml-1">
-            ${this.data?.dayssincelastrehear ?
-              this.data.dayssincelastrehear + 'd' :
-              'nunca'}</span>
+            ${Utils.calctimesince(this.data?.last_rehearsals[0])}</span>
         </p>
         <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
             <span class="numrehearsal"><i class="opacity-75 fas fa-stopwatch">
@@ -156,6 +154,12 @@ export class Tune extends Component {
           <i class="m-auto fa fa-circle-play fa-3x"></i><span>` : '' }
       </div>
       <div>
+        <p class="numrehearsal bg-slate-500 text-white font-medium px-2
+        rounded-lg"> ${this.data.rehearsal_days}</p>
+      <p class="lastrehearsal text-xs text-slate-400">
+      ${Utils.calctimesince(this.data?.last_rehearsals[0])}</p>
+      </div>
+      <div>
         <p class="px-2 py-1 w-32 text-center rounded-md text-xs 
         top-4 left-3 uppercase text-slate-700/75 font-bold
         bg-${mystatus.color}/75">${mystatus.label}</p>            
@@ -165,22 +169,18 @@ export class Tune extends Component {
         text-xs mb-2"><span class="font-medium mr-1 text-slate-500">
         ${this.data.tuneref.type}</span>${this.data.tuneref.author}</p>
       </div>
-         <div class="flex gap-1 ml-auto items-center">
-                <span class="numrehearsal bg-slate-500 text-white p-2
-                 rounded-lg"> ${this.data.rehearsal_days}</span>
-                <span class="lastrehearsal">
-                ${Utils.calctimesince(this.data?.last_rehearsals[0])}</span>
-                <button class="rehearsal bg-blue-400 p-1 rounded-md text-white 
-                text-bold" title="añadir ensayo"><i class="fa fa-guitar 
-                fa-fw fa-lg"></i></button>
-                <button class="edittune bg-red-400 p-1 rounded-md text-white 
-                text-bold" title="editar tema"><i class="fa fa-gear fa-fw 
-                fa-lg"></i></button>
-                <button class="deletetune bg-red-400 p-1 rounded-md text-white 
-                text-bold" title="eliminar tema"><i class="fa fa-trash fa-fw 
-                fa-lg"></i></button>
-            </div>
-        </div>`;
+      <div class="flex gap-1 ml-auto items-center">
+        <button class="rehearsal bg-blue-400 p-1 rounded-md text-white 
+        text-bold" title="añadir ensayo"><i class="fa fa-guitar 
+        fa-fw fa-lg"></i></button>
+        <button class="edittune bg-red-400 p-1 rounded-md text-white 
+        text-bold" title="editar tema"><i class="fa fa-gear fa-fw 
+        fa-lg"></i></button>
+        <button class="deletetune bg-red-400 p-1 rounded-md text-white 
+        text-bold" title="eliminar tema"><i class="fa fa-trash fa-fw 
+        fa-lg"></i></button>
+    </div>
+  </div>`;
   }
 
   /**
