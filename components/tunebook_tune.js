@@ -168,9 +168,8 @@ export class Tune extends Component {
          <div class="flex gap-1 ml-auto items-center">
                 <span class="numrehearsal bg-slate-500 text-white p-2
                  rounded-lg"> ${this.data.rehearsal_days}</span>
-                <span class="lastrehearsal">${this.data.last_rehearsals ?
-                Utils.calctimesince(this.data.last_rehearsals[0]) + ' d' :
-                'n/a'}</span>
+                <span class="lastrehearsal">
+                ${Utils.calctimesince(this.data?.last_rehearsals[0])}</span>
                 <button class="rehearsal bg-blue-400 p-1 rounded-md text-white 
                 text-bold" title="añadir ensayo"><i class="fa fa-guitar 
                 fa-fw fa-lg"></i></button>
