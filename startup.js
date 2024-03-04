@@ -115,11 +115,11 @@ export class Utils {
    * @return {number} numdays
    */
   static calctimesince(mydate) {
+    let cadenasalida = '';
     if (typeof mydate == 'number') {
       const now = new Date();
       const prev = new Date(mydate);
       const diferencia = now - prev;
-      let cadenasalida = '';
       const totalMeses = Math.floor(diferencia / (1000 * 60 * 60 * 24 * 30));
       if (totalMeses > 0) {
         cadenasalida.concat('',
