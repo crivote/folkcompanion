@@ -128,7 +128,7 @@ export class Utils {
       const diasRestantes = diferencia % (1000 * 60 * 60 * 24 * 30);
       const totalDias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
       if (totalDias > 0) {
-        cadenasalida.concat(' ' `${totalDias} día${totalDias > 1 ? 's' : ''}`);
+        cadenasalida.concat(' ', `${totalDias} día${totalDias > 1 ? 's' : ''}`);
       }
       const horasRestantes = diasRestantes % (1000 * 60 * 60 * 24);
       const totalHoras = Math.floor(horasRestantes / (1000 * 60 * 60));
