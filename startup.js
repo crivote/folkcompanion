@@ -122,23 +122,24 @@ export class Utils {
       const diferencia = now - prev;
       const totalMeses = Math.floor(diferencia / (1000 * 60 * 60 * 24 * 30));
       if (totalMeses > 0) {
-        cadenasalida.concat('',
+        cadenasalida = cadenasalida.concat('',
             `${totalMeses} mes${totalMeses > 1 ? 'es' : ''}`);
       }
       const diasRestantes = diferencia % (1000 * 60 * 60 * 24 * 30);
       const totalDias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
       if (totalDias > 0) {
-        cadenasalida.concat(' ', `${totalDias} día${totalDias > 1 ? 's' : ''}`);
+        cadenasalida = cadenasalida
+            .concat(' ', `${totalDias} día${totalDias > 1 ? 's' : ''}`);
       }
       const horasRestantes = diasRestantes % (1000 * 60 * 60 * 24);
       const totalHoras = Math.floor(horasRestantes / (1000 * 60 * 60));
       if (totalMeses == 0 && totalHoras > 0) {
-        cadenasalida.concat(' ', `${totalHoras}h`);
+        cadenasalida = cadenasalida.concat(' ', `${totalHoras}h`);
       }
       const minutosRestantes = horasRestantes % (1000 * 60 * 60);
       const totalMinutos = Math.floor(minutosRestantes / (1000 * 60));
       if (totalMeses == 0 && totalDias == 0 && totalMinutos > 0) {
-        cadenasalida.concat(' ', `${totalMinutos}m`);
+        cadenasalida = cadenasalida.concat(' ', `${totalMinutos}m`);
       }
       if (cadenasalida == '') {
         cadenasalida = 'ahora';
