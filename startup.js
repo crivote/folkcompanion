@@ -230,7 +230,7 @@ export class Utils {
     Utils.appendOption(el, tag, '' );
     array.forEach((value) => {
       Utils.appendOption(
-          typefilter,
+          el,
           Array.isArray(value) ? value[0] : value,
           Array.isArray(value) ? value[1] : value);
     });
