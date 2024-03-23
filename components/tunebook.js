@@ -56,6 +56,7 @@ export class Tunebook extends Component {
     } else {
       this.attachAt(mycontent, false);
     }
+    this.generateFilterOptions();
     this.contentzone = this.element.querySelector('main');
     this.filterzone = this.element.querySelector('.filtercomponent');
     this.filternotice = this.element.querySelector('.filternotice');
@@ -138,7 +139,20 @@ export class Tunebook extends Component {
               <i class="fa fa-fw fa-list fa-lg fa-fw"></i></span>
           </div>
           <div class="filtercomponent border border-slate-400 p-2 rounded-md">
-          ${this.generateHTMLfilter()}
+          <i class="fas fa-filter"></i>
+          <select id="typetune_filter" class="text-sm 
+          bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+          /select>
+          <select id="statustune_filter" class="text-sm 
+          bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+         </select>
+          <select id="tonetune_filter" class="text-sm 
+          bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
+          </select>
+          <input type="search" id="tunebook_filter" 
+          placeholder="busqueda por texto"
+          class="w-32 rounded-md bg-white/50 p-1 text-sm text-slate-500 
+          border-slate-300">
           </div>
         </div>
         <p class="filternotice bg-slate-500 rounded-lg text-white p-2 text-xs 
@@ -170,30 +184,16 @@ export class Tunebook extends Component {
   /**
    * Generates filter component
    *
-   * @return {string} html
    */
-  generateHTMLfilter() {
+  generateFilterOptions() {
     this.generateFilterList();
-    return `
-    <i class="fas fa-filter"></i>
-    <select id="typetune_filter" class="text-sm 
-    bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
-    <option value="">tipo</option>
-    <option> ${this.typeslist.join('</option><option>')}
-    </option></select>
-    <select id="statustune_filter" class="text-sm 
-    bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
-    <option value="">status</option>
-    <option> ${this.statuslist.join('</option><option>')}
-    </option></select>
-    <select id="tonetune_filter" class="text-sm 
-    bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
-    <option value="">tono</option>
-    <option> ${this.tonelist.join('</option><option>')}
-    </option></select>
-    <input type="search" id="tunebook_filter" placeholder="busqueda por texto"
-    class="w-32 rounded-md bg-white/50 p-1 text-sm text-slate-500 
-    border-slate-300">`;
+    const typefilter = this.element.querySelector('#typetune_filter');
+    const tonefilter = this.element.querySelector('#tonetune_filter');
+    const statusfilter = this.element.querySelector('#statustune_filter');
+    Utils.generatefilteroptions(typefilter, 'todos los tipos', this.typeslist);
+    Utils.generatefilteroptions(tonefilter, 'todos los tonos', this.tonelist);
+    Utils.generatefilteroptions(
+        statusfilter, 'todos los status', this.statuslist);
   }
 
   /**
@@ -203,7 +203,7 @@ export class Tunebook extends Component {
     this.typeslist = Utils.getUniqueValues(
         Data.tunebook.map((tune) => tune.tuneref.type)).sort();
     this.statuslist = Utils.getUniqueValues(
-        Data.tunebook.map((tune) => tune.status)).sort();
+        Data.tunebook.map((tune) => [tune.status_num, tune.status]));
     this.tonelist = Utils.getUniqueValues(
         Data.tunebook.map((tune) => tune.prefered_tone)).sort();
   }

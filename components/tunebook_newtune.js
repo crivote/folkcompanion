@@ -225,9 +225,6 @@ export class Tuneaddtobook extends Component {
           Utils.calcValueforTunes(result);
           Data.tunebook.push(result);
           new Mynotification('success', `Se ha añadido el tema a tu tunebook.`);
-          const tunebook = Controller.getinstance('Tunebook');
-          tunebook.rendertunes(tunebook.filtered);
-          this.remove();
         }
       } catch (error) {
         console.log(error);
@@ -243,14 +240,14 @@ export class Tuneaddtobook extends Component {
           Utils.calcValueforTunes(Data.tunebook[myindex]);
           new Mynotification('success',
               `Se han guardado los cambios en el tema.`);
-          const tunebook = Controller.getinstance('Tunebook');
-          tunebook.rendertunes(tunebook.filtered);
-          this.remove();
         }
       } catch (error) {
         console.log(error);
       }
     }
+    const tunebook = Controller.getinstance('Tunebook');
+    tunebook.resetFilter();
+    this.remove();
   }
 
   /**

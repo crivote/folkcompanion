@@ -203,6 +203,40 @@ export class Utils {
   }
 
   /**
+   * añadir opciones a un select
+   *
+   * @param {*} el
+   * @param {*} value
+   * @param {*} text
+   */
+  static appendOption(el, value, text) {
+    const option = document.createElement('option');
+    // Asignar texto y valor al elemento option
+    option.text = value;
+    option.value = value;
+    // Añadir la nueva opción al select
+    el.appendChild(option);
+  }
+
+  /**
+   * poblar filtros select
+   *
+   * @param {*} el
+   * @param {*} tag
+   * @param {*} array
+   */
+  static generatefilteroptions(el, tag, array) {
+    el.innerHTML = '';
+    Utils.appendOption(el, tag, '' );
+    array.forEach((value) => {
+      Utils.appendOption(
+          typefilter,
+          Array.isArray(value) ? value[0] : value,
+          Array.isArray(value) ? value[1] : value);
+    });
+  }
+
+  /**
    * Genera html para campo form estático
    *
    * @param {string} name
