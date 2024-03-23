@@ -143,7 +143,7 @@ export class Tune extends Component {
   generatehtml_list() {
     const mystatus = this.getstatus(this.data.status_num);
     return `<div id="tune${this.data.id}" class="tunelist group w-full bg-white
-     border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-3">
+     border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-2">
       <div class="tuneimg flex h-20 w-20 bg-center bg-cover mr-3
       bg-[url('${this.data.preferred_img_url ??
         `https://picsum.photos/200/200?random=${this.data.id}`}')]">
@@ -153,10 +153,10 @@ export class Tune extends Component {
             text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
           <i class="m-auto fa fa-circle-play fa-3x"></i><span>` : '' }
       </div>
-      <div>
+      <div class="w-16 text-center border border-slate-200 p-1 rounded-md">
         <p class="numrehearsal bg-slate-500 text-white font-medium px-2
         rounded-lg"> ${this.data.rehearsal_days}</p>
-      <p class="lastrehearsal text-xs text-slate-400">
+      <p class="lastrehearsal text-xs text-slate-400 uppercase mt-1">
       ${Utils.calctimesince(this.data?.last_rehearsals[0])}</p>
       </div>
       <div>
