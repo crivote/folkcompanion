@@ -218,11 +218,11 @@ export class Tuneaddtobook extends Component {
 
     if (this.isNew) {
       try {
-        let result = await apis.Xanoapi.addtotunebook(params);
+        const result = await apis.Xanoapi.addtotunebook(params);
         if (result) {
           result.tuneref = Data.tunes.find(
               (tune) => tune.id === result.tunes_id);
-          result = Utils.calcValueforTunes(result);
+          Utils.calcValueforTunes(result);
           Data.tunebook.push(result);
           new Mynotification('success', `Se ha añadido el tema a tu tunebook.`);
           const tunebook = Controller.getinstance('Tunebook');
@@ -240,12 +240,11 @@ export class Tuneaddtobook extends Component {
           const myindex = Data.tunebook.findIndex(
               (tune) => tune.id == this.tune.id);
           Data.tunebook[myindex] = {...Data.tunebook[myindex], ...result};
-          Data.tunebook[myindex] =
-              Utils.calcValueforTunes(Data.tunebook[myindex]);
+          Utils.calcValueforTunes(Data.tunebook[myindex]);
           new Mynotification('success',
               `Se han guardado los cambios en el tema.`);
           const tunebook = Controller.getinstance('Tunebook');
-          tunebook.setup(tunebook.filtered);
+          tunebook.rendertunes(tunebook.filtered);
           this.remove();
         }
       } catch (error) {

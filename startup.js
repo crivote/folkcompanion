@@ -123,13 +123,13 @@ export class Utils {
       const totalMeses = Math.floor(diferencia / (1000 * 60 * 60 * 24 * 30));
       if (totalMeses > 0) {
         cadenasalida = cadenasalida.concat('',
-            `${totalMeses} mes${totalMeses > 1 ? 'es' : ''}`);
+            `${totalMeses}m`);
       }
       const diasRestantes = diferencia % (1000 * 60 * 60 * 24 * 30);
       const totalDias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
       if (totalDias > 0) {
         cadenasalida = cadenasalida
-            .concat(' ', `${totalDias} día${totalDias > 1 ? 's' : ''}`);
+            .concat(' ', `${totalDias}d`);
       }
       const horasRestantes = diasRestantes % (1000 * 60 * 60 * 24);
       const totalHoras = Math.floor(horasRestantes / (1000 * 60 * 60));
@@ -139,7 +139,7 @@ export class Utils {
       const minutosRestantes = horasRestantes % (1000 * 60 * 60);
       const totalMinutos = Math.floor(minutosRestantes / (1000 * 60));
       if (totalMeses == 0 && totalDias == 0 && totalMinutos > 0) {
-        cadenasalida = cadenasalida.concat(' ', `${totalMinutos}m`);
+        cadenasalida = cadenasalida.concat(' ', `${totalMinutos}min`);
       }
       if (cadenasalida == '') {
         cadenasalida = 'ahora';
@@ -512,7 +512,7 @@ export class Controller {
       // add info from tunes to tunebook
       Data.tunebook.forEach((item) => {
         item.tuneref = Data.tunes.find((tune) => tune.id === item.tunes_id);
-        item = Utils.calcValueforTunes(item);
+        Utils.calcValueforTunes(item);
       });
       new components.Mynotification(
           'success',
