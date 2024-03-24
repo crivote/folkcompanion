@@ -142,7 +142,7 @@ export class Tunebook extends Component {
           <i class="fas fa-filter"></i>
           <select id="typetune_filter" class="text-sm 
           bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
-          /select>
+          </select>
           <select id="statustune_filter" class="text-sm 
           bg-cyan-200 text-cyan-500 p-1 rounded-md border-0">
          </select>
