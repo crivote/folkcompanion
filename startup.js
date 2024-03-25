@@ -212,8 +212,8 @@ export class Utils {
   static appendOption(el, value, text) {
     const option = document.createElement('option');
     // Asignar texto y valor al elemento option
-    option.text = value;
     option.value = value;
+    option.text = text;
     // Añadir la nueva opción al select
     el.appendChild(option);
   }
@@ -227,7 +227,7 @@ export class Utils {
    */
   static generatefilteroptions(el, tag, array) {
     el.innerHTML = '';
-    Utils.appendOption(el, tag, '' );
+    Utils.appendOption(el, '', tag);
     array.forEach((value) => {
       Utils.appendOption(
           el,
