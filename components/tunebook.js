@@ -295,7 +295,7 @@ export class Tunebook extends Component {
           }
           let val3 = true;
           if (valselstat != '') {
-            val3 = tune.status == valselstat;
+            val3 = tune.status_num == valselstat;
           }
           let val4 = true;
           if (valseltona != '') {
