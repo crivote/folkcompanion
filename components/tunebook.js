@@ -203,9 +203,13 @@ export class Tunebook extends Component {
     this.typeslist = Utils.getUniqueValues(
         Data.tunebook.map((tune) => tune.tuneref.type)).sort();
     this.statuslist = Utils.getUniqueValues(
-        Data.tunebook.map((tune) => [tune.status_num, tune.status]));
+        Data.tunebook.map((tune) => tune.status_num)).sort();
     this.tonelist = Utils.getUniqueValues(
         Data.tunebook.map((tune) => tune.prefered_tone)).sort();
+    this.statuslist = this.statuslist.map((item) => {
+      const mystatus = Data.status.find((status) => status.value == item);
+      return [mystatus.value, mystatus.label];
+    });
   }
 
   /**
