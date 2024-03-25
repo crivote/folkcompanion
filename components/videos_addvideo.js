@@ -56,6 +56,12 @@ export class Videoadd extends Component {
         .addEventListener('click', this.addvideo.bind(this));
     this.element.querySelector('.addtunetovideo')
         .addEventListener('click', this.addtunetovideo.bind(this));
+    // show select control to change value
+    this.element.querySelectorAll('.formcomponent').forEach((el) =>
+      el.addEventListener('click', this.showeditselect.bind(this)));
+    // change value of select field
+    this.element.querySelectorAll('.edit-select li').forEach((el) =>
+      el.addEventListener('click', this.changeselectvalue.bind(this)));
   }
 
   /**
@@ -80,9 +86,13 @@ export class Videoadd extends Component {
             placeholder="paste a youtube URL">
         </div>
 
-        <div class="mt-6 flex gap-5">
-          <section class="w-1/2" id="videocontainer"></section>
-          <div class="flex flex-col gap-2">
+        <div class="mt-6 flex gap-3">
+          <section class="w-auto>"
+          <div id="videocontainer"></div>
+          <ul id="tunesadded" data-added=""></ul>
+          </section>
+          <section class="w-1/2" id="form">
+            <div class="flex flex-col gap-2">
           ${Utils.generateformfield(
       'titulo',
       'titulo del vídeo',
@@ -102,8 +112,6 @@ export class Videoadd extends Component {
 
             <section class="tunesaddition bg-slate-100 border 
             border-slate-300 p-4">
-              <ul id="tunesadded" data-added="">
-              </ul>
               <div id="datatuneadd" class="flex gap-3 tunecontainer">
                 <div>
                   <datalist id="alltunes">
@@ -117,18 +125,19 @@ export class Videoadd extends Component {
                 <div>
                     <label class="uppercase text-slate-400 text-sm mt-4">
                     inicio (en s)</label>
-                    <input class="" type="number" name="inicio1">
+                    <input class="w-20" type="number" name="inicio1">
                 </div>
                 <div>
                     <label class="uppercase text-slate-400 text-sm mt-4">
                     final (en s)</label>
-                    <input class="" type="number" name="final1">
+                    <input class="w-20" type="number" name="final1">
                 </div>
                 <button class="addtunetovideo">Añadir tema</button>
             </div>
                         
           </section>
-                    </div>
+          </div>
+          </section>
       <div class="flex items-center justify-center mt-6">
         <button disabled class="sendbutton px-4 py-3 rounded-md bg-blue-500 
         text-white text-md font-bold uppercase mr-4">Guardar video</button>
