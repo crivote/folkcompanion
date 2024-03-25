@@ -99,21 +99,16 @@ export class Tune extends Component {
         <div class="flex gap-2 items-center justify-center -mt-8 rounded-md
         w-fit mx-auto px-2 bg-white/35 group-hover:bg-white/85">
         <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
-            <i class="opacity-75 fas fa-calendar-check">
+            <i class="opacity-75 fas fa-stopwatch">
             </i> <span class="lastrehearsal ml-1">
             ${Utils.calctimesince(this.data?.last_rehearsals[0])}</span>
         </p>
         <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
-            <span class="numrehearsal"><i class="opacity-75 fas fa-stopwatch">
+            <span class="numrehearsal"><i class="opacity-75 
+            fas fa-calendar-check">
             </i> ${this.data?.rehearsal_days}</span>
         </p>
-        <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
-            <span class="meanrehear">
-            <i class="opacity-75 fas fa-scale-balanced"></i> 
-            ${this.data?.meanRehear ? this.data.meanRehear + 'd' : 'n/a'}
-            </span>
-        </p>
-        </div>
+          </div>
         <h2 class="leading-none tunetitle text-xl font-medium text-center 
         mt-5 mb-2 text-blue-900">${this.data.prefered_name}</h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
@@ -153,9 +148,10 @@ export class Tune extends Component {
             text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
           <i class="m-auto fa fa-circle-play fa-3x"></i><span>` : '' }
       </div>
-      <div class="w-16 text-center border border-slate-200 p-1 rounded-md">
+      <div class="w-20 text-center border border-slate-200 p-1 rounded-md">
         <p class="numrehearsal bg-slate-500 text-white font-medium px-2
-        rounded-lg"> ${this.data.rehearsal_days}</p>
+        rounded-lg"> ${this.data.rehearsal_days} 
+        <i class="opacity-75 fas fa-stopwatch"></i></p>
       <p class="lastrehearsal text-xs text-slate-400 uppercase mt-1">
       ${Utils.calctimesince(this.data?.last_rehearsals[0])}</p>
       </div>
