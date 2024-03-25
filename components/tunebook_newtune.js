@@ -247,6 +247,7 @@ export class Tuneaddtobook extends Component {
     }
     const tunebook = Controller.getinstance('Tunebook');
     tunebook.resetFilter();
+    tunebook.populateFilterOptions();
     this.remove();
   }
 

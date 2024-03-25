@@ -151,7 +151,7 @@ export class Tune extends Component {
       <div class="w-20 text-center border border-slate-200 p-1 rounded-md">
         <p class="numrehearsal bg-slate-500 text-white font-medium px-2
         rounded-lg"> ${this.data.rehearsal_days} 
-        <i class="opacity-75 fas fa-stopwatch"></i></p>
+        <i class="opacity-75 fas fa-calendar-check"></i></p>
       <p class="lastrehearsal text-xs text-slate-400 uppercase mt-1">
       ${Utils.calctimesince(this.data?.last_rehearsals[0])}</p>
       </div>

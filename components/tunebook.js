@@ -56,7 +56,7 @@ export class Tunebook extends Component {
     } else {
       this.attachAt(mycontent, false);
     }
-    this.generateFilterOptions();
+    this.populateFilterOptions();
     this.contentzone = this.element.querySelector('main');
     this.filterzone = this.element.querySelector('.filtercomponent');
     this.filternotice = this.element.querySelector('.filternotice');
@@ -182,10 +182,10 @@ export class Tunebook extends Component {
   }
 
   /**
-   * Generates filter component
+   * Generates filter select values
    *
    */
-  generateFilterOptions() {
+  populateFilterOptions() {
     this.generateFilterList();
     const typefilter = this.element.querySelector('#typetune_filter');
     const tonefilter = this.element.querySelector('#tonetune_filter');
