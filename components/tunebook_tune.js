@@ -86,18 +86,18 @@ export class Tune extends Component {
              text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
             <i class=" m-auto fa fa-circle-play fa-5x"></i><span>` : '' }
         </div>
-        <span class="px-2 py-1 rounded-md text-xs absolute top-4 left-3 
+        <span class="px-2 py-1 rounded-md text-sm absolute top-4 left-3 
         uppercase text-slate-700/75 font-bold bg-${mystatus.color}/75" >
          ${mystatus.label}</span>
          ${this.data.prefered_tone ?
-        `<div class="absolute right-3 top-4 px-2 py-1 bg-blue-800/50 
-        text-white/90 rounded-lg text-xs" title="Tonalidad">
+        `<div class="absolute right-3 top-4 px-2 py-1 bg-slate-800/70 
+        text-white/90 rounded-lg text-sm" title="Tonalidad">
             <span class="ml-1 font-medium uppercase">
             ${this.data.prefered_tone.substring(0, 5)}
            </span>
         </div>`: ''}
         <div class="flex gap-2 items-center justify-center -mt-8 rounded-md
-        w-fit mx-auto px-2 bg-white/35 group-hover:bg-white/85">
+        w-fit mx-auto px-2 bg-white/50 group-hover:bg-white/85 shadow-lg">
         <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
             <i class="opacity-75 fas fa-stopwatch">
             </i> <span class="lastrehearsal ml-1">
@@ -160,7 +160,12 @@ export class Tune extends Component {
         top-4 left-3 uppercase text-slate-700/75 font-bold
         bg-${mystatus.color}/75">${mystatus.label}</p>            
         <h2 class="tunetitle text-xl font-semibold mr-2">
-        ${this.data.prefered_name}</h2>
+        ${this.data.prefered_name} 
+        <span class="ml-1 text-sm bg-slate-200 rounded-md p-1 px-2 font-medium
+        uppercase text-slate-500">${this.data.prefered_tone.substring(0, 5)}
+        <img class="fixed hidden w-100 h-auto" src="./img/dmay.png">
+        </span>
+        </h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-xs mb-2"><span class="font-medium mr-1 text-slate-500">
         ${this.data.tuneref.type}</span>${this.data.tuneref.author}</p>
