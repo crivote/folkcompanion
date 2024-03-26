@@ -166,7 +166,8 @@ export class Tune extends Component {
         uppercase text-slate-500">${this.data.prefered_tone.substring(0, 5)}
         <img class="group-hover/item:visible invisible w-42 fixed inset-0 
         h-auto m-auto border border-slate-400 p-4 bg-white/90 rounded-lg 
-        shadow-2xl" src="./img/dmay.png">
+        shadow-2xl" src="./img/${Utils.removeWhiteSpaces(
+      this.data.prefered_tone.substring(0, 5))}.png">
         </span>
         </h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 

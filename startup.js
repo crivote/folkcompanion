@@ -151,6 +151,16 @@ export class Utils {
   }
 
   /**
+   * Remove white spaces
+   *
+   * @param {string} text
+   * @return {string}
+   */
+  static removeWhiteSpaces(text) {
+    return text.split('').join('').toLowerCase();
+  }
+
+  /**
    * Convierte fecha a formato ISO datetime
    *
    * @param {Date | undefined} date
