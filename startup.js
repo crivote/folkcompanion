@@ -157,7 +157,7 @@ export class Utils {
    * @return {string}
    */
   static removeWhiteSpaces(text) {
-    return text.split('').join('').toLowerCase();
+    return text.split(' ').join('').toLowerCase();
   }
 
   /**
@@ -387,8 +387,8 @@ export const Data = {
     {value: 2, label: 'Aprendiendo', color: 'orange-600', times: 10},
     {value: 3, label: 'Acompañar', color: 'yellow-500', days: 15},
     {value: 4, label: 'Básica', color: 'lime-500', days: 30},
-    {value: 5, label: 'Fluida', color: 'green-600', days: 45},
-    {value: 6, label: 'Dominada', color: 'emerald-900', days: 60},
+    {value: 5, label: 'Intermedio', color: 'green-600', days: 45},
+    {value: 6, label: 'Fluida', color: 'emerald-900', days: 60},
   ],
   rythms: {
     'Double Jig': '6/8',
