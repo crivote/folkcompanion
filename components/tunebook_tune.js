@@ -76,7 +76,7 @@ export class Tune extends Component {
     return `<div id="tune${this.data.id}" class="group cursor-pointer flex 
     flex-col border-t-8 border-${mystatus.color} relative tunecard 
     bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out 
-    hover:shadow-lg hover:scale-110">
+    hover:shadow-lg hover:scale-110 hover:z-40">
         <div class="tuneimg flex h-52 -mt-6 -mx-6 bg-center bg-cover 
         bg-[url('${this.data.preferred_img_url ??
           `https://picsum.photos/200/200?random=${this.data.id}`}')]">
@@ -96,7 +96,7 @@ export class Tune extends Component {
             ${this.data.prefered_tone.substring(0, 5)}
             <img class="group-hover/item:visible invisible w-42 fixed inset-0 
         h-auto m-auto border border-slate-400 p-4 bg-white/90 rounded-lg 
-        shadow-2xl" src="./img/${Utils.removeWhiteSpaces(
+        shadow-2xl z-40" src="./img/${Utils.removeWhiteSpaces(
             this.data.prefered_tone.substring(0, 5))}.png">
            </span>
         </div>`: ''}
