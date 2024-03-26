@@ -92,8 +92,12 @@ export class Tune extends Component {
          ${this.data.prefered_tone ?
         `<div class="absolute right-3 top-4 px-2 py-1 bg-slate-800/70 
         text-white/90 rounded-lg text-sm" title="Tonalidad">
-            <span class="ml-1 font-medium uppercase">
+            <span class="group/item ml-1 font-medium uppercase">
             ${this.data.prefered_tone.substring(0, 5)}
+            <img class="group-hover/item:visible invisible w-42 fixed inset-0 
+        h-auto m-auto border border-slate-400 p-4 bg-white/90 rounded-lg 
+        shadow-2xl" src="./img/${Utils.removeWhiteSpaces(
+            this.data.prefered_tone.substring(0, 5))}.png">
            </span>
         </div>`: ''}
         <div class="flex gap-2 items-center justify-center -mt-8 rounded-md
