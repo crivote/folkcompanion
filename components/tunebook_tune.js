@@ -161,9 +161,12 @@ export class Tune extends Component {
         bg-${mystatus.color}/75">${mystatus.label}</p>            
         <h2 class="tunetitle text-xl font-semibold mr-2">
         ${this.data.prefered_name} 
-        <span class="ml-1 text-sm bg-slate-200 rounded-md p-1 px-2 font-medium
+        <span class="group/item ml-1 text-sm bg-slate-200 rounded-md p-1 px-2 
+        font-medium
         uppercase text-slate-500">${this.data.prefered_tone.substring(0, 5)}
-        <img class="fixed hidden w-100 h-auto" src="./img/dmay.png">
+        <img class="group-hover/item:visible invisible w-42 fixed inset-0 
+        h-auto m-auto border border-slate-400 p-4 bg-white/90 rounded-lg 
+        shadow-2xl" src="./img/dmay.png">
         </span>
         </h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
