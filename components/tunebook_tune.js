@@ -145,7 +145,7 @@ export class Tune extends Component {
     if (Array.isArray(this.data.tags) && this.data.tags.length > 0) {
       this.data.tags.forEach((tag) => {
         taghtml += `<span class="bg-slate-100 text-slate-400 p-1 
-        uppercase>${tag}</span>`;
+        uppercase">${tag}</span>`;
       });
     }
     return taghtml;
