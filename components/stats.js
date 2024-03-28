@@ -143,7 +143,7 @@ export class Stats extends Component {
    * @return {string}
    */
   renderDayTunes(tunes) {
-    const htmlcontent = '';
+    let htmlcontent = '';
     tunes.sort((a, b) => b.date - a.date);
     tunes.forEach((tune) => {
       const mytune = Data.tunebook.find(
