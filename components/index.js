@@ -6,3 +6,4 @@ export * from './setbook.js';
 export * from './notification.js';
 export * from './game.js';
 export * from './videos.js';
+export * from './stats.js';
