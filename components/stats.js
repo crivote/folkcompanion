@@ -99,7 +99,7 @@ export class Stats extends Component {
           </span></h3>
         </div>
       </header>
-      <main class="p-6 grid lg:grid-cols-2 gap-3"></main>
+      <main class="p-6 grid lg:grid-cols-2 gap-3 grid-flow-row-dense"></main>
       </section>`;
   }
 
@@ -148,9 +148,11 @@ export class Stats extends Component {
     tunes.forEach((tune) => {
       const mytune = Data.tunebook.find(
           (tunebooktune) => tunebooktune.id === tune.tuneid);
-      const mytime = new Date(mytune.date);
-      htmlcontent += `<li>${mytune.prefered_name} 
+      const mytime = new Date(tune.date);
+      htmlcontent += `<li>
       <span>${mytime.getHours()}:${mytime.getMinutes()}</span>
+      ${mytune.prefered_name} 
+     
       </li>`;
     });
     return htmlcontent;
