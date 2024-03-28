@@ -106,9 +106,6 @@ export class Tuneaddtobook extends Component {
             this.isNew ? Data.status[0].label : this.tune.status,
             Data.status.map((sta) => sta.label),
   )}
-              <div class="flex items-center justify-center border-b 
-              border-slate-200 h-0 my-6">
-              </div>
               <div class="flex border-2 p-4 border-slate-100 
               bg-slate-50 rounded-md mb-4 gap-3 justify-between">
                 <div class="flex flex-col">
@@ -123,21 +120,21 @@ export class Tuneaddtobook extends Component {
                     <label class="uppercase text-slate-400 text-sm">
                     ensayos</label>
                     <input class="font-semibold text-sm border-0 
-                    text-blue-400 w-24
-                    text-right bg-blue-200 rounded-md" type="number" 
+                    text-blue-400 text-right bg-blue-200 rounded-md" 
+                    type="number" 
                     value="${this.isNew ? 0 : this.tune.rehearsal_days}"
                     min="0" name="numrehearsals">
                 </div>
-                <div class="flex flex-col">
-                  <label class="uppercase text-slate-400 text-sm">Último</label>
-                    <input class="font-semibold text-sm border-0 
-                    text-blue-400 
-                    bg-blue-200 rounded-md uppercase" type="datetime-local" 
-                    name="lastrehearsal" value="${this.isNew ? '' :
-                      Utils.dateformat(this.tune?.last_rehearsals[0], 'long') ??
-                      ''}">
-                  </div>
-                </div>
+                <div>
+
+              </div>
+              <div class="flex flex-col border-2 p-4 border-slate-100 
+              bg-slate-50 rounded-md mb-4">
+                <label class="uppercase text-slate-400 text-sm">
+                Etiquetas</label>   
+                <textarea name="tags">
+                ${this.isNew ? 0 : this.tune.tags.join('')}</textarea>
+              </div>
                 <div class="flex items-center justify-center">
                     <button class="savedata px-4 py-3 rounded-md bg-blue-500 
                     text-white text-md font-bold uppercase mr-4" 
@@ -199,22 +196,16 @@ export class Tuneaddtobook extends Component {
         .querySelector('input[name="learneddate"]').value;
     params.rehearsal_days = this.element
         .querySelector('input[name="numrehearsals"]').value;
-    let rehearsalsarray = [];
+    params.last_rehearsals = [];
     if (!this.isNew && Array.isArray(this.tune.last_rehearsals)) {
-      rehearsalsarray = this.tune.last_rehearsals;
+      params.last_rehearsals = this.tune.last_rehearsals;
     }
-    const lastrehearsalvalue = this.element
-        .querySelector('input[name="lastrehearsal"]').value;
-    if (lastrehearsalvalue) {
-      rehearsalsarray.unshift(lastrehearsalvalue);
-      if (rehearsalsarray.length > 10) {
-        rehearsalsarray = rehearsalsarray.slice(0, 10);
-      }
-    }
-    params.last_rehearsals = rehearsalsarray;
+
     const statusobject = Data.status.find(
         (status) => status.label == params.status);
     params.status_num = statusobject.value ?? 0;
+    params.tags = this.element
+        .querySelector('[name="tags"]').value.split(',');
 
     if (this.isNew) {
       try {

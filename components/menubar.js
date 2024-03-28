@@ -43,7 +43,7 @@ export class Menubar extends Component {
       role: 'all',
     },
     {
-      tag: 'Estadísticas',
+      tag: 'Historial',
       name: 'Stats',
       role: 'all',
     },
