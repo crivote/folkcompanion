@@ -72,7 +72,8 @@ export class Stats extends Component {
    */
   groupDatesByDay(dates) {
     dates.forEach((date) => {
-      const day = date.toISOString().split('T')[0];
+      const mydate = new Date(date.date);
+      const day = mydate.toISOString().split('T')[0];
       if (!this.listDates.includes(day)) {
         this.listDates.push(day);
       }
