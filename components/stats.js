@@ -110,9 +110,9 @@ export class Stats extends Component {
     this.contentZone.innerHTML = '';
     this.element.querySelector('.num_of_days').innerHTML =
       this.listDates.length + ' días';
-    this.listDates.sort();
+    this.listDates.sort().reverse();
     this.listDates.forEach((day) => {
-      this.renderDay(day);
+      this.attachAt(this.renderDay(day), false, this.contentZone);
     });
   }
 
@@ -120,17 +120,39 @@ export class Stats extends Component {
    * renderizar caja para dia
    *
    * @param {array} day
+   * @return {string} html
    */
   renderDay(day) {
-    console.log(day);
-    console.log(this.objectDates[day]);
+    const fecha = new Date(day);
+    const opciones = {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+    const encabezado = fecha.toLocaleDateString('es-ES', opciones);
+    return `<details class="border border-slate-300 bg-slate-200 
+    my-3 rounded-md p-2">
+      <summary>${encabezado} 
+        <span>${this.objectDates[day].length} temas ensayados</span></summary>
+      <ol>
+        ${this.renderDayTunes(this.objectDates[day])}
+      </ol>
+    </details>`;
   }
 
   /**
    *
    * @param {*} tunes
+   * @return {string}
    */
   renderDayTunes(tunes) {
-    // test
+    const htmlcontent = '';
+    tunes.sort((a, b) => b.date - a.date);
+    tunes.forEach((tune) => {
+      const mytune = Data.tunebook.find(
+          (tunebooktune) => tunebooktune.id === tune.tuneid);
+      const mytime = new Date(mytune.date);
+      htmlcontent += `<li>${mytune.prefered_name} 
+      <span>${mytime.getHours()}:${mytime.getMinutes()}</span>
+      </li>`;
+    });
+    return htmlcontent;
   }
 }
