@@ -38,7 +38,7 @@ export class Stats extends Component {
     const listofdates = this.createDatesArray();
 
     // agrupar por dias
-    this.groupDatesByDay(listofdates);
+    await this.groupDatesByDay(listofdates);
 
     // generate HTML
     this.attachAt(this.generatehtml(), false);
@@ -70,20 +70,18 @@ export class Stats extends Component {
    * @param {array} dates
    * @return {object} groupedDates
    */
-  groupDatesByDay(dates) {
+  async groupDatesByDay(dates) {
     dates.forEach((date) => {
       const mydate = new Date(date.date);
       const day = mydate.toISOString().split('T')[0];
       if (!this.listDates.includes(day)) {
         this.listDates.push(day);
       }
-      if (!groupedDates[day]) {
-        groupedDates[day] = [];
+      if (!this.objectDates[day]) {
+        this.objectDates[day] = [];
       }
-      groupedDates[day].push(date);
+      this.objectDates[day].push(date);
     });
-
-    return groupedDates;
   }
 
   /**

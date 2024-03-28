@@ -118,6 +118,9 @@ export class Tune extends Component {
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-xs text-center mb-2"><span class="font-medium mr-1 text-slate-500">
         ${this.data.tuneref.type}</span>${this.data.tuneref.author}</p>
+        <div class="mytags text-xs flex flex-wrap gap-1">
+        ${this.generatetags()}
+        </div>
         <div class="flex gap-1 mt-auto justify-center opacity-0 
         transition-opacity duration-300 group-hover:opacity-100
         scale-0 group-hover:scale-100">
@@ -132,6 +135,20 @@ export class Tune extends Component {
              title="borrar tema"><i class="fa fa-trash"></i></button>
         </div>
         </div>`;
+  }
+
+  /**
+   * @return {string}
+   */
+  generatetags() {
+    let taghtml = '';
+    if (Array.isArray(this.data.tags) && this.data.tags.length > 0) {
+      this.data.tags.forEach((tag) => {
+        taghtml += `<span class="bg-slate-100 text-slate-400 p-1 
+        uppercase>${tag}</span>`;
+      });
+    }
+    return taghtml;
   }
 
   /**
