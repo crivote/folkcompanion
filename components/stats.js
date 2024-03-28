@@ -43,7 +43,7 @@ export class Stats extends Component {
     // generate HTML
     this.attachAt(this.generatehtml(), false);
     this.contentZone = this.element.querySelector('main');
-    this.addListeners();
+    // this.addListeners();
     this.renderDiary();
   }
 
@@ -97,8 +97,6 @@ export class Stats extends Component {
           <span class="num_of_days bg-slate-400 text-sm px-2 py-1 uppercase
           text-slate-200 rounded-lg text-md">
           </span></h3>
-          <span class="addnewvideo text-blue-600 hover:text-blue-400">
-          <i class="fa fa-plus-circle fa-2x"></i></span>
         </div>
       </header>
       <main class="p-6 grid lg:grid-cols-2 gap-3"></main>
