@@ -5,10 +5,9 @@ import {Data} from '../startup.js';
  * historic list component
  */
 export class Stats extends Component {
-  contentZone = null;
-  subelements = [];
-  listDates = [];
-  objectDates = {};
+  contentZone;
+  listDates;
+  objectDates;
 
   /**
    * Constructor
@@ -19,15 +18,6 @@ export class Stats extends Component {
   constructor(name, parentel) {
     super(name, parentel);
     this.setup();
-  }
-
-  /**
-   * Add event listeners
-   *
-   */
-  addListeners() {
-    this.element.querySelector('.unfoldday')
-        .addEventListener('click', this.unfold.bind(this));
   }
 
   /**
@@ -130,7 +120,8 @@ export class Stats extends Component {
     return `<details class="border border-slate-300 bg-slate-200 
     my-3 rounded-md p-2">
       <summary>${encabezado} 
-        <span>${this.objectDates[day].length} temas ensayados</span></summary>
+        <span class="ml-1 bg-white p-1 text-xs uppercase text-slate-300">
+        ${this.objectDates[day].length} temas ensayados</span></summary>
       <ol>
         ${this.renderDayTunes(this.objectDates[day])}
       </ol>
@@ -149,11 +140,13 @@ export class Stats extends Component {
       const mytune = Data.tunebook.find(
           (tunebooktune) => tunebooktune.id === tune.tuneid);
       const mytime = new Date(tune.date);
-      htmlcontent += `<li>
-      <span>${mytime.getHours()}:${mytime.getMinutes()}</span>
+      const minutes = mytime.getMinutes() < 10 ? '0'+mytime.getMinutes() :
+      mytime.getMinutes();
+      htmlcontent += `<li class="py-1 text-slate-500">
+      <span class="text-xs text-slate-300 mr-1">
+      ${mytime.getHours()}:${minutes}</span>
       ${mytune.prefered_name} 
-     
-      </li>`;
+           </li>`;
     });
     return htmlcontent;
   }
