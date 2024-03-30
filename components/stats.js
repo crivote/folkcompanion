@@ -6,8 +6,8 @@ import {Data} from '../startup.js';
  */
 export class Stats extends Component {
   contentZone;
-  listDates;
-  objectDates;
+  listDates = [];
+  objectDates = {};
 
   /**
    * Constructor
@@ -149,5 +149,12 @@ export class Stats extends Component {
            </li>`;
     });
     return htmlcontent;
+  }
+
+  /**
+   * Llamada a hide de abstract
+   */
+  hide() {
+    super.hide();
   }
 }
