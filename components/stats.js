@@ -161,4 +161,12 @@ export class Stats extends Component {
     });
     return htmlcontent;
   }
+
+  /**
+   * Show html element
+   */
+  show() {
+    this.renderDiary();
+    super.show();
+  }
 }

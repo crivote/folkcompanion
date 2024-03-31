@@ -115,7 +115,7 @@ export class Tune extends Component {
           </div>
         <h2 class="leading-none tunetitle text-xl font-medium text-center 
         mt-5 mb-2 text-blue-900">${this.data.prefered_name}
-        <span>${links}</span></h2>
+        <span>${links.join('')}</span></h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-xs text-center mb-2"><span class="font-medium mr-1 text-slate-500">
         ${this.data.tuneref.type}</span>${this.data.tuneref.author}</p>
