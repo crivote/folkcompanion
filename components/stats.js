@@ -5,7 +5,8 @@ import {Data} from '../startup.js';
  * historic list component
  */
 export class Stats extends Component {
-  contentZone;
+  contentZoneList;
+  contentZoneGraphs;
   listDates = [];
   objectDates = {};
 
@@ -32,7 +33,7 @@ export class Stats extends Component {
 
     // generate HTML
     this.attachAt(this.generatehtml(), false);
-    this.contentZone = this.element.querySelector('main');
+    this.contentZoneList = this.element.querySelector('main .list');
     // this.addListeners();
     this.renderDiary();
   }
@@ -89,7 +90,12 @@ export class Stats extends Component {
           </span></h3>
         </div>
       </header>
-      <main class="p-6 grid lg:grid-cols-2 gap-3 grid-flow-row-dense"></main>
+      <main class="p-6 grid lg:grid-cols-2 gap-2 grid-flow-row">
+        <section class="list">
+        </section>
+        <section class="graphs">
+        </section>
+      </main>
       </section>`;
   }
 
@@ -118,11 +124,12 @@ export class Stats extends Component {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
     const encabezado = fecha.toLocaleDateString('es-ES', opciones);
     return `<details class="border border-slate-300 bg-slate-200 
-    my-3 rounded-md p-2">
+    my-3 rounded-md p-4">
       <summary>${encabezado} 
-        <span class="ml-1 bg-white p-1 text-xs uppercase text-slate-300">
+        <span class="ml-1 bg-slate-300 p-1 text-xs uppercase text-white/75
+        rounded-lg">
         ${this.objectDates[day].length} temas ensayados</span></summary>
-      <ol>
+      <ol class="bg-white/75 p-2 mt-2 rounded-md">
         ${this.renderDayTunes(this.objectDates[day])}
       </ol>
     </details>`;
@@ -143,9 +150,10 @@ export class Stats extends Component {
       const minutes = mytime.getMinutes() < 10 ? '0'+mytime.getMinutes() :
       mytime.getMinutes();
       htmlcontent += `<li class="py-1 text-slate-500">
-      <span class="text-xs text-slate-300 mr-1">
+      <span class="text-xs text-slate-400 mr-1">
       ${mytime.getHours()}:${minutes}</span>
       ${mytune.prefered_name} 
+      <span class="font-
            </li>`;
     });
     return htmlcontent;
