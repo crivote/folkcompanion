@@ -127,7 +127,7 @@ export class Stats extends Component {
     return `<details class="border border-slate-300 bg-slate-200 
     my-3 rounded-md p-4">
       <summary><span class="font-bold text-blue-800">${encabezado}</span>
-        <span class="ml-1 bg-slate-300 p-1 text-xs uppercase text-white/75
+        <span class="ml-1 bg-slate-400 p-1 text-xs uppercase text-white/75
         rounded-lg">
         ${this.objectDates[day].length} temas ensayados</span></summary>
       <ol class="bg-white/75 p-2 mt-2 rounded-md">
@@ -151,20 +151,13 @@ export class Stats extends Component {
       const minutes = mytime.getMinutes() < 10 ? '0'+mytime.getMinutes() :
       mytime.getMinutes();
       htmlcontent += `<li class="py-1 text-slate-500">
-      <span class="text-xs text-slate-400 mr-1">
+      <span class="text-xs text-slate-500 mr-1">
       ${mytime.getHours()}:${minutes}</span>
       ${mytune.prefered_name} 
-      span class="font-medium ml-1 text-xs uppercase">
+      <span class="font-medium ml-1 text-xs text-slate-400 uppercase">
         ${mytune.tuneref.type}</span>
            </li>`;
     });
     return htmlcontent;
-  }
-
-  /**
-   * Llamada a hide de abstract
-   */
-  hide() {
-    super.hide();
   }
 }
