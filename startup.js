@@ -383,12 +383,12 @@ export const Data = {
   genericpics: '',
   // status para temas por defecto
   status: [
-    {value: 1, label: 'Pendiente', color: 'stone-600'},
-    {value: 2, label: 'Aprendiendo', color: 'orange-600', times: 10},
-    {value: 3, label: 'Acompañar', color: 'yellow-500', days: 15},
-    {value: 4, label: 'Básica', color: 'lime-500', days: 30},
-    {value: 5, label: 'Intermedio', color: 'green-600', days: 45},
-    {value: 6, label: 'Fluida', color: 'emerald-900', days: 60},
+    {value: 1, factor: 0, label: 'Pendiente', color: 'stone-600'},
+    {value: 2, factor: 2, label: 'Aprendiendo', color: 'orange-600', times: 10},
+    {value: 3, factor: 1, label: 'Acompañar', color: 'yellow-500', days: 15},
+    {value: 4, factor: 0.5, label: 'Básica', color: 'lime-500', days: 30},
+    {value: 5, factor: 0.25, label: 'Intermedio', color: 'green-600', days: 45},
+    {value: 6, factor: 0.1, label: 'Fluida', color: 'emerald-900', days: 60},
   ],
   rythms: {
     'Double Jig': '6/8',

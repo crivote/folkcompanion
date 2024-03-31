@@ -72,7 +72,7 @@ export class Tune extends Component {
    */
   generatehtml_card() {
     const mystatus = this.getstatus(this.data.status_num);
-
+    const links = Utils.generatelinks(this.data.tuneref?.References);
     return `<div id="tune${this.data.id}" class="group cursor-pointer flex 
     flex-col border-t-8 border-${mystatus.color} relative tunecard 
     bg-white shadow-md rounded-md p-6 transition duration-300 ease-in-out 
@@ -114,7 +114,8 @@ export class Tune extends Component {
         </p>
           </div>
         <h2 class="leading-none tunetitle text-xl font-medium text-center 
-        mt-5 mb-2 text-blue-900">${this.data.prefered_name}</h2>
+        mt-5 mb-2 text-blue-900">${this.data.prefered_name}
+        <span>${links}</span></h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-xs text-center mb-2"><span class="font-medium mr-1 text-slate-500">
         ${this.data.tuneref.type}</span>${this.data.tuneref.author}</p>

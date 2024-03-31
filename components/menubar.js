@@ -34,7 +34,7 @@ export class Menubar extends Component {
     },
     {
       tag: 'Ensayar',
-      name: 'Rehearsallist',
+      name: 'Rehear',
       role: 'all',
     },
     {
