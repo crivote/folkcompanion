@@ -103,13 +103,14 @@ export class Stats extends Component {
    *
    */
   renderDiary() {
-    this.contentZone.innerHTML = '';
     this.element.querySelector('.num_of_days').innerHTML =
       this.listDates.length + ' días';
     this.listDates.sort().reverse();
+    let myhtmlcontent = '';
     this.listDates.forEach((day) => {
-      this.attachAt(this.renderDay(day), false, this.contentZone);
+      myhtmlcontent += this.renderDay(day);
     });
+    this.contentZoneList.innerHTML = myhtmlcontent;
   }
 
   /**
@@ -125,7 +126,7 @@ export class Stats extends Component {
     const encabezado = fecha.toLocaleDateString('es-ES', opciones);
     return `<details class="border border-slate-300 bg-slate-200 
     my-3 rounded-md p-4">
-      <summary>${encabezado} 
+      <summary><span class="font-bold text-blue-800">${encabezado}</span>
         <span class="ml-1 bg-slate-300 p-1 text-xs uppercase text-white/75
         rounded-lg">
         ${this.objectDates[day].length} temas ensayados</span></summary>
