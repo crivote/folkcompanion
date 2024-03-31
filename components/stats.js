@@ -154,7 +154,8 @@ export class Stats extends Component {
       <span class="text-xs text-slate-400 mr-1">
       ${mytime.getHours()}:${minutes}</span>
       ${mytune.prefered_name} 
-      <span class="font-
+      span class="font-medium ml-1 text-xs uppercase">
+        ${mytune.tuneref.type}</span>
            </li>`;
     });
     return htmlcontent;
