@@ -82,7 +82,7 @@ export class Stats extends Component {
    */
   generatehtml() {
     return `<section id="${this.name}">
-      <header class="p-6">
+      <header class="pt-6 px-6">
         <div class="flex flex-wrap items-center gap-2">
           <h3 class="text-3xl">Histórico de ensayos</h3>
           <span class="num_of_days bg-slate-400 text-sm px-2 py-1 uppercase
@@ -125,7 +125,7 @@ export class Stats extends Component {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
     const encabezado = fecha.toLocaleDateString('es-ES', opciones);
     return `<details class="border border-slate-300 bg-slate-200 
-    my-3 rounded-md p-4">
+    my-3 rounded-md p-4 hover:bg-slate-300 transition cursor-pointer">
       <summary><span class="font-bold text-blue-800">${encabezado}</span>
         <span class="ml-1 bg-slate-400 p-1 text-xs uppercase text-white/75
         rounded-lg">
@@ -151,7 +151,8 @@ export class Stats extends Component {
       const minutes = mytime.getMinutes() < 10 ? '0'+mytime.getMinutes() :
       mytime.getMinutes();
       htmlcontent += `<li class="py-1 text-slate-500">
-      <span class="text-xs text-slate-500 mr-1">
+      <span class="text-xs text-white bg-slate-400/75 py-1 px-2
+      rounded-xl mr-1">
       ${mytime.getHours()}:${minutes}</span>
       ${mytune.prefered_name} 
       <span class="font-medium ml-1 text-xs text-slate-400 uppercase">
