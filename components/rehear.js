@@ -1,5 +1,6 @@
 import {Component} from '../abstract.js';
-import {Data} from '../startup.js';
+import {Data, Utils} from '../startup.js';
+
 
 /**
  * rehearsal proposal component
