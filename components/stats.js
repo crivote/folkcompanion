@@ -25,12 +25,6 @@ export class Stats extends Component {
    * setear valores componente.
    */
   async setup() {
-    // generar lista ensayos
-    const listofdates = this.createDatesArray();
-
-    // agrupar por dias
-    await this.groupDatesByDay(listofdates);
-
     // generate HTML
     this.attachAt(this.generatehtml(), false);
     this.contentZoneList = this.element.querySelector('main .list');
@@ -59,9 +53,9 @@ export class Stats extends Component {
   /**
    *
    * @param {array} dates
-   * @return {object} groupedDates
+   * @return {boolean}
    */
-  async groupDatesByDay(dates) {
+  groupDatesByDay(dates) {
     dates.forEach((date) => {
       const mydate = new Date(date.date);
       const day = mydate.toISOString().split('T')[0];
@@ -73,6 +67,7 @@ export class Stats extends Component {
       }
       this.objectDates[day].push(date);
     });
+    return true;
   }
 
   /**
@@ -102,7 +97,12 @@ export class Stats extends Component {
   /**
    *
    */
-  renderDiary() {
+  async renderDiary() {
+    // generar lista ensayos
+    const listofdates = this.createDatesArray();
+    // agrupar por dias
+    await this.groupDatesByDay(listofdates);
+
     this.element.querySelector('.num_of_days').innerHTML =
       this.listDates.length + ' días';
     this.listDates.sort().reverse();

@@ -6,7 +6,7 @@ import {Data} from '../startup.js';
  */
 export class Rehear extends Component {
   contentZone;
-  numberTunes = 10;
+  numberTunes = 20;
   rehearList = [];
 
   /**
@@ -56,83 +56,82 @@ export class Rehear extends Component {
    * @return {string} html
    */
   generatehtml() {
+    const listofcontent = this.renderList();
     return `<section id="${this.name}">
       <header class="pt-6 px-6">
         <div class="flex flex-wrap items-center gap-2">
           <h3 class="text-3xl">Lista para ensayar</h3>
-          <span class="num_of_days bg-slate-400 text-sm px-2 py-1 uppercase
-          text-slate-200 rounded-lg text-md">
+          <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 uppercase
+          text-slate-200 rounded-lg text-md">${this.numberTunes}
           </span></h3>
         </div>
       </header>
-      <main class="p-6">
+      <main class="p-6">${listofcontent}
       </main>
       </section>`;
   }
 
   /**
-   *
+   * Generar lista para ensayo
+   * @return {string} html
    */
   renderList() {
     // generar lista ensayos
-    this.rehearList = this.assignPointsTunes();
-
-    this.element.querySelector('.num_of_days').innerHTML =
-      this.listDates.length + ' días';
-    this.listDates.sort().reverse();
-    let myhtmlcontent = '';
-    this.listDates.forEach((day) => {
-      myhtmlcontent += this.renderDay(day);
+    const orderedList = this.assignPointsTunes();
+    this.rehearList = orderedList.slice(0, this.numberTunes);
+    let myhtml = '';
+    this.rehearList.forEach((tune) => {
+      myhtml += this.renderTune(tune);
     });
-    this.contentZoneList.innerHTML = myhtmlcontent;
+    return myhtml;
   }
 
   /**
-   * renderizar caja para dia
+   * renderizar tune individual para ensayar
    *
-   * @param {array} day
+   * @param {object} tune
    * @return {string} html
    */
-  renderDay(day) {
-    const fecha = new Date(day);
-    const opciones = {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-    const encabezado = fecha.toLocaleDateString('es-ES', opciones);
-    return `<details class="border border-slate-300 bg-slate-200 
-    my-3 rounded-md p-4 hover:bg-slate-300 transition cursor-pointer">
-      <summary><span class="font-bold text-blue-800">${encabezado}</span>
-        <span class="ml-1 bg-slate-400 p-1 text-xs uppercase text-white/75
-        rounded-lg">
-        ${this.objectDates[day].length} temas ensayados</span></summary>
-      <ol class="bg-white/75 p-2 mt-2 rounded-md">
-        ${this.renderDayTunes(this.objectDates[day])}
-      </ol>
-    </details>`;
-  }
-
-  /**
-   *
-   * @param {*} tunes
-   * @return {string}
-   */
-  renderDayTunes(tunes) {
-    let htmlcontent = '';
-    tunes.sort((a, b) => b.date - a.date);
-    tunes.forEach((tune) => {
-      const mytune = Data.tunebook.find(
-          (tunebooktune) => tunebooktune.id === tune.tuneid);
-      const mytime = new Date(tune.date);
-      const minutes = mytime.getMinutes() < 10 ? '0'+mytime.getMinutes() :
-      mytime.getMinutes();
-      htmlcontent += `<li class="py-1 text-slate-500">
-      <span class="text-xs text-white bg-slate-400/75 py-1 px-2
-      rounded-xl mr-1">
-      ${mytime.getHours()}:${minutes}</span>
-      ${mytune.prefered_name} 
-      <span class="font-medium ml-1 text-xs text-slate-400 uppercase">
-        ${mytune.tuneref.type}</span>
-           </li>`;
-    });
-    return htmlcontent;
+  renderTune(tune) {
+    return `<div id="tune${tune.id}" class="tunelist group w-full bg-white
+     border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-2">
+      <div class="tuneimg flex h-20 w-20 bg-center bg-cover mr-3
+      bg-[url('${tune.preferred_img_url ??
+        `https://picsum.photos/200/200?random=${tune.id}`}')]">
+      ${tune.tuneref.ABCsample ?
+          `<span data-abc="${tune.tuneref.ABCsample}" data-state="stop"
+            class="opacity-0 transition group-hover:opacity-100 playabc
+            text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
+          <i class="m-auto fa fa-circle-play fa-3x"></i><span>` : '' }
+      </div>
+      <div class="w-20 text-center border border-slate-200 p-1 rounded-md">
+        <p class="numrehearsal bg-slate-500 text-white font-medium px-2
+        rounded-lg"> ${tune.rehearsal_days} 
+        <i class="opacity-75 fas fa-calendar-check"></i></p>
+      <p class="lastrehearsal text-xs text-slate-400 uppercase mt-1">
+      ${Utils.calctimesince(tune?.last_rehearsals[0])}</p>
+      </div>
+      <div>         
+        <h2 class="tunetitle text-xl font-semibold mr-2">
+        ${tune.prefered_name} 
+        <span class="group/item ml-1 text-sm bg-slate-200 rounded-md p-1 px-2 
+        font-medium
+        uppercase text-slate-500">${tune.prefered_tone.substring(0, 5)}
+        <img class="group-hover/item:visible invisible w-42 fixed inset-0 
+        h-auto m-auto border border-slate-400 p-4 bg-white/90 rounded-lg 
+        shadow-2xl" src="./img/${Utils.removeWhiteSpaces(
+      tune.prefered_tone.substring(0, 5))}.png">
+        </span>
+        </h2>
+        <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
+        text-xs mb-2"><span class="font-medium mr-1 text-slate-500">
+        ${tune.tuneref.type}</span>${tune.tuneref.author}</p>
+      </div>
+      <div class="flex gap-1 ml-auto items-center">
+        <button class="rehearsal bg-blue-400 p-1 rounded-md text-white 
+        text-bold" title="añadir ensayo"><i class="fa fa-guitar 
+        fa-fw fa-lg"></i></button>
+    </div>
+  </div>`;
   }
 }
