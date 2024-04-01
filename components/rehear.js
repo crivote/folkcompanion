@@ -42,10 +42,8 @@ export class Rehear extends Component {
       const diffdate = today - tune.last_rehearsalDate;
       const factor =
         Data.status.find((status) => status.value == tune.status_num);
-      return {
-        tuneid: tune.id,
-        points: diffdate * factor,
-      };
+      tune.points = diffdate * factor;
+      return tune;
     });
     return pointsArray.sort((a, b) => a.points - b.points);
   }
