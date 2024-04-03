@@ -338,4 +338,42 @@ export class Tunebook extends Component {
   launchsearch() {
     this.subelements.push(new Tunesearch('tunesearch', this.element));
   }
+
+  /**
+   * Add to rehearsal count of a tune
+   *
+   * @param {number} tuneid
+   */
+  async addrehearsal(tuneid) {
+    const tune = Data.tunebook.find((tune) => tune.id == tuneid);
+
+    // get a backup of tune in case of back error
+    const backup = JSON.parse(JSON.stringify(tune));
+
+    // añadir fecha ensayo
+    if (!Array.isArray(tune.last_rehearsals)) {
+      tune.last_rehearsals = [];
+    }
+    const now = new Date();
+    tune.last_rehearsalDate = now.valueOf();
+    tune.last_rehearsals.unshift(this.data.last_rehearsalDate);
+    if (tune.last_rehearsals.length > 10) {
+      tune.last_rehearsals.slice(0, 10);
+    }
+
+    // sumar nuevo ensayo
+    tune.rehearsal_days++;
+
+    const result = await apis.Xanoapi.edittunebooktune(this.data.id, this.data);
+
+    if (result) {
+      Utils.calcValueforTunes(tune);
+      new Mynotification('success',
+          `añadido nuevo ensayo de ${tune.prefered_name}.`);
+      this.rendertunes();
+    } else {
+      tune = backup;
+      new Mynotification('error', `error al guardar el ensayo.`);
+    }
+  }
 }

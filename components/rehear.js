@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Data, Utils} from '../startup.js';
+import {Data, Utils, ABCplayer} from '../startup.js';
 
 
 /**
@@ -30,6 +30,18 @@ export class Rehear extends Component {
     this.contentZone = this.element.querySelector('main');
     // this.addListeners();
     this.renderList();
+  }
+
+  /**
+   * Add listeners to the html component
+   */
+  addlisteners() {
+    this.element.querySelectorAll('.rehearsal').forEach((item) => {
+      item.addEventListener('click', this.addrehearsal.bind(this));
+    });
+    this.element.querySelectorAll('.playabc').forEach((item) => {
+      item.addEventListener('click', ABCplayer.manageabc);
+    });
   }
 
   /**
@@ -110,7 +122,7 @@ export class Rehear extends Component {
       </div>
       <div>         
         <h2 class="tunetitle text-xl font-semibold mr-2">
-        ${originaltune.prefered_name} (${tune.points})
+        ${originaltune.prefered_name}
         <span class="group/item ml-1 text-sm bg-slate-200 rounded-md p-1 px-2 
         font-medium
         uppercase text-slate-500">${originaltune.prefered_tone.substring(0, 5)}
@@ -125,10 +137,24 @@ export class Rehear extends Component {
         ${originaltune.tuneref.type}</span>${originaltune.tuneref.author}</p>
       </div>
       <div class="flex gap-1 ml-auto items-center">
-        <button class="rehearsal bg-blue-400 p-1 rounded-md text-white 
-        text-bold" title="añadir ensayo"><i class="fa fa-guitar 
-        fa-fw fa-lg"></i></button>
+        <button data-id="${tune.id}" class="rehearsal bg-blue-400 p-1
+        rounded-md text-white text-bold" title="añadir ensayo">
+        <i class="fa fa-guitar fa-fw fa-lg"></i></button>
     </div>
   </div>`;
+  }
+
+  /**
+   * Add to rehearsal count of a tune and hide it.
+   *
+   * @param {event} event
+   */
+  async addrehearsal(event) {
+    event.stopPropagation();
+    const boton = event.currentTarget;
+    const tuneel = boton.closest('.tunelist');
+    const tunebook = Controller.getinstance('Tunebook');
+    tunebook.addrehearsal(boton.dataSet.id);
+    tuneel.remove();
   }
 }
