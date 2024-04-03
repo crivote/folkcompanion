@@ -44,7 +44,7 @@ export class Rehear extends Component {
       const factor =
         Data.status.find((status) => status.value == tune.status_num);
       return {
-        tuneid: id,
+        tuneid: tune.id,
         points: Math.round(diffdate * factor.factor),
       };
     });
@@ -95,7 +95,7 @@ export class Rehear extends Component {
    */
   renderTune(tune) {
     const originaltune =
-      Data.tunebook.find((tunebook) => tunebook.id == tune.id);
+      Data.tunebook.find((tunebook) => tunebook.id == tune.tuneid);
     return `<div id="tuneoriginal${tune.id}" class="tunelist group 
       w-full bg-white
       border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-2">
