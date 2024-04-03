@@ -78,7 +78,7 @@ export class Rehear extends Component {
    */
   renderList() {
     // generar lista ensayos
-    const orderedList = this.assignPointsTunes();
+    const orderedList = this.assignPointsTunes().reverse();
     this.rehearList = orderedList.slice(0, this.numberTunes);
     let myhtml = '';
     this.rehearList.forEach((tune) => {
