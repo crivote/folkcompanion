@@ -154,7 +154,7 @@ export class Rehear extends Component {
     const boton = event.currentTarget;
     const tuneel = boton.closest('.tunelist');
     const tunebook = Controller.getinstance('Tunebook');
-    tunebook.addrehearsal(boton.dataSet.id);
+    tunebook.addrehearsal(boton.dataset.id);
     tuneel.remove();
   }
 }
