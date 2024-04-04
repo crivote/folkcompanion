@@ -137,7 +137,7 @@ export class Rehear extends Component {
         ${originaltune.tuneref.type}</span>${originaltune.tuneref.author}</p>
       </div>
       <div class="flex gap-1 ml-auto items-center">
-        <button data-id="${tune.id}" class="rehearsal bg-blue-400 p-1
+        <button data-id="${tune.tuneid}" class="rehearsal bg-blue-400 p-1
         rounded-md text-white text-bold" title="añadir ensayo">
         <i class="fa fa-guitar fa-fw fa-lg"></i></button>
     </div>
