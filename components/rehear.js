@@ -35,7 +35,7 @@ export class Rehear extends Component {
   /**
    * Add listeners to the html component
    */
-  addlisteners() {
+  addListeners() {
     this.element.querySelectorAll('.rehearsal').forEach((item) => {
       item.addEventListener('click', this.addrehearsal.bind(this));
     });
