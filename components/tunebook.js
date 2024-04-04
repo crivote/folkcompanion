@@ -356,7 +356,7 @@ export class Tunebook extends Component {
     }
     const now = new Date();
     tune.last_rehearsalDate = now.valueOf();
-    tune.last_rehearsals.unshift(this.data.last_rehearsalDate);
+    tune.last_rehearsals.unshift(tune.last_rehearsalDate);
     if (tune.last_rehearsals.length > 10) {
       tune.last_rehearsals.slice(0, 10);
     }
