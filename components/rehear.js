@@ -28,7 +28,7 @@ export class Rehear extends Component {
     // generate HTML
     this.attachAt(this.generatehtml(), false);
     this.contentZone = this.element.querySelector('main');
-    // this.addListeners();
+    this.addListeners();
     this.renderList();
   }
 
