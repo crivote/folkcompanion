@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Data, Utils, ABCplayer} from '../startup.js';
+import {Controller, Data, Utils, ABCplayer} from '../startup.js';
 
 
 /**
