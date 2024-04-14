@@ -217,7 +217,7 @@ export class Tune extends Component {
    */
   async addrehearsal(event) {
     event.stopPropagation();
-    const result = Controller.addrehearsal(boton.dataset.id);
+    const result = Controller.addrehearsal(this.data.id);
     if (result) {
       const tunebook = Controller.getinstance('Tunebook');
       tunebook.rendertunes(tunebook.filtered);

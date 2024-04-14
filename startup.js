@@ -616,7 +616,7 @@ export class Controller {
     // sumar nuevo ensayo
     tune.rehearsal_days++;
 
-    const result = await apis.Xanoapi.edittunebooktune(this.data.id, this.data);
+    const result = await apis.Xanoapi.edittunebooktune(tuneid, tune);
 
     if (result) {
       Utils.calcValueforTunes(tune);

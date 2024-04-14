@@ -108,7 +108,7 @@ export class Rehear extends Component {
   renderTune(tune) {
     const originaltune =
       Data.tunebook.find((tunebook) => tunebook.id == tune.tuneid);
-    return `<div id="tuneoriginal${tune.id}" class="tunelist group 
+    return `<div id="tuneoriginal${tune.tuneid}" class="tunelist group 
       w-full bg-white
       border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-2">
       <div class="tuneimg flex h-20 w-20 bg-center bg-cover mr-3
