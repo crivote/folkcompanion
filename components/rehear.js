@@ -138,8 +138,8 @@ export class Rehear extends Component {
       </div>
       <div class="flex gap-1 ml-auto items-center">
         <button data-id="${tune.tuneid}" class="rehearsal bg-blue-400 p-1
-        rounded-md text-white text-bold" title="añadir ensayo">
-        <i class="fa fa-guitar fa-fw fa-lg"></i></button>
+        rounded-md text-white text-bold uppercase" title="añadir ensayo">
+        <i class="fa fa-guitar fa-fw fa-lg"></i> Marcar completada</button>
     </div>
   </div>`;
   }
@@ -153,8 +153,10 @@ export class Rehear extends Component {
     event.stopPropagation();
     const boton = event.currentTarget;
     const tuneel = boton.closest('.tunelist');
-    const tunebook = Controller.getinstance('Tunebook');
-    tunebook.addrehearsal(boton.dataset.id);
-    tuneel.remove();
+    const result = Controller.addrehearsal(boton.dataset.id);
+    if (result) {
+      boton.disabled = true;
+      tuneel.classList.add('bg-green-100', 'text-green-600');
+    }
   }
 }

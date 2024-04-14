@@ -104,6 +104,8 @@ export class Set extends Component {
    * Add listeners to the html component
    */
   addrehearsal() {
+    // TODO get ids of all tunes from set
+    // TODO iterate ids and call controller method
   }
 
   /**
