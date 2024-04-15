@@ -620,12 +620,12 @@ export class Controller {
 
     if (result) {
       Utils.calcValueforTunes(tune);
-      new Mynotification('success',
+      new components.Mynotification('success',
           `añadido nuevo ensayo de ${tune.prefered_name}.`);
       return true;
     } else {
       tune = backup;
-      new Mynotification('error', `error al guardar el ensayo.`);
+      new components.Mynotification('error', `error al guardar el ensayo.`);
       return false;
     }
   }

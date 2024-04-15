@@ -8,7 +8,6 @@ import {Controller, Data, Utils, ABCplayer} from '../startup.js';
 export class Rehear extends Component {
   contentZone;
   numberTunes = 20;
-  rehearList = [];
 
   /**
    * Constructor
@@ -28,14 +27,21 @@ export class Rehear extends Component {
     // generate HTML
     this.attachAt(this.generatehtml(), false);
     this.contentZone = this.element.querySelector('main');
-    this.addListeners();
     this.renderList();
   }
 
   /**
-   * Add listeners to the html component
+   * Add listeners to the component
    */
-  addListeners() {
+  addContentListeners() {
+    this.element.querySelector('.createnewlist')
+        .addEventListener('click', this.renderList.bind(this));
+  }
+
+  /**
+   * Add listeners to the list items
+   */
+  addContentListeners() {
     this.element.querySelectorAll('.rehearsal').forEach((item) => {
       item.addEventListener('click', this.addrehearsal.bind(this));
     });
@@ -69,7 +75,6 @@ export class Rehear extends Component {
    * @return {string} html
    */
   generatehtml() {
-    const listofcontent = this.renderList();
     return `<section id="${this.name}">
       <header class="pt-6 px-6">
         <div class="flex flex-wrap items-center gap-2">
@@ -78,25 +83,28 @@ export class Rehear extends Component {
           text-slate-200 rounded-lg text-md">${this.numberTunes}
           </span></h3>
         </div>
+        <button lass="mb-1 createnewlist bg-blue-400 p-1
+        rounded-md text-white text-bold uppercase">
+        <i class="fa fa-reload fa-fw fa-lg"></i> Generar Nueva lista</button>
       </header>
-      <main class="p-6">${listofcontent}
-      </main>
+      <main class="p-6"></main>
       </section>`;
   }
 
   /**
    * Generar lista para ensayo
-   * @return {string} html
+   *
    */
   renderList() {
     // generar lista ensayos
     const orderedList = this.assignPointsTunes().reverse();
-    this.rehearList = orderedList.slice(0, this.numberTunes);
+    const rehearList = orderedList.slice(0, this.numberTunes);
     let myhtml = '';
-    this.rehearList.forEach((tune) => {
+    rehearList.forEach((tune) => {
       myhtml += this.renderTune(tune);
     });
-    return myhtml;
+    this.contentZone.HTMLcontent = myhtml;
+    this.addContentListeners();
   }
 
   /**
