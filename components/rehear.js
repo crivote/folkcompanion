@@ -103,7 +103,7 @@ export class Rehear extends Component {
     rehearList.forEach((tune) => {
       myhtml += this.renderTune(tune);
     });
-    this.contentZone.HTMLcontent = myhtml;
+    this.contentZone.innerHTML = myhtml;
     this.addContentListeners();
   }
 
