@@ -27,13 +27,14 @@ export class Rehear extends Component {
     // generate HTML
     this.attachAt(this.generatehtml(), false);
     this.contentZone = this.element.querySelector('main');
+    this.addListeners();
     this.renderList();
   }
 
   /**
    * Add listeners to the component
    */
-  addContentListeners() {
+  addListeners() {
     this.element.querySelector('.createnewlist')
         .addEventListener('click', this.renderList.bind(this));
   }
