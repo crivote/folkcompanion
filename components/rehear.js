@@ -84,7 +84,7 @@ export class Rehear extends Component {
           text-slate-200 rounded-lg text-md">${this.numberTunes}
           </span></h3>
         </div>
-        <button lass="mb-1 createnewlist bg-blue-400 p-1
+        <button class="mb-1 createnewlist bg-blue-400 p-1
         rounded-md text-white text-bold uppercase">
         <i class="fa fa-reload fa-fw fa-lg"></i> Generar Nueva lista</button>
       </header>
