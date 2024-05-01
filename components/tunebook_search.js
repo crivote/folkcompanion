@@ -59,7 +59,7 @@ export class Tunesearch extends Component {
                 <i class="fa fa-times-circle fa-2x"></i></p>
                 <h2 class="text-2xl text-gray-400 font-bold mb-4">
                 Añadir nuevos temas a tu repertorio</h2>
-                <input id="tunesearch" class="w-full" type="text" 
+                <input id="tunesearchfield" class="w-full" type="text" 
                 placeholder="escribe parte del nombre para ver resultados">
                 <p class="info mt-6 mb-2"></p>
                 <div class="sugestion hidden">
@@ -79,7 +79,7 @@ export class Tunesearch extends Component {
   */
   addListeners() {
     // filtrar resultados
-    this.element.querySelector('#tunesearch')
+    this.element.querySelector('#tunesearchfield')
         .addEventListener('input', this.search.bind(this));
     // cerrar componente
     this.element.querySelector('#closetunesearch')
@@ -110,15 +110,15 @@ export class Tunesearch extends Component {
       if (result.length > 0) {
         suggestion.classList.add('hidden');
         myinfo.textContent = `Encontrados ${result.length} resultados:`;
-        this.generateresults(result);
       } else {
         this.resultszone.innerHTML = '';
         this.resultInstances = '';
         myinfo.textContent = `Sin resultados en la base de datos.
-            Si crees que el tema debería aparecer, por favor escribe el título
-            a continuación e intentaremos añadirlo. Gracias!`;
+        Si crees que el tema debería aparecer, por favor escribe el título
+        a continuación e intentaremos añadirlo. Gracias!`;
         suggestion.classList.remove('hidden');
       }
+      this.generateresults(result);
     }
   }
 

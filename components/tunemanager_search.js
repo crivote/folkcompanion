@@ -117,7 +117,7 @@ export class Tunemanagersearch extends Component {
     }
   }
 
-  
+
   async search(event) {
     this.results.innerHTML = '';
     this.myinfo.textContent = '';
