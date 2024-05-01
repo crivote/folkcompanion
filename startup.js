@@ -185,14 +185,17 @@ export class Utils {
    * @return {object[]} modes
    */
   static converttones(array) {
-    let modes = [...new Set(array)];
-    modes = modes.map((item) => {
-      const parts = item.trim().split(' ');
-      return {
-        Key: parts[0].toUpperCase(),
-        Mode: parts[1].substring(0, 1).toUpperCase() + parts[1].substring(1),
-      };
-    });
+    let modes = [];
+    if (array.length > 0) {
+      modes = [...new Set(array)];
+      modes = modes.map((item) => {
+        const parts = item.trim().split(' ');
+        return {
+          Key: parts[0].toUpperCase(),
+          Mode: parts[1].substring(0, 1).toUpperCase() + parts[1].substring(1),
+        };
+      });
+    }
     return modes;
   }
 

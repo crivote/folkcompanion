@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Controller, Utils} from '../startup.js';
+import {Controller, Utils, ABCplayer} from '../startup.js';
 import * as apis from '../apis.js';
 
 /**
@@ -112,27 +112,12 @@ export class Tunemanagersearch extends Component {
                 K:${this.details.settings[0].key}
                 ${this.details.settings[0].abc}"><i class="fa fa-play-circle fa-lg"></i></span>`,
       );
-      el.querySelector('.playabc').addEventListener('click', this.playabc.bind(this));
+      el.querySelector('.playabc').addEventListener('click', ABCplayer.manageabc);
       el.querySelector('.addtune').addEventListener('click', this.preparedata.bind(this));
     }
   }
 
-  playabc(event) {
-    event.stopPropagation();
-    const el = event.currentTarget;
-    if (el.dataset.state == 'playing') {
-      el.dataset.state = 'stop';
-      Controller.stopabc();
-      el.querySelector('i').classList.remove('fa-circle-stop');
-      el.querySelector('i').classList.add('fa-play-circle');
-    } else {
-      el.dataset.state = 'playing';
-      this.abcplayer = Controller.playabc(el.dataset.abc);
-      el.querySelector('i').classList.remove('fa-play-circle');
-      el.querySelector('i').classList.add('fa-circle-stop');
-    }
-  }
-
+  
   async search(event) {
     this.results.innerHTML = '';
     this.myinfo.textContent = '';
