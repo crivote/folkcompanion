@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Controller, Utils, ABCplayer} from '../startup.js';
+import {Data, Controller, Utils, ABCplayer} from '../startup.js';
 import * as apis from '../apis.js';
 
 /**
@@ -91,6 +91,10 @@ export class Tunemanagersearch extends Component {
         );
   }
 
+  /**
+   * get tune details from thesession
+   * @param {event} event
+   */
   async showdetails(event) {
     const el = event.currentTarget;
     if (el.dataset.enriched == 'false') {
@@ -101,19 +105,24 @@ export class Tunemanagersearch extends Component {
       tones = [...new Set(tones)];
       el.insertAdjacentHTML(
           'beforeend',
-          `<div class="details"><p>Alias: ${this.details.aliases.join(' / ')}</p>
+          `<div class="details"><p>Alias: 
+          ${this.details.aliases.join(' / ')}</p>
                 <p>Tonalidades: ${tones.join(' - ')}</p>
-                <button class="addtune bg-white text-slate-600 uppercase p-2 font-bold mt-2 rounded-md">Añadir</button>
+                <button class="addtune bg-white text-slate-600 uppercase 
+                p-2 font-bold mt-2 rounded-md">Añadir</button>
                 </div>`,
       );
       el.querySelector('.title').insertAdjacentHTML(
           'afterbegin',
           `<span class="playabc mr-2" data-state="stop" data-abc="L: 1/8
                 K:${this.details.settings[0].key}
-                ${this.details.settings[0].abc}"><i class="fa fa-play-circle fa-lg"></i></span>`,
+                ${this.details.settings[0].abc}">
+                <i class="fa fa-play-circle fa-lg"></i></span>`,
       );
-      el.querySelector('.playabc').addEventListener('click', ABCplayer.manageabc);
-      el.querySelector('.addtune').addEventListener('click', this.preparedata.bind(this));
+      el.querySelector('.playabc')
+          .addEventListener('click', ABCplayer.manageabc);
+      el.querySelector('.addtune')
+          .addEventListener('click', this.preparedata.bind(this));
     }
   }
 
@@ -133,15 +142,14 @@ export class Tunemanagersearch extends Component {
       }
       this.blocked = false;
     } else {
-      this.myinfo.textContent = `Introduzca al menos 5 caracteres`;
+      this.myinfo.textContent = `Introduzca al menos 6 caracteres`;
     }
   }
 
   preparedata(event) {
     const boton = event.target;
     const parent = boton.closest('.searchitem');
-    const manager= Controller.getinstance('Tunemanager');
-    const alreadysaved = manager.tunes.some((tune) =>
+    const alreadysaved = Data.tunes.some((tune) =>
       tune?.References &&
             tune.References.some((item) =>
               item?.service_ID == this.details.id &&
@@ -166,7 +174,8 @@ export class Tunemanagersearch extends Component {
         type: type.type,
         author: 'trad.',
         time: type.time,
-        References: [{service_name: 'thesession.org', service_ID: this.details.id}],
+        References: [{service_name: 'thesession.org',
+          service_ID: this.details.id}],
         Modes_played: modes,
         ABCsample: `L: 1/8
                 K:${this.details.settings[0].key}
@@ -175,7 +184,9 @@ export class Tunemanagersearch extends Component {
 
       this.savetune(data, parent);
     } else {
-      parent.insertAdjacentHTML('afterbegin', '<p class="text-white bg-red-400 p-1 mb-1 font-medium uppercase text-xs">Ya hay un tema con esta referencia.</p>');
+      parent.insertAdjacentHTML('afterbegin',
+          `<p class="text-white bg-red-400 p-1 mb-1 font-medium 
+          uppercase text-xs">Ya hay un tema con esta referencia.</p>`);
     }
   }
 
@@ -186,16 +197,17 @@ export class Tunemanagersearch extends Component {
     }
     return {
       type: type,
-      time: Controller.times[type] ?? '',
+      time: Data.rythms[type] ?? '',
     };
   }
 
-  async savetune(data, el) {
+  async savetune(tunedata, el) {
     try {
-      const result = await apis.Xanoapi.addtotunes(data);
+      const result = await apis.Xanoapi.addtotunes(tunedata);
       if (result) {
-        Controller.screens.Tunemanager.tunes.push(result);
-        Controller.screens.Tunemanager.rendertunes();
+        Data.tunes.push(result);
+        const manager= Controller.getinstance('Tunemanager');
+        manager.rendertunes();
         el.remove();
       }
     } catch (error) {
