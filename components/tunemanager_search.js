@@ -72,11 +72,13 @@ export class Tunemanagersearch extends Component {
   generateresults(items) {
     this.results.innerHTML = '';
     items.forEach((item) => {
+      const loadable = !this.checktuneexistindb(item.id);
       this.results.insertAdjacentHTML(
           'beforeend',
-          `<li data-enriched="false" class="searchitem cursor-pointer 
-          bg-slate-500 hover:bg-slate-700 items-baseline px-4 py-3 
-          border-y border-slate-400" data-id="${item.id}">
+          `<li data-enriched="false" class="${loadable ?
+          'searchitem cursor-pointer bg-slate-500 hover:bg-slate-700' :
+          'bg-slate-300'} bg-slate-500 items-baseline 
+          px-4 py-3 border-y border-slate-400" data-id="${item.id}">
                 <div class="title">
                 <span class="font-bold">${item.name}</span>
                 <em class="ml-2 text-xs text-slate-300 uppercase">
@@ -126,7 +128,11 @@ export class Tunemanagersearch extends Component {
     }
   }
 
-
+  /**
+   * Search module
+   *
+   * @param {event} event
+   */
   async search(event) {
     this.results.innerHTML = '';
     this.myinfo.textContent = '';
@@ -146,15 +152,27 @@ export class Tunemanagersearch extends Component {
     }
   }
 
+  /**
+   * Check if a thesessiontune is already in local DB
+   *
+   * @param {number} id
+   * @return {boolean}
+   */
+  checktuneexistindb(id) {
+    return alreadysaved = Data.tunes.some((tune) =>
+      tune?.References.some((item) =>
+        item?.service_ID == id &&
+        item.service_name == 'Thesession.org'));
+  }
+
+  /**
+   * Get data ready to save new tune
+   *
+   * @param {event} event
+   */
   preparedata(event) {
     const boton = event.target;
     const parent = boton.closest('.searchitem');
-    const alreadysaved = Data.tunes.some((tune) =>
-      tune?.References &&
-            tune.References.some((item) =>
-              item?.service_ID == this.details.id &&
-                item.service_name == 'Thesession.org'),
-    );
 
     if (!alreadysaved) {
       let modes = this.details.settings.map((item) => item.key);
@@ -190,6 +208,11 @@ export class Tunemanagersearch extends Component {
     }
   }
 
+  /**
+   *
+   * @param {*} type
+   * @return {object}
+   */
   normalicetype(type) {
     type = type.replace(/\b\w/g, (char) => char.toUpperCase());
     if (type == 'Jig') {
