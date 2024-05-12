@@ -159,7 +159,7 @@ export class Tunemanagersearch extends Component {
    * @return {boolean}
    */
   checktuneexistindb(id) {
-    return alreadysaved = Data.tunes.some((tune) =>
+    return Data.tunes.some((tune) =>
       tune?.References.some((item) =>
         item?.service_ID == id &&
         item.service_name == 'Thesession.org'));
