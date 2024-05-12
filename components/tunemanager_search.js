@@ -160,7 +160,8 @@ export class Tunemanagersearch extends Component {
    */
   checktuneexistindb(id) {
     return Data.tunes.some((tune) =>
-      tune?.References.some((item) =>
+      tune?.References &&
+      tune.References.some((item) =>
         item?.service_ID == id &&
         item.service_name == 'Thesession.org'));
   }
