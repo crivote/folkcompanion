@@ -162,8 +162,8 @@ export class Tunemanagersearch extends Component {
     return Data.tunes.some((tune) =>
       tune?.References &&
       tune.References.some((item) =>
-        item?.service_ID == id &&
-        item.service_name == 'Thesession.org'));
+        item.service_name == 'Thesession.org' &&
+        item?.service_ID == id.toString()));
   }
 
   /**
