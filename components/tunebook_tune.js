@@ -92,9 +92,12 @@ export class Tune extends Component {
         </div>`: ''}
 
         ${ this.data.notes.trim() ?
-        `<div class="absolute right-3 bottom-4">
-        <i class="fa-solid fa-2x fa-note-sticky text-white/75"></i>
-        <span class="text-sm p-2 bg-color-white text-slate-500">
+        `<div class="absolute right-3 top-40 mt-2">
+        <i class="fa-solid fa-2x fa-note-sticky text-yellow-300/75 
+        shadow-lg"></i>
+        <span class="absolute hidden group-hover:block -right-8 bottom-10 
+        w-40 shadow-xl rounded-md text-xs p-2 bg-yellow-200 text-slate-500 
+        z-40">
         ${this.data.notes}</span>
         </div>` : ''}
         <div class="flex gap-2 items-center justify-center -mt-8 rounded-md

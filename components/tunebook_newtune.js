@@ -216,6 +216,7 @@ export class Tuneaddtobook extends Component {
     params.status_num = statusobject.value ?? 0;
     params.tags = this.element
         .querySelector('[name="tags"]').value.split(' ');
+    params.tags = params.tags.filter((tag) => tag != '');
     params.notes = this.element
         .querySelector('[name="notes"').value.trim();
     if (this.isNew) {
