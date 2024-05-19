@@ -176,38 +176,32 @@ export class Tunemanagersearch extends Component {
     const boton = event.target;
     const parent = boton.closest('.searchitem');
 
-    if (!alreadysaved) {
-      let modes = this.details.settings.map((item) => item.key);
-      modes = [...new Set(modes)];
-      modes = modes.map((item) => {
-        return {
-          Key: item.substring(0, 1).toUpperCase(),
-          Mode: item.substring(1, 2).toUpperCase() + item.substring(2),
-        };
-      });
-      const type = this.normalicetype(this.details.type);
-      const data={
-        main_name: this.details.name,
-        sortname: Utils.titleforsort(this.details.name),
-        other_names: this.details.aliases,
-        popularity: this.details.tunebooks,
-        type: type.type,
-        author: 'trad.',
-        time: type.time,
-        References: [{service_name: 'thesession.org',
-          service_ID: this.details.id}],
-        Modes_played: modes,
-        ABCsample: `L: 1/8
+    let modes = this.details.settings.map((item) => item.key);
+    modes = [...new Set(modes)];
+    modes = modes.map((item) => {
+      return {
+        Key: item.substring(0, 1).toUpperCase(),
+        Mode: item.substring(1, 2).toUpperCase() + item.substring(2),
+      };
+    });
+    const type = this.normalicetype(this.details.type);
+    const data={
+      main_name: this.details.name,
+      sortname: Utils.titleforsort(this.details.name),
+      other_names: this.details.aliases,
+      popularity: this.details.tunebooks,
+      type: type.type,
+      author: 'trad.',
+      time: type.time,
+      References: [{service_name: 'thesession.org',
+        service_ID: this.details.id}],
+      Modes_played: modes,
+      ABCsample: `L: 1/8
                 K:${this.details.settings[0].key}
                 ${this.details.settings[0].abc}`,
-      };
+    };
 
-      this.savetune(data, parent);
-    } else {
-      parent.insertAdjacentHTML('afterbegin',
-          `<p class="text-white bg-red-400 p-1 mb-1 font-medium 
-          uppercase text-xs">Ya hay un tema con esta referencia.</p>`);
-    }
+    this.savetune(data, parent);
   }
 
   /**
@@ -226,6 +220,11 @@ export class Tunemanagersearch extends Component {
     };
   }
 
+  /**
+   *
+   * @param {*} tunedata
+   * @param {*} el
+   */
   async savetune(tunedata, el) {
     try {
       const result = await apis.Xanoapi.addtotunes(tunedata);
