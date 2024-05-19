@@ -90,6 +90,13 @@ export class Tune extends Component {
             this.data.prefered_tone.substring(0, 5))}.png">
            </span>
         </div>`: ''}
+
+        ${ this.data.notes.trim() ?
+        `<div class="absolute right-3 bottom-4">
+        <i class="fa-solid fa-2x fa-note-sticky text-white/75"></i>
+        <span class="text-sm p-2 bg-color-white text-slate-500">
+        ${this.data.notes}</span>
+        </div>` : ''}
         <div class="flex gap-2 items-center justify-center -mt-8 rounded-md
         w-fit mx-auto px-2 bg-white/50 group-hover:bg-white/85 shadow-lg">
         <p class="text-center text-xs text-slate-800/75 px-2 py-1 uppercase">
@@ -109,7 +116,7 @@ export class Tune extends Component {
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-xs text-center mb-2"><span class="font-medium mr-1 text-slate-500">
         ${this.data.tuneref.type}</span>${this.data.tuneref.author}</p>
-        <div class="mytags text-xs flex flex-wrap gap-1">
+        <div class="mytags text-xs flex flex-wrap gap-1 justify-center">
         ${this.generatetags()}
         </div>
         <div class="flex gap-1 mt-auto justify-center opacity-0 
@@ -135,7 +142,7 @@ export class Tune extends Component {
     let taghtml = '';
     if (Array.isArray(this.data.tags) && this.data.tags.length > 0) {
       this.data.tags.forEach((tag) => {
-        taghtml += `<span class="bg-slate-100 text-slate-400 p-1 
+        taghtml += `<span class="bg-yellow-100 text-slate-600/75 p-2
         uppercase">${tag}</span>`;
       });
     }
