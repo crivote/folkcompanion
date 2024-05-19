@@ -209,7 +209,7 @@ export class Tuneaddtobook extends Component {
     }
 
     tempstatus = this.element
-        .querySelector('[name="status"]').textContent;
+        .querySelector('[data-name="status"]').textContent;
     const statusobject = Data.status.find(
         (status) => status.label == tempstatus);
     params.status_num = statusobject.value ?? 0;
