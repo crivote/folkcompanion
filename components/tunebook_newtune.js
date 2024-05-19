@@ -52,6 +52,9 @@ export class Tuneaddtobook extends Component {
         (mode) => `${mode.Key} ${mode.Mode}`,
     );
 
+    const statuslabel = this.isNew ?
+    Data.status[0].label : Utils.getstatus(this.tune.status_num).label;
+
     return `
     <div id="${this.isNew ? 'modaladdtune' : 'modaledittune'}" 
     class="fixed inset-0 bg-gray-500 bg-opacity-75 
@@ -102,10 +105,7 @@ export class Tuneaddtobook extends Component {
   )}
         ${Utils.generateformfield(
       'status',
-      'status de ejecución',
-            this.isNew ?
-            Data.status[0].label : Data.status[this.tune.status_num].label,
-            Data.status.map((sta) => sta.label),
+      'status de ejecución', statuslabel, Data.status.map((sta) => sta.label),
   )}
               <div class="flex border-2 p-4 border-slate-100 
               bg-slate-50 rounded-md mb-4 gap-3 justify-between">

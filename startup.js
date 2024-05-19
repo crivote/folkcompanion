@@ -161,6 +161,16 @@ export class Utils {
   }
 
   /**
+   * search for the status object in static Data
+   *
+   * @param {string} status
+   * @return {object}
+   */
+  static getstatus(status) {
+    return Data.status.find((item) => item.value == status);
+  }
+
+  /**
    * Convierte fecha a formato ISO datetime
    *
    * @param {Date | undefined} date

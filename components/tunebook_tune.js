@@ -56,22 +56,12 @@ export class Tune extends Component {
   }
 
   /**
-   * search for the status object in static Data
-   *
-   * @param {string} status
-   * @return {object}
-   */
-  getstatus(status) {
-    return Data.status.find((item) => item.value == status);
-  }
-
-  /**
    * generate html for card view
    *
    * @return {string}
    */
   generatehtml_card() {
-    const mystatus = this.getstatus(this.data.status_num);
+    const mystatus = Utils.getstatus(this.data.status_num);
     const links = Utils.generatelinks(this.data.tuneref?.References);
     return `<div id="tune${this.data.id}" class="group cursor-pointer flex 
     flex-col border-t-8 border-${mystatus.color} relative tunecard 
@@ -158,7 +148,7 @@ export class Tune extends Component {
    * @return {string}
    */
   generatehtml_list() {
-    const mystatus = this.getstatus(this.data.status_num);
+    const mystatus = Utils.getstatus(this.data.status_num);
     return `<div id="tune${this.data.id}" class="tunelist group w-full bg-white
      border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-2">
       <div class="tuneimg flex h-20 w-20 bg-center bg-cover mr-3
