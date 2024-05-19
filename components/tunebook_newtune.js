@@ -73,7 +73,8 @@ export class Tuneaddtobook extends Component {
           ${this.isNew ? `Añadir tema a tu repertorio`: `Editar tema`}</h2>
             <section id="editform">
               <div class="flex items-center justify-center -mb-4 gap-4">
-                <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
+                <div class="bg-slate-500 text-white/75 rounded-md p-4 
+                text-xs min-w-max">
                   <p>${tuneref.type} (${tuneref.time})</p>
                   <p>${tuneref.compasses} compases</p>
                   <p>${tuneref.Estructure}</p>
@@ -91,7 +92,8 @@ export class Tuneaddtobook extends Component {
                       border border-slate-200">
                   </span>
                 </div>          
-                <div class="bg-blue-100 rounded-md p-4 text-sm min-w-max">
+                <div class="bg-slate-500 text-white/75 rounded-md p-4 text-xs
+                 min-w-max">
                   <p>${tuneref.author}</p>
                   <p>${tuneref?.tradition ? tuneref.tradition.join(' · ') : ''}
                   </p>
@@ -207,8 +209,7 @@ export class Tuneaddtobook extends Component {
     if (!this.isNew && Array.isArray(this.tune.last_rehearsals)) {
       params.last_rehearsals = this.tune.last_rehearsals;
     }
-
-    tempstatus = this.element
+    const tempstatus = this.element
         .querySelector('[data-name="status"]').textContent;
     const statusobject = Data.status.find(
         (status) => status.label == tempstatus);
