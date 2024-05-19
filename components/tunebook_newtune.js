@@ -103,7 +103,8 @@ export class Tuneaddtobook extends Component {
         ${Utils.generateformfield(
       'status',
       'status de ejecución',
-            this.isNew ? Data.status[0].label : this.tune.status,
+            this.isNew ?
+            Data.status[0].label : Data.status[this.tune.status_num].label,
             Data.status.map((sta) => sta.label),
   )}
               <div class="flex border-2 p-4 border-slate-100 
@@ -190,8 +191,7 @@ export class Tuneaddtobook extends Component {
         .textContent;
     params.prefered_tone = this.element.querySelector('[data-name="tonalidad"]')
         .textContent;
-    params.status = this.element.querySelector('[data-name="status"]')
-        .textContent;
+    params.status = '';
     params.learned_date = this.element
         .querySelector('input[name="learneddate"]').value;
     params.rehearsal_days = this.element
