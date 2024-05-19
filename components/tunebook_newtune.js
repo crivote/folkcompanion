@@ -55,6 +55,12 @@ export class Tuneaddtobook extends Component {
     const statuslabel = this.isNew ?
     Data.status[0].label : Utils.getstatus(this.tune.status_num).label;
 
+    const mytags = this.isNew || this.tune.tags.length == 0 ? '' :
+    this.tune.tags.join(' ');
+
+    const mynotes = this.isNew || this.tune.notes.trim() == '' ? '' :
+    this.tune.notes;
+
     return `
     <div id="${this.isNew ? 'modaladdtune' : 'modaledittune'}" 
     class="fixed inset-0 bg-gray-500 bg-opacity-75 
@@ -126,15 +132,18 @@ export class Tuneaddtobook extends Component {
                     value="${this.isNew ? 0 : this.tune.rehearsal_days}"
                     min="0" name="numrehearsals">
                 </div>
-                <div>
-
               </div>
               <div class="flex flex-col border-2 p-4 border-slate-100 
               bg-slate-50 rounded-md mb-4">
                 <label class="uppercase text-slate-400 text-sm">
                 Etiquetas</label>   
-                <textarea name="tags">
-                ${this.isNew ? 0 : this.tune.tags.join('')}</textarea>
+                <textarea name="tags">${mytags}</textarea>
+              </div>
+              <div class="flex flex-col border-2 p-4 border-slate-100 
+              bg-slate-50 rounded-md mb-4">
+                <label class="uppercase text-slate-400 text-sm">
+                Notas</label>   
+                <textarea name="notes">${mynotes}</textarea>
               </div>
                 <div class="flex items-center justify-center">
                     <button class="savedata px-4 py-3 rounded-md bg-blue-500 
@@ -142,8 +151,7 @@ export class Tuneaddtobook extends Component {
                     >${this.isNew ? `Añadir tema`:
                     `Guardar cambios`}</button>
                 </div>
-              </section>
-            <div>
+          </section>
         </div>`;
   }
 
@@ -205,8 +213,9 @@ export class Tuneaddtobook extends Component {
         (status) => status.label == params.status);
     params.status_num = statusobject.value ?? 0;
     params.tags = this.element
-        .querySelector('[name="tags"]').value.split(',');
-
+        .querySelector('[name="tags"]').value.split(' ');
+    params.notes = this.element
+        .querySelector('[name="notes"').value.trim();
     if (this.isNew) {
       try {
         const result = await apis.Xanoapi.addtotunebook(params);
