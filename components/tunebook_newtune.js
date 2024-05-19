@@ -199,7 +199,6 @@ export class Tuneaddtobook extends Component {
         .textContent;
     params.prefered_tone = this.element.querySelector('[data-name="tonalidad"]')
         .textContent;
-    params.status = '';
     params.learned_date = this.element
         .querySelector('input[name="learneddate"]').value;
     params.rehearsal_days = this.element
@@ -209,8 +208,10 @@ export class Tuneaddtobook extends Component {
       params.last_rehearsals = this.tune.last_rehearsals;
     }
 
+    tempstatus = this.element
+        .querySelector('[name="status"]').textContent;
     const statusobject = Data.status.find(
-        (status) => status.label == params.status);
+        (status) => status.label == tempstatus);
     params.status_num = statusobject.value ?? 0;
     params.tags = this.element
         .querySelector('[name="tags"]').value.split(' ');
