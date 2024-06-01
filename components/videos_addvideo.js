@@ -163,7 +163,7 @@ export class Videoadd extends Component {
       this.loadVideo(this.videokey);
     }
   }
-  
+
   loadVideo(key) {
     this.videozone.innerHTML = Utils.videoembed(key);
     this.element.querySelector('.sendbutton').disabled = false;
@@ -251,5 +251,31 @@ export class Videoadd extends Component {
     } else {
       new Mynotification('error', `Ya hay un video guardado con la misma url.`);
     }
+  }
+  /**
+   * Show select for the title
+   *
+   * @param {event} event
+   */
+  showeditselect(event) {
+    const el = event.currentTarget;
+    const select = el.querySelector('.edit-select');
+    // title.classList.add('hidden');
+    select.classList.remove('hidden');
+  }
+
+  /**
+     * Update value of h4 on select change
+     *
+     * @param {event} event
+     */
+  changeselectvalue(event) {
+    event.stopImmediatePropagation();
+    const el = event.currentTarget;
+    const list = el.parentNode;
+    const textel = list.previousElementSibling;
+    // esconder select tras cambio valor y mostrar icono edicion
+    list.classList.add('hidden');
+    textel.textContent = el.textContent;
   }
 }
