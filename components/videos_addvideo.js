@@ -80,22 +80,20 @@ export class Videoadd extends Component {
       max-h-full overflow-scroll">
         <p id="closeaddvideo" class="absolute right-4 top-4 text-red-400 
         text-right" title="close"><i class="fa fa-times-circle fa-2x"></i></p>
-        <h2 class="text-2xl text-blue-400 font-semibold mb-6">
+        <h2 class="text-2xl text-blue-400 font-semibold mb-3">
         ${this.isNew ? `Añadir nuevo video`: `Editar video`}</h2>
         </h2>
 
         <div class="flex justify-center gap-3">
+            <label class="uppercase text-slate-400 text-sm mt-4">
+            Youtube video URL (ID)</label>
             <input class="getVideoKey" type="text" 
             placeholder="paste a youtube URL" 
             value="${this.isNew ? '' : this.video.url}">
         </div>
 
-        <div class="mt-6 flex gap-3">
-          <section class="w-auto>"
-          <div id="videocontainer"></div>
-          <ul id="tunesadded" data-added=""></ul>
-          </section>
-          <section class="w-1/2" id="form">
+        <main class="mt-3 grid grid-cols-2 gap-6">
+          <section id="form">
             <div class="flex flex-col gap-2">
           ${Utils.generateformfield(
       'titulo',
@@ -113,6 +111,9 @@ export class Videoadd extends Component {
             this.isNew ? '' : this.video.type,
             Data.videotypes,
   )}
+
+  <ul id="tunesadded" data-added="">
+  </ul>
 
             <section class="tunesaddition bg-slate-100 border 
             border-slate-300 p-4">
@@ -142,6 +143,9 @@ export class Videoadd extends Component {
           </section>
           </div>
           </section>
+          <section id="videocontainer">
+          </section>
+          </main>
       <div class="flex items-center justify-center mt-6">
         <button disabled class="sendbutton px-4 py-3 rounded-md bg-blue-500 
         text-white text-md font-bold uppercase mr-4">Guardar video</button>
