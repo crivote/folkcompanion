@@ -38,6 +38,9 @@ export class Videoadd extends Component {
   async setup() {
     this.attachAt(this.generatehtml(), false);
     this.videozone = this.element.querySelector('#videocontainer');
+    if (!this.isNew) {
+      this.loadVideo(this.videokey);
+    }
     this.addListeners();
   }
 
@@ -49,8 +52,8 @@ export class Videoadd extends Component {
     this.element.querySelector('#closeaddvideo')
         .addEventListener('click', this.remove.bind(this));
     // load video
-    this.element.querySelector('.loadvideo')
-        .addEventListener('change', this.loadvideo.bind(this));
+    this.element.querySelector('.getVideoKey')
+        .addEventListener('change', this.getVideoKey.bind(this));
     // add current video to db
     this.element.querySelector('.sendbutton')
         .addEventListener('click', this.addvideo.bind(this));
@@ -82,8 +85,9 @@ export class Videoadd extends Component {
         </h2>
 
         <div class="flex justify-center gap-3">
-            <input class="loadvideo" type="text" 
-            placeholder="paste a youtube URL">
+            <input class="getVideoKey" type="text" 
+            placeholder="paste a youtube URL" 
+            value="${this.isNew ? '' : this.video.url}">
         </div>
 
         <div class="mt-6 flex gap-3">
@@ -151,14 +155,18 @@ export class Videoadd extends Component {
    *
    * @param {event} event
    */
-  loadvideo(event) {
+  getVideoKey(event) {
     const url = event.currentTarget.value;
     const youtubeid = Utils.extractYoutubeID(url);
     if (youtubeid) {
       this.videokey = youtubeid;
-      this.videozone.innerHTML = Utils.videoembed(youtubeid);
-      this.element.querySelector('.sendbutton').disabled = false;
+      this.loadVideo(this.videokey);
     }
+  }
+  
+  loadVideo(key) {
+    this.videozone.innerHTML = Utils.videoembed(key);
+    this.element.querySelector('.sendbutton').disabled = false;
   }
 
   /**
@@ -177,63 +185,71 @@ export class Videoadd extends Component {
    */
   async addvideo(event) {
     event.preventDefault();
-    // TODO: comprobar que el video no ha sido ya añadido antes
-    const params = {
-      url: this.videokey,
-      thumb_url: `https://i3.ytimg.com/vi/${this.videokey}/hqdefault.jpg`,
-      type: this.element.querySelector('[name="type"]').value,
-      Title: this.element.querySelector('[name="titulo"]').value,
-      Performer: this.element.querySelector('[name="artista"]').value,
-      notes: this.element.querySelector('[name="notas"]').value,
-      album_relation: {},
-    };
-    try {
-      const result = await apis.Xanoapi.addvideo(params);
-      if (result) {
-        new Mynotification('success', `Se ha guardado el vídeo.`);
+    if (!Data.videos.some((video) => video.url == this.videokey)) {
+      // Comprobar que el video no ha sido ya añadido antes
+      const params = {
+        url: this.videokey,
+        thumb_url: `https://i3.ytimg.com/vi/${this.videokey}/hqdefault.jpg`,
+        type: this.element.querySelector('[name="type"]').value,
+        Title: this.element.querySelector('[name="titulo"]').value,
+        Performer: this.element.querySelector('[name="artista"]').value,
+        notes: this.element.querySelector('[name="notas"]').value,
+        album_relation: {},
+      };
+      try {
+        const result = await apis.Xanoapi.addvideo(params);
+        if (result) {
+          new Mynotification('success', `Se ha guardado el vídeo.`);
 
-        // save links to video in tunes
-        const tunesids = [];
-        const els =
-          ['tune1selector', 'tune2selector', 'tune3selector', 'tune4selector'];
+          // save links to video in tunes
+          const tunesids = [];
+          const els = [
+            'tune1selector',
+            'tune2selector',
+            'tune3selector',
+            'tune4selector',
+          ];
 
-        els.forEach( (elname) => {
-          const el = this.element.querySelector(elname);
-          if (el.value != '') {
-            tunesids.push(el.value);
-          }
-        });
+          els.forEach( (elname) => {
+            const el = this.element.querySelector(elname);
+            if (el.value != '') {
+              tunesids.push(el.value);
+            }
+          });
 
-        const link = {
-          videos_id: result.id,
-          start_time: this.element.querySelector('[name="inicio"]').value,
-          end_time: this.element.querySelector('[name="final"]').value,
-        };
-        const medialinks =
-            this.data?.medialinks ? this.data.medialinks.push(link) : [link];
-        const params2 = {
-          media_links: medialinks,
-          main_name: '',
-          other_names: '',
-          type: '',
-          author: '',
-          time: '',
-          tradition: '',
-          References: '',
-          Modes_played: '',
-          Estructure: '',
-          compasses: '',
-          first_reference: '',
-          trivia: '',
-          ABCsample: '',
-          popularity: '',
-          sortname: '',
-        };
-        const result2 = await apis.Xanoapi.edittune(this.data.id, params2);
+          const link = {
+            videos_id: result.id,
+            start_time: this.element.querySelector('[name="inicio"]').value,
+            end_time: this.element.querySelector('[name="final"]').value,
+          };
+          const medialinks =
+              this.data?.medialinks ? this.data.medialinks.push(link) : [link];
+          const params2 = {
+            media_links: medialinks,
+            main_name: '',
+            other_names: '',
+            type: '',
+            author: '',
+            time: '',
+            tradition: '',
+            References: '',
+            Modes_played: '',
+            Estructure: '',
+            compasses: '',
+            first_reference: '',
+            trivia: '',
+            ABCsample: '',
+            popularity: '',
+            sortname: '',
+          };
+          const result2 = await apis.Xanoapi.edittune(this.data.id, params2);
+        }
+      } catch (error) {
+        new Mynotification('error', `No se ha podido guardar el vídeo.`);
+        console.log(error);
       }
-    } catch (error) {
-      new Mynotification('error', `No se ha podido guardar el vídeo.`);
-      console.log(error);
+    } else {
+      new Mynotification('error', `Ya hay un video guardado con la misma url.`);
     }
   }
 }
