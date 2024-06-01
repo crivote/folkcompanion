@@ -80,7 +80,7 @@ export class Video extends Component {
   }
 
   editvideo() {
-    const myvideo = Controller.getinstance('Video');
+    const myvideo = Controller.getinstance('Videos');
     myvideo.subelements.push(
         new Videoadd(
             'modalvideoedit',
