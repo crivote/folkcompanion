@@ -23,7 +23,7 @@ export class Videoadd extends Component {
    */
   constructor(name, parentel, videoid = '') {
     super(name, parentel);
-    this.isNew = (videoid == '');
+    this.isNew = (videoid === '');
     if (!this.isNew) {
       this.video = Data.videos.find((video) => video.id == videoid);
       this.tunes = this.video.tunes;
