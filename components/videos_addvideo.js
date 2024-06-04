@@ -68,6 +68,15 @@ export class Videoadd extends Component {
   }
 
   /**
+   * Generate subform for each tune
+   *
+   * @param {string} tuneid
+   */
+  generateTuneForm(tuneid) {
+
+  }
+
+  /**
    * HTML del componente
    *
    * @return {string} html
@@ -92,8 +101,8 @@ export class Videoadd extends Component {
             value="${this.isNew ? '' : this.video.url}">
         </div>
 
-        <main class="mt-3 grid grid-cols-2 gap-6">
-          <section id="form">
+        <main class="mt-3 grid lg-grid-cols-5 gap-4">
+          <section id="form" class="lg-col-span-2">
             <div class="flex flex-col gap-2">
           ${Utils.generateformfield(
       'titulo',
@@ -112,10 +121,7 @@ export class Videoadd extends Component {
             Data.videotypes,
   )}
 
-  <ul id="tunesadded" data-added="">
-  </ul>
-
-            <section class="tunesaddition bg-slate-100 border 
+      <section class="tunesaddition bg-slate-100 border 
             border-slate-300 p-4">
               <div id="datatuneadd" class="flex gap-3 tunecontainer">
                 <div>
@@ -130,20 +136,21 @@ export class Videoadd extends Component {
                 <div>
                     <label class="uppercase text-slate-400 text-sm mt-4">
                     inicio (en s)</label>
-                    <input class="w-20" type="number" name="inicio1">
+                    <input class="w-20" type="number" name="inicio">
                 </div>
                 <div>
                     <label class="uppercase text-slate-400 text-sm mt-4">
                     final (en s)</label>
-                    <input class="w-20" type="number" name="final1">
+                    <input class="w-20" type="number" name="final">
                 </div>
-                <button class="addtunetovideo">Añadir tema</button>
+                <button class="remove">
+                <i class="fa fa-times-circle"></i></button>
             </div>
                         
           </section>
           </div>
           </section>
-          <section id="videocontainer">
+          <section id="videocontainer" class="lg-col-span-3">
           </section>
           </main>
       <div class="flex items-center justify-center mt-6">
@@ -155,7 +162,7 @@ export class Videoadd extends Component {
   }
 
   /**
-   * Cargar video de youtube
+   * obtener key de video de youtube
    *
    * @param {event} event
    */
@@ -165,9 +172,15 @@ export class Videoadd extends Component {
     if (youtubeid) {
       this.videokey = youtubeid;
       this.loadVideo(this.videokey);
+      event.currentTarget.value = this.videokey;
     }
   }
 
+  /**
+   * Cargar video de youtube
+   *
+   * @param {string} key
+   */
   loadVideo(key) {
     this.videozone.innerHTML = Utils.videoembed(key);
     this.element.querySelector('.sendbutton').disabled = false;
@@ -176,10 +189,35 @@ export class Videoadd extends Component {
   /**
    * Añadir enlace a tune en el video
    *
-   * @param {event} event
+   * @param {number} videoid
    */
-  addtunetovideo(event) {
-
+  async addtunetovideo(videoid) {
+    const link = {
+      videos_id: videoid,
+      start_time: this.element.querySelector('[name="inicio"]').value,
+      end_time: this.element.querySelector('[name="final"]').value,
+    };
+    const medialinks =
+        this.data?.medialinks ? this.data.medialinks.push(link) : [link];
+    const params2 = {
+      media_links: medialinks,
+      main_name: '',
+      other_names: '',
+      type: '',
+      author: '',
+      time: '',
+      tradition: '',
+      References: '',
+      Modes_played: '',
+      Estructure: '',
+      compasses: '',
+      first_reference: '',
+      trivia: '',
+      ABCsample: '',
+      popularity: '',
+      sortname: '',
+    };
+    const result = await apis.Xanoapi.edittune(this.data.id, params2);
   }
 
   /**
@@ -204,49 +242,6 @@ export class Videoadd extends Component {
         const result = await apis.Xanoapi.addvideo(params);
         if (result) {
           new Mynotification('success', `Se ha guardado el vídeo.`);
-
-          // save links to video in tunes
-          const tunesids = [];
-          const els = [
-            'tune1selector',
-            'tune2selector',
-            'tune3selector',
-            'tune4selector',
-          ];
-
-          els.forEach( (elname) => {
-            const el = this.element.querySelector(elname);
-            if (el.value != '') {
-              tunesids.push(el.value);
-            }
-          });
-
-          const link = {
-            videos_id: result.id,
-            start_time: this.element.querySelector('[name="inicio"]').value,
-            end_time: this.element.querySelector('[name="final"]').value,
-          };
-          const medialinks =
-              this.data?.medialinks ? this.data.medialinks.push(link) : [link];
-          const params2 = {
-            media_links: medialinks,
-            main_name: '',
-            other_names: '',
-            type: '',
-            author: '',
-            time: '',
-            tradition: '',
-            References: '',
-            Modes_played: '',
-            Estructure: '',
-            compasses: '',
-            first_reference: '',
-            trivia: '',
-            ABCsample: '',
-            popularity: '',
-            sortname: '',
-          };
-          const result2 = await apis.Xanoapi.edittune(this.data.id, params2);
         }
       } catch (error) {
         new Mynotification('error', `No se ha podido guardar el vídeo.`);

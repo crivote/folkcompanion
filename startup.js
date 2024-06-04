@@ -268,7 +268,9 @@ export class Utils {
    * @param {array} select
    * @return {html}
    */
-  static generateformfield(name, label, value, select = null) {
+  static generateformfield(
+      name, label, value, select = null, editable = false,
+  ) {
     let arrayok = false;
     if (Array.isArray(select) && select.length > 1) {
       arrayok = true;
@@ -279,7 +281,9 @@ export class Utils {
         <label class="uppercase text-slate-400 text-sm">${label}
         ${arrayok ? '<span><i class="fa fa-edit"></i></span>' : ''}
         </label>
-        <h4 data-name="${name}" class="formelement font-semibold 
+        <h4 data-name="${name}" 
+        ${editable ? 'contenteditable="true" ' : ''} 
+        class="formelement font-semibold 
         text-slate-600 text-xl">${value}</h4> 
         ${arrayok ? this.generateselect(select, 'data' + name) : ''}
       </div>`;
