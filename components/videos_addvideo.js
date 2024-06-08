@@ -57,23 +57,12 @@ export class Videoadd extends Component {
     // add current video to db
     this.element.querySelector('.sendbutton')
         .addEventListener('click', this.addvideo.bind(this));
-    this.element.querySelector('.addtunetovideo')
-        .addEventListener('click', this.addtunetovideo.bind(this));
     // show select control to change value
     this.element.querySelectorAll('.formcomponent').forEach((el) =>
       el.addEventListener('click', this.showeditselect.bind(this)));
     // change value of select field
     this.element.querySelectorAll('.edit-select li').forEach((el) =>
       el.addEventListener('click', this.changeselectvalue.bind(this)));
-  }
-
-  /**
-   * Generate subform for each tune
-   *
-   * @param {string} tuneid
-   */
-  generateTuneForm(tuneid) {
-
   }
 
   /**
@@ -101,18 +90,18 @@ export class Videoadd extends Component {
             value="${this.isNew ? '' : this.video.url}">
         </div>
 
-        <main class="mt-3 grid lg-grid-cols-5 gap-4">
-          <section id="form" class="lg-col-span-2">
+        <main class="mt-3 grid md:grid-cols-2 xl:grid-cols-5 gap-4">
+          <section id="form" class="xl:col-span-2">
             <div class="flex flex-col gap-2">
           ${Utils.generateformfield(
       'titulo',
       'titulo del vídeo',
-            this.isNew ? '' : this.video.Title,
+            this.isNew ? '' : this.video.Title, null, true,
   )}
           ${Utils.generateformfield(
       'artista',
       'artista',
-            this.isNew ? '' : this.video.Performer,
+            this.isNew ? '' : this.video.Performer, null, true,
   )}
           ${Utils.generateformfield(
       'type',
@@ -120,37 +109,22 @@ export class Videoadd extends Component {
             this.isNew ? '' : this.video.type,
             Data.videotypes,
   )}
-
-      <section class="tunesaddition bg-slate-100 border 
-            border-slate-300 p-4">
-              <div id="datatuneadd" class="flex gap-3 tunecontainer">
-                <div>
-                  <datalist id="alltunes">
-                    ${Data.tunes.map(
-      (tune) => `<option value="${tune.id}">${tune.main_name}</option>`)
-      .join('')}
-                    </datalist>
-                    <input list="alltunes" class="tuneselector" 
-                    name="tuneselector">
-                </div>
-                <div>
-                    <label class="uppercase text-slate-400 text-sm mt-4">
-                    inicio (en s)</label>
-                    <input class="w-20" type="number" name="inicio">
-                </div>
-                <div>
-                    <label class="uppercase text-slate-400 text-sm mt-4">
-                    final (en s)</label>
-                    <input class="w-20" type="number" name="final">
-                </div>
-                <button class="remove">
-                <i class="fa fa-times-circle"></i></button>
-            </div>
-                        
-          </section>
-          </div>
-          </section>
-          <section id="videocontainer" class="lg-col-span-3">
+        <section class="tunesaddition bg-slate-100 border 
+              border-slate-300 p-4">
+          <div id="datatuneadd" class="flex gap-3 tunecontainer">
+              <datalist id="alltunes">
+                ${this.getfulllistoftunes()}
+              </datalist>
+              <label class="uppercase text-slate-400 text-sm mt-4">
+              Add a tune to this video</label>
+              <input list="alltunes" class="tuneselector" 
+              name="tuneselector">
+          </div>   
+          <ul class="listoftunes"></ul>    
+        </section>
+      </div>
+      </section>
+          <section id="videocontainer" class="xl:col-span-3">
           </section>
           </main>
       <div class="flex items-center justify-center mt-6">
@@ -160,6 +134,22 @@ export class Videoadd extends Component {
     <div>
   </div>`;
   }
+
+  /**
+   * Generate list of ids and tune names
+   *
+   * @return {string}
+   */
+  getfulllistoftunes() {
+    const result = Data.tunes.map((tune) => {
+      const myid = tune.id;
+      return tune.other_names.map((tunename) =>
+        `<option value="${myid}">${tunename}</option>`,
+      ).join('');
+    }).join( '');
+    return result;
+  }
+
 
   /**
    * obtener key de video de youtube

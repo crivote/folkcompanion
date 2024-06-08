@@ -266,6 +266,7 @@ export class Utils {
    * @param {string} label
    * @param {string} value
    * @param {array} select
+   * @param {boolean} editable
    * @return {html}
    */
   static generateformfield(
