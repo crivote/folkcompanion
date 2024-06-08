@@ -38,6 +38,8 @@ export class Videoadd extends Component {
   async setup() {
     this.attachAt(this.generatehtml(), false);
     this.videozone = this.element.querySelector('#videocontainer');
+    this.inputvideo = this.element.querySelector('.getVideoKey');
+    this.inputtune = this.element.querySelector('.tuneselector');
     if (!this.isNew) {
       this.loadVideo(this.videokey);
     }
@@ -52,8 +54,11 @@ export class Videoadd extends Component {
     this.element.querySelector('#closeaddvideo')
         .addEventListener('click', this.remove.bind(this));
     // load video
-    this.element.querySelector('.getVideoKey')
+    this.inputvideo
         .addEventListener('change', this.getVideoKey.bind(this));
+    // add tune to video
+    this.inputtune
+        .addEventListener('change', this.addtunetovideo.bind(this));
     // add current video to db
     this.element.querySelector('.sendbutton')
         .addEventListener('click', this.addvideo.bind(this));
@@ -174,40 +179,19 @@ export class Videoadd extends Component {
   loadVideo(key) {
     this.videozone.innerHTML = Utils.videoembed(key);
     this.element.querySelector('.sendbutton').disabled = false;
+    this.inputvideo.value='';
   }
 
   /**
    * Añadir enlace a tune en el video
    *
-   * @param {number} videoid
+   * @param {event} event
    */
-  async addtunetovideo(videoid) {
-    const link = {
-      videos_id: videoid,
-      start_time: this.element.querySelector('[name="inicio"]').value,
-      end_time: this.element.querySelector('[name="final"]').value,
-    };
-    const medialinks =
-        this.data?.medialinks ? this.data.medialinks.push(link) : [link];
-    const params2 = {
-      media_links: medialinks,
-      main_name: '',
-      other_names: '',
-      type: '',
-      author: '',
-      time: '',
-      tradition: '',
-      References: '',
-      Modes_played: '',
-      Estructure: '',
-      compasses: '',
-      first_reference: '',
-      trivia: '',
-      ABCsample: '',
-      popularity: '',
-      sortname: '',
-    };
-    const result = await apis.Xanoapi.edittune(this.data.id, params2);
+  async addtunetovideo(event) {
+    const el = event.currentTarget;
+    const newtune = Data.tunes.find((tune) => tune.id === el.value);
+    console.log(newtune);
+    el.value='';
   }
 
   /**

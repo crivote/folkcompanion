@@ -62,5 +62,39 @@ export class Videoaddtune extends Component {
     </li>
         `;
   }
+  
+  /**
+   * Añadir enlace a tune en el video
+   *
+   * @param {number} videoid
+   */
+  async addtunetovideo(videoid) {
+    const link = {
+      videos_id: videoid,
+      start_time: this.element.querySelector('[name="inicio"]').value,
+      end_time: this.element.querySelector('[name="final"]').value,
+    };
+    const medialinks =
+        this.data?.medialinks ? this.data.medialinks.push(link) : [link];
+    const params2 = {
+      media_links: medialinks,
+      main_name: '',
+      other_names: '',
+      type: '',
+      author: '',
+      time: '',
+      tradition: '',
+      References: '',
+      Modes_played: '',
+      Estructure: '',
+      compasses: '',
+      first_reference: '',
+      trivia: '',
+      ABCsample: '',
+      popularity: '',
+      sortname: '',
+    };
+    const result = await apis.Xanoapi.edittune(this.data.id, params2);
+  }
 }
 
