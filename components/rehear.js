@@ -143,7 +143,7 @@ export class Rehear extends Component {
    *
    */
   renderList() {
-    this.contentzone.innerHTML = '';
+    this.contentZone.innerHTML = '';
     this.tuneinstances = this.tunelist.map((tune) => {
       return new RehearTune('tune' + tune.id, this.contentZone, tune);
     });
