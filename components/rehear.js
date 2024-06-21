@@ -8,6 +8,13 @@ import {Controller, Data, Utils, ABCplayer} from '../startup.js';
 export class Rehear extends Component {
   contentZone;
   numberTunes = 20;
+  criterialist = [
+    {value: 'points', label: 'prioridad', selected: true},
+    {value: 'tuneref.type', label: 'tipo'},
+    {value: 'prefered_tone', label: 'tonalidad'},
+  ];
+  sortcriteria = 'points';
+  tunelist = [];
 
   /**
    * Constructor
@@ -37,6 +44,8 @@ export class Rehear extends Component {
   addListeners() {
     this.element.querySelector('.createnewlist')
         .addEventListener('click', this.renderList.bind(this));
+    this.element.querySelector('.tunesorting')
+        .addEventListener('change', this.sorter.bind(this));
   }
 
   /**
@@ -62,12 +71,10 @@ export class Rehear extends Component {
       const diffdate = today - tune.last_rehearsalDate;
       const factor =
         Data.status.find((status) => status.value == tune.status_num);
-      return {
-        tuneid: tune.id,
-        points: Math.round(diffdate * factor.factor),
+      return {...tune, points: Math.round(diffdate * factor.factor),
       };
     });
-    return pointsArray.sort((a, b) => a.points - b.points);
+    return this.sortTunes(pointsArray);
   }
 
   /**
@@ -93,31 +100,75 @@ export class Rehear extends Component {
   }
 
   /**
+   * sort tune list
+   *
+   * @param {array} tunelist
+   * @return {array} tunelist
+   */
+  sortTunes(tunelist) {
+    const orderedList = tunelist.sort((a, b) => a.points - b.points).reverse();
+    return orderedList;
+  }
+
+  /**
+     * Ordenar listado
+     *
+     * @param {array} list
+     * @return {array} list
+     */
+  sorter(event) {
+    const myinput = event.target.value;
+    this.sortcriteria = myinput;
+
+    this.tunelist.sort((a, b) => {
+      if (a[this.sortcriteria] < b[this.sortcriteria]) {
+        return this.sortorder == 'ASC' ? -1 : 1;
+      } else if (a[this.sortcriteria] > b[this.sortcriteria]) {
+        return this.sortorder == 'ASC' ? 1 : -1;
+      } else {
+        return 0;
+      }
+    });
+    this.renderList();
+  }
+
+  /**
+   * Generar lista para ensayo
+   *
+   */
+  createList() {
+    // generar lista ensayos
+    const orderedList = this.assignPointsTunes();
+    this.tunelist = orderedList.slice(0, this.numberTunes);
+    this.renderList();
+  }
+
+  /**
    * Generar lista para ensayo
    *
    */
   renderList() {
-    // generar lista ensayos
-    const orderedList = this.assignPointsTunes().reverse();
-    const rehearList = orderedList.slice(0, this.numberTunes);
     let myhtml = '';
-    rehearList.forEach((tune) => {
+    this.tunelist.forEach((tune) => {
       myhtml += this.renderTune(tune);
     });
     this.contentZone.innerHTML = myhtml;
     this.addContentListeners();
   }
 
+
   /**
    * renderizar tune individual para ensayar
    *
-   * @param {object} tune
+   * @param {object} originaltune
    * @return {string} html
    */
-  renderTune(tune) {
-    const originaltune =
-      Data.tunebook.find((tunebook) => tunebook.id == tune.tuneid);
-    return `<div id="tuneoriginal${tune.tuneid}" class="tunelist group 
+  renderTune(originaltune) {
+    // const originaltune =
+    // Data.tunebook.find((tunebook) => tunebook.id == tune.tuneid);
+    const links = Utils.generatelinks(originaltune.tuneref?.References);
+
+    return `<div id="tuneoriginal${originaltune.id}" class="tunelist group 
       w-full bg-white
       border-b-2 border-slate200 rounded-md px-6 py-2 flex items-center gap-2">
       <div class="tuneimg flex h-20 w-20 bg-center bg-cover mr-3
@@ -140,13 +191,14 @@ export class Rehear extends Component {
         shadow-2xl" src="./img/${Utils.removeWhiteSpaces(
       originaltune.prefered_tone.substring(0, 5))}.png">
         </span>
+        <span>${links.join('')}</span>
         </h2>
         <p class="tuneadditionaldata text-slate-400 font-regular uppercase 
         text-xs mb-2"><span class="font-medium mr-1 text-slate-500">
         ${originaltune.tuneref.type}</span>${originaltune.tuneref.author}</p>
       </div>
       <div class="flex gap-1 ml-auto items-center">
-        <button data-id="${tune.tuneid}" class="rehearsal bg-blue-400 p-1
+        <button data-id="${originaltune.id}" class="rehearsal bg-blue-400 p-1
         rounded-md text-white text-bold uppercase" title="añadir ensayo">
         <i class="fa fa-guitar fa-fw fa-lg"></i> Marcar completada</button>
     </div>

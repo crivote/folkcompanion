@@ -146,15 +146,14 @@ export class Videoadd extends Component {
    * @return {string}
    */
   getfulllistoftunes() {
-    const result = Data.tunes.map((tune) => {
+    const result = Data.tunes.flatMap((tune) => {
       const myid = tune.id;
       return tune.other_names.map((tunename) =>
-        `<option value="${myid}">${tunename}</option>`,
-      ).join('');
+        `<option value="${myid}" label="${tunename}">${tunename}</option>`,
+      );
     }).join( '');
     return result;
   }
-
 
   /**
    * obtener key de video de youtube
@@ -189,7 +188,7 @@ export class Videoadd extends Component {
    */
   async addtunetovideo(event) {
     const el = event.currentTarget;
-    const newtune = Data.tunes.find((tune) => tune.id === el.value);
+    const newtune = Data.tunes.find((tune) => tune.id == el.value);
     console.log(newtune);
     el.value='';
   }
