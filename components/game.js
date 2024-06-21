@@ -29,6 +29,8 @@ export class Game extends Component {
     this.setup();
   }
 
+  import '../audio/Sad_tr'
+
   /**
    * setup of component
    */
@@ -38,6 +40,9 @@ export class Game extends Component {
     this.numoftunes = 5;
     this.numofturns = 20;
     this.maxscore = 1000;
+    this.audioKO = new Audio('/audio/Sad_Trombone-Joe_Lamb-665429450.mp3');
+    this.audioOK = new Audio('/audio/SMALL_CROWD_APPLAUSE-Yannick_Lemieux-1268806408.mp3');
+
     // select only tunes with ABC
     this.drawbase = Data.tunes.filter(
         (tune) => tune.ABCsample && tune.ABCsample.length > 0,
@@ -207,10 +212,12 @@ export class Game extends Component {
     const tiempoahora = new Date();
     const tiemporespuesta = tiempoahora - this.tiempo;
     if (answer == this.rightanswer.id) {
+      this.audioOK.play();
       this.points += Math.max(
           Math.floor(this.maxscore - tiemporespuesta / 100), 0);
       this.showresult('right', 'Has dado la respuesta correcta');
     } else {
+      this.audioKO.play();
       this.showresult('wrong', 'La respuesta correcta es <strong>'+
       this.rightanswer.main_name+'</strong>');
     }
