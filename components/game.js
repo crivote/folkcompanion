@@ -29,8 +29,6 @@ export class Game extends Component {
     this.setup();
   }
 
-  import '../audio/Sad_tr'
-
   /**
    * setup of component
    */
@@ -41,7 +39,8 @@ export class Game extends Component {
     this.numofturns = 20;
     this.maxscore = 1000;
     this.audioKO = new Audio('/audio/Sad_Trombone-Joe_Lamb-665429450.mp3');
-    this.audioOK = new Audio('/audio/SMALL_CROWD_APPLAUSE-Yannick_Lemieux-1268806408.mp3');
+    this.audioOK =
+      new Audio('/audio/SMALL_CROWD_APPLAUSE-Yannick_Lemieux-1268806408.mp3');
 
     // select only tunes with ABC
     this.drawbase = Data.tunes.filter(
