@@ -36,7 +36,7 @@ export class Rehear extends Component {
     this.attachAt(this.generatehtml(), false);
     this.contentZone = this.element.querySelector('main');
     this.addListeners();
-    this.renderList();
+    this.createList();
   }
 
   /**
@@ -44,7 +44,7 @@ export class Rehear extends Component {
    */
   addListeners() {
     this.element.querySelector('.createnewlist')
-        .addEventListener('click', this.renderList.bind(this));
+        .addEventListener('click', this.createList.bind(this));
     this.element.querySelector('.tunesorting')
         .addEventListener('change', this.sorter.bind(this));
   }
