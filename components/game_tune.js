@@ -4,18 +4,11 @@ import {Data, ABCplayer} from '../startup.js';
 /**
  * Game component class
  */
-export class Game extends Component {
-  points;
-  turns;
-  // all tunes available to play
-  drawbase;
+export class GameTune extends Component {
   // the current right answer
   rightanswer;
   // time spent answering
   tiempo;
-  // numero de opciones
-  numoftunes;
-  numofturns;
   // puntuacion maxima por acierto
   maxscore;
   /**
@@ -33,19 +26,11 @@ export class Game extends Component {
    * setup of component
    */
   setup() {
-    this.turns = 0;
-    this.points = 0;
-    this.numoftunes = 5;
-    this.numofturns = 20;
     this.maxscore = 1000;
     this.audioKO = new Audio('./audio/Sad_Trombone-Joe_Lamb-665429450.mp3');
     this.audioOK =
       new Audio('./audio/SMALL_CROWD_APPLAUSE-Yannick_Lemieux-1268806408.mp3');
 
-    // select only tunes with ABC
-    this.drawbase = Data.tunes.filter(
-        (tune) => tune.ABCsample && tune.ABCsample.length > 0,
-    );
     // generate HTML
     this.attachAt(this.generatehtml(), false);
     this.gamezone = this.element.querySelector('main');
@@ -58,30 +43,13 @@ export class Game extends Component {
    * @return {string}
    */
   generatehtml() {
-    return `<section id="${this.name}">
-    <header class="p-6">
-        <div class="flex flex-wrap items-center gap-2">
-            <h3 class="text-3xl">Juego</h3>
-                <span class="turns bg-slate-400 text-sm px-2 py-1 
-                uppercase text-slate-200 rounded-lg text-md">
-                ${this.turns} Intentos</span> 
-                <span class="points bg-slate-400 text-sm px-2 py-1 
-                uppercase text-slate-200 rounded-lg text-md">
-                ${this.points} Puntos</span> 
-            </h3>
-        </div>
-        <button class="newgame">Nueva partida</button>
-    </header>
-    <main class="p-6"></main>
-    </section>`;
+
   }
 
   /**
    * add event listeners
    */
   addListeners() {
-    this.element.querySelector('.newgame')
-        .addEventListener('click', this.startgame.bind(this));
   }
 
   /**

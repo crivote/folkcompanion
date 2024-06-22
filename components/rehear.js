@@ -10,7 +10,7 @@ export class Rehear extends Component {
   numberTunes = 20;
   criterialist = [
     {value: 'points', label: 'prioridad', selected: true},
-    {value: 'tuneref.type', label: 'tipo'},
+    {value: 'type', label: 'tipo'},
     {value: 'prefered_tone', label: 'tonalidad'},
   ];
   sortcriteria = 'points';
@@ -116,9 +116,13 @@ export class Rehear extends Component {
     this.sortcriteria = myinput;
 
     this.tunelist.sort((a, b) => {
-      if (a[this.sortcriteria] < b[this.sortcriteria]) {
+      const valueA = this.sortcriteria == 'type' ?
+        a.tuneref.type : a[this.sortcriteria];
+      const valueB = this.sortcriteria == 'type' ?
+        b.tuneref.type : b[this.sortcriteria];
+      if (valueA < valueB) {
         return this.sortorder == 'ASC' ? -1 : 1;
-      } else if (a[this.sortcriteria] > b[this.sortcriteria]) {
+      } else if (valueA > valueB) {
         return this.sortorder == 'ASC' ? 1 : -1;
       } else {
         return 0;
