@@ -164,7 +164,7 @@ export class Tunemanagersearch extends Component {
       Array.isArray(tune.References) &&
       tune.References.length > 0 &&
       tune.References.some((item) =>
-        item.service_name == 'Thesession.org' &&
+        item?.service_name == 'Thesession.org' &&
         item?.service_ID == id.toString()));
   }
 
