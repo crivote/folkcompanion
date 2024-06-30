@@ -46,18 +46,22 @@ export class Videoaddtune extends Component {
  * @return {string}
  */
   generatehtml() {
+    const times = this.tune.medialinks.find(
+        (link) => link.videoid == this.video.id);
     return `
-        <li class="flex" data-id="${tune.id}>
-        <h2>${tune.main_name}</h2>
+        <li class="flex" data-id="${this.tune.id}>
+        <h2>${this.tune.main_name}</h2>
         <div>
           <label class="uppercase text-slate-400 text-sm mt-4">
           <i class="fa fa-clock"></i> inicio</label>
-          <span class="w-20" contenteditable="true" name="inicio"></span>
+          <span class="w-20" contenteditable="true" name="inicio">
+          ${times.start_time}></span>
         </div>
         <div>
             <label class="uppercase text-slate-400 text-sm mt-4">
             <i class="fa fa-clock"></i> final</label>
-            <span class="w-20" contenteditable="true" name="final"></span>
+            <span class="w-20" contenteditable="true" name="final">
+            ${times.end_time}</span>
         </div>
         <button class="remove"><i class="fa fa-times-circle"></i></button>
     </li>
