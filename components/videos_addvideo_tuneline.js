@@ -46,8 +46,8 @@ export class Videoaddtune extends Component {
  * @return {string}
  */
   generatehtml() {
-    const times = this.tune.medialinks.find(
-        (link) => link.videoid == this.video.id);
+    const times = this.tune.media_links.find(
+        (link) => link.videos_id == this.video.id);
     return `
         <li class="flex" data-id="${this.tune.id}>
         <h2>${this.tune.main_name}</h2>
