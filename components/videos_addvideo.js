@@ -50,10 +50,10 @@ export class Videoadd extends Component {
       this.loadVideo(this.videokey);
       this.instances = this.tunes.map((tune) => {
         return new Videoaddtune(
-            'tune'+tune.id,
+            'tune'+tune,
             this.tuneszone,
             this.video.id,
-            tune.id);
+            tune);
       });
     }
     this.addListeners();
