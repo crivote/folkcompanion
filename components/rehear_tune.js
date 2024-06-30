@@ -97,7 +97,7 @@ export class RehearTune extends Component {
     event.stopPropagation();
     const result = Controller.addrehearsal(this.tune.id);
     if (result) {
-      boton.disabled = true;
+      event.currentTarget.disabled = true;
       this.tunehtmlel.classList.add('bg-green-100', 'text-green-600');
     }
   }
