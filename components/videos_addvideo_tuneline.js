@@ -51,7 +51,7 @@ export class Videoaddtune extends Component {
     return `
         <li class="flex txt-xs bg-slate-500 text-white/80 p-2 gap-3"
          data-id="${this.tune.id}">
-        <h2 class="font-semibold>${this.tune.main_name}</h2>
+        <h2 class="font-semibold">${this.tune.main_name}</h2>
         <div class="ml-auto">
           <label class="uppercase text-slate-400 text-sm mt-4">
           <i class="fa fa-clock"></i> inicio</label>
