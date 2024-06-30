@@ -7,7 +7,6 @@ import {Controller, Utils, ABCplayer} from '../startup.js';
  */
 export class RehearTune extends Component {
   tune;
-  tunehtmlel;
 
   /**
    * Constructor
@@ -28,7 +27,6 @@ export class RehearTune extends Component {
   async setup() {
     // generate HTML
     this.attachAt(this.generatehtml(), false);
-    this.tunehtmlel= this.element.querySelector('.tunelist');
     this.addListeners();
   }
 
@@ -98,7 +96,7 @@ export class RehearTune extends Component {
     const result = Controller.addrehearsal(this.tune.id);
     if (result) {
       event.currentTarget.disabled = true;
-      this.tunehtmlel.classList.add('bg-green-100', 'text-green-600');
+      this.element.classList.add('bg-green-100', 'text-green-600');
     }
   }
 }
