@@ -161,6 +161,7 @@ export class Tunemanagersearch extends Component {
   checktuneexistindb(id) {
     return Data.tunes.some((tune) =>
       tune?.References &&
+      Array.isArray(tune.References) &&
       tune.References.length > 0 &&
       tune.References.some((item) =>
         item.service_name == 'Thesession.org' &&
