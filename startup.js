@@ -196,7 +196,7 @@ export class Utils {
    */
   static converttones(array) {
     let modes = [];
-    if (array.length > 0) {
+    if (Array.isArray(array) && array.length > 0) {
       modes = [...new Set(array)];
       modes = modes.map((item) => {
         const parts = item.trim().split(' ');
