@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Utils, Data} from '../startup.js';
+import {Data} from '../startup.js';
 import * as apis from '../apis.js';
 
 /**
@@ -16,6 +16,7 @@ export class Videoaddtune extends Component {
   * @param {string} name
   * @param {HTMLBodyElement} parentel
   * @param {number} videoid
+  * @param {number} tuneid
   */
   constructor(name, parentel, videoid, tuneid) {
     super(name, parentel);
@@ -56,14 +57,14 @@ export class Videoaddtune extends Component {
           <label class="uppercase text-slate-400 text-sm mt-4">
           <i class="fa fa-clock"></i> inicio</label>
           <input type="number" name="inicio" 
-          class="class="p-1 w-16 text-right text-slate-600"
+          class="p-1 w-16 text-right text-slate-600"
           value="${times ? times.start_time : 0}">
         </div>
         <div>
             <label class="uppercase text-slate-400 text-sm mt-4">
             <i class="fa fa-clock"></i> final</label>
             <input type="number" name="final" 
-            class="class="p-1 w-16 text-right text-slate-600"
+            class="p-1 w-16 text-right text-slate-600"
             value="${times ? times.end_time : 0}">
         </div>
         <button class="remove text-white ml-5">
