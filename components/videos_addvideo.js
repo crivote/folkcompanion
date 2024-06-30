@@ -201,9 +201,17 @@ export class Videoadd extends Component {
    */
   async addtunetovideo(event) {
     const el = event.currentTarget;
-    const newtune = Data.tunes.find((tune) => tune.id == el.value);
-    console.log(newtune);
+    const newtune = el.value;
     el.value='';
+    this.tunes.push(newtune);
+    this.instances.push(
+        new Videoaddtune(
+            'tune'+newtune,
+            this.tuneszone,
+            this.video.id,
+            newtune,
+        ),
+    );
   }
 
   /**
