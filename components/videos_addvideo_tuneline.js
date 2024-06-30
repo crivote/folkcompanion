@@ -17,10 +17,10 @@ export class Videoaddtune extends Component {
   * @param {HTMLBodyElement} parentel
   * @param {number} videoid
   */
-  constructor(name, parentel, videoid) {
+  constructor(name, parentel, videoid, tuneid) {
     super(name, parentel);
     this.video = Data.videos.find((video) => video.id == videoid);
-    this.tune = this.video.tunes;
+    this.tune = Data.tunes.find((tune) => tune.id == tuneid);
     this.setup();
   }
 
@@ -42,8 +42,9 @@ export class Videoaddtune extends Component {
   }
 
   /**
-  *
-  */
+ * Generate html of element
+ * @return {string}
+ */
   generatehtml() {
     return `
         <li class="flex" data-id="${tune.id}>
@@ -55,46 +56,32 @@ export class Videoaddtune extends Component {
         </div>
         <div>
             <label class="uppercase text-slate-400 text-sm mt-4">
-            <i class="fa fa-clock"></i> FINAL</label>
-            <span class="w-20" contenteditable="true" name="FINAL"></span>
+            <i class="fa fa-clock"></i> final</label>
+            <span class="w-20" contenteditable="true" name="final"></span>
         </div>
         <button class="remove"><i class="fa fa-times-circle"></i></button>
     </li>
         `;
   }
-  
+
   /**
    * Añadir enlace a tune en el video
    *
    * @param {number} videoid
    */
-  async addtunetovideo(videoid) {
+  async addtunetovideo() {
     const link = {
       videos_id: videoid,
       start_time: this.element.querySelector('[name="inicio"]').value,
       end_time: this.element.querySelector('[name="final"]').value,
     };
     const medialinks =
-        this.data?.medialinks ? this.data.medialinks.push(link) : [link];
+        this.tune?.medialinks ? this.tune.medialinks.push(link) : [link];
     const params2 = {
-      media_links: medialinks,
-      main_name: '',
-      other_names: '',
-      type: '',
-      author: '',
-      time: '',
-      tradition: '',
-      References: '',
-      Modes_played: '',
-      Estructure: '',
-      compasses: '',
-      first_reference: '',
-      trivia: '',
-      ABCsample: '',
-      popularity: '',
-      sortname: '',
+      ...this.tune,
+      medialinks: medialinks,
     };
-    const result = await apis.Xanoapi.edittune(this.data.id, params2);
+    const result = await apis.Xanoapi.edittune(this.tune.id, params2);
   }
 }
 

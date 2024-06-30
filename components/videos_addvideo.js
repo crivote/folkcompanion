@@ -2,6 +2,8 @@ import {Component} from '../abstract.js';
 import {Utils, Data} from '../startup.js';
 import * as apis from '../apis.js';
 import {Mynotification} from './notification.js';
+import {Videoaddtune} from './videos_addvideo_tuneline';
+
 
 /**
  * Componente adicion y edicion videos
@@ -10,9 +12,11 @@ import {Mynotification} from './notification.js';
 export class Videoadd extends Component {
   videokey;
   videozone;
+  tuneszone;
   video;
   isNew;
   tunes = [];
+  instances;
 
   /**
    * Constructor
@@ -20,8 +24,9 @@ export class Videoadd extends Component {
    * @param {string} name
    * @param {HTMLBodyElement} parentel
    * @param {number} videoid
+   * @param {number} tuneid
    */
-  constructor(name, parentel, videoid = '') {
+  constructor(name, parentel, videoid = '', tuneid ='') {
     super(name, parentel);
     this.isNew = (videoid == '');
     if (!this.isNew) {
@@ -33,15 +38,23 @@ export class Videoadd extends Component {
   }
 
   /**
-   * Setup inicial componente
+   * Setup inicial component
    */
   async setup() {
     this.attachAt(this.generatehtml(), false);
     this.videozone = this.element.querySelector('#videocontainer');
+    this.tuneszone = this.element.querySelector('ul.listoftunes');
     this.inputvideo = this.element.querySelector('.getVideoKey');
     this.inputtune = this.element.querySelector('.tuneselector');
     if (!this.isNew) {
       this.loadVideo(this.videokey);
+      this.instances = this.tunes.map((tune) => {
+        return new Videoaddtune(
+            'tune'+tune.id,
+            this.tuneszone,
+            this.video.id,
+            tune.id);
+      });
     }
     this.addListeners();
   }
