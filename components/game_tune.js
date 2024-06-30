@@ -11,14 +11,16 @@ export class GameTune extends Component {
   tiempo;
   // puntuacion maxima por acierto
   maxscore;
+  questionData;
   /**
    * Constructor
    *
    * @param {string} name
    * @param {HTMLBodyElement} parentel
    */
-  constructor(name, parentel) {
+  constructor(name, parentel, questionData) {
     super(name, parentel);
+    this.questionData = questionData;
     this.setup();
   }
 
@@ -33,7 +35,6 @@ export class GameTune extends Component {
 
     // generate HTML
     this.attachAt(this.generatehtml(), false);
-    this.gamezone = this.element.querySelector('main');
     this.addListeners();
   }
 
@@ -43,22 +44,32 @@ export class GameTune extends Component {
    * @return {string}
    */
   generatehtml() {
-
+    return `<div class="question relative">
+    <div class="flex p-6">
+        <div data-abc="${this.questionData.abc}" data-state="stop" 
+        class="rounded-full playabc h-48 w-48 bg-slate-600 flex 
+        text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
+        <i class=" m-auto fa fa-circle-play fa-5x"></i>
+        </div>
+    </div>
+    <ul class="options divide-y w-1/2 m-auto border border-slate-200
+     rounded-md bg-white p-8 shadow-md">
+        ${ this.questionData.names.map((option) => `<li class="text-lg p-4 
+        text-center font-medium bg-slate-100 hover:bg-slate-200 cursor-pointer"
+        data-value="${option.id}">${option.name}</li>`).join('')}
+        </ul>
+    </div>`;
   }
 
   /**
    * add event listeners
    */
   addListeners() {
-  }
-
-  /**
-   * Start the game reseting values
-   */
-  startgame() {
-    this.turns = 0;
-    this.points = 0;
-    this.nextturn();
+    this.element.querySelector('.playabc')
+        .addEventListener('click', this.lanzatiempo.bind(this));
+    this.element.querySelectorAll('.options li').forEach((el) => {
+      el.addEventListener('click', this.checkanswer.bind(this));
+    });
   }
 
   /**
@@ -87,57 +98,6 @@ export class GameTune extends Component {
     }
   }
 
-  /**
-   * Obtener al azar grupo de 5 tunes y setear correcta
-   *
-   * @return {array}
-   */
-  drawnewtunegroup() {
-    const maxnumber = this.drawbase.length;
-    const drawing = [];
-    let randomnumber;
-    let drawedtune;
-    while (drawing.length < this.numoftunes) {
-      randomnumber = Math.floor(Math.random() * (maxnumber + 1));
-      drawedtune = {...this.drawbase[randomnumber]};
-      if (!drawing.includes(drawedtune)) {
-        drawing.push(drawedtune);
-      }
-    }
-    this.rightanswer = drawing[0];
-    return this.barajar(drawing);
-  }
-
-  /**
-   * Renderiza el control audio y las opciones de respuesta
-   *
-   * @param {array} quizdata
-   */
-  renderquiz(quizdata) {
-    this.gamezone.innerHTML = `
-        <div class="question relative">
-            <div class="flex p-6">
-                <div data-abc="${quizdata.abc}" data-state="stop" 
-                class="rounded-full playabc h-48 w-48 bg-slate-600 flex 
-                text-white/30 hover:text-white/75 m-auto drop-shadow-xl">
-                <i class=" m-auto fa fa-circle-play fa-5x"></i>
-                </div>
-            </div>
-            <ul class="options divide-y w-1/2 m-auto border border-slate-200
-             rounded-md bg-white p-8 shadow-md">
-            ${quizdata.names.map(
-      (option) => `<li class="text-lg p-4 
-            text-center font-medium bg-slate-100 hover:bg-slate-200 
-            cursor-pointer" data-value="${option.id}">${option.name}</li>`)
-      .join('')}
-            </ul>
-        </div>`;
-    this.element.querySelector('.playabc')
-        .addEventListener('click', this.lanzatiempo.bind(this));
-    this.element.querySelectorAll('.options li').forEach((el) => {
-      el.addEventListener('click', this.checkanswer.bind(this));
-    });
-  }
 
   /**
    * inicia reproduccion audio y lanza crono respuesta
@@ -149,20 +109,6 @@ export class GameTune extends Component {
     ABCplayer.manageabc(event);
   }
 
-  /**
-   * helper para ordenar elementos
-   *
-   * @param {array} opciones
-   * @return {array}
-   */
-  barajar(opciones) {
-    const nuevoset = [...opciones];
-    for (let i = nuevoset.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [nuevoset[i], nuevoset[j]] = [nuevoset[j], nuevoset[i]];
-    }
-    return nuevoset;
-  }
 
   /**
    * Comprobar respuesta y procesar resultado
