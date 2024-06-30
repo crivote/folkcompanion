@@ -49,19 +49,20 @@ export class Videoaddtune extends Component {
     const times = this.tune.media_links.find(
         (link) => link.videos_id == this.video.id);
     return `
-        <li class="flex" data-id="${this.tune.id}>
+        <li class="flex txt-xs bg-slate-500 text-white/80 p-2"
+         data-id="${this.tune.id}">
         <h2>${this.tune.main_name}</h2>
-        <div>
+        <div class="ml-auto">
           <label class="uppercase text-slate-400 text-sm mt-4">
           <i class="fa fa-clock"></i> inicio</label>
-          <span class="w-20" contenteditable="true" name="inicio">
-          ${times.start_time}></span>
+          <input type="number" name="inicio" value="
+           ${times ? times.start_time : 0}">
         </div>
         <div>
             <label class="uppercase text-slate-400 text-sm mt-4">
             <i class="fa fa-clock"></i> final</label>
-            <span class="w-20" contenteditable="true" name="final">
-            ${times.end_time}</span>
+            <input type="number" name="final" value="
+            ${times ? times.end_time : 0}">
         </div>
         <button class="remove"><i class="fa fa-times-circle"></i></button>
     </li>
