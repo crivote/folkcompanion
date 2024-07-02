@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Data, Utils} from '../startup.js';
+import {Data} from '../startup.js';
 import {RehearTune} from './rehear_tune.js';
 
 /**

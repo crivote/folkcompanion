@@ -189,25 +189,28 @@ export class Utils {
   }
 
   /**
-   * Convierte los tonos a estructura DB
+   * Converts tones to DB structure
    *
    * @param {string[]} array
    * @return {object[]} modes
    */
   static converttones(array) {
-    let modes = [];
-    if (Array.isArray(array) && array.length > 0) {
-      modes = [...new Set(array)];
-      modes = modes.map((item) => {
-        const parts = item.trim().split(' ');
-        return {
-          Key: parts[0].toUpperCase(),
-          Mode: parts[1].substring(0, 1).toUpperCase() + parts[1].substring(1),
-        };
-      });
+    if (!Array.isArray(array) || array.length === 0) {
+      return [];
     }
+
+    const uniqueTones = [...new Set(array)];
+    const modes = uniqueTones.map((item) => {
+      const parts = item.trim().split(' ');
+      return {
+        Key: parts[0].toUpperCase(),
+        Mode: parts[1].substring(0, 1).toUpperCase() + parts[1].substring(1),
+      };
+    });
+
     return modes;
   }
+
 
   /**
    * Genera html para iframe youtube

@@ -36,8 +36,10 @@ export class RehearTune extends Component {
   addListeners() {
     this.element.querySelector('.rehearsal')
         .addEventListener('click', this.addrehearsal.bind(this));
-    this.element.querySelector('.playabc')
-        .addEventListener('click', ABCplayer.manageabc);
+    if (this.tune.tuneref.ABCsample) {
+      this.element.querySelector('.playabc')
+          .addEventListener('click', ABCplayer.manageabc);
+    }
   }
 
   /**
