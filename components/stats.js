@@ -56,6 +56,7 @@ export class Stats extends Component {
    * @return {boolean}
    */
   groupDatesByDay(dates) {
+    this.objectDates = {};
     dates.forEach((date) => {
       const mydate = new Date(date.date);
       const day = mydate.toISOString().split('T')[0];
