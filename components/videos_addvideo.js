@@ -227,9 +227,9 @@ export class Videoadd extends Component {
     const params = {
       url: this.videokey,
       thumb_url: `https://i3.ytimg.com/vi/${this.videokey}/hqdefault.jpg`,
-      type: this.element.querySelector('[name="type"]').value,
-      Title: this.element.querySelector('[name="titulo"]').value,
-      Performer: this.element.querySelector('[name="artista"]').value,
+      type: this.element.querySelector('[data-name="type"]').value,
+      Title: this.element.querySelector('[data-name="titulo"]').value,
+      Performer: this.element.querySelector('[data-name="artista"]').value,
       notes: '',
       album_relation: {},
     };
