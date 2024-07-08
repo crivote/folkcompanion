@@ -138,12 +138,10 @@ export class Videoadd extends Component {
               <datalist id="alltunes">
                 ${this.getfulllistoftunes()}
               </datalist>
-              <label class="uppercase text-slate-400 text-sm mt-4">
-              Add a tune to this video</label>
-              <input list="alltunes" class="tuneselector" 
-              name="tuneselector">
+              <input list="alltunes" class="tuneselector p-1 txt-sm mx-auto" 
+              name="tuneselector" placeholder="añadir un tema">
           </div>   
-          <ul class="listoftunes"></ul>    
+          <ul class="listoftunes mt-2"></ul>    
         </section>
       </div>
       </section>

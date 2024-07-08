@@ -56,20 +56,20 @@ export class Videoaddtune extends Component {
         <h2 class="font-semibold">${this.tune.main_name}</h2>
         <div class="ml-auto">
           <label class="uppercase text-slate-400 text-sm mt-4">
-          <i class="fa fa-clock"></i> inicio</label>
+          <i class="fa fa-clock"></i> de</label>
           <input type="number" name="inicio" 
           class="p-1 w-16 text-right text-slate-600"
           value="${this.times ? this.times.start_time : 0}">
         </div>
         <div>
             <label class="uppercase text-slate-400 text-sm mt-4">
-            <i class="fa fa-clock"></i> final</label>
+            <i class="fa fa-clock"></i> a</label>
             <input type="number" name="final" 
             class="p-1 w-16 text-right text-slate-600"
             value="${this.times ? this.times.end_time : 0}">
         </div>
-        <button class="removetune text-white ml-5">
-        <i class="fa fa-times-circle fa-lg"></i></button>
+        <button class="removetune text-white ml-3">
+        <i class="fa fa-times-circle fa-lg text-red-300"></i></button>
     </li>
         `;
   }
