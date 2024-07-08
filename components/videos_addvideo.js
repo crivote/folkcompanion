@@ -224,30 +224,49 @@ export class Videoadd extends Component {
    */
   async addvideo(event) {
     event.preventDefault();
-    if (!Data.videos.some((video) => video.url == this.videokey)) {
-      // Comprobar que el video no ha sido ya añadido antes
-      const params = {
-        url: this.videokey,
-        thumb_url: `https://i3.ytimg.com/vi/${this.videokey}/hqdefault.jpg`,
-        type: this.element.querySelector('[name="type"]').value,
-        Title: this.element.querySelector('[name="titulo"]').value,
-        Performer: this.element.querySelector('[name="artista"]').value,
-        notes: this.element.querySelector('[name="notas"]').value,
-        album_relation: {},
-      };
-      try {
-        const result = await apis.Xanoapi.addvideo(params);
-        if (result) {
-          new Mynotification('success', `Se ha guardado el vídeo.`);
+    const params = {
+      url: this.videokey,
+      thumb_url: `https://i3.ytimg.com/vi/${this.videokey}/hqdefault.jpg`,
+      type: this.element.querySelector('[name="type"]').value,
+      Title: this.element.querySelector('[name="titulo"]').value,
+      Performer: this.element.querySelector('[name="artista"]').value,
+      notes: '',
+      album_relation: {},
+    };
+    if (this.isNew) {
+      if (!Data.videos.some((video) => video.url == this.videokey)) {
+        // Comprobar que el video no ha sido ya añadido antes
+        try {
+          const result = await apis.Xanoapi.addvideo(params);
+          if (result) {
+            new Mynotification('success', `Se ha guardado el nuevo vídeo.`);
+          }
+        } catch (error) {
+          new Mynotification(
+              'error',
+              `No se ha podido guardar el nuevo vídeo.`);
+          console.log(error);
         }
-      } catch (error) {
-        new Mynotification('error', `No se ha podido guardar el vídeo.`);
-        console.log(error);
+      } else {
+        new Mynotification(
+            'error',
+            `Ya hay un video guardado con la misma url.`);
       }
     } else {
-      new Mynotification('error', `Ya hay un video guardado con la misma url.`);
+      // actualizar datos
+      try {
+        const result = await apis.Xanoapi.editvideo(this.videokey, params);
+        if (result) {
+          new Mynotification('success', `Se ha actualizado el vídeo.`);
+        }
+      } catch (error) {
+        new Mynotification('error', `No se ha podido actualizar el vídeo.`);
+        console.log(error);
+      }
     }
+    this.instances.forEach((tuneinstance) => tuneinstance.savevideoreference());
   }
+
   /**
    * Show select for the title
    *

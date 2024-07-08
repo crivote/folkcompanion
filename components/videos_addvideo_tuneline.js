@@ -46,6 +46,34 @@ export class Videoaddtune extends Component {
   }
 
   /**
+   * delete references to tune
+   *
+   */
+  async remove() {
+    if (this.tune.medialinks &&
+      this.tune.medialinks.some((link)=>link.videoid == this.video.id)
+    ) {
+      this.tune.medialinks =
+          this.tune.medialinks.filter(
+              (link)=>link.videoid != this.video.id);
+      try {
+        const result = await apis.Xanoapi.edittune(this.tune.id, this.tune);
+        if (result) {
+          new Mynotification(
+              'success',
+              `Se ha borrado referencia al tema ${tune.main_name}.`);
+        }
+      } catch (error) {
+        new Mynotification(
+            'error',
+            `No se ha podido borrar referencia al tema ${tune.main_name}.`);
+        console.log(error);
+      }
+    }
+    super.remove();
+  }
+
+  /**
  * Generate html of element
  * @return {string}
  */
@@ -79,19 +107,38 @@ export class Videoaddtune extends Component {
    *
    * @param {number} videoid
    */
-  async addtunetovideo() {
+  async savevideoreference() {
     const link = {
-      videos_id: videoid,
+      videos_id: this.video.id,
       start_time: this.element.querySelector('[name="inicio"]').value,
       end_time: this.element.querySelector('[name="final"]').value,
     };
-    const medialinks =
-        this.tune?.medialinks ? this.tune.medialinks.push(link) : [link];
-    const params2 = {
+    let medialinks;
+    if (this.tune.medialinks) {
+      medialinks =
+        this.tune.medialinks.filter((link) => link.videos_id != this.video.id);
+      medialinks.push(link);
+    } else {
+      medialinks = [link];
+    }
+    const params = {
       ...this.tune,
       medialinks: medialinks,
     };
-    const result = await apis.Xanoapi.edittune(this.tune.id, params2);
+
+    try {
+      const result = await apis.Xanoapi.edittune(this.tune.id, params);
+      if (result) {
+        new Mynotification(
+            'success',
+            `Se ha guardado referencia al tema ${tune.main_name}.`);
+      }
+    } catch (error) {
+      new Mynotification(
+          'error',
+          `No se ha podido guardar referencia al tema ${tune.main_name}.`);
+      console.log(error);
+    }
   }
 }
 
