@@ -18,23 +18,20 @@ export class Videoaddtune extends Component {
   * @param {HTMLBodyElement} parentel
   * @param {number} videoid
   * @param {number} tuneid
+  * @param {object} times
   */
-  constructor(name, parentel, videoid, tuneid) {
+  constructor(name, parentel, videoid, tuneid, times) {
     super(name, parentel);
     this.video = Data.videos.find((video) => video.id == videoid);
     this.tune = Data.tunes.find((tune) => tune.id == tuneid);
     this.setup();
+    this.times = times;
   }
 
   /**
   * Setup inicial componente
   */
   async setup() {
-    const times = this.tune.media_links.find(
-        (link) => link.videos_id == this.video.id);
-    if (times) {
-      this.times = times;
-    }
     this.attachAt(this.generatehtml(), false);
     this.addListeners();
   }
