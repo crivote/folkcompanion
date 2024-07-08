@@ -49,7 +49,8 @@ export class Videoadd extends Component {
     if (!this.isNew) {
       this.loadVideo(this.videokey);
       this.instances = this.tunes.map((tune) => {
-        const times = tune.media_links.find(
+        const fulltune = Data.tunes.find((ftune) => ftune.id == tune);
+        const times = fulltune.media_links.find(
             (link) => link.videos_id == this.video.id);
         return new Videoaddtune(
             'tune'+tune,
