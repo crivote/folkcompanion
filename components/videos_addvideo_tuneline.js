@@ -9,6 +9,7 @@ import * as apis from '../apis.js';
 export class Videoaddtune extends Component {
   video;
   tune;
+  times;
 
   /**
   * Constructor
@@ -29,6 +30,11 @@ export class Videoaddtune extends Component {
   * Setup inicial componente
   */
   async setup() {
+    const times = this.tune.media_links.find(
+        (link) => link.videos_id == this.video.id);
+    if (times) {
+      this.times = times;
+    }
     this.attachAt(this.generatehtml(), false);
     this.addListeners();
   }
@@ -38,7 +44,7 @@ export class Videoaddtune extends Component {
   */
   addListeners() {
     // close window
-    this.element.querySelector('#closeaddvideo')
+    this.element.querySelector('.removetune')
         .addEventListener('click', this.remove.bind(this));
   }
 
@@ -47,8 +53,6 @@ export class Videoaddtune extends Component {
  * @return {string}
  */
   generatehtml() {
-    const times = this.tune.media_links.find(
-        (link) => link.videos_id == this.video.id);
     return `
         <li class="flex txt-xs bg-slate-500 text-white/80 p-2 gap-3"
          data-id="${this.tune.id}">
@@ -58,16 +62,16 @@ export class Videoaddtune extends Component {
           <i class="fa fa-clock"></i> inicio</label>
           <input type="number" name="inicio" 
           class="p-1 w-16 text-right text-slate-600"
-          value="${times ? times.start_time : 0}">
+          value="${this.times ? this.times.start_time : 0}">
         </div>
         <div>
             <label class="uppercase text-slate-400 text-sm mt-4">
             <i class="fa fa-clock"></i> final</label>
             <input type="number" name="final" 
             class="p-1 w-16 text-right text-slate-600"
-            value="${times ? times.end_time : 0}">
+            value="${this.times ? this.times.end_time : 0}">
         </div>
-        <button class="remove text-white ml-5">
+        <button class="removetune text-white ml-5">
         <i class="fa fa-times-circle fa-lg"></i></button>
     </li>
         `;
