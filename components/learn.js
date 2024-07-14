@@ -7,8 +7,8 @@ import {LearnTune} from './learn_tune.js';
  */
 export class Learn extends Component {
   contentZone;
-  numberTunes = 10;
-  daysBackwards= 15;
+  numberTunes = 20;
+  daysBackwards = 15;
   criterialist = [
     {value: 'points', label: 'prioridad', selected: true},
     {value: 'type', label: 'tipo'},
