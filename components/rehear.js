@@ -16,7 +16,6 @@ export class Rehear extends Component {
   sortcriteria = 'points';
   tunelist = [];
   tuneinstances = [];
-  
 
   /**
    * Constructor
@@ -56,9 +55,9 @@ export class Rehear extends Component {
    * @return {array}
    */
   assignPointsTunes() {
-    const filteredTunes = Data.tunebook.filter((tune) => {
-      tune.status_num > 2;
-    });
+    const filteredTunes = Data.tunebook.filter((tune) =>
+      tune.status_num > 2);
+
     const pointsArray = filteredTunes.map((tune) => {
       const today = new Date();
       const diffdate = today - tune.last_rehearsalDate;

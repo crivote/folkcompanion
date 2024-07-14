@@ -57,9 +57,8 @@ export class Learn extends Component {
    * @return {array}
    */
   assignPointsTunes() {
-    const filteredTunes = Data.tunebook.filter((tune) => {
-      tune.status_num == 2;
-    });
+    const filteredTunes = Data.tunebook.filter((tune) =>
+      tune.status_num == 2);
     const pointsArray = filteredTunes.map((tune) => {
       const dateFilter = new Date();
       dateFilter.setDate(dateFilter.getDate() - daysBackwards);
@@ -108,9 +107,9 @@ export class Learn extends Component {
    * @return {array} tunelist
    */
   sortTunes(tunelist) {
-    const orderedList =
+    let orderedList =
         tunelist.sort((a, b) => b.last_rehearsalDate - a.last_rehearsalDate);
-    orderedList = tunelist.sort((a, b) => b.points - a.points);
+    orderedList = orderedList.sort((a, b) => b.points - a.points);
     return orderedList;
   }
 
