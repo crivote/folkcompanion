@@ -61,7 +61,7 @@ export class Learn extends Component {
       tune.status_num == 2);
     const pointsArray = filteredTunes.map((tune) => {
       const dateFilter = new Date();
-      dateFilter.setDate(dateFilter.getDate() - daysBackwards);
+      dateFilter.setDate(dateFilter.getDate() - this.daysBackwards);
       const validRehears = tune.last_rehearsals
           .filter((rehear) => rehear > dateFilter);
       return {...tune,
