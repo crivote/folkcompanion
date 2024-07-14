@@ -33,6 +33,11 @@ export class Menubar extends Component {
       role: 'all',
     },
     {
+      tag: 'Aprender',
+      name: 'Learn',
+      role: 'all',
+    },
+    {
       tag: 'Ensayar',
       name: 'Rehear',
       role: 'all',

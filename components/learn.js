@@ -1,13 +1,14 @@
 import {Component} from '../abstract.js';
 import {Data} from '../startup.js';
-import {RehearTune} from './rehear_tune.js';
+import {LearnTune} from './learn_tune.js';
 
 /**
  * rehearsal proposal component
  */
-export class Rehear extends Component {
+export class Learn extends Component {
   contentZone;
-  numberTunes = 20;
+  numberTunes = 10;
+  daysBackwards= 15;
   criterialist = [
     {value: 'points', label: 'prioridad', selected: true},
     {value: 'type', label: 'tipo'},
@@ -16,7 +17,6 @@ export class Rehear extends Component {
   sortcriteria = 'points';
   tunelist = [];
   tuneinstances = [];
-  
 
   /**
    * Constructor
@@ -50,6 +50,7 @@ export class Rehear extends Component {
         .addEventListener('change', this.sorter.bind(this));
   }
 
+
   /**
    * crear array de fechas de ensayos de tunes
    *
@@ -57,14 +58,15 @@ export class Rehear extends Component {
    */
   assignPointsTunes() {
     const filteredTunes = Data.tunebook.filter((tune) => {
-      tune.status_num > 2;
+      tune.status_num == 2;
     });
     const pointsArray = filteredTunes.map((tune) => {
-      const today = new Date();
-      const diffdate = today - tune.last_rehearsalDate;
-      const factor =
-        Data.status.find((status) => status.value == tune.status_num);
-      return {...tune, points: Math.round(diffdate * factor.factor),
+      const dateFilter = new Date();
+      dateFilter.setDate(dateFilter.getDate() - daysBackwards);
+      const validRehears = tune.last_rehearsals
+          .filter((rehear) => rehear > dateFilter);
+      return {...tune,
+        points: validRehears.length,
       };
     });
     return this.sortTunes(pointsArray);
@@ -79,7 +81,7 @@ export class Rehear extends Component {
     return `<section id="${this.name}">
       <header class="pt-6 px-6">
         <div class="flex flex-wrap items-center gap-2">
-          <h3 class="text-3xl">Lista para ensayar</h3>
+          <h3 class="text-3xl">Lista para Aprender</h3>
           <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 uppercase
           text-slate-200 rounded-lg text-md">${this.numberTunes}
           </span></h3>
@@ -106,7 +108,9 @@ export class Rehear extends Component {
    * @return {array} tunelist
    */
   sortTunes(tunelist) {
-    const orderedList = tunelist.sort((a, b) => a.points - b.points).reverse();
+    const orderedList =
+        tunelist.sort((a, b) => b.last_rehearsalDate - a.last_rehearsalDate);
+    orderedList = tunelist.sort((a, b) => b.points - a.points);
     return orderedList;
   }
 
@@ -153,7 +157,7 @@ export class Rehear extends Component {
   renderList() {
     this.contentZone.innerHTML = '';
     this.tuneinstances = this.tunelist.map((tune) => {
-      return new RehearTune('tune' + tune.id, this.contentZone, tune);
+      return new LearnTune('tune' + tune.id, this.contentZone, tune);
     });
   }
 }
