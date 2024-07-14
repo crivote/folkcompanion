@@ -107,10 +107,14 @@ export class Learn extends Component {
    * @return {array} tunelist
    */
   sortTunes(tunelist) {
-    let orderedList =
-        tunelist.sort((a, b) => b.last_rehearsalDate - a.last_rehearsalDate);
-    orderedList = orderedList.sort((a, b) => b.points - a.points);
-    return orderedList;
+    const orderedList = tunelist.sort((a, b) => {
+      if (b.points !== a.points) {
+        return b.points - a.points;
+      } else {
+        return new Date(b.last_rehearsalDate) - new Date(a.last_rehearsalDate);
+      }
+    });
+    return orderedList.reverse();
   }
 
   /**
