@@ -207,6 +207,9 @@ export class Tuneaddtobook extends Component {
         .querySelector('input[name="numrehearsals"]').value;
     params.last_rehearsals = [];
     if (!this.isNew && Array.isArray(this.tune.last_rehearsals)) {
+      if (this.tune.last_rehearsals.length > 10) {
+        this.tune.last_rehearsals.slice(0, 10);
+      }
       params.last_rehearsals = this.tune.last_rehearsals;
     }
     const tempstatus = this.element
