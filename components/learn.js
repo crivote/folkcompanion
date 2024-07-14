@@ -114,7 +114,7 @@ export class Learn extends Component {
         return new Date(b.last_rehearsalDate) - new Date(a.last_rehearsalDate);
       }
     });
-    return orderedList.reverse();
+    return orderedList;
   }
 
   /**
