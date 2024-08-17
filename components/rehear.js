@@ -169,10 +169,11 @@ export class Rehear extends Component {
       this.renderList();
     } else {
       this.tunelist = orderedList.slice(0, this.numberTunes * 2);
+      this.tunesets = [];
       while (this.tunesets.length < this.numberSets) {
         const firsttune = this.tunelist.shift();
         const currentSet = this.createSet(firsttune);
-        this.tunesets.push([currentSet]);
+        this.tunesets.push(currentSet);
       }
       this.renderSets();
     }
