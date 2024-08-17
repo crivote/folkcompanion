@@ -660,7 +660,7 @@ export class Controller {
     tune.last_rehearsalDate = now.valueOf();
     tune.last_rehearsals.unshift(tune.last_rehearsalDate);
     if (tune.last_rehearsals.length > 10) {
-      tune.last_rehearsals.slice(0, 10);
+      tune.last_rehearsals = tune.last_rehearsals.slice(0, 10);
     }
 
     // sumar nuevo ensayo
