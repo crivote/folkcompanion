@@ -666,7 +666,7 @@ export class ABCplayer {
    * @param {string} abc
    */
   static playabc(abc) {
-    const clean = abc.replace(/!/g, '/n');
+    const clean = abc.replace(/!/g, '\n');
     console.log(clean);
     if (abcjs.synth.supportsAudio()) {
       const visualObj = abcjs.renderAbc('*', clean)[0];
