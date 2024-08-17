@@ -406,8 +406,8 @@ export const Data = {
   status: [
     {value: 1, factor: 0, label: 'Pendiente', color: 'stone-600'},
     {value: 2, factor: 2, label: 'Aprendiendo', color: 'orange-600',
-      times: 7, days: 15},
-    {value: 3, factor: 1.2, label: 'Fijar', color: 'yellow-500', days: 15},
+      times: 7, days: 10},
+    {value: 3, factor: 2, label: 'Fijar', color: 'yellow-500', days: 15},
     {value: 4, factor: 1, label: 'Básica', color: 'lime-500', days: 30},
     {value: 5, factor: 0.5, label: 'Intermedio', color: 'green-600', days: 45},
     {value: 6, factor: 0.25, label: 'Avanzada', color: 'emerald-600', days: 60},
@@ -666,8 +666,10 @@ export class ABCplayer {
    * @param {string} abc
    */
   static playabc(abc) {
+    const clean = abc.replace(/!/g, '/n');
+    console.log(clean);
     if (abcjs.synth.supportsAudio()) {
-      const visualObj = abcjs.renderAbc('*', abc)[0];
+      const visualObj = abcjs.renderAbc('*', clean)[0];
       ABCplayer.midiBuffer = new abcjs.synth.CreateSynth();
       ABCplayer.midiBuffer
           .init({
