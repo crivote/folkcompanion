@@ -152,7 +152,7 @@ export class Rehear extends Component {
    *
    */
   changesets() {
-    this.createsets = !this.createSet;
+    this.createsets = !this.createsets;
     this.createList();
   }
 
