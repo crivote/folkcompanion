@@ -442,6 +442,33 @@ export const Data = {
     'F': 'fa',
     'G': 'sol',
   },
+  keyAlterations: {
+    'C maj': 0, 'A min': 0,
+    'G maj': 1, 'E min': 1,
+    'D maj': 2, 'B min': 2,
+    'A maj': 3, 'F# min': 3,
+    'E maj': 4, 'C# min': 4,
+    'B maj': 5, 'G# min': 5,
+    'F# maj': 6, 'D# min': 6,
+    'C# maj': 7, 'A# min': 7,
+    'F maj': -1, 'D min': -1,
+    'Bb maj': -2, 'G min': -2,
+    'Eb maj': -3, 'C min': -3,
+    'Ab maj': -4, 'F min': -4,
+    'Db maj': -5, 'Bb min': -5,
+    'Gb maj': -6, 'Eb min': -6,
+    'Cb maj': -7, 'Ab min': -7,
+
+    // Modos dórico (basados en la tónica mayor correspondiente)
+    'D dor': -1, 'E dor': 2, 'F dor': -4,
+    'G dor': 1, 'A dor': 3, 'B dor': 5,
+    'C dor': 0,
+
+    // Modos mixolidio (basados en la tónica mayor correspondiente)
+    'C mix': 0, 'D mix': 1, 'E mix': 4,
+    'F mix': -1, 'G mix': 1, 'A mix': 2,
+    'B mix': 5,
+  },
 };
 
 /**

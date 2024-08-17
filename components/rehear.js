@@ -169,6 +169,9 @@ export class Rehear extends Component {
       this.renderList();
     } else {
       this.tunelist = orderedList.slice(0, this.numberTunes * 2);
+      this.tunelist.forEach((tune) => {
+        tune.alterations = Data.keyAlterations[tune.prefered_tone];
+      });
       this.tunesets = [];
       while (this.tunesets.length < this.numberSets) {
         const firsttune = this.tunelist.shift();
@@ -209,8 +212,7 @@ export class Rehear extends Component {
     if (foundTune === -1) {
       foundTune = this.tunelist
           .findIndex((item) => item.tuneref.type === tune.tuneref.type &&
-           item.prefered_tone.substring(0, 1) ===
-           tune.prefered_tone.substring(0, 1));
+          Math.abs(foundTune.alterations - item.alterations) < 2);
     }
     if (foundTune === -1) {
       foundTune = this.tunelist
