@@ -116,23 +116,28 @@ export class Videoadd extends Component {
         <main class="mt-3 grid md:grid-cols-2 xl:grid-cols-5 gap-4">
           <section id="form" class="xl:col-span-2">
             <div class="flex flex-col gap-2">
-          ${Utils.generateformfield(
+  ${Utils.generateformfield(
       'titulo',
       'titulo del vídeo',
             this.isNew ? '' : this.video.Title, null, true,
   )}
-          ${Utils.generateformfield(
+  ${Utils.generateformfield(
       'artista',
       'artista',
             this.isNew ? '' : this.video.Performer, null, true,
   )}
-          ${Utils.generateformfield(
+  ${Utils.generateformfield(
       'type',
       'Categoría de vídeo',
             this.isNew ? '' : this.video.type,
             Data.videotypes,
   )}
-        <section class="tunesaddition bg-slate-100 border 
+              <div class="flex flex-col border-2 p-4 border-slate-100 
+              bg-slate-50 rounded-md mb-4">
+                <label class="uppercase text-slate-400 text-sm">
+                Notas</label>   
+                <textarea name="notes">${mynotes}</textarea>
+              </div>        <section class="tunesaddition bg-slate-100 border 
               border-slate-300 p-4">
           <div id="datatuneadd" class="flex gap-3 tunecontainer">
               <datalist id="alltunes">
@@ -227,10 +232,11 @@ export class Videoadd extends Component {
     const params = {
       url: this.videokey,
       thumb_url: `https://i3.ytimg.com/vi/${this.videokey}/hqdefault.jpg`,
-      type: this.element.querySelector('[data-name="type"]').value,
-      Title: this.element.querySelector('[data-name="titulo"]').value,
-      Performer: this.element.querySelector('[data-name="artista"]').value,
-      notes: '',
+      type: this.element.querySelector('[data-name="type"]').textContent,
+      Title: this.element.querySelector('[data-name="titulo"]').textContent,
+      Performer:
+        this.element.querySelector('[data-name="artista"]').textContent,
+      notes: this.element.querySelector('[name="notes"]').textContent,
       album_relation: {},
     };
     if (this.isNew) {
