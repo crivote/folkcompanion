@@ -254,6 +254,7 @@ export class Videoadd extends Component {
       }
     } else {
       // actualizar datos
+      params.id = this.video.id;
       try {
         const result = await apis.Xanoapi.editvideo(this.videokey, params);
         if (result) {
