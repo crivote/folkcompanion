@@ -679,6 +679,27 @@ export class Controller {
       return false;
     }
   }
+
+  /**
+   * Change status of tune
+   *
+   * @param {number} tuneid
+   * @param {number} newStatus
+   */
+  static async changeStatus(tuneid, newStatus) {
+    const tune = Data.tunebook.find((tune) => tune.id == tuneid);
+    tune.status_num = newStatus;
+    const result = await apis.Xanoapi.edittunebooktune(tuneid, tune);
+    const newLabel = Utils.getstatus(newStatus);
+    if (result) {
+      new components.Mynotification('success',
+          `cambiado status de ${tune.prefered_name} a ${newLabel.label}`);
+      return true;
+    } else {
+      new components.Mynotification('error', `error al cambiar status.`);
+      return false;
+    }
+  }
 }
 
 

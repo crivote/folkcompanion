@@ -7,17 +7,19 @@ import {Controller, Utils, ABCplayer} from '../startup.js';
  */
 export class LearnTune extends Component {
   tune;
-
+  maxRehear;
   /**
    * Constructor
    *
    * @param {string} name
    * @param {HTMLBodyElement} parentel
    * @param {object} tune
+   * @param {number} maxRehear
    */
-  constructor(name, parentel, tune) {
+  constructor(name, parentel, tune, maxRehear) {
     super(name, parentel);
     this.tune = tune;
+    this.maxRehear = maxRehear;
     this.setup();
   }
 
@@ -34,8 +36,13 @@ export class LearnTune extends Component {
    * Add listeners to the list items
    */
   addListeners() {
-    this.element.querySelector('.rehearsal')
-        .addEventListener('click', this.addrehearsal.bind(this));
+    if (this.tune.points >= this.maxRehear) {
+      this.element.querySelector('.rehearsal')
+          .addEventListener('click', this.addrehearsal.bind(this));
+    } else {
+      this.element.querySelector('.promote')
+          .addEventListener('click', this.promote.bind(this));
+    }
     if (this.tune.tuneref.ABCsample) {
       this.element.querySelector('.playabc')
           .addEventListener('click', ABCplayer.manageabc);
@@ -50,6 +57,13 @@ export class LearnTune extends Component {
   generatehtml() {
     // Data.tunebook.find((tunebook) => tunebook.id == tune.tuneid);
     const links = Utils.generatelinks(this.tune.tuneref?.References);
+    const rehearButton = `<button class="rehearsal bg-blue-400 p-1
+        rounded-md text-white text-bold uppercase" title="añadir ensayo">
+        <i class="fa fa-circle-check fa-fw fa-lg"></i></button>`;
+    const changeStatusButton = `<button class="promote bg-yellow-400 p-1
+        rounded-md text-blue-600 text-bold uppercase" 
+        title="marcar como aprendida">
+        <i class="fa fa-square-up-right fa-fw fa-lg"></i></button>`;
 
     return `<div id="tuneoriginal${this.tune.id}" class="tunelist group 
       w-full bg-white
@@ -80,14 +94,14 @@ export class LearnTune extends Component {
         text-xs mb-2"><span class="font-medium mr-1 text-slate-500">
         ${this.tune.tuneref.type}</span>${this.tune.tuneref.author}</p>
       </div>
-      <div>
-          <progress id="file" value="${this.tune.points}" max="10">
+      <div class="ml-auto">
+          <progress id="file" value="${this.tune.points}" 
+          max="${this.maxRehear}">
           ${this.tune.points}</progress>
       </div>
-      <div class="flex gap-1 ml-auto items-center">
-        <button" class="rehearsal bg-blue-400 p-1
-        rounded-md text-white text-bold uppercase" title="añadir ensayo">
-        <i class="fa fa-guitar fa-fw fa-lg"></i> Marcar completada</button>
+      <div class="flex gap-1 items-center">
+        ${this.tune.points >= this.maxRehear ?
+          changeStatusButton : rehearButton }
     </div>
   </div>`;
   }
@@ -99,10 +113,27 @@ export class LearnTune extends Component {
    */
   async addrehearsal(event) {
     event.stopPropagation();
-    const result = Controller.addrehearsal(this.tune.id);
+    event.currentTarget.disabled = true;
+    const result = await Controller.addrehearsal(this.tune.id);
     if (result) {
-      event.currentTarget.disabled = true;
       this.element.classList.add('bg-green-100', 'text-green-600');
+    } else {
+      event.currentTarget.disabled = false;
+    }
+  }
+  /**
+   * Change status of tune
+   *
+   * @param {event} event
+   */
+  async promote(event) {
+    event.currentTarget.disabled = true;
+    const result = await Controller.changeStatus(
+        this.tune.id, this.tune.status_num + 1);
+    if (result) {
+      this.remove();
+    } else {
+      event.currentTarget.disabled = false;
     }
   }
 }

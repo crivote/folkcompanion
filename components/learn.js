@@ -8,7 +8,8 @@ import {LearnTune} from './learn_tune.js';
 export class Learn extends Component {
   contentZone;
   numberTunes = 20;
-  daysBackwards = 15;
+  daysBackwards = 21;
+  maxRehear = 7;
   criterialist = [
     {value: 'points', label: 'prioridad', selected: true},
     {value: 'type', label: 'tipo'},
@@ -160,7 +161,8 @@ export class Learn extends Component {
   renderList() {
     this.contentZone.innerHTML = '';
     this.tuneinstances = this.tunelist.map((tune) => {
-      return new LearnTune('tune' + tune.id, this.contentZone, tune);
+      return new LearnTune(
+          'tune' + tune.id, this.contentZone, tune, this.maxRehear);
     });
   }
 }
