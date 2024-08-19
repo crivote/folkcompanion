@@ -136,7 +136,8 @@ export class Videoadd extends Component {
               bg-slate-50 rounded-md mb-4">
                 <label class="uppercase text-slate-400 text-sm">
                 Notas</label>   
-                <textarea name="notes">${mynotes}</textarea>
+                <textarea 
+                name="notes">${this.isNew ? '' : this.video.notes}</textarea>
               </div>        <section class="tunesaddition bg-slate-100 border 
               border-slate-300 p-4">
           <div id="datatuneadd" class="flex gap-3 tunecontainer">
