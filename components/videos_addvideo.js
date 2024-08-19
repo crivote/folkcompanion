@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Utils, Data} from '../startup.js';
+import {Utils, Data, Controller} from '../startup.js';
 import * as apis from '../apis.js';
 import {Mynotification} from './notification.js';
 import {Videoaddtune} from './videos_addvideo_tuneline.js';
@@ -259,13 +259,17 @@ export class Videoadd extends Component {
         const result = await apis.Xanoapi.editvideo(this.video.id, params);
         if (result) {
           new Mynotification('success', `Se ha actualizado el vídeo.`);
+          this.instances.forEach(
+              (tuneinstance) => tuneinstance.savevideoreference());
+          this.remove();
+          const videos = Controller.getinstance('Videos');
+          videos.rendervideos();
         }
       } catch (error) {
         new Mynotification('danger', `No se ha podido actualizar el vídeo.`);
         console.log(error);
       }
     }
-    this.instances.forEach((tuneinstance) => tuneinstance.savevideoreference());
   }
 
   /**
