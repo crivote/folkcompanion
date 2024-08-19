@@ -113,6 +113,7 @@ export class Videoaddtune extends Component {
       videos_id: this.video.id,
       start_time: this.element.querySelector('[name="inicio"]').value,
       end_time: this.element.querySelector('[name="final"]').value,
+      notes: '',
     };
     let medialinks;
     if (this.tune.medialinks) {
@@ -132,12 +133,12 @@ export class Videoaddtune extends Component {
       if (result) {
         new Mynotification(
             'success',
-            `Se ha guardado referencia al tema ${tune.main_name}.`);
+            `Se ha guardado referencia al tema ${this.tune.main_name}.`);
       }
     } catch (error) {
       new Mynotification(
           'danger',
-          `No se ha podido guardar referencia al tema ${tune.main_name}.`);
+          `No se ha podido guardar referencia al tema ${this.tune.main_name}.`);
       console.log(error);
     }
   }
