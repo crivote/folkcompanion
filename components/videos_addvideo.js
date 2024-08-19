@@ -260,7 +260,7 @@ export class Videoadd extends Component {
           new Mynotification('success', `Se ha actualizado el vídeo.`);
         }
       } catch (error) {
-        new Mynotification('error', `No se ha podido actualizar el vídeo.`);
+        new Mynotification('danger', `No se ha podido actualizar el vídeo.`);
         console.log(error);
       }
     }

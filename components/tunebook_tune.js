@@ -255,7 +255,7 @@ export class Tune extends Component {
       const tunebook = Controller.getinstance('Tunebook');
       tunebook.rendertunes(tunebook.filtered);
     } else {
-      new Mynotification('error', `no se ha podido eliminar el tema.`);
+      new Mynotification('danger', `no se ha podido eliminar el tema.`);
     }
   }
 }

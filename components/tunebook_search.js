@@ -175,7 +175,7 @@ export class Tunesearch extends Component {
             `Se ha guardado su petición.`);
       } else {
         this.data = backup;
-        new Mynotification('error', `error al guardar la petición.`);
+        new Mynotification('danger', `error al guardar la petición.`);
       }
     }
   }
