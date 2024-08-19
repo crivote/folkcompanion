@@ -561,7 +561,6 @@ export class Controller {
         'danger',
         `error al cargar fotos genericas.`,
     );
-    throw new Error('error');
   }
 
   /**
@@ -594,7 +593,6 @@ export class Controller {
         'danger',
         `error al cargar todos los temas.`,
     );
-    throw new Error('error');
   }
 
   /**
@@ -675,7 +673,7 @@ export class Controller {
       return true;
     } else {
       tune = backup;
-      new components.Mynotification('error', `error al guardar el ensayo.`);
+      new components.Mynotification('danger', `error al guardar el ensayo.`);
       return false;
     }
   }
@@ -696,7 +694,7 @@ export class Controller {
           `cambiado status de ${tune.prefered_name} a ${newLabel.label}`);
       return true;
     } else {
-      new components.Mynotification('error', `error al cambiar status.`);
+      new components.Mynotification('danger', `error al cambiar status.`);
       return false;
     }
   }

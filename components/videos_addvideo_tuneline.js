@@ -66,7 +66,7 @@ export class Videoaddtune extends Component {
         }
       } catch (error) {
         new Mynotification(
-            'error',
+            'danger',
             `No se ha podido borrar referencia al tema ${tune.main_name}.`);
         console.log(error);
       }
@@ -136,7 +136,7 @@ export class Videoaddtune extends Component {
       }
     } catch (error) {
       new Mynotification(
-          'error',
+          'danger',
           `No se ha podido guardar referencia al tema ${tune.main_name}.`);
       console.log(error);
     }

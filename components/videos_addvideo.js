@@ -243,20 +243,20 @@ export class Videoadd extends Component {
           }
         } catch (error) {
           new Mynotification(
-              'error',
+              'danger',
               `No se ha podido guardar el nuevo vídeo.`);
           console.log(error);
         }
       } else {
         new Mynotification(
-            'error',
+            'danger',
             `Ya hay un video guardado con la misma url.`);
       }
     } else {
       // actualizar datos
       params.id = this.video.id;
       try {
-        const result = await apis.Xanoapi.editvideo(this.videokey, params);
+        const result = await apis.Xanoapi.editvideo(this.video.id, params);
         if (result) {
           new Mynotification('success', `Se ha actualizado el vídeo.`);
         }
