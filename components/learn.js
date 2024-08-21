@@ -82,9 +82,17 @@ export class Learn extends Component {
       <header class="pt-6 px-6">
         <div class="flex flex-wrap items-center gap-2">
           <h3 class="text-3xl">Lista para Aprender</h3>
+          <div class="ml-auto border-1 border-slate-300 p-2">
           <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 uppercase
           text-slate-200 rounded-lg text-md">${this.numberTunes}
-          </span></h3>
+          </span>
+          <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 uppercase
+          text-slate-200 rounded-lg text-md">${this.daysBackwards}
+          </span>
+          <span class="num_of_tunes bg-slate-400 text-sm px-2 py-1 uppercase
+          text-slate-200 rounded-lg text-md">${this.maxRehear}
+          </span>
+          </div>
         </div>
          <select class="tunesorting text-sm bg-cyan-200 text-cyan-500 p-1 
           rounded-md border-0">

@@ -36,7 +36,7 @@ export class LearnTune extends Component {
    * Add listeners to the list items
    */
   addListeners() {
-    if (this.tune.points >= this.maxRehear) {
+    if (this.tune.points < this.maxRehear) {
       this.element.querySelector('.rehearsal')
           .addEventListener('click', this.addrehearsal.bind(this));
     } else {

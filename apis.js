@@ -223,10 +223,36 @@ export class Xanoapi {
   static async editsetbookset(id, set) {
     const result= await axios.patch(
         Xanoapi.#url+'sets/'+id,
-        tune,
+        set,
         Xanoapi.returnheader(),
     );
     return result.status == 200 ? result.data : false;
+  }
+
+  static async addvideotune(data) {
+    const result= await axios.post(
+        Xanoapi.#url+'videotunes',
+        data,
+        Xanoapi.returnheader(),
+    );
+    return result.status == 200 ? result.data : false;
+  }
+
+  static async editvideotune(id, data) {
+    const result= await axios.patch(
+        Xanoapi.#url+'videotunes/'+id,
+        data,
+        Xanoapi.returnheader(),
+    );
+    return result.status == 200 ? result.data : false;
+  }
+
+  static async deletevideotune(id) {
+    const result= await axios.delete(
+        Xanoapi.#url+'videotunes/'+id,
+        Xanoapi.returnheader(),
+    );
+    return result.status == 200;
   }
 }
 
