@@ -72,7 +72,7 @@ export class Menubar extends Component {
     this.attachAt(this.generatehtml(), false);
     this.addListeners();
     // launch tunebook
-    this.element.querySelector('#mainnav span[data-nav="Tunebook"]').click();
+    this.element.querySelector('[data-nav="Tunebook"]').click();
   }
 
   /**
@@ -84,8 +84,9 @@ export class Menubar extends Component {
     let menu = '';
     this.pages.forEach((item) => {
       if (item.role == 'all' || item.role == Data.user?.role) {
-        menu = menu + `<span class="cursor-pointer rounded-t-md px-4 py-2 
-        hover:font-bold" data-nav="${item.name}">${item.tag}</span>`;
+        menu = menu + `<span class="menuopt cursor-pointer 
+        rounded-t-md px-4 py-2 hover:font-bold" 
+        data-nav="${item.name}">${item.tag}</span>`;
       }
     });
     return `
@@ -110,7 +111,7 @@ export class Menubar extends Component {
     this.element.querySelector('#logout')
         .addEventListener('click', this.closesession.bind(this));
     // hide active component and show selected
-    this.element.querySelectorAll('#mainnav > span').forEach((el) => {
+    this.element.querySelectorAll('.menuopt').forEach((el) => {
       el.addEventListener('click', this.showcomponent.bind(this));
     });
   }
@@ -123,7 +124,7 @@ export class Menubar extends Component {
   showcomponent(event) {
     const newitem = event.currentTarget;
     if (!newitem.classList.contains('selected')) {
-      const selected = this.element.querySelector('#mainnav .selected');
+      const selected = this.element.querySelector('.menuopt.selected');
       if (selected) {
         const selectedcomponent = selected.dataset.nav;
         const oldcomponent = Controller.getinstance(selectedcomponent);
