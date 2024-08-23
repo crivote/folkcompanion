@@ -496,6 +496,7 @@ export class Controller {
       if (!Object.hasOwn(Controller.screens, componentname)) {
         Controller.screens[componentname] = new components[componentname](
             componentname,
+            componentname == 'Menubar' ? document.getElementById('menuholder') :
             Controller.htmlelement,
         );
       } else {
