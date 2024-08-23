@@ -85,14 +85,14 @@ export class Menubar extends Component {
     this.pages.forEach((item) => {
       if (item.role == 'all' || item.role == Data.user?.role) {
         menu = menu + `<span class="menuopt cursor-pointer 
-        rounded-t-md px-4 py-2 hover:font-bold" 
+        px-4 py-2 hover:font-bold" 
         data-nav="${item.name}">${item.tag}</span>`;
       }
     });
     return `
       <div class="flex">
       <nav id="mainnav" class="uppercase flex mr-5 
-      translate-y-1 text-slate-200 text-sm leading-none items-end">
+      translate-y-1 text-slate-200 text-xs leading-none items-end">
           ${menu}
       </nav>
       <div class="user ml-auto mr-6">
@@ -133,13 +133,13 @@ export class Menubar extends Component {
           oldcomponent.hide();
         }
         selected.classList
-            .remove('selected', 'font-bold', 'bg-cyan-50', 'text-indigo-900');
+            .remove('selected', 'font-bold', 'bg-white/30'), 'text-white';
       }
 
       const newitemcomponent = newitem.dataset.nav;
       Controller.getinstance(newitemcomponent);
       newitem.classList
-          .add('selected', 'font-bold', 'bg-cyan-50', 'text-indigo-900');
+          .add('selected', 'font-bold', 'bg-white/30', 'text-white');
     }
   }
 
