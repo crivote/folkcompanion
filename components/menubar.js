@@ -90,6 +90,7 @@ export class Menubar extends Component {
       }
     });
     return `
+      <div class="flex">
       <nav id="mainnav" class="uppercase flex mr-5 
       translate-y-1 text-slate-200 text-sm leading-none items-end">
           ${menu}
@@ -100,7 +101,7 @@ export class Menubar extends Component {
            ${Data.user.name}</span>
           <span id="logout" title="Cerrar la sesión">
           <i class="fa fa-times-circle fa-lg"></i></span>
-      </div>`;
+      </div></div>`;
   }
 
   /**
