@@ -85,14 +85,14 @@ export class Menubar extends Component {
     this.pages.forEach((item) => {
       if (item.role == 'all' || item.role == Data.user?.role) {
         menu = menu + `<span class="menuopt cursor-pointer 
-        px-4 py-2 hover:font-bold" 
+        px-4 py-1 hover:font-bold" 
         data-nav="${item.name}">${item.tag}</span>`;
       }
     });
     return `
-      <div class="flex">
+      <div class="flex h-full">
       <nav id="mainnav" class="uppercase flex mr-5 
-      translate-y-1 text-slate-200 text-xs leading-none items-end">
+      translate-y-1 text-slate-200 text-xs leading-none items-center">
           ${menu}
       </nav>
       <div class="user ml-auto mr-6">
