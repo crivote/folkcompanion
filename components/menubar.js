@@ -89,21 +89,17 @@ export class Menubar extends Component {
       }
     });
     return `
-      <header id="${this.name}" class="">
-      <div class="menubar flex bg-indigo-800 text-white">
-
-      <nav id="mainnav" class="uppercase flex mx-5 
+      <nav id="mainnav" class="uppercase flex mr-5 
       translate-y-1 text-slate-200 text-sm leading-none items-end">
           ${menu}
       </nav>
       <div class="user ml-auto mr-6">
           <span class="text-slate-400 uppercase bg-slate-50>
-          <i class="fa fa-user-circle"></i> ${Data.user.name}</span>
+          <i class="fa fa-user-circle text-white/50 hover:text-white/90"></i>
+           ${Data.user.name}</span>
           <span id="logout" title="Cerrar la sesión">
-          <i class="fa fa-times-circle fa-2x"></i></span>
-      </div>
-      </div>
-      </header>`;
+          <i class="fa fa-times-circle fa-lg"></i></span>
+      </div>`;
   }
 
   /**
