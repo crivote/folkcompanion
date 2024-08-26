@@ -112,9 +112,10 @@ export class Utils {
    * Devuelve el numero de dias desde una fecha
    *
    * @param {number} mydate
-   * @return {number} numdays
+   * @param {boolean} flagdaysonly
+   * @return {string | number} totalDias | cadenasalida
    */
-  static calctimesince(mydate) {
+  static calctimesince(mydate, flagdaysonly = false) {
     let cadenasalida = '';
     if (typeof mydate == 'number') {
       const now = new Date();
@@ -127,6 +128,9 @@ export class Utils {
       }
       const diasRestantes = diferencia % (1000 * 60 * 60 * 24 * 30);
       const totalDias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
+      if (flagdaysonly) {
+        return totalDias;
+      }
       if (totalDias > 0) {
         cadenasalida = cadenasalida
             .concat(' ', `${totalDias}d`);

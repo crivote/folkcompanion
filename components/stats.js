@@ -1,5 +1,5 @@
 import {Component} from '../abstract.js';
-import {Data} from '../startup.js';
+import {Data, Utils} from '../startup.js';
 
 /**
  * historic list component
@@ -103,15 +103,33 @@ export class Stats extends Component {
     const listofdates = this.createDatesArray();
     // agrupar por dias
     await this.groupDatesByDay(listofdates);
-
+    this.listDates.sort().reverse();
     this.element.querySelector('.num_of_days').innerHTML =
       this.listDates.length + ' días';
-    this.listDates.sort().reverse();
-    let myhtmlcontent = '';
     this.listDates.forEach((day) => {
-      myhtmlcontent += this.renderDay(day);
+      this.attachAt(this.renderDay(day), false, this.contentZoneList);
     });
-    this.contentZoneList.innerHTML = myhtmlcontent;
+  }
+  /**
+   *
+   */
+  renderGraphs() {
+    const totalRehearDays = this.listDates.length;
+    const totalRehearTunes = this.objectDates.reduce((prev, act) => {
+      prev += act.length;
+    }, 0);
+    const totalDays = Utils.calctimesince(this.listDates.at(-1), true);
+    const rehearsalPerDay = totalRehearDays / totalDays;
+    const myhtml = `
+    <div>
+    <p>${totalRehearDays} rehears in last ${totalDays} days.</p>
+    <p>${totalRehearTunes} tunes played in total</p>
+    <p>${Math.floor(totalRehearTunes/totalRehearDays)} avg tunes per
+    rehearsal</p>
+    <p>${rehearsalPerDay * 7} rehears avg per week</p>
+    </div>
+    `;
+    this.attachAt(myhtml, true, this.contentZoneGraphs);
   }
 
   /**
