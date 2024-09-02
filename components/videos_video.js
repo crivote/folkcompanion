@@ -1,8 +1,6 @@
 import {Component} from '../abstract.js';
-import {Mynotification} from './notification.js';
 import {Videoadd} from './videos_addvideo.js';
 import {Controller, Utils, Data} from '../startup.js';
-import * as apis from '../apis.js';
 
 /**
  * Video Card component
@@ -53,15 +51,11 @@ export class Video extends Component {
           <div class="px-4 py-4 flex-col">
               <span class="bg-slate-500 text-slate-50 font-light uppercase 
               text-xs px-2 py-1 rounded-lg">${this.data.type}</span>  
-              <span class="p-2">
-              ${this.data?.tunes && this.data.tunes.length > 0 ?
-                `<i class="fa fa-circle-check text-green-600"></i>` :
-                `<i class="fa fa-times-circle text-red-600"></i>`}</span>
               <h2 class="title mt-2 text-lg font-semibold leading-tight 
               text-slate-700">${this.data.Title}</h2>
               <p class="otherdata text-slate-600 text-sm">${this.data.Performer}</p>
               <ul class="list-disc mt-2 text-xs bg-slate400 p-4">
-                  ${this.data.tunes.map((id) => this.gettunedata(id)).join('')}
+                  ${this.data.tuneslinks.map((link) => this.gettunedata(link.tunes_id)).join('')}
               </ul>
           </div>
           <div class="absolute right-2 top-2 flex gap-1 items-center">
@@ -91,6 +85,5 @@ export class Video extends Component {
   }
 
   deletevideo() {
-
   }
 }

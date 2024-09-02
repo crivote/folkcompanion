@@ -38,28 +38,15 @@ export class Videos extends Component {
    * setear valores componente.
    */
   async setup() {
-    if (!Data.videos) {
-      Data.videos = await apis.Xanoapi.getallvideos();
-      if (Data.videos && Data.videos.length>0) {
-        // add info from tunes to tunebook
-        Data.videos.forEach((video) => {
-          const mytunes = Data.tunes.filter((tune) => tune?.media_links &&
-              tune.media_links.length > 0 &&
-              tune.media_links[0] != null &&
-              tune.media_links.some((link) => link?.videos_id == video.id) );
-          if (mytunes) {
-            video.tunes = mytunes.map((tune) => tune.id);
-          }
-        });
-        new Mynotification('success', `cargados ${Data.videos.length} videos.`);
-      }
-    }
-    this.filtered = Data.videos;
-
-    // generate HTML
     this.attachAt(this.generatehtml(), false);
     this.videozone = this.element.querySelector('main');
     this.addListeners();
+    if (!Data.videos) {
+      Data.videos = await apis.Xanoapi.getallvideos();
+      if (Data.videos && Data.videos.length>0) {
+        new Mynotification('success', `cargados ${Data.videos.length} videos.`);
+      }
+    }
     this.rendervideos();
   }
   /**

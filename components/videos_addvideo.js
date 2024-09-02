@@ -268,9 +268,9 @@ export class Videoadd extends Component {
           new Mynotification('success', `Se ha actualizado el vídeo.`);
           this.instances.forEach(
               (tuneinstance) => tuneinstance.savevideoreference());
-          this.remove();
           const videos = Controller.getinstance('Videos');
           videos.rendervideos();
+          this.remove();
         }
       } catch (error) {
         new Mynotification('danger', `No se ha podido actualizar el vídeo.`);
