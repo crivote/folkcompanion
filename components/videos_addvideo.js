@@ -133,12 +133,13 @@ export class Videoadd extends Component {
                 Notas</label>   
                 <textarea 
                 name="notes">${this.isNew ? '' : this.video.notes}</textarea>
-              </div>        <section class="tunesaddition bg-slate-100 border 
+              </div>        
+          <section class="tunesaddition ${this.isNew ? 'hidden' : ''}
+          bg-slate-100 border 
               border-slate-300 p-4">
-          <div id="datatuneadd" class="${this.isNew ? 'hidden' : ''}
-           flex gap-3 tunecontainer">
+          <div id="datatuneadd" class="flex gap-3 tunecontainer">
               <datalist id="alltunes">
-                ${this.getfulllistoftunes()}
+                ${this.isNew ? '' : this.getfulllistoftunes()}
               </datalist>
               <input list="alltunes" class="tuneselector p-1 txt-sm mx-auto" 
               name="tuneselector" placeholder="añadir un tema">
@@ -246,6 +247,9 @@ export class Videoadd extends Component {
           const result = await apis.Xanoapi.addvideo(params);
           if (result) {
             new Mynotification('success', `Se ha guardado el nuevo vídeo.`);
+            const videos = Controller.getinstance('Videos');
+            videos.rendervideos();
+            this.remove();
           }
         } catch (error) {
           new Mynotification(
