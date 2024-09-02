@@ -31,7 +31,7 @@ export class Videoadd extends Component {
     this.isNew = (videoid == '');
     if (!this.isNew) {
       this.video = Data.videos.find((video) => video.id == videoid);
-      this.tunes = this.video.tunes;
+      this.tunes = this.video.tuneslinks;
       this.videokey = this.video.url;
     }
     this.setup();
@@ -48,16 +48,11 @@ export class Videoadd extends Component {
     this.inputtune = this.element.querySelector('.tuneselector');
     if (!this.isNew) {
       this.loadVideo(this.videokey);
-      this.instances = this.tunes.map((tune) => {
-        const fulltune = Data.tunes.find((ftune) => ftune.id == tune);
-        const times = fulltune.media_links.find(
-            (link) => link.videos_id == this.video.id);
+      this.instances = this.tunes.map((link) => {
         return new Videoaddtune(
             'tune'+tune,
             this.tuneszone,
-            this.video.id,
-            tune,
-            times,
+            link,
         );
       });
     }
@@ -168,6 +163,9 @@ export class Videoadd extends Component {
    * @return {string}
    */
   getfulllistoftunes() {
+    if (this.isNew) {
+      return '';
+    }
     const result = Data.tunes.flatMap((tune) => {
       const myid = tune.id;
       return tune.other_names.map((tunename) =>
