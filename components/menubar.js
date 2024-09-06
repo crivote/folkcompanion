@@ -92,7 +92,7 @@ export class Menubar extends Component {
     return `
       <div class="flex h-full">
       <nav id="mainnav" class="uppercase flex mr-5 
-      translate-y-1 text-slate-200 text-xs leading-none items-center">
+      text-slate-200 text-xs leading-none items-center">
           ${menu}
       </nav>
       <div class="user ml-auto mr-6">
