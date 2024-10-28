@@ -542,14 +542,18 @@ export class Controller {
    */
   static getinstance(componentname) {
     if (Object.hasOwn(components, componentname)) {
+      if (componentname === 'Menubar') {
+        return new components[componentname](
+            componentname,
+            document.getElementById('menuholder'),
+        );
+      }
       Controller.activeScreen = new components[componentname](
           componentname,
-        componentname == 'Menubar' ?
-          document.getElementById('menuholder') :
           Controller.htmlelement,
       );
+      return Controller.activeScreen;
     }
-    return Controller.activeScreen;
   }
 
   /**
