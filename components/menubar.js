@@ -127,10 +127,9 @@ export class Menubar extends Component {
     if (!newitem.classList.contains('selected')) {
       const selected = this.element.querySelector('.menuopt.selected');
       if (selected) {
-        const selectedcomponent = selected.dataset.nav;
-        const oldcomponent = Controller.getinstance(selectedcomponent);
+        const oldcomponent = Controller.activeScreen;
         if (oldcomponent) {
-          oldcomponent.hide();
+          oldcomponent.remove();
         }
         selected.classList
             .remove('selected', 'font-bold', 'bg-white/30'), 'text-white';

@@ -40,6 +40,14 @@ export class Video extends Component {
   }
 
   generatehtml() {
+    let mytunes = '';
+
+    if (this.data.tuneslinks && this.data.tuneslinks.length > 0) {
+      mytunes = his.data.tuneslinks
+          .map((link) => this.gettunedata(link.tunes_id))
+          .join('');
+    }
+
     return `<div id="video${this.data.id}" class="videolist 
     relative w-full bg-white border-b-2 border-slate200 rounded-md flex 
     items-top border border-slate-300">
@@ -53,16 +61,19 @@ export class Video extends Component {
               text-xs px-2 py-1 rounded-lg">${this.data.type}</span>  
               <h2 class="title mt-2 text-lg font-semibold leading-tight 
               text-slate-700">${this.data.Title}</h2>
-              <p class="otherdata text-slate-600 text-sm">${this.data.Performer}</p>
+              <p class="otherdata text-slate-600 text-sm">
+              ${this.data.Performer}</p>
               <ul class="list-disc mt-2 text-xs bg-slate400 p-4">
-                  ${this.data.tuneslinks.map((link) => this.gettunedata(link.tunes_id)).join('')}
+                  ${mytunes}
               </ul>
           </div>
           <div class="absolute right-2 top-2 flex gap-1 items-center">
               <button class="editbutton bg-blue-400 p-1 rounded-md text-white
-              text-bold" title="editar"><i class="fa fa-edit fa-fw"></i></button>
+              text-bold" title="editar">
+              <i class="fa fa-edit fa-fw"></i></button>
               <button class="deletebutton bg-red-400 p-1 rounded-md text-white 
-              text-bold" title="eliminar"><i class="fa fa-trash fa-fw"></i></button>
+              text-bold" title="eliminar">
+              <i class="fa fa-trash fa-fw"></i></button>
           </div>
       </div>`;
   }

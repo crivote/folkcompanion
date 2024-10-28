@@ -54,7 +54,8 @@ export class Utils {
    */
   static extractYoutubeID(url) {
     // eslint-disable-next-line max-len
-    const regExp =/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/[\w]+\?v=)(\w{11})|(?:youtu\.be\/(\w{11}))/;
+    const regExp =
+      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/[\w]+\?v=)(\w{11})|(?:youtu\.be\/(\w{11}))/;
     const match = url.match(regExp);
     // Si se encontró un ID de YouTube en la URL, devolverlo
     if (match) {
@@ -86,10 +87,10 @@ export class Utils {
   static calcValueforTunes(tunebookTune) {
     tunebookTune.titlesort = Utils.titleforsort(tunebookTune.prefered_name);
     const firstvaliddate = tunebookTune?.last_rehearsals.find(
-        (item) => item !== null && item !== undefined && item !== 0);
+        (item) => item !== null && item !== undefined && item !== 0,
+    );
     tunebookTune.last_rehearsalDate = firstvaliddate ?? 0;
-    tunebookTune.meanRehear =
-        Utils.getMeanRehear(tunebookTune.last_rehearsals);
+    tunebookTune.meanRehear = Utils.getMeanRehear(tunebookTune.last_rehearsals);
   }
 
   /**
@@ -123,8 +124,7 @@ export class Utils {
       const diferencia = now - prev;
       const totalMeses = Math.floor(diferencia / (1000 * 60 * 60 * 24 * 30));
       if (totalMeses > 0) {
-        cadenasalida = cadenasalida.concat('',
-            `${totalMeses}m`);
+        cadenasalida = cadenasalida.concat('', `${totalMeses}m`);
       }
       const diasRestantes = diferencia % (1000 * 60 * 60 * 24 * 30);
       const totalDias = Math.floor(diasRestantes / (1000 * 60 * 60 * 24));
@@ -132,8 +132,7 @@ export class Utils {
         return totalDias;
       }
       if (totalDias > 0) {
-        cadenasalida = cadenasalida
-            .concat(' ', `${totalDias}d`);
+        cadenasalida = cadenasalida.concat(' ', `${totalDias}d`);
       }
       const horasRestantes = diasRestantes % (1000 * 60 * 60 * 24);
       const totalHoras = Math.floor(horasRestantes / (1000 * 60 * 60));
@@ -215,7 +214,6 @@ export class Utils {
     return modes;
   }
 
-
   /**
    * Genera html para iframe youtube
    *
@@ -261,8 +259,9 @@ export class Utils {
     array.forEach((value) => {
       Utils.appendOption(
           el,
-          Array.isArray(value) ? value[0] : value,
-          Array.isArray(value) ? value[1] : value);
+        Array.isArray(value) ? value[0] : value,
+        Array.isArray(value) ? value[1] : value,
+      );
     });
   }
 
@@ -277,7 +276,11 @@ export class Utils {
    * @return {html}
    */
   static generateformfield(
-      name, label, value, select = null, editable = false,
+      name,
+      label,
+      value,
+      select = null,
+      editable = false,
   ) {
     let arrayok = false;
     if (Array.isArray(select) && select.length > 1) {
@@ -325,9 +328,7 @@ export class Utils {
    */
   static removeInstanceRef(name, component, property) {
     const componentref = Controller.getinstance(component);
-    const index = componentref[property].findIndex(
-        (item) => item.name == name,
-    );
+    const index = componentref[property].findIndex((item) => item.name == name);
     componentref[property].splice(index, 1);
   }
 
@@ -340,8 +341,9 @@ export class Utils {
   static getMeanRehear(datearray) {
     if (Array.isArray(datearray) && datearray.length > 1) {
       // Convertir fechas a milisegundos desde el 1 de enero de 1970
-      const fechasEnMilisegundos =
-          datearray.map((fecha) => new Date(fecha).getTime());
+      const fechasEnMilisegundos = datearray.map((fecha) =>
+        new Date(fecha).getTime(),
+      );
       // Cambiar orden a cronologico (mas antiguo antes)
       fechasEnMilisegundos.reverse();
       // Calcular la diferencia en milisegundos entre fechas consecutivas
@@ -352,9 +354,11 @@ export class Utils {
       }
 
       // Calcular la media de los intervalos en días
-      const mediaEnMilisegundos = intervalosEnMilisegundos
-          .reduce((acumulador, valorActual) =>
-            acumulador + valorActual, 0) / intervalosEnMilisegundos.length;
+      const mediaEnMilisegundos =
+        intervalosEnMilisegundos.reduce(
+            (acumulador, valorActual) => acumulador + valorActual,
+            0,
+        ) / intervalosEnMilisegundos.length;
       const mediaEnDias = mediaEnMilisegundos / (1000 * 60 * 60 * 24);
       return Math.round(mediaEnDias);
     }
@@ -409,12 +413,30 @@ export const Data = {
   // status para temas por defecto
   status: [
     {value: 1, factor: 0, label: 'Pendiente', color: 'stone-600'},
-    {value: 2, factor: 2, label: 'Aprendiendo', color: 'orange-600',
-      times: 7, days: 10},
+    {
+      value: 2,
+      factor: 2,
+      label: 'Aprendiendo',
+      color: 'orange-600',
+      times: 7,
+      days: 10,
+    },
     {value: 3, factor: 2, label: 'Fijar', color: 'yellow-500', days: 15},
     {value: 4, factor: 1, label: 'Básica', color: 'lime-500', days: 30},
-    {value: 5, factor: 0.5, label: 'Intermedio', color: 'green-600', days: 45},
-    {value: 6, factor: 0.25, label: 'Avanzada', color: 'emerald-600', days: 60},
+    {
+      value: 5,
+      factor: 0.5,
+      label: 'Intermedio',
+      color: 'green-600',
+      days: 45,
+    },
+    {
+      value: 6,
+      factor: 0.25,
+      label: 'Avanzada',
+      color: 'emerald-600',
+      days: 60,
+    },
     {value: 7, factor: 0.1, label: 'Maestro', color: 'emerald-900', days: 60},
   ],
   rythms: {
@@ -438,39 +460,62 @@ export const Data = {
     'others',
   ],
   tones: {
-    'A': 'la',
-    'B': 'si',
-    'C': 'do',
-    'D': 're',
-    'E': 'mi',
-    'F': 'fa',
-    'G': 'sol',
+    A: 'la',
+    B: 'si',
+    C: 'do',
+    D: 're',
+    E: 'mi',
+    F: 'fa',
+    G: 'sol',
   },
   keyAlterations: {
-    'C maj': 0, 'A min': 0,
-    'G maj': 1, 'E min': 1,
-    'D maj': 2, 'B min': 2,
-    'A maj': 3, 'F# min': 3,
-    'E maj': 4, 'C# min': 4,
-    'B maj': 5, 'G# min': 5,
-    'F# maj': 6, 'D# min': 6,
-    'C# maj': 7, 'A# min': 7,
-    'F maj': -1, 'D min': -1,
-    'Bb maj': -2, 'G min': -2,
-    'Eb maj': -3, 'C min': -3,
-    'Ab maj': -4, 'F min': -4,
-    'Db maj': -5, 'Bb min': -5,
-    'Gb maj': -6, 'Eb min': -6,
-    'Cb maj': -7, 'Ab min': -7,
+    'C maj': 0,
+    'A min': 0,
+    'G maj': 1,
+    'E min': 1,
+    'D maj': 2,
+    'B min': 2,
+    'A maj': 3,
+    'F# min': 3,
+    'E maj': 4,
+    'C# min': 4,
+    'B maj': 5,
+    'G# min': 5,
+    'F# maj': 6,
+    'D# min': 6,
+    'C# maj': 7,
+    'A# min': 7,
+    'F maj': -1,
+    'D min': -1,
+    'Bb maj': -2,
+    'G min': -2,
+    'Eb maj': -3,
+    'C min': -3,
+    'Ab maj': -4,
+    'F min': -4,
+    'Db maj': -5,
+    'Bb min': -5,
+    'Gb maj': -6,
+    'Eb min': -6,
+    'Cb maj': -7,
+    'Ab min': -7,
 
     // Modos dórico (basados en la tónica mayor correspondiente)
-    'D dor': -1, 'E dor': 2, 'F dor': -4,
-    'G dor': 1, 'A dor': 3, 'B dor': 5,
+    'D dor': -1,
+    'E dor': 2,
+    'F dor': -4,
+    'G dor': 1,
+    'A dor': 3,
+    'B dor': 5,
     'C dor': 0,
 
     // Modos mixolidio (basados en la tónica mayor correspondiente)
-    'C mix': 0, 'D mix': 1, 'E mix': 4,
-    'F mix': -1, 'G mix': 1, 'A mix': 2,
+    'C mix': 0,
+    'D mix': 1,
+    'E mix': 4,
+    'F mix': -1,
+    'G mix': 1,
+    'A mix': 2,
     'B mix': 5,
   },
 };
@@ -484,7 +529,7 @@ export class Controller {
   static htmlelement = document.getElementById('app');
 
   // objeto con instancias de componentes cargados en DOM
-  static screens = {};
+  static activeScreen;
 
   static midiBuffer;
   static player;
@@ -497,17 +542,14 @@ export class Controller {
    */
   static getinstance(componentname) {
     if (Object.hasOwn(components, componentname)) {
-      if (!Object.hasOwn(Controller.screens, componentname)) {
-        Controller.screens[componentname] = new components[componentname](
-            componentname,
-            componentname == 'Menubar' ? document.getElementById('menuholder') :
-            Controller.htmlelement,
-        );
-      } else {
-        Controller.screens[componentname].show();
-      }
-      return Controller.screens[componentname];
+      Controller.activeScreen = new components[componentname](
+          componentname,
+        componentname == 'Menubar' ?
+          document.getElementById('menuholder') :
+          Controller.htmlelement,
+      );
     }
+    return Controller.activeScreen;
   }
 
   /**
@@ -541,13 +583,11 @@ export class Controller {
    * Load data and launch app menu
    */
   static startapp() {
-    Promise.all([
-      Controller.loadGenericPics(),
-      Controller.loadAlltunes(),
-    ]).then(
+    Promise.all([Controller.loadGenericPics(), Controller.loadAlltunes()]).then(
         (result) => {
           Controller.getinstance('Menubar');
-        });
+        },
+    );
   }
 
   /**
@@ -562,10 +602,7 @@ export class Controller {
       );
       return true;
     }
-    new components.Mynotification(
-        'danger',
-        `error al cargar fotos genericas.`,
-    );
+    new components.Mynotification('danger', `error al cargar fotos genericas.`);
   }
 
   /**
@@ -594,10 +631,7 @@ export class Controller {
       await Controller.loadUserTunebook();
       return true;
     }
-    new components.Mynotification(
-        'danger',
-        `error al cargar todos los temas.`,
-    );
+    new components.Mynotification('danger', `error al cargar todos los temas.`);
   }
 
   /**
@@ -618,10 +652,7 @@ export class Controller {
       await Controller.loadUserSetbook();
       return true;
     }
-    new components.Mynotification(
-        'info',
-        `no tienes nada en tu repertorio.`,
-    );
+    new components.Mynotification('info', `no tienes nada en tu repertorio.`);
     return true;
   }
 
@@ -637,10 +668,7 @@ export class Controller {
       );
       return true;
     }
-    new components.Mynotification(
-        'info',
-        `no tienes ningun set.`,
-    );
+    new components.Mynotification('info', `no tienes ningun set.`);
     return true;
   }
 
@@ -673,8 +701,10 @@ export class Controller {
 
     if (result) {
       Utils.calcValueforTunes(tune);
-      new components.Mynotification('success',
-          `añadido nuevo ensayo de ${tune.prefered_name}.`);
+      new components.Mynotification(
+          'success',
+          `añadido nuevo ensayo de ${tune.prefered_name}.`,
+      );
       return true;
     } else {
       tune = backup;
@@ -695,8 +725,10 @@ export class Controller {
     const result = await apis.Xanoapi.edittunebooktune(tuneid, tune);
     const newLabel = Utils.getstatus(newStatus);
     if (result) {
-      new components.Mynotification('success',
-          `cambiado status de ${tune.prefered_name} a ${newLabel.label}`);
+      new components.Mynotification(
+          'success',
+          `cambiado status de ${tune.prefered_name} a ${newLabel.label}`,
+      );
       return true;
     } else {
       new components.Mynotification('danger', `error al cambiar status.`);
@@ -704,7 +736,6 @@ export class Controller {
     }
   }
 }
-
 
 /**
  * Class to play ABC tunes

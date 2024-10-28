@@ -10,23 +10,21 @@ import {Mynotification} from './notification.js';
 export class Videoaddtune extends Component {
   video;
   tune;
-  times;
+  metatune;
 
   /**
   * Constructor
   *
   * @param {string} name
   * @param {HTMLBodyElement} parentel
-  * @param {number} videoid
-  * @param {number} tuneid
-  * @param {object} times
+  * @param {object} mydata
   */
-  constructor(name, parentel, videoid, tuneid, times) {
+  constructor(name, parentel, mydata) {
     super(name, parentel);
-    this.video = Data.videos.find((video) => video.id == videoid);
-    this.tune = Data.tunes.find((tune) => tune.id == tuneid);
+    this.video = Data.videos.find((video) => video.id == mydata.videoid);
+    this.tune = Data.tunes.find((tune) => tune.id == mydata.tunes_id);
     this.setup();
-    this.times = times;
+    this.metatune = mydata;
   }
 
   /**
@@ -88,14 +86,14 @@ export class Videoaddtune extends Component {
           <i class="fa fa-clock"></i> de</label>
           <input type="number" name="inicio" 
           class="p-1 w-16 text-right text-slate-600"
-          value="${this.times ? this.times.start_time : 0}">
+          value="${this.metatune ? this.metatune.start_time : 0}">
         </div>
         <div>
             <label class="uppercase text-slate-400 text-sm mt-4">
             <i class="fa fa-clock"></i> a</label>
             <input type="number" name="final" 
             class="p-1 w-16 text-right text-slate-600"
-            value="${this.times ? this.times.end_time : 0}">
+            value="${this.metatune ? this.metatune.end_time : 0}">
         </div>
         <button class="removetune text-white ml-3">
         <i class="fa fa-times-circle fa-lg text-red-300"></i></button>
@@ -109,23 +107,12 @@ export class Videoaddtune extends Component {
    * @param {number} videoid
    */
   async savevideoreference() {
-    const link = {
+    const params = {
       videos_id: this.video.id,
+      tunes_id: this.tune.id,
       start_time: this.element.querySelector('[name="inicio"]').value,
       end_time: this.element.querySelector('[name="final"]').value,
       notes: '',
-    };
-    let medialinks;
-    if (this.tune.medialinks) {
-      medialinks =
-        this.tune.medialinks.filter((link) => link.videos_id != this.video.id);
-      medialinks.push(link);
-    } else {
-      medialinks = [link];
-    }
-    const params = {
-      ...this.tune,
-      medialinks: medialinks,
     };
 
     try {
