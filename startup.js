@@ -324,19 +324,6 @@ export class Utils {
   }
 
   /**
-   * remove instance ref from array of parent component
-   *
-   * @param {string} name
-   * @param {string} component
-   * @param {string} property
-   */
-  static removeInstanceRef(name, component, property) {
-    const componentref = Controller.getinstance(component);
-    const index = componentref[property].findIndex((item) => item.name == name);
-    componentref[property].splice(index, 1);
-  }
-
-  /**
    * Calcula intervalo medio en dias entre fechas
    *
    * @param {array} datearray
@@ -743,6 +730,7 @@ export class Controller {
       return false;
     }
   }
+
 }
 
 /**

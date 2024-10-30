@@ -95,10 +95,13 @@ export class RehearTune extends Component {
    */
   async addrehearsal(event) {
     event.stopPropagation();
+    event.currentTarget.disabled = true;
     const result = Controller.addrehearsal(this.tune.id);
     if (result) {
       event.currentTarget.disabled = true;
       this.element.classList.add('bg-green-100', 'text-green-600');
+    } else {
+      event.currentTarget.disabled = false;
     }
   }
 }

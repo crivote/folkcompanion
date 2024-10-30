@@ -219,7 +219,7 @@ export class Tune extends Component {
     event.stopPropagation();
     const result = Controller.addrehearsal(this.data.id);
     if (result) {
-      const tunebook = Controller.getinstance('Tunebook');
+      const tunebook = Controller.activeScreen;
       tunebook.rendertunes(tunebook.filtered);
     }
   }
