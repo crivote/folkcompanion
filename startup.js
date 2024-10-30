@@ -730,7 +730,6 @@ export class Controller {
       return false;
     }
   }
-
 }
 
 /**

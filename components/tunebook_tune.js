@@ -235,7 +235,7 @@ export class Tune extends Component {
    * show quickedit component
    */
   quickedit() {
-    const mytunebook = Controller.getinstance('Tunebook');
+    const mytunebook = Controller.activeScreen;
     mytunebook.subelements.push(new Tuneaddtobook(
         'modaltuneedit', mytunebook.element, this.data.id, 'edit'));
   }
@@ -252,7 +252,7 @@ export class Tune extends Component {
       Data.tunebook.splice(mytuneindex, 1);
       new Mynotification('success',
           `eliminado el tema ${this.data.prefered_name} del repertorio.`);
-      const tunebook = Controller.getinstance('Tunebook');
+      const tunebook = Controller.activeScreen;
       tunebook.rendertunes(tunebook.filtered);
     } else {
       new Mynotification('danger', `no se ha podido eliminar el tema.`);
