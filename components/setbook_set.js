@@ -37,27 +37,29 @@ export class Set extends Component {
     let tunes = '';
     this.data.tunes.forEach((tune) => {
       const mytune = Data.tunebook.find((item) => item.id === tune.tunebook_id);
-      tunes += `
-      <div class="border border-slate-300 rounded-md p-4 bg-slate-100">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <img class="mr-2 h-10 w-10 rounded-full object-cover" 
-            src="${mytune.preferred_img_url}">
-            <div>
-              <h3 class="text-base font-semibold text-gray-900">
-              ${mytune.prefered_name}</h3>
-              <span class="block text-xs font-normal text-gray-500">
-              ${mytune.tuneref.Estructure} · 
-              ${mytune.tuneref.compasses ?
-                mytune.tuneref.compasses + ' compases · ' : ''}
-              <em>${tune.notes}</em></span>
+      if (mytune) {
+        tunes += `
+        <div class="border border-slate-300 rounded-md p-4 bg-slate-100">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <img class="mr-2 h-10 w-10 rounded-full object-cover" 
+              src="${mytune.preferred_img_url}">
+              <div>
+                <h3 class="text-base font-semibold text-gray-900">
+                ${mytune.prefered_name}</h3>
+                <span class="block text-xs font-normal text-gray-500">
+                ${mytune.tuneref.Estructure} · 
+                ${mytune.tuneref.compasses ?
+                  mytune.tuneref.compasses + ' compases · ' : ''}
+                <em>${tune.notes}</em></span>
+              </div>
             </div>
+            <p class="text-sm font-regular text-slate-400">
+            ${mytune.tuneref.type} <span class="uppercase font-bold ml-1">
+            ${mytune.prefered_tone}</span></p>
           </div>
-          <p class="text-sm font-regular text-slate-400">
-          ${mytune.tuneref.type} <span class="uppercase font-bold ml-1">
-          ${mytune.prefered_tone}</span></p>
-        </div>
-      </div>`;
+        </div>`;
+      }
     });
 
     return `<div class="group transition w-full my-3 p-6 rounded-lg shadow-lg 

@@ -43,7 +43,7 @@ export class Video extends Component {
     let mytunes = '';
 
     if (this.data.tuneslinks && this.data.tuneslinks.length > 0) {
-      mytunes = his.data.tuneslinks
+      mytunes = this.data.tuneslinks
           .map((link) => this.gettunedata(link.tunes_id))
           .join('');
     }

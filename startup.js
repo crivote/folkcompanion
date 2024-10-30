@@ -54,8 +54,12 @@ export class Utils {
    */
   static extractYoutubeID(url) {
     // eslint-disable-next-line max-len
-    const regExp =
-      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/[\w]+\?v=)(\w{11})|(?:youtu\.be\/(\w{11}))/;
+    const regExp =new RegExp([
+      '(?:https?:\\/\\/)?',
+      '(?:www\\.)?',
+      '(?:youtube\\.com\\/[^\\s]+\\?v=)(\\w{11})|',
+      '(?:youtu\\.be\\/(\\w{11}))',
+    ].join(''));
     const match = url.match(regExp);
     // Si se encontró un ID de YouTube en la URL, devolverlo
     if (match) {
