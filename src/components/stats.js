@@ -1,5 +1,5 @@
 import { Component } from '../common/abstract.js';
-import { Utils } from '../../Utils.js';
+import { Utils } from '../common/Utils.js';
 import { Data } from '../common/Data.js';
 
 /**

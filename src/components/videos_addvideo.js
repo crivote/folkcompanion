@@ -1,6 +1,6 @@
 import { Component } from '../common/abstract.js';
 import { Controller } from '../startup.js';
-import { Utils } from '../../Utils.js';
+import { Utils } from '../common/Utils.js';
 import { Data } from '../common/Data.js';
 import * as apis from '../common/apis.js';
 import { Mynotification } from './notification.js';
@@ -25,11 +25,10 @@ export class Videoadd extends Component {
    * @param {string} name
    * @param {HTMLBodyElement} parentel
    * @param {number} videoid
-   * @param {number} tuneid
    */
-  constructor(name, parentel, videoid = '', tuneid = '') {
+  constructor(name, parentel, videoid) {
     super(name, parentel);
-    this.isNew = videoid == '';
+    this.isNew = !videoid;
     if (!this.isNew) {
       this.video = Data.videos.find((video) => video.id == videoid);
       this.tunes = this.video.tuneslinks;
@@ -50,7 +49,7 @@ export class Videoadd extends Component {
     if (!this.isNew) {
       this.loadVideo(this.videokey);
       this.instances = this.tunes.map((link) => {
-        return new Videoaddtune('tune' + tune, this.tuneszone, link);
+        return new Videoaddtune('tune' + link.tunes_id, this.tuneszone, link);
       });
     }
     this.addListeners();

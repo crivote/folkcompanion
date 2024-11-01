@@ -1,7 +1,7 @@
 import { Component } from '../common/abstract.js';
 import { Controller } from '../startup.js';
 import { ABCplayer } from '../common/ABCplayer.js';
-import { Utils } from '../../Utils.js';
+import { Utils } from '../common/Utils.js';
 
 /**
  * rehearsal proposal component
@@ -124,12 +124,14 @@ export class LearnTune extends Component {
    */
   async addrehearsal(event) {
     event.stopPropagation();
-    event.currentTarget.disabled = true;
-    const result = await Controller.addrehearsal(this.tune.id);
-    if (result) {
-      this.element.classList.add('bg-green-100', 'text-green-600');
-    } else {
-      event.currentTarget.disabled = false;
+    if (event.currentTarget instanceof HTMLButtonElement) {
+      event.currentTarget.disabled = true;
+      const result = await Controller.addrehearsal(this.tune.id);
+      if (result) {
+        this.element.classList.add('bg-green-100', 'text-green-600');
+      } else {
+        event.currentTarget.disabled = false;
+      }
     }
   }
   /**
@@ -138,15 +140,18 @@ export class LearnTune extends Component {
    * @param {event} event
    */
   async promote(event) {
-    event.currentTarget.disabled = true;
-    const result = await Controller.changeStatus(
-      this.tune.id,
-      this.tune.status_num + 1
-    );
-    if (result) {
-      this.remove();
-    } else {
-      event.currentTarget.disabled = false;
+    event.stopPropagation();
+    if (event.currentTarget instanceof HTMLButtonElement) {
+      event.currentTarget.disabled = true;
+      const result = await Controller.changeStatus(
+        this.tune.id,
+        this.tune.status_num + 1
+      );
+      if (result) {
+        this.remove();
+      } else {
+        event.currentTarget.disabled = false;
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '../common/abstract.js';
 import { Controller } from '../startup.js';
-import { Utils } from '../../Utils.js';
+import { Utils } from '../common/Utils.js';
 import { Data } from '../common/Data.js';
 import * as apis from '../common/apis.js';
 import { Mynotification } from './notification.js';

@@ -1,6 +1,6 @@
 import { Component } from '../common/abstract.js';
 import { Controller } from '../startup.js';
-import { Utils } from '../../Utils.js';
+import { Utils } from '../common/Utils.js';
 import { Data } from '../common/Data.js';
 import * as apis from '../common/apis.js';
 
@@ -324,16 +324,10 @@ export class Tunemanageredit extends Component {
     try {
       const result = await apis.Xanoapi.edittune(this.data.id, params);
       if (result) {
-        data.tunes[this.data.id] = result;
-        const manager = Controller.getinstance('Tunemanager');
-        let mytune = manager.tunes.find((tune) => tune.id == this.data.id);
-        mytune = result;
-        const mytuneobject = manager.items.find(
-          (tune) => tune.name == 'tune' + this.data.id
-        );
-        mytuneobject.data = result;
-        const newhtml = mytuneobject.generatehtml();
-        mytuneobject.element.outerHTML = newhtml;
+        let updatedRecord = Data.tunes.find((tune) => tune.id === this.data.id);
+        updatedRecord = result;
+        const manager = Controller.activeScreen;
+        manager.rendertunes();
         this.remove();
       }
     } catch (error) {

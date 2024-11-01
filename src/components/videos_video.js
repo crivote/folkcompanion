@@ -1,7 +1,7 @@
 import { Component } from '../common/abstract.js';
 import { Videoadd } from './videos_addvideo.js';
 import { Controller } from '../startup.js';
-import { Utils } from '../../Utils.js';
+import { Utils } from '../common/Utils.js';
 import { Data } from '../common/Data.js';
 
 /**
@@ -11,7 +11,7 @@ export class Video extends Component {
   /**
    * Constructor
    * @param {string} name
-   * @param {string} parentel
+   * @param {HTMLBodyElement} parentel
    * @param {string} id
    */
   constructor(name, parentel, id) {

@@ -1,6 +1,6 @@
 import { Component } from '../common/abstract.js';
 import { Controller } from '../startup.js';
-import { Utils } from '../../Utils.js';
+import { Utils } from '../common/Utils.js';
 
 /**
  * rehearsal proposal component

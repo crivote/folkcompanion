@@ -39,9 +39,9 @@ export const Data = {
   // sets in user setbook
   setbook: [],
   // all videos from back
-  videos: '',
+  videos: [],
   // some pics to add
-  genericpics: '',
+  genericpics: [],
   // status para temas por defecto
   status: [
     { value: 1, factor: 0, label: 'Pendiente', color: 'stone-600' },

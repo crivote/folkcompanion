@@ -1,21 +1,30 @@
 import * as apis from './common/apis.js';
 import * as components from './components/index.js';
 import { Data } from './common/Data.js';
-import { Utils } from '../Utils.js';
+import { Utils } from './common/Utils.js';
 
 /**
  * Clase estática controladora de arranque de app
  * y acceso a componente
  */
 export class Controller {
-  // elemento donde se instancian componentes
   /**
+   * Elemento donde se instancian componentes
    * @type {HTMLBodyElement}
    */
   static htmlelement = document.getElementById('app');
+
+  /**
+   * Elemento para el menu general
+   * @type {HTMLBodyElement}
+   */
   static menuelement = document.getElementById('menuholder');
 
   // objeto con instancias de componentes cargados en DOM
+  /**
+   * Elemento para el menu general
+   * @type {components}
+   */
   static activeScreen;
 
   static midiBuffer;
@@ -30,10 +39,7 @@ export class Controller {
   static getinstance(componentname) {
     if (Object.hasOwn(components, componentname)) {
       if (componentname === 'Menubar') {
-        return new components[componentname](
-          componentname,
-          Controller.menuelement
-        );
+        return new components['Menubar']('Menubar', Controller.menuelement);
       }
       Controller.activeScreen = new components[componentname](
         componentname,

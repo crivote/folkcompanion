@@ -1,7 +1,7 @@
 import { Component } from '../common/abstract.js';
 import { Controller } from '../startup.js';
 import { ABCplayer } from '../common/ABCplayer.js';
-import { Utils } from '../../Utils.js';
+import { Utils } from '../common/Utils.js';
 import { Data } from '../common/Data.js';
 import * as apis from '../common/apis.js';
 
