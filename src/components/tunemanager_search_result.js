@@ -5,6 +5,7 @@ import { Controller } from '../startup.js';
 import { Utils } from '../common/Utils.js';
 import { Data } from '../common/Data.js';
 import * as apis from '../common/apis.js';
+import { Tunemanager } from './tunemanager.js';
 
 /**
  * screen for admin tune manager search
@@ -14,16 +15,20 @@ export class Tunemanagersearch extends Component {
   results;
   details;
   blocked = false;
+  parent;
 
   /**
    * Constructor
    *
    * @param {string} name
    * @param {HTMLBodyElement} parentel
+   * @param {Tunemanager} parent
    */
-  constructor(name, parentel) {
+
+  constructor(name, parentel, parent) {
     super(name, parentel);
     this.setup();
+    this.parent = parent;
   }
 
   /**

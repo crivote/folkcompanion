@@ -1,9 +1,12 @@
+// @ts-check
+
 import { Component } from '../common/abstract.js';
 import { Controller } from '../startup.js';
 import { ABCplayer } from '../common/ABCplayer.js';
 import { Utils } from '../common/Utils.js';
 import { Data } from '../common/Data.js';
 import * as apis from '../common/apis.js';
+import { Tunemanager } from './tunemanager.js';
 
 /**
  * Componente busqueda temas para añadir a basedatos
@@ -14,15 +17,18 @@ export class Tunemanagersearch extends Component {
   details;
   // flag para impedir multiples consultas a thesession
   blocked = false;
+  parent;
 
   /**
    * Constructor
    *
    * @param {string} name
    * @param {HTMLBodyElement} parentel
+   * @param {Tunemanager} parent
    */
-  constructor(name, parentel) {
+  constructor(name, parentel, parent) {
     super(name, parentel);
+    this.parent = parent;
     this.setup();
   }
 
@@ -248,8 +254,7 @@ export class Tunemanagersearch extends Component {
       const result = await apis.Xanoapi.addtotunes(tunedata);
       if (result) {
         Data.tunes.push(result);
-        const manager = Controller.getinstance('Tunemanager');
-        manager.rendertunes();
+        this.parent.rendertunes();
         el.remove();
       }
     } catch (error) {

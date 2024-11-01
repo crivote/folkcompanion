@@ -204,6 +204,10 @@ export class Tunemanager extends Component {
    * Abrir subcomponente para añadir temas
    */
   launchsearch() {
-    this.subelement = new Tunemanagersearch('tunemanagersearch', this.element);
+    this.subelement = new Tunemanagersearch(
+      'tunemanagersearch',
+      this.element,
+      this
+    );
   }
 }

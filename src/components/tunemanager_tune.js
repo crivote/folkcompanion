@@ -5,6 +5,7 @@ import { Utils } from '../common/Utils.js';
 import { Data } from '../common/Data.js';
 import { Tunemanageredit } from './tunemanager_edittune.js';
 import { Xanoapi } from '../common/apis.js';
+import { Tunemanager } from './tunemanager.js';
 
 /**
  * class for single tune in manager
@@ -88,11 +89,12 @@ export class Tuneformanager extends Component {
    * open tune editor component
    */
   edittune() {
-    Controller.activeScreen.subelement = new Tunemanageredit(
-      'tunemanageredit',
-      Controller.htmlelement,
-      this.data
-    );
+    if (Controller.activeScreen instanceof Tunemanager)
+      Controller.activeScreen.subelement = new Tunemanageredit(
+        'tunemanageredit',
+        Controller.htmlelement,
+        this.data
+      );
   }
 
   /**
