@@ -13,7 +13,6 @@ export class ABCplayer {
    */
   static playabc(abc) {
     const clean = abc.replace(/!/g, '\n');
-    console.log(clean);
     if (abcjs.synth.supportsAudio()) {
       const visualObj = abcjs.renderAbc('*', clean)[0];
       ABCplayer.midiBuffer = new abcjs.synth.CreateSynth();

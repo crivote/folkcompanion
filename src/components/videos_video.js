@@ -8,14 +8,17 @@ import { Data } from '../common/data.js';
  * Video Card component
  */
 export class Video extends Component {
+  parent;
+
   /**
    * Constructor
    * @param {string} name
    * @param {HTMLBodyElement} parentel
    * @param {string} id
    */
-  constructor(name, parentel, id) {
+  constructor(name, parentel, id, parent) {
     super(name, parentel);
+    this.parent = parent;
     this.id = id;
     this.data = Data.videos.find((item) => item.id === id);
     this.setup();

@@ -42,7 +42,7 @@ export class Videos extends Component {
     this.attachAt(this.generatehtml(), false);
     this.videozone = this.element.querySelector('main');
     this.addListeners();
-    if (!Data.videos) {
+    if (!Data.videos || Data.videos.length === 0) {
       Data.videos = await apis.Xanoapi.getallvideos();
       if (Data.videos && Data.videos.length > 0) {
         new Mynotification('success', `cargados ${Data.videos.length} videos.`);
@@ -81,7 +81,7 @@ export class Videos extends Component {
     this.element.querySelector('.num_of_videos').innerHTML =
       list.length + ' videos';
     this.items = list.map((item) => {
-      return new Video('video' + item.id, this.videozone, item.id);
+      return new Video('video' + item.id, this.videozone, item.id, this);
     });
   }
 
@@ -89,6 +89,6 @@ export class Videos extends Component {
    * Abrir modal para añadir editar videos
    */
   modalnewvideo() {
-    this.subelements.push(new Videoadd('newvideo', this.element));
+    this.subelements.push(new Videoadd('newvideo', this.element, this));
   }
 }

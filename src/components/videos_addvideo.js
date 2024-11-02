@@ -18,6 +18,7 @@ export class Videoadd extends Component {
   isNew;
   tunes = [];
   instances;
+  parent;
 
   /**
    * Constructor
@@ -26,9 +27,10 @@ export class Videoadd extends Component {
    * @param {HTMLBodyElement} parentel
    * @param {number} videoid
    */
-  constructor(name, parentel, videoid) {
+  constructor(name, parentel, parent, videoid = 0) {
     super(name, parentel);
-    this.isNew = !videoid;
+    this.parent = parent;
+    this.isNew = videoid === 0;
     if (!this.isNew) {
       this.video = Data.videos.find((video) => video.id == videoid);
       this.tunes = this.video.tuneslinks;
@@ -192,12 +194,14 @@ export class Videoadd extends Component {
    * @param {event} event
    */
   getVideoKey(event) {
-    const url = event.currentTarget.value;
-    const youtubeid = Utils.extractYoutubeID(url);
-    if (youtubeid) {
-      this.videokey = youtubeid;
-      this.loadVideo(this.videokey);
-      event.currentTarget.value = this.videokey;
+    if (event.currentTarget instanceof HTMLInputElement) {
+      const url = event.currentTarget.value;
+      const youtubeid = Utils.extractYoutubeID(url);
+      if (youtubeid) {
+        this.videokey = youtubeid;
+        this.loadVideo(this.videokey);
+        event.currentTarget.value = this.videokey;
+      }
     }
   }
 
