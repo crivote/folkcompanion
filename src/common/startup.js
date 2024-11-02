@@ -38,17 +38,16 @@ export class Controller {
    */
   static getinstance(componentname) {
     if (Object.hasOwn(components, componentname)) {
-      if (
-        componentname === 'Menubar' &&
-        Controller.menuelement instanceof HTMLBodyElement
-      ) {
-        return new components['Menubar']('Menubar', Controller.menuelement);
+      const target =
+        componentname === 'Menubar'
+          ? Controller.menuelement
+          : Controller.htmlelement;
+
+      const component = new components[componentname](componentname, target);
+      if (componentname !== 'Menubar') {
+        Controller.activeScreen = component;
       }
-      Controller.activeScreen = new components[componentname](
-        componentname,
-        Controller.htmlelement
-      );
-      return Controller.activeScreen;
+      return component;
     }
   }
 
