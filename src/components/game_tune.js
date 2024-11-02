@@ -1,6 +1,6 @@
 import { Component } from '../common/abstract.js';
-import { ABCplayer } from '../common/ABCplayer.js';
-import { Data } from '../common/Data.js';
+import { ABCplayer } from '../common/abcplayer.js';
+import { Data } from '../common/data.js';
 
 /**
  * Game component class

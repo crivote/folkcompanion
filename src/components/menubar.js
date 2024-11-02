@@ -1,6 +1,6 @@
 import { Component } from '../common/abstract.js';
-import { Controller } from '../startup.js';
-import { Data } from '../common/Data.js';
+import { Controller } from '../common/startup.js';
+import { Data } from '../common/data.js';
 
 /**
  * Class for main menu component

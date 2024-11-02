@@ -1,38 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title></title>
-    <meta name="author" content="">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
-    <script src="https://kit.fontawesome.com/796d9c83b2.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
-    <link rel="stylesheet" type="css" href="main.css">
+    <script
+      src="https://kit.fontawesome.com/796d9c83b2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon-16x16.png"
+    />
+    <link rel="stylesheet" type="css" href="main.css" />
   </head>
 
   <body class="h-screen flex flex-col">
-
     <header class="bg-gradient-to-b from-slate-900 to-slate-800 flex">
-      <h1 class="text-white text-xs 
-        uppercase px-6 py-2 tracking-wider flex items-center">
-        <i aria-hidden="true" class="fas fa-compact-disc fa-lg" title="Folk companion"></i>
+      <h1
+        class="text-white text-xs uppercase px-6 py-2 tracking-wider flex items-center"
+      >
+        <i
+          aria-hidden="true"
+          class="fas fa-compact-disc fa-lg"
+          title="Folk companion"
+        ></i>
         <span class="hidden lg:block ml-2">Folk Companion</span>
       </h1>
       <div id="menuholder" class="bg-white/10 flex-grow"></div>
     </header>
-    <main id="app" class="grow h-100 scroll-auto bg-gradient-to-b from-cyan-50 
-    to-slate-300 max-h-screen overflow-y-auto">
-    </main> 
-    <footer class="bg-slate-800 text-slate-100 text-xs px-6 py-3 mt-auto text-center">
-    Made with <i class="fas fa-heart"></i> by Victor Gomez using tailwind CSS, data from thesession.org and images from pexels.
+    <main
+      id="app"
+      class="grow h-100 scroll-auto bg-gradient-to-b from-cyan-50 to-slate-300 max-h-screen overflow-y-auto"
+    ></main>
+    <footer
+      class="bg-slate-800 text-slate-100 text-xs px-6 py-3 mt-auto text-center"
+    >
+      Made with <i class="fas fa-heart"></i> by Victor Gomez using tailwind CSS,
+      data from thesession.org and images from pexels.
     </footer>
-    <aside id="notifications" class="absolute right-6 bottom-12 z-40">
-    </aside>
+    <aside id="notifications" class="absolute right-6 bottom-12 z-40"></aside>
   </body>
-  <script src="main.js" type="module"></script>
+  <script src="src/main.js" type="module"></script>
 </html>

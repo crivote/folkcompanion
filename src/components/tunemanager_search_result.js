@@ -1,9 +1,9 @@
 // @ts-check
 
 import { Component } from '../common/abstract.js';
-import { Controller } from '../startup.js';
+import { Controller } from '../common/startup.js';
 import { Utils } from '../common/Utils.js';
-import { Data } from '../common/Data.js';
+import { Data } from '../common/data.js';
 import * as apis from '../common/apis.js';
 import { Tunemanager } from './tunemanager.js';
 

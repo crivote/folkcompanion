@@ -1,6 +1,6 @@
 import { Component } from '../common/abstract.js';
 import { Utils } from '../common/Utils.js';
-import { Data } from '../common/Data.js';
+import { Data } from '../common/data.js';
 import { Tunesearch } from './tunebook_search.js';
 import { Tune } from './tunebook_tune.js';
 

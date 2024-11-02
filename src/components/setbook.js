@@ -1,5 +1,5 @@
 import { Component } from '../common/abstract.js';
-import { Data } from '../common/Data.js';
+import { Data } from '../common/data.js';
 import { Setbooknewset } from './setbook_newset.js';
 import { Set } from './setbook_set.js';
 

@@ -1,6 +1,6 @@
 import { Component } from '../common/abstract.js';
 import { Utils } from '../common/Utils.js';
-import { Data } from '../common/Data.js';
+import { Data } from '../common/data.js';
 
 /**
  * historic list component

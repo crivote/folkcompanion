@@ -1,6 +1,6 @@
 import { Component } from '../common/abstract.js';
-import { Controller } from '../startup.js';
-import { Data } from '../common/Data.js';
+import { Controller } from '../common/startup.js';
+import { Data } from '../common/data.js';
 import { Tunesearchresult } from './tunebook_search_result.js';
 import { Mynotification } from './notification.js';
 import * as apis from '../common/apis.js';

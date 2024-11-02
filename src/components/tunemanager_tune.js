@@ -1,8 +1,8 @@
 import { Component } from '../common/abstract.js';
-import { Controller } from '../startup.js';
-import { ABCplayer } from '../common/ABCplayer.js';
+import { Controller } from '../common/startup.js';
+import { ABCplayer } from '../common/abcplayer.js';
 import { Utils } from '../common/Utils.js';
-import { Data } from '../common/Data.js';
+import { Data } from '../common/data.js';
 import { Tunemanageredit } from './tunemanager_edittune.js';
 import { Xanoapi } from '../common/apis.js';
 import { Tunemanager } from './tunemanager.js';

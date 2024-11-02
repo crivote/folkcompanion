@@ -1,6 +1,6 @@
 import { Component } from '../common/abstract.js';
 import { Mynotification } from './notification.js';
-import { Data } from '../common/Data.js';
+import { Data } from '../common/data.js';
 import { Video } from './videos_video.js';
 import { Videoadd } from './videos_addvideo.js';
 import * as apis from '../common/apis.js';

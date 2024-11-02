@@ -1,7 +1,7 @@
-import * as apis from './common/apis.js';
-import * as components from './components/index.js';
-import { Data } from './common/Data.js';
-import { Utils } from './common/Utils.js';
+import * as apis from './apis.js';
+import * as components from '../components/index.js';
+import { Data } from './data.js';
+import { Utils } from './Utils.js';
 
 /**
  * Clase estática controladora de arranque de app

@@ -1,5 +1,5 @@
 import { Component } from '../common/abstract.js';
-import { Controller } from '../startup.js';
+import { Controller } from '../common/startup.js';
 import { Utils } from '../common/Utils.js';
 
 /**
