@@ -10,13 +10,13 @@ import { Utils } from './Utils.js';
 export class Controller {
   /**
    * Elemento donde se instancian componentes
-   * @type {HTMLBodyElement}
+   * @type {HTMLElement}
    */
   static htmlelement = document.getElementById('app');
 
   /**
    * Elemento para el menu general
-   * @type {HTMLBodyElement}
+   * @type {HTMLElement}
    */
   static menuelement = document.getElementById('menuholder');
 
@@ -38,7 +38,10 @@ export class Controller {
    */
   static getinstance(componentname) {
     if (Object.hasOwn(components, componentname)) {
-      if (componentname === 'Menubar') {
+      if (
+        componentname === 'Menubar' &&
+        Controller.menuelement instanceof HTMLBodyElement
+      ) {
         return new components['Menubar']('Menubar', Controller.menuelement);
       }
       Controller.activeScreen = new components[componentname](

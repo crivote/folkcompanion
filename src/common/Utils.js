@@ -1,4 +1,4 @@
-import { Data } from './src/common/Data';
+import { Data } from './data.js';
 
 /**
  * Utilidades genericas
