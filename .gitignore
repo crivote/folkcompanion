@@ -5,3 +5,5 @@ package.json
 .eslintrc.json
 .prettierrc
 jsconfig.json
+vite.config.js
+/dist
