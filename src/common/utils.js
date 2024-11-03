@@ -21,21 +21,21 @@ export class Utils {
             url = 'https://thesession.org/tunes/' + item.service_ID;
             result.push(
               `<a class="bg-yellow-600 px-2 rounded-full text-sm" 
-                href="${url}" target="_blank">TS</a>`
+                href="${url}" target="_blank" title="thesession">TS</a>`
             );
             break;
           case 'irishtune.info':
             url = 'https://www.irishtune.info/tune/' + item.service_ID;
             result.push(
               `<a class="bg-blue-600 px-2 rounded-full text-sm" 
-                href="${url}" target="_blank">IT</a>`
+                href="${url}" target="_blank" title="irishtune">IT</a>`
             );
             break;
           case 'tunearch.org':
             url = 'https://tunearch.org/wiki/' + item.service_ID;
             result.push(
               `<a class="bg-red-600 px-2 rounded-full text-sm" 
-                href="${url}" target="_blank">TA</a>`
+                href="${url}" target="_blank" title="tunearchive">TA</a>`
             );
             break;
           default:

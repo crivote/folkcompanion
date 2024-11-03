@@ -1,8 +1,9 @@
 import * as apis from './apis.js';
 import * as components from '../components/index.js';
 import { Data } from './data.js';
-import { Utils } from './Utils.js';
-
+import { Utils } from './utils.js';
+import Polyglot from 'node-polyglot';
+import * as phrases from '../locales/phrases.js';
 /**
  * Clase estática controladora de arranque de app
  * y acceso a componente
@@ -30,6 +31,7 @@ export class Controller {
   static midiBuffer;
   static player;
   static searchtunes = [];
+  static poly;
 
   /**
    * Checks if component instanced, load if necessary and return ref
@@ -52,22 +54,59 @@ export class Controller {
   }
 
   /**
+   * @typedef {Object} User
+   * @property {number} id - The unique identifier for the user.
+   * @property {number} created_at - The timestamp of when the user was created.
+   * @property {string} name - The name of the user.
+   * @property {string} email - The email of the user.
+   * @property {string} password - The password of the user.
+   * @property {Object} google_oauth - The OAuth information for Google.
+   * @property {string} google_oauth.id - The Google ID for OAuth.
+   * @property {string} google_oauth.name - The name associated with the Google account.
+   * @property {string} google_oauth.email - The email associated with the Google account.
+   * @property {"admin" | "user" | "guest"} role - The role of the user.
+   * @property {Object} max_scores - The maximum scores of the user.
+   * @property {number} max_scores.number_of_questions - The number of questions answered by the user.
+   * @property {number} max_scores.points - The points scored by the user.
+   * @property {number} max_scores.date - The timestamp of the date of scoring.
+   * @property {Object} avatar - The avatar information of the user.
+   * @property {string} avatar.access - Access level for the avatar.
+   * @property {string} avatar.path - The path to the avatar file.
+   * @property {string} avatar.name - The name of the avatar file.
+   * @property {string} avatar.type - The type of the avatar file.
+   * @property {number} avatar.size - The size of the avatar file in bytes.
+   * @property {string} avatar.mime - The MIME type of the avatar file.
+   * @property {Object} avatar.meta - Metadata for the avatar.
+   * @property {number} avatar.meta.width - The width of the avatar.
+   * @property {number} avatar.meta.height - The height of the avatar.
+   * @property {string} avatar.url - The URL to access the avatar.
+   * @property {string} lang - The language preference of the user.
+   * @property {Object} config - Configuration in JSON format.
+   */
+
+  /**
    * Get user details from localstorage or launch login
    */
   static async getuserdetails() {
+    Controller.poly = new Polyglot({ phrases: phrases.en });
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        Data.user = await apis.Xanoapi.getuser(token);
+        /** @type {User} */
+        const newuser = await apis.Xanoapi.getuser(token);
+        Data.user = newuser;
+        if (Data.user.lang !== 'en') {
+          Controller.poly.replace(phrases.es);
+        }
         new components.Mynotification(
           'success',
-          'token válido, datos de usuario recuperados.'
+          Controller.poly.t('token.token_ok')
         );
         Controller.startapp();
       } catch (error) {
         new components.Mynotification(
           'warning',
-          'el token guardado no es válido.'
+          Controller.poly.t('token.token_ko')
         );
         localStorage.removeItem('token');
         Controller.getinstance('Login');

@@ -1,7 +1,7 @@
 import { Component } from '../common/abstract.js';
 import { Controller } from '../common/startup.js';
 import { ABCplayer } from '../common/abcplayer.js';
-import { Utils } from '../common/Utils.js';
+import { Utils } from '../common/utils.js';
 
 /**
  * rehearsal proposal component

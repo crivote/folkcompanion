@@ -2,7 +2,7 @@
 
 import { Component } from '../common/abstract.js';
 import { ABCplayer } from '../common/abcplayer.js';
-import { Utils } from '../common/Utils.js';
+import { Utils } from '../common/utils.js';
 import { Data } from '../common/data.js';
 import * as apis from '../common/apis.js';
 import { Tunemanager } from './tunemanager.js';

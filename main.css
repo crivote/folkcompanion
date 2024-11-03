@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-    #mainnav .selected{
-        @apply font-bold bg-slate-100 text-indigo-900
-    }
+  #mainnav .selected {
+    @apply font-bold bg-slate-100 text-indigo-900;
+  }
 }

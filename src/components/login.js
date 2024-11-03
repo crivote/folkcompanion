@@ -87,28 +87,34 @@ export class Login extends Component {
   /**
    * Get form elements
    *
-   * @return {array}
+   * @return {{ email?: string, password?: string }}
    */
   getformdata() {
-    return this.element.querySelector('#loginform').elements;
+    const myform = this.element.querySelector('#loginform').elements;
+
+    return {
+      email: myform.email?.value,
+      password: myform.password?.value,
+    };
   }
 
   /**
    * Validate fields
-   * @param {object} data
+   * @param {{ email?: string, password?: string }} data
    * @return {boolean}
    */
   checkvalue(data) {
-    if (data.email.value && data.password.value) {
+    if (data.email && data.password) {
       return true;
     }
-    if (!data.email.value) {
-      this.element.querySelector('.emailerror').textContent =
-        'Email obligatorio';
+    if (!data.email) {
+      this.element.querySelector('.emailerror').textContent = Controller.poly.t(
+        'login.required_mail'
+      );
     }
-    if (!data.password.value) {
+    if (!data.password) {
       this.element.querySelector('.passworderror').textContent =
-        'Introduce contraseña';
+        Controller.poly.t('login.required_pass');
     }
     return false;
   }
@@ -123,17 +129,16 @@ export class Login extends Component {
     const data = this.getformdata();
     if (this.checkvalue(data)) {
       try {
-        const result = await apis.Xanoapi.authcall(
-          data.email.value,
-          data.password.value
-        );
+        const result = await apis.Xanoapi.authcall(data.email, data.password);
         if (result) {
           localStorage.setItem('token', result);
           this.remove();
           Controller.getuserdetails();
         } else {
           this.element.querySelector('.generalerror').innerHTML =
-            '<span class="bg-red-500 text-white p-2">Error en login</span>';
+            `<span class="bg-red-500 text-white p-2">${Controller.poly.t(
+              'login.login_error'
+            )}</span>`;
         }
       } catch (error) {
         console.log(error);

@@ -31,8 +31,6 @@ export const Data = {
       notes: '',
     },
   },
-  // user data
-  user: '',
   tunes: [],
   // tunes in user tunebook
   tunebook: [],
