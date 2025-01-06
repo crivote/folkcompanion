@@ -1,3 +1,3 @@
-import { Controller } from './common/startup.js';
+import { Controller } from './controller/startup.js';
 
 Controller.getuserdetails();

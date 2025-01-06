@@ -1,11 +1,12 @@
-import { Component } from './abstract.js';
-import { MyNotification } from '../';
-import { Controller } from '../controller/startup.js';
-import { ABCplayer } from '../services/abcplayer.js';
+import { Component } from '../../abstract.js';
+import { MyNotification } from './../../common/notification.js';
+import { Controller } from '../../../controller/startup.js';
+import { ABCplayer } from '../../../services/abcplayer.js';
 import { Utils } from 'src/services/utils/Utils.1.js';
-import { Data } from '../data/data.js';
-import * as apis from '../services/external/apis.js';
-import { Tuneaddtobook } from './aux/tunebook/tunebook_newtune.js';
+import { Data } from '../../../data/data.js';
+import * as apis from '../../../services/external/apis.js';
+import { Tuneaddtobook } from './tunebook_newtune.js';
+import { Tunebook } from '../../main/tunebook.js';
 
 /**
  * Tune for tunebook component
@@ -16,11 +17,12 @@ export class Tune extends Component {
    *
    * @param {string} name
    * @param {HTMLBodyElement} parentel
-   * @param {string} id
+   * @param {Component} parentComponent
+   * @param {number} id
    * @param {string} format
    */
-  constructor(name, parentel, id, format) {
-    super(name, parentel);
+  constructor(name, parentel, parentComponent, id, format) {
+    super(name, parentel, parentComponent);
     this.id = id;
     this.data = Data.tunebook.find((item) => item.id === id);
     this.format = format;
@@ -31,7 +33,13 @@ export class Tune extends Component {
    * Generates HTML, adds to the parent element and set listeners
    */
   setup() {
-    const mycontent = this['generatehtml_' + this.format]();
+    // @type {string}
+    let mycontent;
+    if (this.format === 'card') {
+      mycontent = this.generatehtml_card();
+    } else {
+      mycontent = this.generatehtml_list();
+    }
     if (this.element) {
       this.replace(mycontent);
     } else {
